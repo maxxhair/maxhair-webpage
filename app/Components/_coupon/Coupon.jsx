@@ -1,5 +1,5 @@
 "use client";
-import { firaSansBold } from "@/app/util/fonts";
+import { firaSansBold } from "/app/util/fonts";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 

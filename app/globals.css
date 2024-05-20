@@ -53,3 +53,12 @@ html {
   position: sticky;
   position: -webkit-sticky;
 }
+
+.prodcard {
+  width: 350px;
+  height: 500px;
+}
+
+.reviewcard {
+  height: 150px;
+}
