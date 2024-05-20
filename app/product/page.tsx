@@ -3,15 +3,16 @@ import { Fira_Sans, Prompt } from "next/font/google";
 import ReviewCard from "../Components/ReviewCard";
 import ProductCard from "../Components/ProductCard";
 import { plus, deliveryImg, productImage, logo } from "../util/images";
+import React from "react";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 export default function Page() {

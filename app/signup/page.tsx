@@ -1,6 +1,7 @@
 import Image from "next/image";
 import SignupForm from "../Components/SignupForm";
 import { bgimg, logo } from "../util/images";
+import React from "react";
 
 export default function Page() {
   return (

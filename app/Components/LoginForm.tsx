@@ -1,14 +1,7 @@
 "use client";
-import { Fira_Sans, Prompt } from "next/font/google";
 
-const prompt = Prompt({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
-const firaSans = Fira_Sans({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import React from "react";
+import { firaSans } from "../util/fonts";
 
 const LoginForm = () => {
   return (
@@ -20,11 +13,11 @@ const LoginForm = () => {
           Sign In
         </h2>
       </div>
-      <div className={prompt.className}>
-        <p className=" mt-5 text-sm font-light text-gray-500">
+      <div>
+        <p className="mt-5 text-sm font-light text-gray-500">
           Don’t have an account yet?{" "}
           <a
-            href="#"
+            href="signup"
             className="text-primary-600 hover:underline font-semibold"
           >
             SIGN UP

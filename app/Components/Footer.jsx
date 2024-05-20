@@ -1,12 +1,22 @@
+"use client";
+
 import Image from "next/image";
 import { firaSans, firaSansLight } from "../util/fonts";
 import SubscribeForm from "./_footer/SubscribeForm";
 import { companyLogo, instagram, facebook, hairStrand } from "../util/images";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Footer() {
+  const pathname = usePathname();
   return (
-    <footer className="min-h-[108vh] bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col  items-center">
+    <footer
+      className={
+        pathname === "/signup" || pathname === "/signin"
+          ? "hidden"
+          : "min-h-[108vh] bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col  items-center"
+      }
+    >
       <div className="h-[70px] w-full bg-[#FAFAFA] absolute top-0 left-0 "></div>
       <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide xl:gap-[100px] lg:gap-[80px] gap-[40px]">
         <div className="flex lg:justify-between justify-evenly items-center xl:text-left text-center xl:flex-row flex-col-reverse w-full xl:gap-[100px] lg:gap-[80px] gap-[60px]">
