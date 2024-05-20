@@ -113,3 +113,15 @@
     scale(max(calc(1 - var(--fromTop) / 200), var(--scaleGreet)));
   transition: all 0.3s ease;
 }
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
