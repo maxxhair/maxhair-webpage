@@ -17,7 +17,7 @@ const prompt = Prompt({
 
 export default function Page() {
   return (
-    <div className={`${prompt.className} bg-white text-black `}>
+    <div className={`${prompt.className} bg-white text-black mt-20`}>
       <div className="flex flex-row">
         <div className=" w-6/12 p-8">
           <Image src={productImage} alt="img-error" />

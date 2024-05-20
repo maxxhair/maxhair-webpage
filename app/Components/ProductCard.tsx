@@ -1,35 +1,40 @@
+"use client";
+
 import Image from "next/image";
 import { prodimg } from "../util/images";
-import { Fira_Sans, Prompt } from "next/font/google";
-
-const prompt = Prompt({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
-const firaSans = Fira_Sans({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import React, { useState } from "react";
+import { firaSans } from "../util/fonts";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const ProductCard = () => {
+  const [hovered, setHovered] = useState(false);
   return (
-    <div className={`${prompt.className}  prodcard pt-8 h-auto`}>
-      <Image src={prodimg} alt="img-err" className=" m-auto" />
-
-      <p className=" align-middle justify-center flex text-zinc-500 text-sm">
-        Natural
-      </p>
-      <p
-        className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold`}
+    <Link href="product">
+      <div
+        className="prodcard pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
       >
-        Machine Weft | Curly
-      </p>
-      <p className="align-middle justify-center flex font-semibold ">$ 440</p>
-      <div className="flex space-x-20 ml-8 mr-8 border-b-2 text-sm ">
-        <p>Saloon Installed</p>
-        <p>Double Drawn</p>
+        <Image src={prodimg} alt="img-err" className=" m-auto" />
+        <p className="text-center text-zinc-500 text-sm">Natural</p>
+        <p
+          className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold`}
+        >
+          Machine Weft | Curly
+        </p>
+        <p className="align-middle justify-center flex font-semibold ">$ 440</p>
+        <div className="flex justify-between border-b-2 text-sm px-3">
+          <p>Saloon Installed</p>
+          <p>Double Drawn</p>
+        </div>
+        {hovered && (
+          <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10">
+            ADD TO CART
+          </button>
+        )}
       </div>
-    </div>
+    </Link>
   );
 };
 export default ProductCard;
