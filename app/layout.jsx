@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         <div className="fixed top-0 w-full z-20">
           <Header />
         </div>
-        <Cart />
+        {/* <Cart /> */}
         {children}
         <Footer />
       </body>
