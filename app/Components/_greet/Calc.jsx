@@ -10,6 +10,10 @@ function Calc() {
         "--fromTop",
         scrollTop < 200 ? scrollTop : 200
       );
+      document.documentElement.style.setProperty(
+        "--colorToChange",
+        scrollTop < 100 ? "#FAFAFA" : "#242424"
+      );
     }
     window.addEventListener("scroll", setScrollVar);
     setScrollVar();
@@ -18,7 +22,7 @@ function Calc() {
     };
   }, []);
 
-  return <></>;
+  return null;
 }
 
 export default Calc;

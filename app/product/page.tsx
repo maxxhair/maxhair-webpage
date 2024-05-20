@@ -3,26 +3,36 @@ import { Fira_Sans, Prompt } from "next/font/google";
 import ReviewCard from "../Components/ReviewCard";
 import ProductCard from "../Components/ProductCard";
 import { plus, deliveryImg, productImage, logo } from "../util/images";
+<<<<<<< HEAD
 import SizeButton from "../Components/SizeButton";
 import ChooseButton from "../Components/ChooseButton";
+=======
+import React from "react";
+>>>>>>> 39b163d3caad584b6373b09cc110f902fd182096
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 export default function Page() {
   return (
+<<<<<<< HEAD
     <div
       className={`${prompt.className} bg-white text-black w-4/5 sm:w-screen 2xl:w-4/5 2xl:m-auto`}
     >
       <div className="md:flex flex-row inline">
         <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5">
+=======
+    <div className={`${prompt.className} bg-white text-black mt-20`}>
+      <div className="flex flex-row">
+        <div className=" w-6/12 p-8">
+>>>>>>> 39b163d3caad584b6373b09cc110f902fd182096
           <Image src={productImage} alt="img-error" />
         </div>
         <div className="md:w-6/12 p-8 sm:m-auto sm:text-xs xl:text-sm ">

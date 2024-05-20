@@ -1,17 +1,18 @@
 import { Fira_Sans, Prompt } from "next/font/google";
+import React from "react";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const SignupForm = () => {
   return (
-    <div className=" max-w-sm">
+    <div className="max-w-sm md:max-w-md lg:max-w-xl">
       <h2
         className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
       >
@@ -21,7 +22,7 @@ const SignupForm = () => {
         <p className="mt-5 text-sm font-light text-gray-500">
           Already Have An Account?{" "}
           <a
-            href="#"
+            href="signin"
             className="text-primary-600 hover:underline font-semibold"
           >
             SIGN IN

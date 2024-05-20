@@ -2,8 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+:root {
   --fromTop: 0;
+  --colorToChange: "#FAFAFA";
+  --greetHeight: 50vh;
+  --minGreetHeight: 10vh;
+  --scaleGreet: 0.9;
+  --transformGreet: 0.9px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fromTop: 0;
+    --colorToChange: "#FAFAFA";
+    --greetHeight: 55vh;
+    --minGreetHeight: 15vh;
+    --scaleGreet: 0.8;
+    --transformGreet: 0.9px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fromTop: 0;
+    --colorToChange: "#FAFAFA";
+    --greetHeight: 60vh;
+    --minGreetHeight: 20vh;
+    --scaleGreet: 0.7;
+    --transformGreet: 1px;
+  }
 }
 
 .bg-footer-design {
@@ -38,9 +65,16 @@ html {
   margin: 5px;
 }
 
+.color-shift {
+  color: var(--colorToChange);
+}
+
 .video-container {
-  height: calc(500px - ((var(--fromTop) / 200) * 500px));
-  min-width: 200px;
+  height: max(
+    calc(var(--greetHeight) - ((var(--fromTop) / 200) * var(--greetHeight))),
+    var(--minGreetHeight)
+  );
+
   transition: all 0.3s ease;
 }
 
@@ -54,13 +88,23 @@ html {
   position: -webkit-sticky;
 }
 
-.prodcard {
-  width: 350px;
-  height: 500px;
+
+.flyouts-left {
+  transform: translateX(calc(var(--fromTop) / 2 * -1px));
+  transition: all 0.3s ease;
+  opacity: calc(1 - var(--fromTop) / 10);
 }
 
-.reviewcard {
-  height: 150px;
+.flyouts-right {
+  transform: translateX(calc(var(--fromTop) / 2 * 1px));
+  transition: all 0.3s ease;
+  opacity: calc(1 - var(--fromTop) / 10);
+}
+
+.flyouts-down {
+  transform: translateY(calc(var(--fromTop) / 1 * var(--transformGreet)))
+    scale(max(calc(1 - var(--fromTop) / 200), var(--scaleGreet)));
+  transition: all 0.3s ease;
 }
 
 .rating {
