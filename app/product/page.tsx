@@ -5,21 +5,22 @@ import ProductCard from "../Components/ProductCard";
 import { plus, deliveryImg, productImage, logo } from "../util/images";
 import SizeButton from "../Components/SizeButton";
 import ChooseButton from "../Components/ChooseButton";
+import React from "react";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 export default function Page() {
   return (
     <div
-      className={`${prompt.className} bg-white text-black w-4/5 sm:w-screen 2xl:w-4/5 2xl:m-auto`}
+      className={`${prompt.className}  bg-white text-black w-4/5 sm:w-screen 2xl:w-4/5 2xl:m-auto !mt-32`}
     >
       <div className="md:flex flex-row inline">
         <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5">

@@ -1,4 +1,4 @@
-import companyLogo from "/public/facebook.svg";
+import companyLogo from "/public/brandlogo.png";
 import facebook from "/public/facebook.svg";
 import instagram from "/public/instagram.svg";
 import hairStrand from "/public/HairStrand.svg";
