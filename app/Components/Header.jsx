@@ -2,10 +2,8 @@
 
 import Image from "next/image";
 import { companyLogo, shoppingCart } from "../util/images";
-import brandlogo from "@/public/brandlogo.png";
 import Link from "next/link";
 import { firaSans } from "../util/fonts";
-import user from "@/public/user.svg";
 import { usePathname } from "next/navigation";
 
 function Header() {
@@ -15,7 +13,7 @@ function Header() {
       className={
         pathname === "/signin" || pathname === "/signup"
           ? "hidden"
-          : "border-b-[1px] border-[#D1D1D8] flex items-center pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative"
+          : "border-b-[1px] border-[#D1D1D8] flex items-center pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative bg-white"
       }
     >
       <div className="h-full w-[40%] flex justify-center">
@@ -33,15 +31,10 @@ function Header() {
         <Link href="contact">Contact</Link>
       </div>
 
-      <div className="md:flex items-center gap-5">
-        <div className="">
-          <Image src={user} alt="user" />
-        </div>
-        <div className="absolute border-l-[1px] border-[#D1D1D8] top-0 right-0 h-full lg:w-[150px] w-[100px] flex justify-center items-center">
-          <Link href="/cart">
-            <Image src={shoppingCart} alt="shopping cart" />
-          </Link>
-        </div>
+      <div className="absolute border-l-[1px] border-[#D1D1D8] top-0 right-0 h-full lg:w-[150px] w-[100px] flex justify-center items-center">
+        <Link href="/cart">
+          <Image src={shoppingCart} alt="shopping cart" />
+        </Link>
       </div>
     </header>
   );

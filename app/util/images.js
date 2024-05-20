@@ -9,6 +9,7 @@ import prodimg from "/public/image 5.svg";
 import plus from "/public/Vector (3).svg";
 import deliveryImg from "/public/SVG.svg";
 import productImage from "/public/adult-Remix-navygreycobalt-1.jpg.svg";
+import sample1 from "/public/sample1.svg";
 
 export {
   companyLogo,
@@ -22,4 +23,5 @@ export {
   plus,
   deliveryImg,
   productImage,
+  sample1
 };

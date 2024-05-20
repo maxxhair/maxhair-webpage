@@ -3,7 +3,7 @@ import Coupon from "./_coupon/Coupon";
 
 function OfferSpace() {
   return (
-    <div className="w-full flex flex-col text-center items-center justify-center gap-[20px] min-h-[70vh] bg-[#FAFAFA] py-[32px] px-[20px]">
+    <div className="w-full flex flex-col text-center items-center justify-center gap-[20px] md:min-h-[70vh] min-h-[60vh] bg-[#FAFAFA] py-[32px] px-[20px]">
       <span
         className={`${firaSans.className} lg:label-large md:label-medium label-small`}
       >

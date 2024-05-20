@@ -1,6 +1,6 @@
 import { prompt } from "./util/fonts";
 import "./globals.css";
-import Providers from "./util/Providers";
+
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 
@@ -13,11 +13,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${prompt.className}`}>
-        <Providers>
+        <div className="fixed top-0 w-full z-20">
           <Header />
-          {children}
-          <Footer />
-        </Providers>
+        </div>
+
+        {children}
+        <Footer />
       </body>
     </html>
   );

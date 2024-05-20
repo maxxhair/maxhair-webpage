@@ -4,6 +4,7 @@ import { Prompt } from "next/font/google";
 const prompt = Prompt({ subsets: ["latin"], weight: "400" });
 const firaSans = Fira_Sans({ subsets: ["latin"], weight: "500" });
 const firaSansLight = Fira_Sans({ subsets: ["latin"], weight: "300" });
+const firaSansMedium = Fira_Sans({ subsets: ["latin"], weight: "700" });
 const firaSansBold = Fira_Sans({ subsets: ["latin"], weight: "900" });
 
-export { prompt, firaSans, firaSansLight, firaSansBold };
+export { prompt, firaSans, firaSansLight, firaSansBold, firaSansMedium };

@@ -14,7 +14,7 @@ function Footer() {
       className={
         pathname === "/signup" || pathname === "/signin"
           ? "hidden"
-          : "min-h-[108vh] bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col  items-center"
+          : "bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col  items-center"
       }
     >
       <div className="h-[70px] w-full bg-[#FAFAFA] absolute top-0 left-0 "></div>
@@ -138,7 +138,7 @@ function Footer() {
         </div>
         <div className="w-full">
           <Image src={hairStrand} alt="" />
-          <div className="w-full flex md:flex-row flex-col  items-center gap-y-[10px] md:body-medium body-small tracking-tight">
+          <div className="w-full flex md:flex-row flex-col  items-center gap-y-[10px] lg:body-large md:body-medium body-small tracking-tight font-[500] ">
             <div className=" flex gap-x-[30px] md:w-full xl:justify-between justify-center">
               <Link href="">Privacy Policy</Link>
               <span className="text-[#5D5D5D] md:block hidden">

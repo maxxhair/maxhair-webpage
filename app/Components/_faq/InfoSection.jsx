@@ -6,7 +6,7 @@ function InfoSection({ title, body, isOpen }) {
   const [clicked, setClicked] = useState(isOpen);
   const [expanded, setExpanded] = useState(false);
   return (
-    <div className="flex flex-col xl:w-[60%] lg:w-[70%] md:w-[80%] sm:w-[90%] w-[100%]">
+    <div className="flex flex-col xl:w-[55%] lg:w-[70%] md:w-[80%] sm:w-[90%] w-[100%]">
       <div
         className={`flex justify-between items-center gap-[10px] border-[1px] border-[#E7E7E7] w-full py-[20px] px-[20px]`}
       >
