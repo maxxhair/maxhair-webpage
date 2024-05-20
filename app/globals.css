@@ -2,32 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html {
+  --fromTop: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.bg-footer-design {
+  background-image: url("../public/Group3042773.svg");
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* ScrollableDiv.css */
+.scrollableDiv {
+  width: 300px;
+  height: 200px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.content {
+  display: flex;
+}
+
+.horizontal-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.vertical-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 5px;
+}
+
+.video-container {
+  height: calc(500px - ((var(--fromTop) / 200) * 500px));
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+.video {
+  transition: all 0.3s ease;
+  opacity: calc(1 - var(--fromTop) / 200);
+}
+
+.stickydiv {
+  position: sticky;
+  position: -webkit-sticky;
 }
