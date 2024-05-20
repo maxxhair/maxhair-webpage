@@ -13,7 +13,7 @@ function Header() {
       className={
         pathname === "/signin" || pathname === "/signup"
           ? "hidden"
-          : "border-b-[1px] border-[#D1D1D8] flex items-center pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative bg-white"
+          : "border-b-[1px] border-[#D1D1D8] flex items-center pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative bg-[#FAFAFA]"
       }
     >
       <div className="h-full w-[40%] flex justify-center">

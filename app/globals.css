@@ -2,13 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.checked {
+  color: orange;
+}
+
+.unchecked {
+  color: rgb(216, 188, 151);
+}
+
 :root {
   --fromTop: 0;
   --colorToChange: "#FAFAFA";
   --greetHeight: 50vh;
   --minGreetHeight: 10vh;
   --scaleGreet: 0.9;
-  --transformGreet: 0.9px;
+  --transformGreet: 0.8px;
 }
 
 @media (min-width: 1024px) {
@@ -87,7 +95,6 @@
   position: sticky;
   position: -webkit-sticky;
 }
-
 
 .flyouts-left {
   transform: translateX(calc(var(--fromTop) / 2 * -1px));
