@@ -3,36 +3,26 @@ import { Fira_Sans, Prompt } from "next/font/google";
 import ReviewCard from "../Components/ReviewCard";
 import ProductCard from "../Components/ProductCard";
 import { plus, deliveryImg, productImage, logo } from "../util/images";
-<<<<<<< HEAD
 import SizeButton from "../Components/SizeButton";
 import ChooseButton from "../Components/ChooseButton";
-=======
-import React from "react";
->>>>>>> 39b163d3caad584b6373b09cc110f902fd182096
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 export default function Page() {
   return (
-<<<<<<< HEAD
     <div
       className={`${prompt.className} bg-white text-black w-4/5 sm:w-screen 2xl:w-4/5 2xl:m-auto`}
     >
       <div className="md:flex flex-row inline">
         <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5">
-=======
-    <div className={`${prompt.className} bg-white text-black mt-20`}>
-      <div className="flex flex-row">
-        <div className=" w-6/12 p-8">
->>>>>>> 39b163d3caad584b6373b09cc110f902fd182096
           <Image src={productImage} alt="img-error" />
         </div>
         <div className="md:w-6/12 p-8 sm:m-auto sm:text-xs xl:text-sm ">
@@ -128,45 +118,25 @@ export default function Page() {
           </p>
         </div>
         <div className="w-7/12 h-auto sm:text-xs xl:text-sm">
-          <div className="flex ml-12 border-b-2 mr-10 lg:h-9 sm:h-6 ">
+          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 sm:h-6">
             <p>Features</p>
-            <Image
-              src={plus}
-              alt="img-err"
-              className=" w-3 right-0 absolute mr-12"
-            />
+            <Image src={plus} alt="img-err" className="w-3" />
           </div>
-          <div className="flex ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
+          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
             <p>Benefits</p>
-            <Image
-              src={plus}
-              alt="img-err"
-              className=" w-3 right-0 absolute mr-12"
-            />
+            <Image src={plus} alt="img-err" className="w-3" />
           </div>
-          <div className="flex ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
+          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
             <p>Materials & Technology</p>
-            <Image
-              src={plus}
-              alt="img-err"
-              className=" w-3 right-0 absolute mr-12"
-            />
+            <Image src={plus} alt="img-err" className="w-3" />
           </div>
-          <div className="flex ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
+          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
             <p>Delivery & Returns</p>
-            <Image
-              src={plus}
-              alt="img-err"
-              className=" w-3 right-0 absolute mr-12"
-            />
+            <Image src={plus} alt="img-err" className="w-3" />
           </div>
-          <div className="flex ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
+          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
             <p>Maxx Hair Performance Guarantee</p>
-            <Image
-              src={plus}
-              alt="img-err"
-              className=" w-3 right-0 absolute mr-12"
-            />
+            <Image src={plus} alt="img-err" className="w-3" />
           </div>
         </div>
       </div>
@@ -174,7 +144,7 @@ export default function Page() {
         <p className={`${firaSans.className} text-3xl mt-20 ml-8 font-bold`}>
           Most Popular
         </p>
-        <div className="justify-center align-middle flex space-x-3 mt-4 ">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <ProductCard />
           <ProductCard />
           <ProductCard />
@@ -185,7 +155,7 @@ export default function Page() {
         <p className={`${firaSans.className} text-3xl mt-16 ml-8 font-bold`}>
           Repeat Orders
         </p>
-        <div className="justify-center align-middle flex space-x-3 mt-4 ">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <ProductCard />
           <ProductCard />
           <ProductCard />
