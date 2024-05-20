@@ -62,3 +62,15 @@ html {
 .reviewcard {
   height: 150px;
 }
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
