@@ -3,10 +3,11 @@ import "./globals.css";
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import Cart from "./Components/Cart";
 
 export const metadata = {
   title: "Maxx Hair",
-  description: "hair extensions",
+  description: "hair extensions"
 };
 
 export default function RootLayout({ children }) {
@@ -22,7 +23,7 @@ export default function RootLayout({ children }) {
         <div className="fixed top-0 w-full z-20">
           <Header />
         </div>
-
+        <Cart />
         {children}
         <Footer />
       </body>
