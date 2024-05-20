@@ -5,7 +5,7 @@ import { firaSans } from "../util/fonts";
 
 function Header() {
   return (
-    <header className="border-b-[1px] border-[#D1D1D8] flex items-center pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative">
+    <header className="border-b-[1px] bg-[#FAFAFA] border-[#D1D1D8] flex items-center pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative">
       <div className="h-full w-[40%] flex justify-center">
         <Link href="/" className="h-full ">
           <Image src={companyLogo} alt="logo" className="h-full w-fit " />

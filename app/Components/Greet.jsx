@@ -1,17 +1,32 @@
+import { firaSans, firaSansLight } from "../util/fonts";
 import Calc from "./_greet/Calc";
 
 function Greet() {
   return (
     <div className={`text-center w-full video-container`}>
-      <div className={` w-full h-full relative`}>
+      <div className={` w-full h-full relative flex justify-center`}>
         <Calc />
         <video autoPlay loop muted className="w-full h-full object-cover video">
           <source src="/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="p-[20px] top-0 absolute h-full w-full">
-          <h1>Scroll Down to Hide the Video</h1>
-          <p>More content below...</p>
+        <div className="p-[20px] flex flex-col gap-[20px] color-shift items-center bottom-0 absolute">
+          <span
+            className={`${firaSans.className} flyouts-down flex flex-col md:w-[600px] w-full lg:display-medium md:headline-large headline-medium font-[700]`}
+          >
+            <span>Fabulous Products, </span>
+            <span>at your door step</span>
+          </span>
+
+          <p
+            className={`${firaSansLight.className} flyouts-left lg:label-large md:label-medium label-small md:w-[500px] w-full`}
+          >
+            Transform Your Look with Luxurious Hair Extensions, Unleash Your
+            Beauty!
+          </p>
+          <button className="uppercase flyouts-right bg-[#F9F6F3] text-[#242424] px-[20px] py-[10px] font-[600] lg:body-large md:body-medium body-small">
+            shop now
+          </button>
         </div>
       </div>
     </div>

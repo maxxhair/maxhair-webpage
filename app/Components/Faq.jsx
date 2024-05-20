@@ -1,5 +1,5 @@
 import InfoSection from "./_faq/InfoSection";
-import { firaSans } from "../util/fonts";
+import { firaSans, firaSansBold } from "../util/fonts";
 import { list } from "../util/staticData";
 
 function Faq() {
@@ -10,7 +10,7 @@ function Faq() {
     >
       <div className="flex flex-col gap-[30px] xl:w-[50%] lg:w-[70%] md:w-[80%] sm:w-[90%] w-[100%] text-[#242424]">
         <span
-          className={`${firaSans.className} text-center lg:headline-large md:headline-medium headline-small`}
+          className={`${firaSans.className} text-center lg:headline-large md:headline-medium headline-small `}
         >
           FAQ
         </span>

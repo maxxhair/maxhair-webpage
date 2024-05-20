@@ -1,5 +1,6 @@
 import { prompt } from "./util/fonts";
 import "./globals.css";
+import Header from "./Components/Header";
 
 export const metadata = {
   title: "Maxx Hair",
@@ -9,7 +10,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${prompt.className}`}>{children}</body>
+      <body className={`${prompt.className}`}>
+        <div className="fixed top-0 w-full z-20">
+          <Header />
+        </div>
+
+        {children}
+      </body>
     </html>
   );
 }
