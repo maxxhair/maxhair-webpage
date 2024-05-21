@@ -39,8 +39,9 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           {item.title} | Curly
         </p>
         <p className="align-middle justify-center flex font-semibold ">$ 440</p>
-        <div className="flex justify-between border-b-2 text-sm px-3">
-          <p>{item.category.title}</p>
+
+        <div className="flex justify-between  text-sm px-3">
+          <p>Saloon Installed</p>
           <p>Double Drawn</p>
         </div>
         {hovered && (

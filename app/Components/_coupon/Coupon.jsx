@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 function Coupon() {
-  const [coupon, setCoupon] = useState("WelMAX35");
-  const [offer, setOffer] = useState(30);
+  const [coupon, setCoupon] = useState("WELCOME40");
+  const [offer, setOffer] = useState(40);
   const [{ x, y }, setPosition] = useState({ x: 0, y: 0 });
 
   const ref = useRef(null);
