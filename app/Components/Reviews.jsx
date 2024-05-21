@@ -22,30 +22,31 @@ function Reviews() {
     setSelected((selected) => (selected + 1) % list.length);
   }, []);
 
+  //change list with the data from api
   const list = [
     {
       review:
-        "While the copany wishes they had more time to work out the kinks with the Teamollo, they are quite happy with the result of the project. The resulting website that the team devoloped is fast and the communication with the vender was very good The company will work with them again.",
-      author: "Ashley Cooper",
-      rating: 5,
-    },
-    {
-      review:
-        "While the copany wishes they had more time to work out the kinks with the Teamollo, they are quite happy with the result of the project. The resulting website that the team devoloped is fast and the communication with the vender was very good The company will work with them again.",
-      author: "Ashley Cooper",
+        "I love my new hair extensions from Maxx Hair. They're silky, durable, and give my hair the perfect amount of length and volume. The only minor issue was that the clips were a bit tight at first, but they loosened up after a few wears. Other than that, these extensions are fantastic and definitely worth the price.",
+      author: "Ashley K.",
       rating: 4,
     },
     {
       review:
-        "While the copany wishes they had more time to work out the kinks with the Teamollo, they are quite happy with the result of the project. The resulting website that the team devoloped is fast and the communication with the vender was very good The company will work with them again.",
-      author: "Ashley Cooper",
-      rating: 3,
+        "Maxx Hair extensions have been a game-changer for me! They are easy to clip in and stay in place all day without any issues. The quality is fantastic—no shedding or tangling even after multiple washes. They've really boosted my confidence by giving my hair that extra volume and length. Will definitely buy again!",
+      author: "Emily R.",
+      rating: 5,
     },
     {
       review:
-        "While the copany wishes they had more time to work out the kinks with the Teamollo, they are quite happy with the result of the project. The resulting website that the team devoloped is fast and the communication with the vender was very good The company will work with them again.",
-      author: "Ashley Cooper",
-      rating: 2,
+        "The hair extensions I bought from Maxx Hair are really good. The texture feels natural, and they add great volume. The only small issue I had was that they were a bit darker than what I saw in the pictures online. A quick trip to my salon fixed that with a slight tone adjustment. Overall, I'm very satisfied with my purchase.",
+      author: "Jessica L.",
+      rating: 4,
+    },
+    {
+      review:
+        "I recently purchased hair extensions from Maxx Hair, and I'm thrilled with them! The quality is excellent; they blend perfectly with my natural hair and feel very soft. I wear them almost daily, and they still look as good as when I first got them. The color match was spot on, and I've received so many compliments. Highly recommend!",
+      author: "Sarah M.",
+      rating: 5,
     },
   ];
 

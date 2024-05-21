@@ -11,6 +11,7 @@ import { Drawer } from "flowbite-react";
 import { setCloseCart, setOpenCart } from "../store/redux/cartSlice";
 import { useEffect } from "react";
 import Cart from "./Cart";
+import Navbar from "./_header/Navbar";
 
 function Header() {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function Header() {
             : "border-b-[1px] border-[#D1D1D8] flex items-center justify-end pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative bg-[#FAFAFA]"
         }
       >
-        <div className="w-[75%] flex justify-between">
+        <div className="w-full flex justify-around">
           <Link href="/" className="h-full ">
             <Image src={companyLogo} alt="logo" className="h-full w-fit " />
           </Link>
@@ -76,6 +77,7 @@ function Header() {
               </div>
             </div>
           </div>
+          <Navbar />
         </div>
       </header>
       <Drawer

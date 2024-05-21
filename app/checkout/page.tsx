@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import Cart from "../Components/Cart";
 import Image from "next/image";

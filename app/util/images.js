@@ -36,5 +36,5 @@ export {
   productImage2,
   productImage3,
   productImage4,
-  productImage5,
+  productImage5
 };
