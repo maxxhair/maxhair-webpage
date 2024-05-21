@@ -42,7 +42,6 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({ item }) => {
   const [hovered, setHovered] = useState(false);
-  console.log(item);
 
   const imageUrl =
     item.product.images && item.product.images.length > 0
