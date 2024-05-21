@@ -21,6 +21,12 @@ body {
   --minGreetHeight: 10vh;
   --scaleGreet: 0.9;
   --transformGreet: 0.8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:root::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-width: 1024px) {

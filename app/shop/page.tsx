@@ -5,7 +5,9 @@ import filtericon from "/public/filter.svg";
 import Image from "next/image";
 import {
   CategorySelect,
+  ColorsSelect,
   ProductSelect,
+  SizesSelect,
   TextureSelect
 } from "../Components/SelectInputs";
 import Link from "next/link";
@@ -38,6 +40,8 @@ const Shop = () => {
             <CategorySelect />
             <ProductSelect />
             <TextureSelect />
+            <ColorsSelect />
+            <SizesSelect />
           </div>
         </div>
         <div className="w-[60%]">

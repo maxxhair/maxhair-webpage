@@ -16,6 +16,7 @@ import productImage4 from "/public/AdobeStock_696943661_Preview 1 (1).svg";
 import productImage5 from "/public/image 789.svg";
 
 import sample1 from "/public/sample1.svg";
+import closeIcon from "/public/close.svg";
 
 export {
   companyLogo,
@@ -29,10 +30,10 @@ export {
   plus,
   deliveryImg,
   productImage,
+  sample1,
   productImage1,
   productImage2,
   productImage3,
   productImage4,
   productImage5,
-  sample1,
 };

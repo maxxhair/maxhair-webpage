@@ -133,3 +133,24 @@ export const textureOptions = [
   { value: "natural_wavy", label: "Natural wavy" },
   { value: "super_deep", label: "Super Deep" },
 ];
+
+export const colorOptions = [
+  { value: "all", label: "All" },
+  { value: "natural", label: "Natural" },
+  { value: "#121212", value: "#121212" },
+  { value: "#000000", label: "#000000" },
+  { value: "#1b1b1b1", label: "#1b1b1b" }
+];
+
+export const sizeOptions = [
+  { value: "all", label: "All" },
+  { value: "16", label: "16''" },
+  { value: "18", label: "18''" },
+  { value: "20", label: "20''" },
+  { value: "22", label: "22''" },
+  { value: "24", label: "24''" },
+  { value: "26", label: "26''" },
+  { value: "28", label: "28''" },
+  { value: "30", label: "30''" },
+  { value: "32", label: "32''" }
+];

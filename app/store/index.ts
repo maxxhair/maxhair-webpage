@@ -1,11 +1,10 @@
 "use client";
 
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, compose, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./redux/userSlice";
 import cartReducer from "./redux/cartSlice";
 import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/es/persistStore";
+import { persistReducer, persistStore } from "redux-persist";
 
 // Define the persist config for user and cart slices
 const persistConfig = {
@@ -19,16 +18,14 @@ const rootReducer = combineReducers({
   cart: cartReducer
 });
 
-const reducer = {
-  user: userReducer,
-  cart: cartReducer
-};
-
 // Create a persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware({ serializableCheck: false });
+  }
 });
 
 export const persistor = persistStore(store);
