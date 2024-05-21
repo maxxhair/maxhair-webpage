@@ -17,7 +17,7 @@ import {
 } from "../util/images";
 import SizeButton from "../Components/SizeButton";
 import ChooseButton from "../Components/ChooseButton";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../Components/ExtraInfoSection";
 import {
   colorOpts,
@@ -27,6 +27,7 @@ import {
   typeOpts,
 } from "../util/staticData";
 import Rating from "../Components/Rating";
+import { getProducts } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../store/redux/cartSlice";
 
@@ -67,6 +68,30 @@ export default function Page() {
       );
     }
   };
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(products, "prods");
 
   return (
     <div
@@ -266,10 +291,9 @@ export default function Page() {
           Most Popular
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products.slice(0, 4).map((product: any) => (
+            <ProductCard key={product._id} item={product} />
+          ))}
         </div>
       </div>
       <div className="m-8">
@@ -277,10 +301,9 @@ export default function Page() {
           Repeat Orders
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products.slice(0, 4).map((product: any) => (
+            <ProductCard key={product._id} item={product} />
+          ))}
         </div>
       </div>
       <div className="m-8 text-sm">

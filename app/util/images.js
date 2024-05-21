@@ -31,6 +31,7 @@ export {
   deliveryImg,
   productImage,
   sample1,
+  closeIcon,
   productImage1,
   productImage2,
   productImage3,
