@@ -28,6 +28,8 @@ import {
 } from "../../util/staticData";
 import Rating from "../../Components/Rating";
 import { getProducts } from "../../util/serverSideProps";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../store/redux/cartSlice";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -44,6 +46,28 @@ export default function Page() {
   const [selectedColor, setColor] = useState(null);
   const [selectedType, setType] = useState(null);
   const [selectedTexture, setTexture] = useState(null);
+  const [selectedQuantity, setQuantity] = useState(10);
+
+  const dispatch = useDispatch();
+  const usercart = useSelector((state) => state);
+
+  const add = () => {
+    if (selectedQuantity > 0) {
+      dispatch(
+        addProduct({
+          id: "5255",
+          name: "Bulk Hair fda",
+          image: "image-url here",
+          price: 258,
+          count: selectedQuantity,
+          color: selectedColor,
+          size: selectedSize,
+          type: selectedType,
+          texture: selectedTexture
+        })
+      );
+    }
+  };
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,6 +90,8 @@ export default function Page() {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  console.log(products, "prods");
 
   return (
     <div
@@ -169,12 +195,33 @@ export default function Page() {
                 Please select your required variant to add to cart
               </div>
             )}
-            <button
-              type="submit"
-              className=" w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-            >
-              ADD TO CART ( $258 )
-            </button>
+            <div className="flex ">
+              <div className="flex items-center gap-6 m-3">
+                <div className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl">
+                  -
+                </div>
+                <p className="label-medium">1</p>
+                <div className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl">
+                  +
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
+                onClick={add}
+                // onClick={() => {
+                //   if (
+                //     selectedSize !== null &&
+                //     selectedColor !== null &&
+                //     selectedTexture !== null &&
+                //     selectedType !== null
+                //   )
+                //     add;
+                // }}
+              >
+                ADD TO CART ( $258 )
+              </button>
+            </div>
           </div>
           <div className="flex mt-4 border  border-neutral-200 rounded">
             <Image src={logo} alt="img-err" className="m-3 w-16" />

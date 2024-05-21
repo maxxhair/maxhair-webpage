@@ -2,12 +2,15 @@ import Image from "next/image";
 import React from "react";
 import CartItem from "./CartItem";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 interface Props {
   handleClose: () => void;
 }
 
 const Cart: React.FC<Props> = ({ handleClose }) => {
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   return (
     <div className="w-full">
       <CartItem />
@@ -57,7 +60,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           </div>
         </p>
       </div>
-      <Link href="checkout">
+      <Link href="/checkout">
         <button
           className="w-full my-5 bg-black text-white py-4 uppercase title-small tracking-widest font-semibold"
           onClick={handleClose}

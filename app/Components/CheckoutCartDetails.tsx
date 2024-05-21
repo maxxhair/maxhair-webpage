@@ -1,8 +1,11 @@
 import React from "react";
 import { productImage } from "../util/images";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const CheckoutCartDetails = () => {
+  const cartProducts = useSelector((state: RootState) => state.cart);
   return (
     <div className="w-1/2 bg-[#F2ECE2] pt-16 px-8">
       <div className="my-5 w-full h-48 bg-white p-6 flex justify-between">

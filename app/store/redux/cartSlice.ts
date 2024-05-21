@@ -8,7 +8,7 @@ type InitialCartState = {
 
 const initialState: InitialCartState = {
   openCart: false,
-  cartItems: []
+  cartItems: [],
 };
 
 const indexSameProduct = (
@@ -52,7 +52,7 @@ const cartSlice = createSlice({
 
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload.product]
+        cartItems: [...state.cartItems, action.payload.product],
       };
     },
     removeProduct(state, action: PayloadAction<ProductStoreType>) {
@@ -61,9 +61,9 @@ const cartSlice = createSlice({
     setCount(state, action: PayloadAction<AddProductType>) {
       const indexItem = indexSameProduct(state, action.payload.product);
       state.cartItems[indexItem].count = action.payload.count;
-    }
-  }
+    },
+  },
 });
 
-export const { setOpenCart, setCloseCart } = cartSlice.actions;
+export const { setOpenCart, setCloseCart, addProduct } = cartSlice.actions;
 export default cartSlice.reducer;
