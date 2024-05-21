@@ -10,6 +10,7 @@ import plus from "/public/Vector (3).svg";
 import deliveryImg from "/public/SVG.svg";
 import productImage from "/public/adult-Remix-navygreycobalt-1.jpg.svg";
 import sample1 from "/public/sample1.svg";
+import closeIcon from "/public/close.svg";
 
 export {
   companyLogo,
@@ -23,5 +24,6 @@ export {
   plus,
   deliveryImg,
   productImage,
-  sample1
+  sample1,
+  closeIcon
 };

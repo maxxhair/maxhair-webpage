@@ -3,7 +3,9 @@
 import Select from "react-select";
 import {
   categoriesOptions,
+  colorOptions,
   productOptions,
+  sizeOptions,
   textureOptions
 } from "../util/staticData";
 import React from "react";
@@ -45,6 +47,34 @@ export const TextureSelect = () => {
         isMulti
         className="w-full"
         defaultValue={[textureOptions[0]]}
+      />
+    </div>
+  );
+};
+
+export const ColorsSelect = () => {
+  return (
+    <div className="w-[90%] mx-auto">
+      <p className="label-medium">Color</p>
+      <Select
+        options={colorOptions}
+        isMulti
+        className="w-full"
+        defaultValue={[colorOptions[0]]}
+      />
+    </div>
+  );
+};
+
+export const SizesSelect = () => {
+  return (
+    <div className="w-[90%] mx-auto">
+      <p className="label-medium">Size</p>
+      <Select
+        options={sizeOptions}
+        isMulti
+        className="w-full"
+        defaultValue={[sizeOptions[0]]}
       />
     </div>
   );

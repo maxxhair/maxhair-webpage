@@ -3,7 +3,7 @@ import "./globals.css";
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-import Cart from "./Components/Cart";
+import Providers from "./util/Providers";
 
 export const metadata = {
   title: "Maxx Hair",
@@ -20,12 +20,13 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${prompt.className}`}>
-        <div className="fixed top-0 w-full z-20">
-          <Header />
-        </div>
-        {/* <Cart /> */}
-        {children}
-        <Footer />
+        <Providers>
+          <div className="fixed top-0 w-full z-20">
+            <Header />
+          </div>
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
