@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Fira_Sans, Prompt } from "next/font/google";
-import ReviewCard from "../Components/ReviewCard";
-import ProductCard from "../Components/ProductCard";
+import ReviewCard from "../../Components/ReviewCard";
+import ProductCard from "../../Components/ProductCard";
 import {
   plus,
   deliveryImg,
@@ -14,20 +14,20 @@ import {
   productImage3,
   productImage4,
   productImage5
-} from "../util/images";
-import SizeButton from "../Components/SizeButton";
-import ChooseButton from "../Components/ChooseButton";
+} from "../../util/images";
+import SizeButton from "../../Components/SizeButton";
+import ChooseButton from "../../Components/ChooseButton";
 import React, { useEffect, useState } from "react";
-import ExtraInfoSection from "../Components/ExtraInfoSection";
+import ExtraInfoSection from "../../Components/ExtraInfoSection";
 import {
   colorOpts,
   list1,
   sizeOpts,
   textureOpts,
   typeOpts
-} from "../util/staticData";
-import Rating from "../Components/Rating";
-import { getProducts } from "../util/serverSideProps";
+} from "../../util/staticData";
+import Rating from "../../Components/Rating";
+import { getProducts } from "../../util/serverSideProps";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],

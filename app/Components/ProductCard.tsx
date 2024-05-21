@@ -42,6 +42,7 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({ item }) => {
   const [hovered, setHovered] = useState(false);
+  console.log(item);
 
   const imageUrl =
     item.product.images && item.product.images.length > 0
@@ -49,7 +50,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
       : prodimg;
 
   return (
-    <Link href="product" key={item._id}>
+    <Link href={`/${item._id}/product`}>
       <div
         className="prodcard pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
         onMouseOver={() => setHovered(true)}
