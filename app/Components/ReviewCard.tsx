@@ -6,7 +6,7 @@ const ReviewCard = () => {
       <p className="mt-5">Rhianno - Verified Buyer</p>
       <p className="mt-2">09/05/24</p>
       <Rating count={5} value={5} className="mt-2" />
-      <p className="mt-5">Amazing Quality</p>
+      <p className="mt-5 mb-8">Amazing Quality</p>
     </div>
   );
 };

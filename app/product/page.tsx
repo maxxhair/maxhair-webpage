@@ -26,6 +26,7 @@ import {
   textureOpts,
   typeOpts,
 } from "../util/staticData";
+import Rating from "../Components/Rating";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -69,11 +70,11 @@ export default function Page() {
         <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0 sticky top-10 h-[180vh]">
           <p className="text-sm font-semibold ">Home - Bulk Hair</p>
           <p className="text-sm font-semibold mt-5">Select Size</p>
-          <div className=" space-x-4 flex mt-3">
+          <div className=" mt-2">
             {sizeOpts?.map((size) => (
               <button
                 onClick={() => setSize(size)}
-                className={` w-10 h-10 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
                   selectedSize === size
                     ? "bg-[#E3D6C5] text-[#A47252]"
                     : "bg-neutral-100"
@@ -85,11 +86,11 @@ export default function Page() {
             ))}
           </div>
           <p className="text-sm font-semibold mt-4">Color</p>
-          <div className="space-x-4 flex mt-3">
+          <div className="mt-2">
             {colorOpts?.map((color) => (
               <button
                 onClick={() => setColor(color)}
-                className={`xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
                   selectedColor === color
                     ? "bg-[#E3D6C5] text-[#A47252]"
                     : "bg-neutral-100"
@@ -101,11 +102,11 @@ export default function Page() {
             ))}
           </div>
           <p className="text-sm font-semibold mt-4 ">Type</p>
-          <div className="space-x-4 flex mt-3">
+          <div className=" mt-2">
             {typeOpts?.map((type) => (
               <button
                 onClick={() => setType(type)}
-                className={`xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
                   selectedType === type
                     ? "bg-[#E3D6C5] text-[#A47252]"
                     : "bg-neutral-100"
@@ -117,11 +118,11 @@ export default function Page() {
             ))}
           </div>
           <p className="text-sm font-semibold mt-4">Texture</p>
-          <div className="space-x-4 flex mt-3">
+          <div className="mt-2">
             {textureOpts?.map((texture) => (
               <button
                 onClick={() => setTexture(texture)}
-                className={`xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
                   selectedTexture === texture
                     ? "bg-[#E3D6C5] text-[#A47252]"
                     : "bg-neutral-100"
@@ -215,8 +216,8 @@ export default function Page() {
           })}
         </div>
       </div>
-      <div>
-        <p className={`${firaSans.className} text-3xl mt-20 ml-8 font-bold`}>
+      <div className="m-8">
+        <p className={`${firaSans.className} text-3xl mt-10 font-bold`}>
           Most Popular
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -226,8 +227,8 @@ export default function Page() {
           <ProductCard />
         </div>
       </div>
-      <div>
-        <p className={`${firaSans.className} text-3xl mt-16 ml-8 font-bold`}>
+      <div className="m-8">
+        <p className={`${firaSans.className} text-3xl mt-8 font-bold`}>
           Repeat Orders
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -237,10 +238,26 @@ export default function Page() {
           <ProductCard />
         </div>
       </div>
-      <div className="mt-16 ml-8 mr-8">
-        <p className={`${firaSans.className} text-3xl  font-bold`}>
+      <div className="m-8 text-sm">
+        <p className={`${firaSans.className} text-3xl mt-16 font-bold`}>
           Customer Reviews
         </p>
+        <div className="flex justify-between">
+          <div className="flex mt-8 ">
+            <p className={`${firaSans.className} text-5xl font-bold mt-2`}>
+              4.9
+            </p>
+            <Rating count={5} value={5} className="m-2 mt-auto" />
+            <p className="m-2 mt-auto">Based on 1611 3 reviews</p>
+          </div>
+
+          <button
+            type="submit"
+            className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto "
+          >
+            Write A Review
+          </button>
+        </div>
         <ReviewCard />
         <ReviewCard />
         <ReviewCard />

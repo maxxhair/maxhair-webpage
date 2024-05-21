@@ -96,7 +96,9 @@ export const categoriesOptions = [
 export const colorOpts = ["Natural", "#PA/22", "#613", "#22"];
 export const typeOpts = ["Single Drawn", "Double Drawn"];
 export const textureOpts = ["Straight/Wavy", "Straight", "Jackson"];
-export const sizeOpts = [16, 18, 20, 22, 24, 26, 28, 30, 32];
+export const sizeOpts = [
+  16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44,
+];
 
 export const productOptions = [
   { value: "all", label: "All" },
