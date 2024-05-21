@@ -4,13 +4,28 @@ import Image from "next/image";
 import { prodimg } from "../util/images";
 import React, { useState } from "react";
 import { firaSans } from "../util/fonts";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
-const ProductCard = () => {
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  images: [];
+  category: {
+    _id: string;
+    title: string;
+  };
+}
+
+interface Props {
+  item: Product;
+}
+
+const ProductCard: React.FC<Props> = ({ item }) => {
   const [hovered, setHovered] = useState(false);
+
   return (
-    <Link href="product">
+    <Link href="product" key={item._id}>
       <div
         className="prodcard pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
         onMouseOver={() => setHovered(true)}
@@ -21,9 +36,10 @@ const ProductCard = () => {
         <p
           className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold`}
         >
-          Machine Weft | Curly
+          {item.title} | Curly
         </p>
         <p className="align-middle justify-center flex font-semibold ">$ 440</p>
+
         <div className="flex justify-between  text-sm px-3">
           <p>Saloon Installed</p>
           <p>Double Drawn</p>

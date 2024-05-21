@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { firaSansMedium } from "../util/fonts";
 import ProductCard from "./ProductCard";
 import NewCollectionMobile from "./_newcollection/NewCollectionMobile";
+import { getProducts } from "../util/serverSideProps";
 
 const Example = () => {
   //productCard used
@@ -19,6 +20,25 @@ const Example = () => {
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <div className="lg:block hidden">
@@ -42,13 +62,13 @@ const Example = () => {
             </div>
 
             <motion.div style={{ x }} className="flex gap-4">
-              {cards.map((_, index) => {
+              {products.slice(0, 4).map((product, index) => {
                 return (
                   <div
                     key={index}
                     className="group relative flex flex-col justify-center lg:w-[400px] md:w-[300px] w-[200px] overflow-hidden "
                   >
-                    <ProductCard />
+                    <ProductCard key={product._id} item={product} />
                   </div>
                 );
               })}

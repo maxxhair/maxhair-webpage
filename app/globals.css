@@ -20,6 +20,13 @@ body {
   --greetHeight: 50vh;
   --minGreetHeight: 20vh;
   --scaleGreet: 0.9;
+  --transformGreet: 0.8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+:root::-webkit-scrollbar {
+  display: none;
   --transformGreet: 0.65px;
 }
 

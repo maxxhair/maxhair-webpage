@@ -2,38 +2,50 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 import { firaSans } from "../util/fonts";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { prodimg } from "../util/images";
 import Link from "next/link";
 import Image from "next/image";
+import axiosInstance from "../util/axiosInstance";
 
 function ShopByTextures() {
   const [selected, setSelected] = useState(0);
-
+  const [list, setList] = useState(null);
   const sliderRef = useRef(null);
 
-  const handlePrev = useCallback(() => {
+  const handlePrev = () => {
     sliderRef.current.swiper.slidePrev();
     setSelected((selected) =>
       selected - 1 === -1 ? list.length - 1 : selected - 1
     );
-  }, []);
+  };
 
-  const handleNext = useCallback(() => {
+  const handleNext = () => {
     sliderRef.current.swiper.slideNext();
     setSelected((selected) => (selected + 1) % list.length);
+  };
+
+  useEffect(() => {
+    axiosInstance.get("/textures").then((data) => {
+      setList(data.data.data);
+    });
   }, []);
 
   //replace the below with api data
-  const list = Array(4)
-    .fill()
-    .map(() => ({
-      name: "Yaki Curly",
-      details: "Lorem ipsum dolor sit amet consectetur. Etiam",
-      link: "",
-      image: prodimg,
-    }));
+  // const list = Array(4)
+  //   .fill()
+  //   .map(() => ({
+  //     name: "Yaki Curly",
+  //     details: "Lorem ipsum dolor sit amet consectetur. Etiam",
+  //     link: "",
+  //     image: prodimg,
+  //   }));
+
+  if (!list) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center md:min-h-[70vh] min-h-[60vh] items-center w-full px-[30px]  py-[20px] md:gap-[40px] gap-[20px]">
@@ -47,7 +59,6 @@ function ShopByTextures() {
             750: {
               slidesPerView: 2,
             },
-
             1440: {
               slidesPerView: 3,
             },
@@ -72,8 +83,10 @@ function ShopByTextures() {
                 >
                   <div>
                     <Image
-                      src={obj.image}
+                      src={obj.image_url}
                       alt=""
+                      width={400}
+                      height={selected === index ? 500 : 450}
                       className={`w-full transition-all ${
                         selected === index ? "h-[500px]" : "h-[450px]"
                       } object-cover`}
@@ -92,20 +105,15 @@ function ShopByTextures() {
                           : "lg:label-large md:label-medium label-small"
                       }`}
                     >
-                      {obj.name}
+                      {obj.title}
                     </span>
                     {selected === index && (
-                      <>
-                        <span className="lg:body-large md:body-medium body-small font-bold text-center text-[#4F4F4F]">
-                          {obj.details}
-                        </span>
-                        <Link
-                          href={obj.link}
-                          className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
-                        >
-                          Buy Now
-                        </Link>
-                      </>
+                      <Link
+                        href="shop"
+                        className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
+                      >
+                        Buy Now
+                      </Link>
                     )}
                   </div>
                 </div>

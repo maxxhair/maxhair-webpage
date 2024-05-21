@@ -103,10 +103,10 @@ function Blogs() {
           </div>
         </div>
       </div>
-      <div className=" xl:w-[70%] lg:w-[90%] w-full relative  ">
+      <div className=" xl:w-[70%] lg:w-[90%] w-full relative mt-[40px] ">
         <Swiper
           ref={sliderRef}
-          spaceBetween={10}
+          spaceBetween={30}
           slidesPerView={1}
           slidesPerGroup={1}
           loop
@@ -140,7 +140,7 @@ function Blogs() {
                     selected === index
                       ? "bg-[#242424] text-[#F2ECE2]"
                       : "text-[#242424] bg-white"
-                  } cursor-pointer lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2`}
+                  } cursor-pointer lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] shadow-md`}
                 >
                   <Image
                     src={obj.image}

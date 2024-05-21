@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { firaSans } from "../../util/fonts";
+import { firaSans, firaSansMedium } from "../../util/fonts";
 
-function Card({ name, number, link, image }) {
+function Card({ name, category, link, image }) {
   return (
     <div className="bg-[#F6F6F6] flex flex-col h-[450px] w-[300px] p-[20px] pt-[30px] justify-evenly items-center">
       <div className="h-[180px] w-[140px]">
-        <Image src={image} alt="" />
+        <Image src={image} alt="" width={140} height={200} />
       </div>
       <span
         className={`${firaSans.className} lg:label-large md:label-medium label-small`}
@@ -16,7 +16,7 @@ function Card({ name, number, link, image }) {
       <span
         className={`${firaSans.className} lg:body-large md:body-medium body-small`}
       >
-        {number} Products
+        {category}
       </span>
       <Link
         href={link}
