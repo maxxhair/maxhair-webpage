@@ -5,13 +5,13 @@ import Link from "next/link";
 
 function ShopByTypes() {
   return (
-    <div className="flex flex-col bg-[#885C46] h-[90vh] w-full justify-evenly items-center py-[20px] px-[20px]">
+    <div className="flex flex-col bg-[#885C46] min-h-[800px] h-[90vh] w-full justify-evenly items-center md:py-[40px] py-[20px] px-[20px]">
       <span
         className={`${firaSans.className} font-[700] text-[#FAFAFA] lg:headline-large md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >
         Shop By Types
       </span>
-      <div className="flex min-h-[600px] h-[70%] gap-[30px] justify-center lg:w-[60%] md:w-[80%] w-full">
+      <div className="flex h-[70%] gap-[30px] justify-center lg:w-[60%] md:w-[80%] w-full">
         <div className=" w-[calc(50%-30px)] h-full p-[20px] relative">
           <Image
             src={prodimg}

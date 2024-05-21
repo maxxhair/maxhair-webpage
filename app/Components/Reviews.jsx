@@ -50,7 +50,7 @@ function Reviews() {
   ];
 
   return (
-    <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center w-full px-[30px] py-[20px] md:gap-[40px] gap-[20px]">
+    <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center w-full px-[30px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
         className={`${firaSansMedium.className} font-[700] lg:headline-large md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >

@@ -18,17 +18,17 @@ body {
   --fromTop: 0;
   --colorToChange: "#FAFAFA";
   --greetHeight: 50vh;
-  --minGreetHeight: 10vh;
+  --minGreetHeight: 20vh;
   --scaleGreet: 0.9;
-  --transformGreet: 0.8px;
+  --transformGreet: 0.65px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1228px) {
   :root {
     --fromTop: 0;
     --colorToChange: "#FAFAFA";
     --greetHeight: 55vh;
-    --minGreetHeight: 15vh;
+    --minGreetHeight: 20vh;
     --scaleGreet: 0.8;
     --transformGreet: 0.9px;
   }
@@ -41,7 +41,7 @@ body {
     --greetHeight: 60vh;
     --minGreetHeight: 20vh;
     --scaleGreet: 0.7;
-    --transformGreet: 1px;
+    --transformGreet: 0.8px;
   }
 }
 
