@@ -27,7 +27,7 @@ import {
 import Rating from "../../Components/Rating";
 import { getProduct, getProducts } from "../../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../store/redux/cartSlice";
+import { addProduct, setCount } from "../../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { ProductStoreType } from "../../types";
 import { AppDispatch, RootState } from "../../store";
@@ -83,8 +83,6 @@ export default function Page() {
   const dispatch = useDispatch<AppDispatch>();
   const usercart = useSelector((state: RootState) => state.cart.cartItems);
 
-  console.log("cartItems", usercart);
-
   const add = (product: Product) => {
     const productToSave: ProductStoreType = {
       id: id as string,
@@ -102,8 +100,6 @@ export default function Page() {
       count: selectedQuantity,
       product: productToSave
     };
-
-    console.log("productStore", productStore);
 
     dispatch(addProduct(productStore));
   };
@@ -138,12 +134,34 @@ export default function Page() {
     fetchProducts();
   }, []);
 
+  const setProductCount = (count: number) => {
+    if (count <= 0) {
+      return;
+    }
+
+    const payload = {
+      product: {
+        id: id as string,
+        name: product.product.title,
+        image: product.product.images ? product.product.images[0] : "",
+        price: product.price,
+        count: selectedQuantity,
+        color: selectedColor,
+        size: selectedSize,
+        type: selectedType,
+        texture: selectedTexture
+      },
+      count: selectedQuantity
+    };
+
+    console.log(payload);
+
+    // dispatch(setCount(payload));
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  // console.log(products, "prods");
-  // console.log(product, "prod");
 
   return (
     product && (
@@ -257,11 +275,17 @@ export default function Page() {
               )}
               <div className="flex ">
                 <div className="flex items-center gap-6 m-3">
-                  <div className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl">
+                  <div
+                    className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+                    onClick={() => setProductCount(selectedQuantity - 1)}
+                  >
                     -
                   </div>
                   <p className="label-medium">1</p>
-                  <div className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl">
+                  <div
+                    className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+                    onClick={() => setPrductCount(selectedQuantity + 1)}
+                  >
                     +
                   </div>
                 </div>
@@ -269,15 +293,6 @@ export default function Page() {
                   type="submit"
                   className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
                   onClick={() => add(product)}
-                  // onClick={() => {
-                  //   if (
-                  //     selectedSize !== null &&
-                  //     selectedColor !== null &&
-                  //     selectedTexture !== null &&
-                  //     selectedType !== null
-                  //   )
-                  //     add;
-                  // }}
                 >
                   ADD TO CART ($ {product.price} )
                 </button>

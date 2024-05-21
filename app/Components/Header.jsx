@@ -16,6 +16,9 @@ import Navbar from "./_header/Navbar";
 function Header() {
   const dispatch = useDispatch();
   const cartOpen = useSelector((state) => state.cart.openCart);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const cartCount = cartItems.length;
 
   const handleCartOpen = () => {
     cartOpen ? dispatch(setCloseCart()) : dispatch(setOpenCart());
@@ -73,7 +76,7 @@ function Header() {
                 onClick={handleCartOpen}
               />
               <div className="absolute top-0 left-[30%] -translate-x-[30%] -translate-y-[30%] bg-pink-100 w-6 h-6 aspect-square rounded-full grid place-items-center">
-                1
+                {cartCount}
               </div>
             </div>
           </div>

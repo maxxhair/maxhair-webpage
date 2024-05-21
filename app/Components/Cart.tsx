@@ -11,9 +11,24 @@ interface Props {
 
 const Cart: React.FC<Props> = ({ handleClose }) => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+
+  const priceTotal = useSelector((state: RootState) => {
+    const cartItems = state.cart.cartItems;
+    let totalPrice = 0;
+    if (cartItems.length > 0) {
+      cartItems.map((item) => (totalPrice += item.price * item.count));
+    }
+
+    return totalPrice;
+  });
+
+  const discount = (40 / 100) * priceTotal;
+
   return (
     <div className="w-full">
-      <CartItem />
+      {cartItems.map((item: any) => (
+        <CartItem key={item.id} product={item} />
+      ))}
       <div className="w-full flex items-center gap-6 justify-between">
         <input
           placeholder="Discount code or gift card"
@@ -29,11 +44,11 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Amount</p>
-              <p className="label-medium font-medium">$319.98</p>
+              <p className="label-medium font-medium">${priceTotal}</p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Discount</p>
-              <p className="label-medium font-medium">$31.98</p>
+              <p className="label-medium font-medium">${discount}</p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Shipping</p>
@@ -49,7 +64,9 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           <div className="py-5 flex flex-col gap-2">
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">TOTAL</p>
-              <p className="label-medium font-medium">$288.08</p>
+              <p className="label-medium font-medium">
+                ${priceTotal - discount}
+              </p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">
