@@ -1,74 +1,158 @@
+"use client";
+
 import Image from "next/image";
 import { Fira_Sans, Prompt } from "next/font/google";
 import ReviewCard from "../Components/ReviewCard";
 import ProductCard from "../Components/ProductCard";
-import { plus, deliveryImg, productImage, logo } from "../util/images";
+import {
+  plus,
+  deliveryImg,
+  productImage,
+  logo,
+  productImage1,
+  productImage2,
+  productImage3,
+  productImage4,
+  productImage5,
+} from "../util/images";
 import SizeButton from "../Components/SizeButton";
 import ChooseButton from "../Components/ChooseButton";
-import React from "react";
+import React, { useState } from "react";
+import ExtraInfoSection from "../Components/ExtraInfoSection";
+import {
+  colorOpts,
+  list1,
+  sizeOpts,
+  textureOpts,
+  typeOpts,
+} from "../util/staticData";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 export default function Page() {
+  const [selectedSize, setSize] = useState(null);
+  const [selectedColor, setColor] = useState(null);
+  const [selectedType, setType] = useState(null);
+  const [selectedTexture, setTexture] = useState(null);
+
   return (
     <div
-      className={`${prompt.className}  bg-white text-black w-4/5 sm:w-screen 2xl:w-4/5 2xl:m-auto !mt-32`}
+      className={`${prompt.className}  bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}
     >
       <div className="md:flex flex-row inline">
-        <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5">
-          <Image src={productImage} alt="img-error" />
+        <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
+          <Image src={productImage} alt="product-image-error" />
+          <div className="w-full flex">
+            <Image
+              src={productImage1}
+              alt="product-image-error"
+              className=" w-1/2"
+            />
+            <Image
+              src={productImage2}
+              alt="product-image-error"
+              className=" w-1/2"
+            />
+          </div>
+          <Image src={productImage3} alt="product-image-error" />
+          <Image src={productImage4} alt="product-image-error" />
+          <Image src={productImage5} alt="product-image-error" />
         </div>
-        <div className="md:w-6/12 p-8 sm:m-auto sm:text-xs xl:text-sm ">
-          <p className="text-sm font-semibold">HomeBulk Hair</p>
+        <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0 sticky top-10 h-[180vh]">
+          <p className="text-sm font-semibold ">Home - Bulk Hair</p>
           <p className="text-sm font-semibold mt-5">Select Size</p>
           <div className=" space-x-4 flex mt-3">
-            <SizeButton size={16} />
-            <SizeButton size={18} />
-            <SizeButton size={20} />
-            <SizeButton size={22} />
-            <SizeButton size={24} />
-            <SizeButton size={26} />
-            <SizeButton size={28} />
-            <SizeButton size={32} />
+            {sizeOpts?.map((size) => (
+              <button
+                onClick={() => setSize(size)}
+                className={` w-10 h-10 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                  selectedSize === size
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                }`}
+                key={size}
+              >
+                {size}
+              </button>
+            ))}
           </div>
           <p className="text-sm font-semibold mt-4">Color</p>
           <div className="space-x-4 flex mt-3">
-            <ChooseButton desc="Natural" />
-            <ChooseButton desc="#P4/22" />
-            <ChooseButton desc="#613" />
-            <ChooseButton desc="#24" />
+            {colorOpts?.map((color) => (
+              <button
+                onClick={() => setColor(color)}
+                className={`xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  selectedColor === color
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                }`}
+                key={color}
+              >
+                {color}
+              </button>
+            ))}
           </div>
-          <p className="text-sm font-semibold mt-4">Type</p>
+          <p className="text-sm font-semibold mt-4 ">Type</p>
           <div className="space-x-4 flex mt-3">
-            <ChooseButton desc="Single Drawn" />
+            {typeOpts?.map((type) => (
+              <button
+                onClick={() => setType(type)}
+                className={`xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  selectedType === type
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                }`}
+                key={type}
+              >
+                {type}
+              </button>
+            ))}
           </div>
           <p className="text-sm font-semibold mt-4">Texture</p>
           <div className="space-x-4 flex mt-3">
-            <ChooseButton desc="Straight/Wavy" />
-            <ChooseButton desc="Straight" />
-            <ChooseButton desc="Jackson" />
+            {textureOpts?.map((texture) => (
+              <button
+                onClick={() => setTexture(texture)}
+                className={`xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  selectedTexture === texture
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                }`}
+                key={texture}
+              >
+                {texture}
+              </button>
+            ))}
           </div>
           <div className="flex space-x-3 mt-4">
             <Image src={deliveryImg} alt="img-err" />
             <p className=" sm:mt-1 ">Free Delivery & Easy Returns</p>
           </div>
-          <div className="sm:review-card">
+          <div className="sm:review-card mt-8">
+            {(selectedSize === null ||
+              selectedColor === null ||
+              selectedTexture === null ||
+              selectedType === null) && (
+              <div className="text-[#f00a]">
+                Please select your required variant to add to cart
+              </div>
+            )}
             <button
               type="submit"
-              className=" w-11/12 text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-8 "
+              className=" w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
             >
               ADD TO CART ( $258 )
             </button>
           </div>
-          <div className="flex mt-4 border  border-neutral-200 rounded w-11/12">
+          <div className="flex mt-4 border  border-neutral-200 rounded">
             <Image src={logo} alt="img-err" className="m-3 w-16" />
             <p className="text-sm p-5 font-semibold">
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
@@ -78,7 +162,7 @@ export default function Page() {
             </p>
           </div>
           <p className=" text-lg font-semibold mt-4">Description</p>
-          <div className="mt-3 w-11/12 text-sm">
+          <div className="mt-3 text-sm">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -110,7 +194,7 @@ export default function Page() {
         </div>
       </div>
       <div className="md:flex mt-10 sm:inline">
-        <div className=" lg:w-5/12 lg:p-8 lg:pr-32 font-semibold sm:w-screen sm:p-12">
+        <div className=" lg:w-5/12 lg:p-8 lg:pr-32 font-semibold sm:w-screen sm:p-12 mt-4">
           <p>
             Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
             tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -118,27 +202,17 @@ export default function Page() {
             nam quis non at bibendum nulla nulla
           </p>
         </div>
-        <div className="w-7/12 h-auto sm:text-xs xl:text-sm">
-          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 sm:h-6">
-            <p>Features</p>
-            <Image src={plus} alt="img-err" className="w-3" />
-          </div>
-          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
-            <p>Benefits</p>
-            <Image src={plus} alt="img-err" className="w-3" />
-          </div>
-          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
-            <p>Materials & Technology</p>
-            <Image src={plus} alt="img-err" className="w-3" />
-          </div>
-          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
-            <p>Delivery & Returns</p>
-            <Image src={plus} alt="img-err" className="w-3" />
-          </div>
-          <div className="flex w-full justify-between ml-12 border-b-2 mr-10 lg:h-9 mt-4 sm:h-6">
-            <p>Maxx Hair Performance Guarantee</p>
-            <Image src={plus} alt="img-err" className="w-3" />
-          </div>
+        <div className="w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
+          {list1.map((obj, index) => {
+            return (
+              <ExtraInfoSection
+                key={index}
+                title={obj.title}
+                body={obj.body}
+                isOpen={index === 0}
+              />
+            );
+          })}
         </div>
       </div>
       <div>
