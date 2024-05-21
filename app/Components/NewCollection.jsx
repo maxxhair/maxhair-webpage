@@ -1,12 +1,16 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { firaSansMedium } from "../util/fonts";
 import ProductCard from "./ProductCard";
 import NewCollectionMobile from "./_newcollection/NewCollectionMobile";
 
 const Example = () => {
+  //productCard used
+
+  //set varieties from api
+  const [varieties, setVarieties] = useState(40);
   const cards = Array(4).fill();
 
   const targetRef = useRef(null);
@@ -31,7 +35,7 @@ const Example = () => {
                 <div
                   className={`flex flex-col gap-[10px] ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small text-[#FAFAFA]`}
                 >
-                  <span>40+</span>
+                  <span>{varieties}+</span>
                   <span>Varieties</span>
                 </div>
               </div>

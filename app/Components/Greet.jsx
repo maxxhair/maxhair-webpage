@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { firaSans, firaSansLight } from "../util/fonts";
 import Calc from "./_greet/Calc";
 
@@ -24,9 +25,12 @@ function Greet() {
             Transform Your Look with Luxurious Hair Extensions, Unleash Your
             Beauty!
           </p>
-          <button className="uppercase flyouts-right bg-[#F9F6F3] text-[#242424] px-[20px] py-[10px] font-[600] lg:body-large md:body-medium body-small">
+          <Link
+            href="shop"
+            className="uppercase flyouts-right bg-[#F9F6F3] text-[#242424] px-[20px] py-[10px] font-[600] lg:body-large md:body-medium body-small"
+          >
             shop now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

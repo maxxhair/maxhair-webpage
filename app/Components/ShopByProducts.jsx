@@ -50,6 +50,7 @@ function ShopByProducts() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  //update the list variable with api data
   const list = Array(9)
     .fill()
     .map(() => ({

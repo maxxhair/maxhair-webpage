@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 function Coupon() {
+  //set both of these values with api
   const [coupon, setCoupon] = useState("WELCOME40");
   const [offer, setOffer] = useState(40);
   const [{ x, y }, setPosition] = useState({ x: 0, y: 0 });

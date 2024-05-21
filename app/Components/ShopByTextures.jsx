@@ -15,17 +15,22 @@ function ShopByTextures() {
 
   const handlePrev = useCallback(() => {
     sliderRef.current.swiper.slidePrev();
+    setSelected((selected) =>
+      selected - 1 === -1 ? list.length - 1 : selected - 1
+    );
   }, []);
 
   const handleNext = useCallback(() => {
     sliderRef.current.swiper.slideNext();
+    setSelected((selected) => (selected + 1) % list.length);
   }, []);
 
-  const list = Array(9)
+  //replace the below with api data
+  const list = Array(4)
     .fill()
     .map(() => ({
       name: "Yaki Curly",
-      details: "",
+      details: "Lorem ipsum dolor sit amet consectetur. Etiam",
       link: "",
       image: prodimg,
     }));
@@ -48,9 +53,6 @@ function ShopByTextures() {
             },
           }}
           className="h-[750px]"
-          onActiveIndexChange={(swiper) => {
-            setSelected(swiper.activeIndex);
-          }}
         >
           {list.map((obj, index) => {
             return (
@@ -61,13 +63,16 @@ function ShopByTextures() {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+                onClick={() => {
+                  setSelected(index);
+                }}
               >
                 <div
-                  className={` w-[400px] h-full flex flex-col justify-center `}
+                  className={` w-[400px] h-full flex flex-col justify-center cursor-pointer`}
                 >
                   <div>
                     <Image
-                      src={prodimg}
+                      src={obj.image}
                       alt=""
                       className={`w-full transition-all ${
                         selected === index ? "h-[500px]" : "h-[450px]"
@@ -87,15 +92,15 @@ function ShopByTextures() {
                           : "lg:label-large md:label-medium label-small"
                       }`}
                     >
-                      Bulk Hair
+                      {obj.name}
                     </span>
                     {selected === index && (
                       <>
                         <span className="lg:body-large md:body-medium body-small font-bold text-center text-[#4F4F4F]">
-                          Lorem ipsum dolor sit amet consectetur. Etiam
+                          {obj.details}
                         </span>
                         <Link
-                          href=""
+                          href={obj.link}
                           className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
                         >
                           Buy Now

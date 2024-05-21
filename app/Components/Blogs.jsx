@@ -27,6 +27,7 @@ function Blogs() {
     setSelected((selected) => (selected + 1) % list.length);
   }, []);
 
+  //replace this with data from api
   const list = [
     {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
