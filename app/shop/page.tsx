@@ -11,9 +11,12 @@ import {
   TextureSelect
 } from "../Components/SelectInputs";
 import Link from "next/link";
+import { getProducts } from "../util/serverSideProps";
 
-const Shop = () => {
+const Shop = async () => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  const products = await getProducts();
+
   return (
     <section className="mt-52 w-4/5 mx-auto">
       <div className="flex items-center gap-2 mb-6">
@@ -31,7 +34,7 @@ const Shop = () => {
         at bibendum nulla nulla.
       </p>
       <div className="w-full flex justify-between my-7 relative">
-        <div className="w-[35%] sticky top-28 h-[50vh]">
+        <div className="w-[25%] sticky top-28 h-[50vh]">
           <div className="flex items-center gap-2 my-4">
             <Image src={filtericon} alt="filter" />
             <p className="label-medium font-bold">Filter</p>
@@ -54,8 +57,8 @@ const Shop = () => {
             </select>
           </div>
           <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-y-12">
-            {arr.map((index: number) => (
-              <ProductCard key={index} />
+            {products.map((index: number, item: any) => (
+              <ProductCard key={index} product={item} />
             ))}
           </div>
         </div>

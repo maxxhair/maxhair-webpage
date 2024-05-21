@@ -7,8 +7,13 @@ import { firaSans } from "../util/fonts";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const ProductCard = () => {
+interface Props {
+  product: any;
+}
+
+const ProductCard: React.FC<Props> = ({ product }) => {
   const [hovered, setHovered] = useState(false);
+  console.log("product", product);
   return (
     <Link href="product">
       <div
