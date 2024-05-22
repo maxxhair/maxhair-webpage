@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { persistor, store } from "../store";
 import { PersistGate } from "redux-persist/integration/react";
+import Next13ProgressBar from "next13-progressbar";
 
 type Props = {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ const Providers: React.FC<Props> = ({ children }: Props) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {children}
+        <Next13ProgressBar height="4px" color="#0A2FFF" showOnShallow />
       </PersistGate>
     </Provider>
   );

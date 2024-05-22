@@ -22,7 +22,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     return totalPrice;
   });
 
-  const discount = (40 / 100) * priceTotal;
+  const discount = parseInt(((40 / 100) * priceTotal).toFixed(2));
 
   return (
     <div className="w-full">
@@ -34,9 +34,17 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           placeholder="Discount code or gift card"
           type="text"
           className="w-full bg-white outline-none py-3 px-2 rounded-lg"
+          value={cartItems.length > 0 ? "MAXX40" : ""}
+          defaultValue={"MAXX40"}
         />
-        <button className="bg-transparent px-6 py-3 border border-black rounded-lg">
-          Apply
+        <button
+          className={
+            cartItems.length > 0
+              ? "border px-6 py-3 border-green-400 text-green-400"
+              : "bg-transparent px-6 py-3 border border-black rounded-lg"
+          }
+        >
+          {cartItems.length > 0 ? "Applied" : "Apply"}
         </button>
       </div>
       <div className="">

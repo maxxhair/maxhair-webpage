@@ -87,7 +87,7 @@ function Header() {
         open={cartOpen}
         onClose={handleCartClose}
         position="right"
-        className="md:w-1/2 2xl:w-2/5 bg-[#F2ECE2] pt-16 px-8"
+        className="w-[90%] md:w-3/4 2xl:w-2/5 bg-[#F2ECE2] pt-16 px-8"
       >
         <div className="w-full flex items-center justify-between">
           <p className="headline-small font-medium">Your Cart</p>
