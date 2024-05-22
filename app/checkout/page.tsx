@@ -93,6 +93,7 @@ const Checkout = () => {
         amount: TotalPriceToPay
       });
       setToken(res.data.data.checkoutToken);
+      // @ts-ignore
       appendHelcimPayIframe(res.data.data.checkoutToken);
     } catch (error) {
       console.log(error);
