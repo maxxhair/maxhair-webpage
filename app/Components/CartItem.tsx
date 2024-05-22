@@ -36,9 +36,9 @@ const CartItem: React.FC<Props> = ({ product }) => {
         color: product.color,
         size: product.size,
         type: product.type,
-        texture: product.texture
+        texture: product.texture,
       },
-      count: count
+      count: count,
     };
     dispatch(setCount(payload as any));
   };
@@ -54,23 +54,31 @@ const CartItem: React.FC<Props> = ({ product }) => {
         color: product.color,
         size: product.size as any,
         type: product.type,
-        texture: product.texture
+        texture: product.texture,
       })
     );
   };
 
   return (
-    <div className="my-5 w-full h-48 bg-white p-6 flex justify-between">
-      <div className="flex gap-4">
-        <Image src={product.image} alt="cartProduct" width={115} height={180} />
-        <div className="flex flex-col gap-2">
-          <p className="headline-small">
-            {product.name} - {product.texture}
+    <div className="my-5 w-full h-auto bg-white lg:p-6 md:p-4 p-2 flex lg:flex-row flex-col md:items-center justify-between">
+      <div className="flex gap-4 p-4 w-full">
+        <Image src={productImage} alt="cartProduct" width={115} height={180} />
+        <div className="flex flex-col gap-2 w-full items-center">
+          <p className="lg:headline-small md:title-medium title-small flex lg:flex-row justify-center text-center gap-2 flex-col flex-wrap">
+            <span>{product.name}</span>
+            <span className="lg:block hidden">-</span>
+            <span>{product.texture}</span>
           </p>
-          <p className="label-medium">{product.type}</p>
+          <p className="lg:label-medium md:body-medium body-small">
+            {product.type}
+          </p>
           <div className="flex items-center gap-5">
-            <p className="label-small text-gray-500">Size: {product.size}</p>
-            <p className="label-small text-gray-500">Color: {product.color}</p>
+            <p className="lg:label-small md:body-medium body-small text-gray-500">
+              Size: {product.size}
+            </p>
+            <p className="lg:label-small md:body-medium body-small text-gray-500">
+              Color: {product.color}
+            </p>
           </div>
           <div className="flex items-center gap-6">
             <div
@@ -89,7 +97,7 @@ const CartItem: React.FC<Props> = ({ product }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col h-full justify-between">
+      <div className="flex lg:flex-col lg:w-auto w-full items-center h-full justify-between lg:border-t-0 border-t-2 p-2">
         <p className="label-large">${product.price * product.count}</p>
         <p
           className="label-medium underline cursor-pointer"

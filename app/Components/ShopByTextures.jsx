@@ -57,11 +57,11 @@ function ShopByTextures() {
           loop
           breakpoints={{
             750: {
-              slidesPerView: 2
+              slidesPerView: 2,
             },
             1440: {
-              slidesPerView: 3
-            }
+              slidesPerView: 3,
+            },
           }}
           className="h-[750px]"
         >
@@ -72,7 +72,7 @@ function ShopByTextures() {
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
                 onClick={() => {
                   setSelected(index);
@@ -83,7 +83,8 @@ function ShopByTextures() {
                 >
                   <div>
                     <Image
-                      src={obj?.image_url || prodimg}
+                      // src={obj?.image_url || prodimg}
+                      src={prodimg}
                       alt=""
                       width={400}
                       height={selected === index ? 500 : 450}
