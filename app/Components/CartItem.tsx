@@ -59,6 +59,10 @@ const CartItem: React.FC<Props> = ({ product }) => {
     );
   };
 
+  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+
+  const imageUrl = `${baseUrl}/${product.image}`;
+
   return (
     <div className="my-5 w-full h-48 bg-white p-6 flex justify-between">
       <div className="flex gap-4">

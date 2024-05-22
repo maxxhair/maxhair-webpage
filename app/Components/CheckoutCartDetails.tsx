@@ -29,6 +29,7 @@ const CheckoutCartDetails = () => {
         <input
           placeholder="Discount code or gift card"
           type="text"
+          readOnly
           className="w-full bg-white outline-none py-3 px-2 rounded-lg"
           value={cartProducts.length > 0 ? "MAXX40" : ""}
         />

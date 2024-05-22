@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import Cart from "../Components/Cart";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import { productImage } from "../util/images";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, TextInput } from "flowbite-react";
+import axiosInstance from "../util/axiosInstance";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 interface CheckoutFormData {
   name: string;
@@ -19,14 +20,83 @@ interface CheckoutFormData {
 
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
+  const [token, setToken] = useState(null);
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const priceTotal = useSelector((state: RootState) => {
+    const cartItems = state.cart.cartItems;
+    let totalPrice = 0;
+    if (cartItems.length > 0) {
+      cartItems.map((item) => (totalPrice += item.price * item.count));
+    }
+    return totalPrice;
+  });
+
+  const discount = parseInt(((40 / 100) * priceTotal).toFixed(2));
+
+  const TotalPriceToPay = priceTotal - discount;
+
+  useEffect(() => {
+    const handlePaymentMessage = async (event: MessageEvent) => {
+      if (token) {
+        const helcimPayJsIdentifierKey = "helcim-pay-js-" + token;
+
+        if (event.data.eventName === helcimPayJsIdentifierKey) {
+          if (event.data.eventStatus === "ABORTED") {
+            console.error("Transaction failed!", event.data.eventMessage);
+          }
+
+          if (event.data.eventStatus === "SUCCESS") {
+            console.log("Transaction success!", event.data);
+            const response = JSON.parse(event.data.eventMessage);
+            console.log(response);
+            const body = {
+              items: cartItems,
+              total: TotalPriceToPay,
+              name: checkoutFormData.name,
+              email: checkoutFormData.email,
+              phone: checkoutFormData.phone,
+              address: checkoutFormData.address,
+              landmark: checkoutFormData.landmark,
+              zipCode: checkoutFormData.zip,
+              transactionId: response.data.data.transactionId
+            };
+            try {
+              const res = await axiosInstance.post("orders", body);
+              console.log("res", res);
+              window.location.reload();
+              window.location.href = "/shop";
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+      }
+    };
+
+    window.addEventListener("message", handlePaymentMessage);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("message", handlePaymentMessage);
+    };
+  }, [token]);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(checkoutFormData);
+    try {
+      const res = await axiosInstance.post("payments/get_tokens", {
+        amount: TotalPriceToPay
+      });
+      setToken(res.data.data.checkoutToken);
+      appendHelcimPayIframe(res.data.data.checkoutToken);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

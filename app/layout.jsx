@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import { prompt } from "./util/fonts";
 import "./globals.css";
 
@@ -18,6 +19,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
+        <script
+          type="text/javascript"
+          src="https://secure.helcim.app/helcim-pay/services/start.js"
+        ></script>
       </head>
       <body className={`${prompt.className}`}>
         <Providers>

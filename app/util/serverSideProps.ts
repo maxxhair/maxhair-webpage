@@ -16,3 +16,13 @@ export const getProduct = async (id) => {
     console.log(error);
   }
 };
+
+export const getVariantsByProductId = async (productId: string) => {
+  console.log("productId", productId);
+  try {
+    const response = await axiosInstance.get(
+      `variants/filter?products=${productId}`
+    );
+    return response.data.data;
+  } catch (error) {}
+};

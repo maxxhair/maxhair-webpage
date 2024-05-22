@@ -26,18 +26,25 @@ import {
   typeOpts
 } from "../../util/staticData";
 import Rating from "../../Components/Rating";
-import { getProduct, getProducts } from "../../util/serverSideProps";
+import {
+  getProduct,
+  getProducts,
+  getVariantsByProductId
+} from "../../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, setCount } from "../../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { ProductStoreType } from "../../types";
 import { AppDispatch, RootState } from "../../store";
+import axiosInstance from "../../util/axiosInstance";
 
 interface Product {
   id: string;
   title: string;
   price: number;
+  sku: string;
   product: {
+    _id: string;
     title: string;
     images: [];
     category: {
@@ -63,6 +70,28 @@ interface Product {
   };
 }
 
+interface Variant {
+  _id: string;
+  sku: string;
+  color: {
+    _id: string;
+    color: string;
+  };
+  type: {
+    _id: string;
+    title: string;
+  };
+  texture: {
+    _id: string;
+    title: string;
+    image: string;
+  };
+  size: {
+    _id: string;
+    size: number;
+  };
+}
+
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
   subsets: ["latin"]
@@ -75,39 +104,16 @@ const prompt = Prompt({
 
 export default function Page() {
   const { id } = useParams();
-  const [selectedSize, setSize] = useState(null);
-  const [selectedColor, setColor] = useState(null);
-  const [selectedType, setType] = useState(null);
-  const [selectedTexture, setTexture] = useState(null);
-  const [selectedQuantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch<AppDispatch>();
-  const usercart = useSelector((state: RootState) => state.cart.cartItems);
-
-  const add = (product: Product) => {
-    const productToSave: ProductStoreType = {
-      id: id as string,
-      name: product.product.title,
-      image: product.product.images ? product.product.images[0] : "",
-      price: product.price,
-      count: selectedQuantity,
-      color: selectedColor,
-      size: selectedSize,
-      type: selectedType,
-      texture: selectedTexture
-    };
-
-    const productStore = {
-      count: selectedQuantity,
-      product: productToSave
-    };
-
-    dispatch(addProduct(productStore));
-  };
 
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState<Product>();
+  const [productId, setProductId] = useState();
   const [loading, setLoading] = useState(true);
+  const [variants, setVariants] = useState([]);
+
+  const [selectedQuantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -120,10 +126,12 @@ export default function Page() {
         setLoading(false);
       }
     };
-    const fetchProduct = async (id) => {
+
+    const fetchProduct = async (id: string) => {
       try {
         const data = await getProduct(id);
         setProduct(data);
+        setProductId(data.product._id);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -131,20 +139,103 @@ export default function Page() {
       }
     };
 
-    fetchProduct(id);
+    fetchProduct(id as string);
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (productId) {
+      const fetchProductVariants = async () => {
+        try {
+          const data = await getVariantsByProductId(productId);
+          setVariants(data);
+          console.log("response", data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchProductVariants();
+    }
+  }, [productId]);
+
+  useEffect(() => {
+    if (product) {
+      setSize(product.size.size);
+      setColor(product.color.color);
+      setType(product.type?.title);
+      setTexture(product.texture?.title ?? "straight");
+    }
+  }, [product]);
+
+  const [selectedSize, setSize] = useState(product?.size?.size || null);
+  const [selectedColor, setColor] = useState(product?.color.color || null);
+  const [selectedType, setType] = useState(product?.type?.title || null);
+  const [selectedTexture, setTexture] = useState(
+    product?.texture?.title || null
+  );
+  const [filteredVariant, setFilteredVariant] = useState(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const imageUrl =
-    product.product.images && product.product.images.length > 0
-      ? `${baseUrl}/${product.product.images[0]}`
+    product?.product?.images && product?.product?.images.length > 0
+      ? `${baseUrl}/${product?.product?.images[0]}`
       : prodimg;
+
+  const add = (product: Product) => {
+    const productToSave: ProductStoreType = {
+      id: id as string,
+      name: product.product.title,
+      image: imageUrl,
+      price: product.price,
+      count: selectedQuantity,
+      color: selectedColor,
+      size: selectedSize as any,
+      type: selectedType,
+      texture: selectedTexture
+    };
+
+    const productStore = {
+      count: selectedQuantity,
+      product: productToSave
+    };
+
+    dispatch(addProduct(productStore));
+  };
+
+  const getFilteredVariant = () => {
+    if (
+      selectedSize !== null &&
+      selectedColor !== null &&
+      selectedTexture !== null &&
+      selectedType !== null &&
+      variants.length > 0
+    ) {
+      return variants.filter(
+        (variant) =>
+          variant.size.size === selectedSize &&
+          variant.color.color === selectedColor &&
+          (variant.type.title as string).toLowerCase() ===
+            (selectedType as string).toLowerCase() &&
+          (variant.texture.title as string).toLowerCase() ===
+            (selectedTexture as string).toLowerCase()
+      );
+    } else {
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const newFilteredVariant = getFilteredVariant();
+    setFilteredVariant(newFilteredVariant);
+  }, [selectedSize, selectedColor, selectedType, selectedTexture]);
+
+  console.log(selectedSize, selectedColor, selectedType, selectedTexture);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     product && (
@@ -175,9 +266,16 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error" />
             <Image src={productImage5} alt="product-image-error" />
           </div>
-          <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0 sticky top-10 h-[180vh]">
+          <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0">
             <p className="text-sm font-semibold ">
-              Home - {product.product.title}
+              Home - {product.product.title}{" "}
+              <span className="font-normal text-sm">
+                (only{" "}
+                {filteredVariant && filteredVariant[0]?.sku
+                  ? filteredVariant[0]?.sku
+                  : product.sku}{" "}
+                left)
+              </span>
             </p>
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className=" mt-2">
@@ -186,7 +284,7 @@ export default function Page() {
                   onClick={() => setSize(size)}
                   className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
                     selectedSize === size
-                      ? "bg-[#E3D6C5] text-[#A47252]"
+                      ? "!bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
                   }`}
                   key={size}
@@ -272,13 +370,30 @@ export default function Page() {
                     +
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-                  onClick={() => add(product)}
-                >
-                  ADD TO CART ($ {product.price} )
-                </button>
+                {parseInt(product.sku) > 0 ? (
+                  <button
+                    type="submit"
+                    className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
+                    onClick={() => add(product)}
+                  >
+                    ADD TO CART (${" "}
+                    {filteredVariant && filteredVariant[0]?.price
+                      ? filteredVariant[0].price
+                      : product.price}{" "}
+                    )
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
+                  >
+                    PLACE ORDER (${" "}
+                    {filteredVariant && filteredVariant[0]?.price
+                      ? filteredVariant[0].price
+                      : product.price}{" "}
+                    )
+                  </button>
+                )}
               </div>
             </div>
             <div className="flex mt-4 border  border-neutral-200 rounded">

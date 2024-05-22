@@ -14,6 +14,7 @@ import {
 } from "../Components/SelectInputs";
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
+import { Spinner } from "flowbite-react";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -22,8 +23,10 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true);
         const data = await getProducts();
         setProducts(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -35,7 +38,11 @@ const Shop = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <Spinner aria-label="Default status example" />
+      </div>
+    );
   }
 
   return (
@@ -78,7 +85,7 @@ const Shop = () => {
             </select>
           </div>
           <div className="w-full mt-40 lg:mt-0 grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-y-12">
-            {products.map((product: any) => (
+            {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
           </div>

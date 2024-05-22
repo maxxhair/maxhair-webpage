@@ -46,8 +46,8 @@ const ProductCard: React.FC<Props> = ({ item }) => {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const imageUrl =
-    item.product.images && item.product.images.length > 0
-      ? `${baseUrl}/${item.product.images[0]}`
+    item?.product?.images && item?.product?.images.length > 0
+      ? `${baseUrl}/${item?.product?.images[0]}`
       : prodimg;
 
   return (
@@ -68,15 +68,15 @@ const ProductCard: React.FC<Props> = ({ item }) => {
         <p
           className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold`}
         >
-          {item.product.title}
+          {item.product?.title}
         </p>
         <p className="align-middle justify-center flex font-semibold ">
           ${item.price}
         </p>
 
         <div className="flex justify-between  text-sm px-3">
-          <p>{item.product.category.title}</p>
-          <p>{item.type.title}</p>
+          <p>{item.product?.category?.title}</p>
+          <p>{item.type?.title}</p>
         </div>
         {hovered && (
           <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10">
