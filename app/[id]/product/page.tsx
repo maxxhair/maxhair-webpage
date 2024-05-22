@@ -13,7 +13,7 @@ import {
   productImage2,
   productImage3,
   productImage4,
-  productImage5
+  productImage5,
 } from "../../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../../Components/ExtraInfoSection";
@@ -21,16 +21,20 @@ import {
   colorOpts,
   list1,
   sizeOpts,
+  staticImages,
   textureOpts,
-  typeOpts
+  typeOpts,
 } from "../../util/staticData";
 import Rating from "../../Components/Rating";
 import { getProduct, getProducts } from "../../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../store/redux/cartSlice";
+import { addProduct, setCount } from "../../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { ProductStoreType } from "../../types";
 import { AppDispatch, RootState } from "../../store";
+import StockCard from "../../Components/StockCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Pagination } from "swiper/modules";
 
 interface Product {
   id: string;
@@ -64,12 +68,12 @@ interface Product {
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 export default function Page() {
@@ -83,8 +87,6 @@ export default function Page() {
   const dispatch = useDispatch<AppDispatch>();
   const usercart = useSelector((state: RootState) => state.cart.cartItems);
 
-  console.log("cartItems", usercart);
-
   const add = (product: Product) => {
     const productToSave: ProductStoreType = {
       id: id as string,
@@ -95,15 +97,13 @@ export default function Page() {
       color: selectedColor,
       size: selectedSize,
       type: selectedType,
-      texture: selectedTexture
+      texture: selectedTexture,
     };
 
     const productStore = {
       count: selectedQuantity,
-      product: productToSave
+      product: productToSave,
     };
-
-    console.log("productStore", productStore);
 
     dispatch(addProduct(productStore));
   };
@@ -138,12 +138,34 @@ export default function Page() {
     fetchProducts();
   }, []);
 
+  const setProductCount = (count: number) => {
+    if (count <= 0) {
+      return;
+    }
+
+    const payload = {
+      product: {
+        id: id as string,
+        name: product.product.title,
+        image: product.product.images ? product.product.images[0] : "",
+        price: product.price,
+        count: selectedQuantity,
+        color: selectedColor,
+        size: selectedSize,
+        type: selectedType,
+        texture: selectedTexture,
+      },
+      count: selectedQuantity,
+    };
+
+    console.log(payload);
+
+    // dispatch(setCount(payload));
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  // console.log(products, "prods");
-  // console.log(product, "prod");
 
   return (
     product && (
@@ -152,6 +174,40 @@ export default function Page() {
       >
         <div className="md:flex flex-row inline">
           <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
+            {/* <Swiper
+              // slidesPerView={4}
+              spaceBetween={30}
+              freeMode={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[FreeMode, Pagination]}
+              className="mySwiper"
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                },
+
+                760: {
+                  slidesPerView: 2,
+                },
+
+                900: {
+                  slidesPerView: 3,
+                },
+                1200: {
+                  slidesPerView: 4,
+                },
+              }}
+            >
+              {staticImages.slice(0, 4).map((item) => {
+                return (
+                  <SwiperSlide key={"hello"}>
+                    <Image src={item} alt="product-image-error" />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper> */}
             <Image
               src={product.product.images[0]}
               alt="product-image-error"
@@ -174,16 +230,17 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error" />
             <Image src={productImage5} alt="product-image-error" />
           </div>
-          <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0 sticky top-10 h-[180vh]">
-            <p className="text-sm font-semibold ">
+          <div className="md:w-1/2 p-16 pl-8 sm:m-auto text-xs xl:text-sm xl:m-0 lg:sticky lg:top-10 lg:h-[180vh]">
+            <p className="text-sm font-semibold mb-4">
               Home - {product.product.title}
             </p>
+            <StockCard image={productImage1} />
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className=" mt-2">
               {sizeOpts?.map((size) => (
                 <button
                   onClick={() => setSize(size)}
-                  className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                  className={` w-10 h-10 m-1.5 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5  ${
                     selectedSize === size
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -199,7 +256,7 @@ export default function Page() {
               {colorOpts?.map((color) => (
                 <button
                   onClick={() => setColor(color)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${
                     selectedColor === color
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -215,7 +272,7 @@ export default function Page() {
               {typeOpts?.map((type) => (
                 <button
                   onClick={() => setType(type)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
                     selectedType === type
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -231,7 +288,7 @@ export default function Page() {
               {textureOpts?.map((texture) => (
                 <button
                   onClick={() => setTexture(texture)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
                     selectedTexture === texture
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -244,7 +301,7 @@ export default function Page() {
             </div>
             <div className="flex space-x-3 mt-4">
               <Image src={deliveryImg} alt="img-err" />
-              <p className=" sm:mt-1 ">Free Delivery & Easy Returns</p>
+              <p className=" mt-1 ">Free Delivery & Easy Returns</p>
             </div>
             <div className="sm:review-card mt-8">
               {(selectedSize === null ||
@@ -257,11 +314,17 @@ export default function Page() {
               )}
               <div className="flex ">
                 <div className="flex items-center gap-6 m-3">
-                  <div className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl">
+                  <div
+                    className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+                    onClick={() => setProductCount(selectedQuantity - 1)}
+                  >
                     -
                   </div>
                   <p className="label-medium">1</p>
-                  <div className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl">
+                  <div
+                    className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+                    onClick={() => setProductCount(selectedQuantity + 1)}
+                  >
                     +
                   </div>
                 </div>
@@ -269,21 +332,12 @@ export default function Page() {
                   type="submit"
                   className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
                   onClick={() => add(product)}
-                  // onClick={() => {
-                  //   if (
-                  //     selectedSize !== null &&
-                  //     selectedColor !== null &&
-                  //     selectedTexture !== null &&
-                  //     selectedType !== null
-                  //   )
-                  //     add;
-                  // }}
                 >
                   ADD TO CART ($ {product.price} )
                 </button>
               </div>
             </div>
-            <div className="flex mt-4 border  border-neutral-200 rounded">
+            <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
               <Image src={logo} alt="img-err" className="m-3 w-16" />
               <p className="text-sm p-5 font-semibold">
                 Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
@@ -325,7 +379,7 @@ export default function Page() {
           </div>
         </div>
         <div className="md:flex mt-10 sm:inline">
-          <div className=" lg:w-5/12 lg:p-8 lg:pr-32 font-semibold sm:w-screen sm:p-12 mt-4">
+          <div className=" lg:w-5/12 lg:p-8  font-semibold m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -333,7 +387,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
+          <div className="lg:w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
@@ -347,7 +401,9 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8">
-          <p className={`${firaSans.className} text-3xl mt-10 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-10 font-bold`}
+          >
             Most Popular
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -357,7 +413,9 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8">
-          <p className={`${firaSans.className} text-3xl mt-8 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-8 font-bold`}
+          >
             Repeat Orders
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -367,21 +425,27 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8 text-sm">
-          <p className={`${firaSans.className} text-3xl mt-16 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
+          >
             Customer Reviews
           </p>
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div className="flex mt-8 ">
-              <p className={`${firaSans.className} text-5xl font-bold mt-2`}>
+              <p
+                className={`${firaSans.className} text-3xl lg:text-5xl font-bold mt-2`}
+              >
                 4.9
               </p>
               <Rating count={5} value={5} className="m-2 mt-auto" />
-              <p className="m-2 mt-auto">Based on 1611 3 reviews</p>
+              <p className="m-2 mt-auto text-xs lg:text-sm">
+                Based on 1611 3 reviews
+              </p>
             </div>
 
             <button
               type="submit"
-              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto "
+              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm "
             >
               Write A Review
             </button>

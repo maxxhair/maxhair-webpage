@@ -18,7 +18,7 @@ const indexSameProduct = (
   console.log(action, "action");
   const sameProduct = (product: ProductStoreType) =>
     // console.log(product, "prodfasdfd");
-    product.id === action.id &&
+    product?.id === action.id &&
     product.color === action.color &&
     product.size === action.size &&
     product.type === action.type &&
@@ -68,5 +68,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setOpenCart, setCloseCart, addProduct } = cartSlice.actions;
+export const {
+  setOpenCart,
+  setCloseCart,
+  addProduct,
+  setCount,
+  removeProduct,
+} = cartSlice.actions;
 export default cartSlice.reducer;

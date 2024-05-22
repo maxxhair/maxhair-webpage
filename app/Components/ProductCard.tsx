@@ -66,7 +66,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
         <p
           className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold`}
         >
-          {item.product.title} | {item.texture.title}
+          {item.product.title}
         </p>
         <p className="align-middle justify-center flex font-semibold ">
           ${item.price}

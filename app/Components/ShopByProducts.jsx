@@ -88,7 +88,7 @@ function ShopByProducts() {
         Shop By Products
       </span>
 
-      <div className="  w-full relative ">
+      <div className="w-full relative ">
         <Swiper
           ref={sliderRef}
           spaceBetween={40}
@@ -105,7 +105,7 @@ function ShopByProducts() {
                   key={index}
                   style={{
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: "center"
                   }}
                 >
                   <div className="flex gap-[20px] justify-center items-center flex-wrap h-[calc(465px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
@@ -116,7 +116,7 @@ function ShopByProducts() {
                             name={list[ele].title}
                             category={list[ele].category.title}
                             link={"shop"}
-                            image={list[ele].images[0]}
+                            image={list[ele].images[0] || prodimg}
                           />
                         </React.Fragment>
                       );
