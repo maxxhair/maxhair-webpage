@@ -88,7 +88,7 @@ function ShopByProducts() {
 
       <div className="  w-full relative ">
         <Swiper
-          ref={sliderRef}
+          ref={sliderRefSbp}
           spaceBetween={40}
           slidesPerView={1}
           slidesPerGroup={1}
