@@ -71,7 +71,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="max-w-sm md:max-w-md lg:max-w-xl">
+    <div className="max-lg:m-auto w-full max-w-sm  md:max-w-md xl:max-w-xl">
       <h2
         className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
       >

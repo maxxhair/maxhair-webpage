@@ -50,7 +50,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className=" max-w-sm">
+    <div className="max-lg:m-auto max-w-sm">
       <div>
         <h2
           className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
