@@ -4,22 +4,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { firaSans, firaSansMedium } from "../util/fonts";
 import { useCallback, useRef, useState } from "react";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 
 function Reviews() {
   const [selected, setSelected] = useState(0);
-
-  const sliderRef = useRef(null);
-
-  const handlePrev = useCallback(() => {
-    sliderRef.current.swiper.slidePrev();
-    setSelected((selected) =>
-      selected - 1 === -1 ? list.length - 1 : selected - 1
-    );
-  }, []);
-
-  const handleNext = useCallback(() => {
-    sliderRef.current.swiper.slideNext();
-    setSelected((selected) => (selected + 1) % list.length);
+  const sliderRefReviews = useRef(null);
+  const handleSlideChange = useCallback(() => {
+    const swiper = sliderRefReviews.current.swiper;
+    setSelected(swiper.realIndex);
   }, []);
 
   //change list with the data from api
@@ -60,11 +52,26 @@ function Reviews() {
 
       <div className=" xl:w-[70%] lg:w-[90%] w-full relative ">
         <Swiper
-          ref={sliderRef}
+          ref={sliderRefReviews}
           spaceBetween={40}
           slidesPerView={1}
           slidesPerGroup={1}
-          loop
+          effect="coverflow"
+          centeredSlides={true}
+          modules={[EffectCoverflow, Navigation]}
+          navigation={{
+            nextEl: ".swiper-next-button-reviews",
+            prevEl: ".swiper-prev-button-reviews",
+          }}
+          initialSlide={1}
+          coverflowEffect={{
+            rotate: 0, // Rotate angle in degrees
+            stretch: 0, // Stretch space between slides
+            depth: 50, // Depth of the slide shadow
+            modifier: 2.5, // Effect multiplier
+            slideShadows: false,
+          }}
+          onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
               slidesPerView: 2,
@@ -128,14 +135,22 @@ function Reviews() {
         </Swiper>
         <div className="w-full flex justify-end gap-[10px] mt-[20px]">
           <button
-            className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-            onClick={handlePrev}
+            className={`swiper-prev-button-reviews h-[60px] w-[60px] flex justify-center items-center ${
+              selected === 0
+                ? "bg-[#F2ECE2] text-[#242424] "
+                : "bg-[#242424] text-[#F2ECE2] "
+            }`}
+            disabled={selected === 0}
           >
             {"<"}
           </button>
           <button
-            className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-            onClick={handleNext}
+            className={`swiper-next-button-reviews h-[60px] w-[60px] flex justify-center items-center ${
+              selected === list.length - 1
+                ? "bg-[#F2ECE2] text-[#242424] "
+                : "bg-[#242424] text-[#F2ECE2] "
+            }`}
+            disabled={selected === list.length - 1}
           >
             {">"}
           </button>
