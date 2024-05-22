@@ -14,12 +14,12 @@ function Card({ name, category, link, image }) {
         <Image src={imageUrl} alt="" width={150} height={200} />
       </div>
       <span
-        className={`${firaSans.className} lg:label-large md:label-medium label-small`}
+        className={`${firaSans.className} lg:label-large md:label-medium label-small py-3`}
       >
         {name}
       </span>
       <span
-        className={`${firaSans.className} lg:body-large md:body-medium body-small`}
+        className={`${firaSans.className} lg:body-large md:body-medium body-small pb-2`}
       >
         {category}
       </span>
