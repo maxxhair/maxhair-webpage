@@ -46,7 +46,7 @@ interface Product {
   product: {
     _id: string;
     title: string;
-    images: [];
+    images: string[];
     category: {
       _id: string;
       title: string;
@@ -178,7 +178,7 @@ export default function Page() {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const imageUrl =
-    product?.product?.images && product?.product?.images.length > 0
+    product?.product?.images && product?.product?.images?.length > 0
       ? `${baseUrl}/${product?.product?.images[0]}`
       : prodimg;
 
