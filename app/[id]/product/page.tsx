@@ -13,7 +13,8 @@ import {
   productImage2,
   productImage3,
   productImage4,
-  productImage5
+  productImage5,
+  prodimg
 } from "../../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../../Components/ExtraInfoSection";
@@ -138,6 +139,13 @@ export default function Page() {
     return <div>Loading...</div>;
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+
+  const imageUrl =
+    product.product.images && product.product.images.length > 0
+      ? `${baseUrl}/${product.product.images[0]}`
+      : prodimg;
+
   return (
     product && (
       <div
@@ -146,7 +154,7 @@ export default function Page() {
         <div className="md:flex flex-row inline">
           <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
             <Image
-              src={product.product.images[0]}
+              src={imageUrl}
               alt="product-image-error"
               width={500}
               height={500}
