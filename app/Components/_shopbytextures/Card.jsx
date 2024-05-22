@@ -3,7 +3,6 @@ import Image from "next/image";
 import { firaSans } from "../../util/fonts";
 
 function Card({ obj, selected, index }) {
-  console.log(obj);
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const imageUrl =

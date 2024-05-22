@@ -57,7 +57,7 @@ function ShopByProducts() {
       }
     };
 
-    // getRequest();
+    getRequest();
     updateFunction();
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -78,6 +78,7 @@ function ShopByProducts() {
     return <div>Loading...</div>;
   }
 
+  console.log(list);
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center  w-full px-[30px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
