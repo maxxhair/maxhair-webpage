@@ -14,7 +14,11 @@ export default function Page() {
         />
       </div>
       <div className="w-full lg:w-1/2 pt-24 lg:pl-16 ">
-        <Image src={logo} alt="logo-error" className="max-lg:m-auto" />
+        <Image
+          src={logo}
+          alt="logo-error"
+          className="max-lg:m-auto h-24 w-1/2"
+        />
         <LoginForm />
       </div>
     </div>
