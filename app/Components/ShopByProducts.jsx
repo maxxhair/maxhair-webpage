@@ -57,7 +57,7 @@ function ShopByProducts() {
       }
     };
 
-    getRequest();
+    // getRequest();
     updateFunction();
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -69,8 +69,8 @@ function ShopByProducts() {
   // const list = Array(9)
   //   .fill()
   //   .map(() => ({
-  //     name: "Yaki Curly",
-  //     category: "1",
+  //     title: "Yaki Curly",
+  //     category: { title: "1" },
   //     link: "",
   //     image: prodimg,
   //   }));

@@ -92,9 +92,6 @@ function Reviews() {
                   justifyContent: "flex-start",
                   alignItems: "start",
                 }}
-                onClick={() => {
-                  setSelected(index);
-                }}
               >
                 <div
                   className={` ${
@@ -103,7 +100,7 @@ function Reviews() {
                       : "text-[#242424] bg-[#F9F6F3] lg:h-[600px] md:h-[400px] h-[300px] "
                   } ${
                     firaSans.className
-                  } cursor-pointer lg:label-large md:label-medium label-small transition-all w-full flex flex-col gap-[20px] justify-between items-center px-[30px]  py-[30px]`}
+                  } lg:label-large md:label-medium label-small transition-all w-full flex flex-col gap-[20px] justify-between items-center px-[30px]  py-[30px]`}
                 >
                   <span className={`${selected !== index && "line-clamp-4"}`}>
                     {obj.review}
