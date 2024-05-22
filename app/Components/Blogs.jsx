@@ -1,9 +1,10 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
-
+import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
 import Image from "next/image";
 import { sample1 } from "../util/images";
 import Link from "next/link";
@@ -11,22 +12,14 @@ import { firaSans, firaSansMedium } from "../util/fonts";
 import { useCallback, useRef, useState } from "react";
 
 function Blogs() {
-  const [selected, setSelected] = useState(0);
-
-  const sliderRef = useRef(null);
-
-  const handlePrev = useCallback(() => {
-    sliderRef.current.swiper.slidePrev();
-    setSelected((selected) =>
-      selected - 1 === -1 ? list.length - 1 : selected - 1
-    );
+  const [selected, setSelected] = useState(1);
+  const sliderRefBlogs = useRef(null);
+  const handleSlideChange = useCallback(() => {
+    const swiper = sliderRefBlogs.current.swiper;
+    setSelected(swiper.realIndex);
   }, []);
 
-  const handleNext = useCallback(() => {
-    sliderRef.current.swiper.slideNext();
-    setSelected((selected) => (selected + 1) % list.length);
-  }, []);
-
+  //replace this with data from api
   const list = [
     {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
@@ -55,7 +48,7 @@ function Blogs() {
   ];
 
   return (
-    <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center w-full px-[20px] py-[20px] md:gap-[40px] gap-[20px]">
+    <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center w-full px-[20px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
         className={`${firaSansMedium.className} font-[700] lg:headline-large md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >
@@ -88,14 +81,22 @@ function Blogs() {
           </div>
           <div className="w-full flex justify-end gap-[10px]">
             <button
-              className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-              onClick={handlePrev}
+              className={`swiper-prev-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
+                selected === 0
+                  ? "bg-[#F2ECE2] text-[#242424] "
+                  : "bg-[#242424] text-[#F2ECE2] "
+              }`}
+              disabled={selected === 0}
             >
               {"<"}
             </button>
             <button
-              className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-              onClick={handleNext}
+              className={`swiper-next-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
+                selected === list.length - 1
+                  ? "bg-[#F2ECE2] text-[#242424] "
+                  : "bg-[#242424] text-[#F2ECE2] "
+              }`}
+              disabled={selected === list.length - 1}
             >
               {">"}
             </button>
@@ -104,11 +105,26 @@ function Blogs() {
       </div>
       <div className=" xl:w-[70%] lg:w-[90%] w-full relative  ">
         <Swiper
-          ref={sliderRef}
+          ref={sliderRefBlogs}
+          initialSlide={1}
+          effect="coverflow"
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 0,
+            modifier: 2.5,
+            slideShadows: false,
+          }}
           spaceBetween={10}
           slidesPerView={1}
-          slidesPerGroup={1}
-          loop
+          // loop
+          centeredSlides={true}
+          modules={[Navigation, EffectCoverflow]}
+          navigation={{
+            nextEl: ".swiper-next-button-blogs",
+            prevEl: ".swiper-prev-button-blogs",
+          }}
+          onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
               slidesPerView: 2,
@@ -130,16 +146,13 @@ function Blogs() {
                   justifyContent: "flex-start",
                   alignItems: "center",
                 }}
-                onClick={() => {
-                  setSelected(index);
-                }}
               >
                 <div
                   className={` ${
                     selected === index
                       ? "bg-[#242424] text-[#F2ECE2]"
                       : "text-[#242424] bg-white"
-                  } cursor-pointer lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2`}
+                  }  lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2`}
                 >
                   <Image
                     src={obj.image}

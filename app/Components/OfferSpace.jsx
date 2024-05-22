@@ -12,7 +12,7 @@ function OfferSpace() {
       <span
         className={`${firaSansLight.className} font-thin md:w-[80%] w-[90%] lg:display-large md:display-medium display-small  flex justify-center`}
       >
-        Lorem ipsum dolor sit amet consectetur. Etiam
+        Your Shortcut to Stunning Styles, Now with Exclusive Coupons!
       </span>
       <Coupon />
     </div>

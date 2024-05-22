@@ -1,15 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { persistor, store } from "../store";
+import { PersistGate } from "redux-persist/integration/react";
+import Next13ProgressBar from "next13-progressbar";
 
-type ProvidersProps = {
+type Props = {
   children: React.ReactNode;
 };
 
-const Providers: React.FC<ProvidersProps> = ({ children }: ProvidersProps) => {
-  return <Provider store={store}>{children}</Provider>;
+const Providers: React.FC<Props> = ({ children }: Props) => {
+  useEffect(() => {
+    const unsubscribe = persistor.subscribe(() => {
+      const state = persistor.getState();
+      console.log("Persistor state:", state);
+    });
+    return unsubscribe;
+  }, []);
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+        <Next13ProgressBar height="4px" color="#0A2FFF" showOnShallow />
+      </PersistGate>
+    </Provider>
+  );
 };
 
 export default Providers;
