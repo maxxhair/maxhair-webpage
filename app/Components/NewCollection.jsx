@@ -62,7 +62,7 @@ const Example = () => {
             </div>
 
             <motion.div style={{ x }} className="flex gap-4">
-              {products.slice(0, 4).map((product, index) => {
+              {products?.slice(0, 4).map((product, index) => {
                 return (
                   <div
                     key={index}

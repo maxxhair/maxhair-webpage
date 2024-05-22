@@ -62,7 +62,7 @@ const Checkout = () => {
               phone: checkoutFormData.phone,
               address: checkoutFormData.address,
               landmark: checkoutFormData.landmark,
-              zipCode: checkoutFormData.zip,
+              zipcode: checkoutFormData.zip,
               transactionId: response.data.data.transactionId
             };
             try {

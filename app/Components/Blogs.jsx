@@ -1,9 +1,10 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
-
+import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
 import Image from "next/image";
 import { sample1 } from "../util/images";
 import Link from "next/link";
@@ -11,20 +12,11 @@ import { firaSans, firaSansMedium } from "../util/fonts";
 import { useCallback, useRef, useState } from "react";
 
 function Blogs() {
-  const [selected, setSelected] = useState(0);
-
-  const sliderRef = useRef(null);
-
-  const handlePrev = useCallback(() => {
-    sliderRef.current.swiper.slidePrev();
-    setSelected((selected) =>
-      selected - 1 === -1 ? list.length - 1 : selected - 1
-    );
-  }, []);
-
-  const handleNext = useCallback(() => {
-    sliderRef.current.swiper.slideNext();
-    setSelected((selected) => (selected + 1) % list.length);
+  const [selected, setSelected] = useState(1);
+  const sliderRefBlogs = useRef(null);
+  const handleSlideChange = useCallback(() => {
+    const swiper = sliderRefBlogs.current.swiper;
+    setSelected(swiper.realIndex);
   }, []);
 
   //replace this with data from api
@@ -89,27 +81,50 @@ function Blogs() {
           </div>
           <div className="w-full flex justify-end gap-[10px]">
             <button
-              className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-              onClick={handlePrev}
+              className={`swiper-prev-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
+                selected === 0
+                  ? "bg-[#F2ECE2] text-[#242424] "
+                  : "bg-[#242424] text-[#F2ECE2] "
+              }`}
+              disabled={selected === 0}
             >
               {"<"}
             </button>
             <button
-              className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-              onClick={handleNext}
+              className={`swiper-next-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
+                selected === list.length - 1
+                  ? "bg-[#F2ECE2] text-[#242424] "
+                  : "bg-[#242424] text-[#F2ECE2] "
+              }`}
+              disabled={selected === list.length - 1}
             >
               {">"}
             </button>
           </div>
         </div>
       </div>
-      <div className=" xl:w-[70%] lg:w-[90%] w-full relative mt-[40px] ">
+      <div className=" xl:w-[70%] lg:w-[90%] w-full relative  ">
         <Swiper
-          ref={sliderRef}
-          spaceBetween={30}
+          ref={sliderRefBlogs}
+          initialSlide={1}
+          effect="coverflow"
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 0,
+            modifier: 2.5,
+            slideShadows: false,
+          }}
+          spaceBetween={10}
           slidesPerView={1}
-          slidesPerGroup={1}
-          loop
+          // loop
+          centeredSlides={true}
+          modules={[Navigation, EffectCoverflow]}
+          navigation={{
+            nextEl: ".swiper-next-button-blogs",
+            prevEl: ".swiper-prev-button-blogs",
+          }}
+          onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
               slidesPerView: 2,
@@ -131,16 +146,13 @@ function Blogs() {
                   justifyContent: "flex-start",
                   alignItems: "center",
                 }}
-                onClick={() => {
-                  setSelected(index);
-                }}
               >
                 <div
                   className={` ${
                     selected === index
                       ? "bg-[#242424] text-[#F2ECE2]"
                       : "text-[#242424] bg-white"
-                  } cursor-pointer lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] shadow-md`}
+                  }  lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2`}
                 >
                   <Image
                     src={obj.image}

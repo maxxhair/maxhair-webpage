@@ -76,7 +76,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
 
         <div className="flex justify-between  text-sm px-3">
           <p>{item.product?.category?.title}</p>
-          <p>{item.type?.title}</p>
+          <p>{item.type ? item.type.title : "Single Drawn"}</p>
         </div>
         {hovered && (
           <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10">

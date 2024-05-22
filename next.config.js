@@ -14,7 +14,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "your.production.url",
+        hostname: "backend.maxxhairextensions.com",
         pathname: "/**"
       }
     ]

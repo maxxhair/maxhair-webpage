@@ -149,7 +149,6 @@ export default function Page() {
         try {
           const data = await getVariantsByProductId(productId);
           setVariants(data);
-          console.log("response", data);
         } catch (error) {
           console.log(error);
         }
@@ -163,7 +162,7 @@ export default function Page() {
     if (product) {
       setSize(product.size.size);
       setColor(product.color.color);
-      setType(product.type?.title);
+      setType(product.type ? product.type?.title : "single drawn");
       setTexture(product.texture?.title ?? "straight");
     }
   }, [product]);
@@ -195,14 +194,14 @@ export default function Page() {
       type: selectedType,
       texture: selectedTexture
     };
-
     const productStore = {
       count: selectedQuantity,
       product: productToSave
     };
-
     dispatch(addProduct(productStore));
   };
+
+  console.log("selectedType", selectedType);
 
   const getFilteredVariant = () => {
     if (
@@ -230,8 +229,6 @@ export default function Page() {
     const newFilteredVariant = getFilteredVariant();
     setFilteredVariant(newFilteredVariant);
   }, [selectedSize, selectedColor, selectedType, selectedTexture]);
-
-  console.log(selectedSize, selectedColor, selectedType, selectedTexture);
 
   if (loading) {
     return <div>Loading...</div>;

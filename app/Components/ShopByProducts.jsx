@@ -1,9 +1,9 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import { firaSansMedium } from "../util/fonts";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-
 import Card from "./_shopbyproducts/Card";
 import { prodimg } from "../util/images";
 
@@ -15,12 +15,10 @@ function ShopByProducts() {
   const [tempArr, setTempArr] = useState([]);
   const [list, setListData] = useState(null);
 
-  const sliderRef = useRef(null);
-  const handlePrev = useCallback(() => {
-    sliderRef.current.swiper.slidePrev();
-  }, []);
-  const handleNext = useCallback(() => {
-    sliderRef.current.swiper.slideNext();
+  const sliderRefSbp = useRef(null);
+  const handleSlideChange = useCallback(() => {
+    const swiper = sliderRefSbp.current.swiper;
+    setSelected(swiper.realIndex);
   }, []);
 
   const updateFunction = () => {
@@ -67,15 +65,6 @@ function ShopByProducts() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  //update the list variable with api data
-  // const list = Array(9)
-  //   .fill()
-  //   .map(() => ({
-  //     name: "Yaki Curly",
-  //     category: "1",
-  //     link: "",
-  //     image: prodimg,
-  //   }));
   if (!list) {
     return <div>Loading...</div>;
   }
@@ -90,13 +79,16 @@ function ShopByProducts() {
 
       <div className="w-full relative ">
         <Swiper
-          ref={sliderRef}
+          ref={sliderRefSbp}
           spaceBetween={40}
           slidesPerView={1}
           slidesPerGroup={1}
-          onActiveIndexChange={(swiper) => {
-            setSelected(swiper.activeIndex);
+          modules={[Navigation]}
+          navigation={{
+            nextEl: ".swiper-next-button-sbp",
+            prevEl: ".swiper-prev-button-sbp"
           }}
+          onSlideChange={handleSlideChange}
         >
           {Array.from({ length: Math.ceil(list.length / numberOfCards) }).map(
             (_, index) => {
@@ -130,23 +122,21 @@ function ShopByProducts() {
         <div className="w-full flex justify-center">
           <div className="flex justify-end gap-[10px] mt-[20px] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
             <button
-              className={`h-[60px] w-[60px] flex justify-center items-center ${
+              className={`swiper-prev-button-sbp h-[60px] w-[60px] flex justify-center items-center ${
                 selected === 0
                   ? "bg-[#F2ECE2] text-[#242424] "
                   : "bg-[#242424] text-[#F2ECE2] "
               }`}
-              onClick={handlePrev}
               disabled={selected === 0}
             >
               {"<"}
             </button>
             <button
-              className={`h-[60px] w-[60px] flex justify-center items-center ${
+              className={`swiper-next-button-sbp h-[60px] w-[60px] flex justify-center items-center ${
                 selected === Math.ceil(list.length / numberOfCards) - 1
                   ? "bg-[#F2ECE2] text-[#242424] "
                   : "bg-[#242424] text-[#F2ECE2] "
               }`}
-              onClick={handleNext}
               disabled={selected === Math.ceil(list.length / numberOfCards) - 1}
             >
               {">"}

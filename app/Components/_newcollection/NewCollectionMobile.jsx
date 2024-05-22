@@ -30,7 +30,7 @@ function NewCollectionMobile({ cards }) {
       >
         New Collection
       </span>
-      {products.slice(0, 4).map((product, index) => {
+      {products?.slice(0, 4).map((product, index) => {
         return (
           <div
             key={index + "---"}
