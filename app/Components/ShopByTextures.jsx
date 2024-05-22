@@ -1,8 +1,10 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
-
+import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
 import { firaSans } from "../util/fonts";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { prodimg } from "../util/images";
@@ -14,18 +16,10 @@ function ShopByTextures() {
   const [selected, setSelected] = useState(0);
   const [list, setList] = useState(null);
   const sliderRef = useRef(null);
-
-  const handlePrev = () => {
-    sliderRef.current.swiper.slidePrev();
-    setSelected((selected) =>
-      selected - 1 === -1 ? list.length - 1 : selected - 1
-    );
-  };
-
-  const handleNext = () => {
-    sliderRef.current.swiper.slideNext();
-    setSelected((selected) => (selected + 1) % list.length);
-  };
+  const handleSlideChange = useCallback(() => {
+    const swiper = sliderRef.current.swiper;
+    setSelected(swiper.realIndex);
+  }, []);
 
   useEffect(() => {
     axiosInstance.get("/textures").then((data) => {
@@ -54,7 +48,22 @@ function ShopByTextures() {
           ref={sliderRef}
           spaceBetween={40}
           slidesPerView={1}
-          loop
+          effect="coverflow"
+          centeredSlides={true}
+          modules={[EffectCoverflow, Navigation]}
+          navigation={{
+            nextEl: ".swiper-next-button-sbt",
+            prevEl: ".swiper-prev-button-sbt",
+          }}
+          initialSlide={1}
+          coverflowEffect={{
+            rotate: 10, // Rotate angle in degrees
+            stretch: 0, // Stretch space between slides
+            depth: 50, // Depth of the slide shadow
+            modifier: 2.5, // Effect multiplier
+            slideShadows: false,
+          }}
+          onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
               slidesPerView: 2,
@@ -63,7 +72,7 @@ function ShopByTextures() {
               slidesPerView: 3,
             },
           }}
-          className="h-[750px]"
+          className="h-[750px] shadow-none"
         >
           {list.map((obj, index) => {
             return (
@@ -73,9 +82,6 @@ function ShopByTextures() {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                }}
-                onClick={() => {
-                  setSelected(index);
                 }}
               >
                 <div
@@ -123,14 +129,22 @@ function ShopByTextures() {
         </Swiper>
         <div className="w-full flex justify-end gap-[10px] mt-[20px]">
           <button
-            className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-            onClick={handlePrev}
+            className={`swiper-prev-button-sbt h-[60px] w-[60px] flex justify-center items-center ${
+              selected === 0
+                ? "bg-[#F2ECE2] text-[#242424] "
+                : "bg-[#242424] text-[#F2ECE2] "
+            }`}
+            disabled={selected === 0}
           >
             {"<"}
           </button>
           <button
-            className={`h-[60px] w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
-            onClick={handleNext}
+            className={`swiper-next-button-sbt h-[60px] w-[60px] flex justify-center items-center ${
+              selected === list.length - 1
+                ? "bg-[#F2ECE2] text-[#242424] "
+                : "bg-[#242424] text-[#F2ECE2] "
+            }`}
+            disabled={selected === list.length - 1}
           >
             {">"}
           </button>
