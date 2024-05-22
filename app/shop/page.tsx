@@ -42,10 +42,6 @@ const Shop = () => {
       <div className="w-full h-screen grid place-items-center">
         <div className="">
           <Spinner aria-label="Default status example" />
-          <p className="text-sm lg:text-md text-green-300">
-            Order placed Successfully, you will receive an email. continue
-            Shopping!
-          </p>
         </div>
       </div>
     );

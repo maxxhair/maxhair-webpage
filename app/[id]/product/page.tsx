@@ -187,7 +187,10 @@ export default function Page() {
       id: id as string,
       name: product.product.title,
       image: imageUrl,
-      price: product.price,
+      price:
+        filteredVariant && filteredVariant[0]?.price
+          ? filteredVariant[0].price
+          : product.price,
       count: selectedQuantity,
       color: selectedColor,
       size: selectedSize as any,
@@ -201,8 +204,6 @@ export default function Page() {
     dispatch(addProduct(productStore));
   };
 
-  console.log("selectedType", selectedType);
-
   const getFilteredVariant = () => {
     if (
       selectedSize !== null &&
@@ -214,14 +215,17 @@ export default function Page() {
       return variants.filter(
         (variant) =>
           variant.size.size === selectedSize &&
-          variant.color.color === selectedColor &&
-          (variant.texture.title as string).toLowerCase() ===
-            (selectedTexture as string).toLowerCase()
+          variant.color.color ===
+            (selectedColor === "Natural" ? "Natural" : "CustomColor") &&
+          (variant.texture.title as string).toLowerCase().trim() ===
+            (selectedTexture as string).toLowerCase().trim()
       );
     } else {
       return null;
     }
   };
+
+  const sizesAll = variants.map((variant) => variant.size.size);
 
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
@@ -274,19 +278,27 @@ export default function Page() {
             </p>
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className=" mt-2">
-              {sizeOpts?.map((size) => (
-                <button
-                  onClick={() => setSize(size)}
-                  className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
-                    selectedSize === size
-                      ? "!bg-[#E3D6C5] text-[#A47252]"
-                      : "bg-neutral-100"
-                  }`}
-                  key={size}
-                >
-                  {size}
-                </button>
-              ))}
+              {[
+                ...new Set(
+                  variants.map((variant) => parseInt(variant.size.size, 10))
+                )
+              ]
+                .sort(function (a, b) {
+                  return a - b;
+                })
+                .map((size) => (
+                  <button
+                    onClick={() => setSize(size)}
+                    className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                      selectedSize === size
+                        ? "!bg-[#E3D6C5] text-[#A47252]"
+                        : "bg-neutral-100"
+                    }`}
+                    key={size}
+                  >
+                    {size}
+                  </button>
+                ))}
             </div>
             <p className="text-sm font-semibold mt-4">Color</p>
             <div className="mt-2">
