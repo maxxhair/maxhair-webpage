@@ -1,16 +1,75 @@
+"use client";
+
 import { Fira_Sans, Prompt } from "next/font/google";
-import React from "react";
+import React, { useState } from "react";
+import axiosInstance from "../util/axiosInstance";
+import { redirect } from "next/navigation";
+import { tosignin } from "./actions";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const SignupForm = () => {
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors: { [key: string]: string } = {};
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = pattern.test(email);
+    if (!fullName) {
+      newErrors.fullName = "Fullname is required";
+      isValid = false;
+    }
+    if (!email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!isValidEmail) {
+      newErrors.email = "Enter correct Email";
+      isValid = false;
+    }
+    if (!password) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    }
+    if (!phoneNumber) {
+      newErrors.phoneNumber = "Phone Number is required";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      axiosInstance
+        .post("signup", {
+          email,
+          password,
+          fullName,
+          phoneNumber,
+        })
+        .then((res) => {
+          tosignin();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <div className="max-w-sm md:max-w-md lg:max-w-xl">
       <h2
@@ -33,42 +92,62 @@ const SignupForm = () => {
           <div>
             <input
               type="text"
-              name="text"
+              name="fullname"
               id="fullname"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               className="bg-gray-50 border sm:text-sm w-full p-3"
               placeholder="Full Name"
               required
             />
+            {errors.fullName && (
+              <div className="text-sm text-[#ff2828]">{errors.fullName}</div>
+            )}
           </div>
           <div>
             <input
               type="number"
               name="phoneno"
               id="phoneno"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className="bg-gray-50 border sm:text-sm w-full p-3"
               placeholder="Phone"
               required
             />
+            {errors.phoneNumber && (
+              <div className="text-sm text-[#ff2828]">{errors.phoneNumber}</div>
+            )}
           </div>
           <div>
             <input
               type="email"
               name="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="bg-gray-50 border sm:text-sm w-full p-3"
               placeholder="Email"
               required
             />
+            {errors.email && (
+              <div className="text-sm text-[#ff2828]">{errors.email}</div>
+            )}
           </div>
           <div>
             <input
               type="password"
               name="password"
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               className="bg-gray-50 border sm:text-sm w-full p-3"
               required
             />
+            {errors.password && (
+              <div className="text-sm text-[#ff2828]">{errors.password}</div>
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-start">
@@ -91,6 +170,7 @@ const SignupForm = () => {
           <button
             type="submit"
             className="w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4  "
+            onClick={(e) => handleSubmit(e)}
           >
             CREATE ACCOUNT
           </button>

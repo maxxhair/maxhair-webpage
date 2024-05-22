@@ -14,6 +14,7 @@ import {
   productImage3,
   productImage4,
   productImage5,
+  prodimg,
 } from "../../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../../Components/ExtraInfoSection";
@@ -138,34 +139,16 @@ export default function Page() {
     fetchProducts();
   }, []);
 
-  const setProductCount = (count: number) => {
-    if (count <= 0) {
-      return;
-    }
-
-    const payload = {
-      product: {
-        id: id as string,
-        name: product.product.title,
-        image: product.product.images ? product.product.images[0] : "",
-        price: product.price,
-        count: selectedQuantity,
-        color: selectedColor,
-        size: selectedSize,
-        type: selectedType,
-        texture: selectedTexture,
-      },
-      count: selectedQuantity,
-    };
-
-    console.log(payload);
-
-    // dispatch(setCount(payload));
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+
+  const imageUrl =
+    product.product.images && product.product.images.length > 0
+      ? `${baseUrl}/${product.product.images[0]}`
+      : prodimg;
 
   return (
     product && (
@@ -209,7 +192,7 @@ export default function Page() {
               })}
             </Swiper> */}
             <Image
-              src={product.product.images[0]}
+              src={imageUrl}
               alt="product-image-error"
               width={500}
               height={500}
@@ -316,14 +299,14 @@ export default function Page() {
                 <div className="flex items-center gap-6 m-3">
                   <div
                     className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
-                    onClick={() => setProductCount(selectedQuantity - 1)}
+                    onClick={() => setQuantity(selectedQuantity - 1)}
                   >
                     -
                   </div>
-                  <p className="label-medium">1</p>
+                  <p className="label-medium">{selectedQuantity}</p>
                   <div
                     className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
-                    onClick={() => setProductCount(selectedQuantity + 1)}
+                    onClick={() => setQuantity(selectedQuantity + 1)}
                   >
                     +
                   </div>

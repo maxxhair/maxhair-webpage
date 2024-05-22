@@ -30,9 +30,12 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-3/4 h-[90vh] mx-auto mt-[8vh] flex">
-      <div className="w-1/2 grid place-items-center">
-        <form className="w-3/4 mx-auto" onSubmit={handleSubmit}>
+    <div className="w-[90%] lg:w-3/4 h-auto lg:h-[90vh] mx-auto mt-[14vh] lg:mt-[8vh] flex flex-col-reverse lg:flex-row">
+      <div className="w-full lg:w-1/2 grid place-items-center">
+        <form
+          className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
+          onSubmit={handleSubmit}
+        >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
             <div className="flex">

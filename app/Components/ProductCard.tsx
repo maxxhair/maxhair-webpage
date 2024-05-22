@@ -43,9 +43,11 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ item }) => {
   const [hovered, setHovered] = useState(false);
 
+  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+
   const imageUrl =
     item.product.images && item.product.images.length > 0
-      ? item.product.images[0]
+      ? `${baseUrl}/${item.product.images[0]}`
       : prodimg;
 
   return (
