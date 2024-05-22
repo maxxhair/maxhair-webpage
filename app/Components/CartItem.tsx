@@ -1,8 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import { productImage } from "../util/images";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
 
 const CartItem = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const usercart = useSelector((state: RootState) => state.cart.cartItems);
+  console.log(usercart, "uc");
   return (
     <div className="my-5 w-full h-48 bg-white p-6 flex justify-between">
       <div className="flex gap-4">

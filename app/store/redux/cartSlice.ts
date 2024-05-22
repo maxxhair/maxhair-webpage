@@ -8,14 +8,16 @@ type InitialCartState = {
 
 const initialState: InitialCartState = {
   openCart: false,
-  cartItems: []
+  cartItems: [],
 };
 
 const indexSameProduct = (
   state: InitialCartState,
   action: ProductStoreType
 ) => {
+  console.log(action, "action");
   const sameProduct = (product: ProductStoreType) =>
+    // console.log(product, "prodfasdfd");
     product.id === action.id &&
     product.color === action.color &&
     product.size === action.size &&
@@ -42,6 +44,7 @@ const cartSlice = createSlice({
     },
     addProduct: (state, action) => {
       const cartItems = state.cartItems;
+      console.log(action.payload, "action.payload");
 
       const index = indexSameProduct(state, action.payload.product);
 
@@ -52,7 +55,7 @@ const cartSlice = createSlice({
 
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload.product]
+        cartItems: [...state.cartItems, action.payload.product],
       };
     },
     removeProduct(state, action: PayloadAction<ProductStoreType>) {
@@ -61,8 +64,8 @@ const cartSlice = createSlice({
     setCount(state, action: PayloadAction<AddProductType>) {
       const indexItem = indexSameProduct(state, action.payload.product);
       state.cartItems[indexItem].count = action.payload.count;
-    }
-  }
+    },
+  },
 });
 
 export const { setOpenCart, setCloseCart, addProduct } = cartSlice.actions;

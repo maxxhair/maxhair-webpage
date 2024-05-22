@@ -10,7 +10,7 @@ import {
   ColorsSelect,
   ProductSelect,
   SizesSelect,
-  TextureSelect
+  TextureSelect,
 } from "../Components/SelectInputs";
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
@@ -78,7 +78,7 @@ const Shop = () => {
             </select>
           </div>
           <div className="w-full mt-40 lg:mt-0 grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-y-12">
-            {products.map((product: any) => (
+            {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
           </div>
