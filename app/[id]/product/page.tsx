@@ -169,7 +169,7 @@ export default function Page() {
 
   const [selectedSize, setSize] = useState(product?.size?.size || null);
   const [selectedColor, setColor] = useState(product?.color.color || null);
-  const [selectedType, setType] = useState(product?.type?.title || null);
+  const [selectedType, setType] = useState("single drawn");
   const [selectedTexture, setTexture] = useState(
     product?.texture?.title || null
   );
@@ -215,8 +215,6 @@ export default function Page() {
         (variant) =>
           variant.size.size === selectedSize &&
           variant.color.color === selectedColor &&
-          (variant.type.title as string).toLowerCase() ===
-            (selectedType as string).toLowerCase() &&
           (variant.texture.title as string).toLowerCase() ===
             (selectedTexture as string).toLowerCase()
       );

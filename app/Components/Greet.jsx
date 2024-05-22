@@ -15,15 +15,14 @@ function Greet() {
           <span
             className={`${firaSans.className} flyouts-down flex flex-col md:w-[600px] w-full lg:display-medium md:headline-large headline-medium font-[700]`}
           >
-            <span>Fabulous Products, </span>
-            <span>at your door step</span>
+            <span>Quality is our Priority!</span>
           </span>
 
           <p
             className={`${firaSansLight.className} flyouts-left lg:label-large md:label-medium label-small md:w-[500px] w-full`}
           >
-            Transform Your Look with Luxurious Hair Extensions, Unleash Your
-            Beauty!
+            One stop shop for all your premium hair extension needs. Allow us to
+            make your dream hair come true!
           </p>
           <Link
             href="shop"

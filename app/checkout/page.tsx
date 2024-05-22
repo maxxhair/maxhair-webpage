@@ -15,7 +15,7 @@ interface CheckoutFormData {
   phone: string;
   address: string;
   landmark: string;
-  zip: string;
+  zipcode: string;
 }
 
 const Checkout = () => {
@@ -62,7 +62,7 @@ const Checkout = () => {
               phone: checkoutFormData.phone,
               address: checkoutFormData.address,
               landmark: checkoutFormData.landmark,
-              zipcode: checkoutFormData.zip,
+              zipcode: checkoutFormData.zipcode,
               transactionId: response.data.data.transactionId
             };
             try {
