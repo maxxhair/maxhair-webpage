@@ -45,6 +45,9 @@ const SignupForm = () => {
     if (!phoneNumber) {
       newErrors.phoneNumber = "Phone Number is required";
       isValid = false;
+    } else if (phoneNumber.length > 10 || phoneNumber.length < 10) {
+      newErrors.phoneNumber = "Enter Valid Phone Number";
+      isValid = false;
     }
     setErrors(newErrors);
     return isValid;
