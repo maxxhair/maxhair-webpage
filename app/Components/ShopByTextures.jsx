@@ -10,6 +10,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { prodimg } from "../util/images";
 import Link from "next/link";
 import Image from "next/image";
+import Card from "./_shopbytextures/Card";
 import axiosInstance from "../util/axiosInstance";
 
 function ShopByTextures() {
@@ -84,45 +85,7 @@ function ShopByTextures() {
                   alignItems: "center",
                 }}
               >
-                <div
-                  className={` w-[400px] h-full flex flex-col justify-center cursor-pointer`}
-                >
-                  <div>
-                    <Image
-                      src={obj.image_url}
-                      alt=""
-                      width={400}
-                      height={selected === index ? 500 : 450}
-                      className={`w-full transition-all ${
-                        selected === index ? "h-[500px]" : "h-[450px]"
-                      } object-cover`}
-                    />
-                  </div>
-                  <div
-                    className={`flex flex-col justify-center items-center gap-[10px] p-[20px] ${
-                      selected === index &&
-                      "border-2 border-t-0 border-[#242424]"
-                    }`}
-                  >
-                    <span
-                      className={`${firaSans.className} ${
-                        selected === index
-                          ? "lg:title-large md:title-medium title-small"
-                          : "lg:label-large md:label-medium label-small"
-                      }`}
-                    >
-                      {obj.title}
-                    </span>
-                    {selected === index && (
-                      <Link
-                        href="shop"
-                        className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
-                      >
-                        Buy Now
-                      </Link>
-                    )}
-                  </div>
-                </div>
+                <Card obj={obj} selected={selected} index={index} />
               </SwiperSlide>
             );
           })}
