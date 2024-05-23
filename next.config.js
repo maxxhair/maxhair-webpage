@@ -1,5 +1,6 @@
 const nextConfig = {
   images: {
+    domains: ["backend.maxxhairextensions.com"],
     remotePatterns: [
       {
         protocol: "http",
