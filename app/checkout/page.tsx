@@ -45,7 +45,7 @@ const Checkout = () => {
     ((discountPercentage / 100) * priceTotal).toFixed(2)
   );
 
-  const TotalPriceToPay = priceTotal - discount;
+  const TotalPriceToPay = (priceTotal - discount).toFixed(2);
 
   useEffect(() => {
     const handlePaymentMessage = async (event: MessageEvent) => {
