@@ -4,11 +4,15 @@ import { ProductStoreType } from "../../types";
 type InitialCartState = {
   openCart: boolean;
   cartItems: ProductStoreType[];
+  couponCode: string;
+  discountPercentage: number;
 };
 
-const initialState: InitialCartState = {
+export const initialState: InitialCartState = {
   openCart: false,
-  cartItems: []
+  cartItems: [],
+  couponCode: "",
+  discountPercentage: 0
 };
 
 const indexSameProduct = (
@@ -61,6 +65,18 @@ const cartSlice = createSlice({
     setCount(state, action: PayloadAction<AddProductType>) {
       const indexItem = indexSameProduct(state, action.payload.product);
       state.cartItems[indexItem].count = action.payload.count;
+    },
+    emptyCart: (state) => {
+      state.cartItems = [];
+    },
+    addCouponCode: (state, action) => {
+      state.couponCode = action.payload;
+    },
+    removeCouponCode: (state) => {
+      state.couponCode = "";
+    },
+    addDiscount: (state, action) => {
+      state.discountPercentage = action.payload;
     }
   }
 });
@@ -70,6 +86,10 @@ export const {
   setCloseCart,
   addProduct,
   setCount,
-  removeProduct
+  removeProduct,
+  emptyCart,
+  addCouponCode,
+  removeCouponCode,
+  addDiscount
 } = cartSlice.actions;
 export default cartSlice.reducer;

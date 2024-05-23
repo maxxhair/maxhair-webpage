@@ -77,16 +77,16 @@ const Shop = () => {
             <SizesSelect />
           </div>
         </div>
-        <div className="w-full lg:w-[60%]">
+        <div className="w-full lg:w-[70%] 2xl:w-[65%]">
           <div className="w-full hidden lg:flex items-center justify-end gap-3 my-4">
-            <p className="label-small">512 items</p>
+            <p className="label-small">{products.length} items</p>
             <p className="label-small">Sort by</p>
             <select className="h-auto bg-transparent focus:outline-none active:outline-none">
               <option value="Bestseller">Best Seller</option>
               <option value="Newest">Newest</option>
             </select>
           </div>
-          <div className="w-full mt-40 lg:mt-0 grid md:grid-cols-2 lg:grid-cols-3 md:gap-4 lg:gap-y-12">
+          <div className="w-full mt-40 lg:mt-0 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 md:gap-4 lg:gap-y-12">
             {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
