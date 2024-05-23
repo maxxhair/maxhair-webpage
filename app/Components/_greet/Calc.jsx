@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function Calc() {
+  const didRun = useRef(false);
   useEffect(() => {
     function setScrollVar() {
       const scrollTop = document.documentElement.scrollTop;
@@ -14,6 +15,17 @@ function Calc() {
         "--colorToChange",
         scrollTop < 100 ? "#FAFAFA" : "#242424"
       );
+      document.documentElement.style.setProperty(
+        "--shopButtonDisplay",
+        scrollTop >= 200 ? "none" : "all"
+      );
+    }
+    if (!didRun.current) {
+      const element = document.getElementById("greet");
+      const height = parseFloat(window.getComputedStyle(element).height);
+      element.style.height = height * 2.3 + "px";
+      console.log(element.style.height);
+      didRun.current = true;
     }
     window.addEventListener("scroll", setScrollVar);
     setScrollVar();

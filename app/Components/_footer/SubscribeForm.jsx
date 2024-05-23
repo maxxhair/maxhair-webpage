@@ -12,7 +12,7 @@ function SubscribeForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-[20px] z-10">
       <input
         type="text"
-        placeholder="YOUR EMAIL"
+        placeholder="Email Id"
         value={email}
         name="email"
         className="text-center py-[5px] h-[64px] cursor-text"
@@ -21,7 +21,7 @@ function SubscribeForm() {
       />
       <input
         type="submit"
-        value="subscribe now"
+        value="Subscribe Now"
         className="bg-[#242424] text-[#F9F6F3] h-[60px] cursor-pointer"
       />
     </form>

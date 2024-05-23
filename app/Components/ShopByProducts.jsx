@@ -69,8 +69,6 @@ function ShopByProducts() {
     return <div>Loading...</div>;
   }
 
-  console.log("KKD", list);
-
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center  w-full px-[30px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
@@ -102,7 +100,7 @@ function ShopByProducts() {
                     justifyContent: "center"
                   }}
                 >
-                  <div className="flex gap-[20px] justify-center items-center flex-wrap h-[calc(465px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
+                  <div className="flex gap-[20px] justify-center items-center flex-wrap h-[calc(540px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
                     {tempArr.map((ele) => {
                       return (
                         <React.Fragment key={ele}>

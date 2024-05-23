@@ -6,11 +6,10 @@ import { firaSansMedium } from "../util/fonts";
 import ProductCard from "./ProductCard";
 import NewCollectionMobile from "./_newcollection/NewCollectionMobile";
 import { getProducts } from "../util/serverSideProps";
+import axiosInstance from "../util/axiosInstance";
+import ImageCard from "./ImageCard";
 
 const Example = () => {
-  //productCard used
-
-  //set varieties from api
   const [varieties, setVarieties] = useState(40);
   const cards = Array(4).fill();
 
@@ -23,6 +22,7 @@ const Example = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [listData, setListData] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,6 +39,15 @@ const Example = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const getRequest = async () => {
+      const data = await axiosInstance.get("/products");
+      const temp = data.data.data;
+      setListData(temp);
+    };
+    getRequest();
+  }, []);
+
   return (
     <>
       <div className="lg:block hidden">
@@ -49,26 +58,22 @@ const Example = () => {
                 <div
                   className={`flex flex-col gap-[10px] ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small text-[#FAFAFA]`}
                 >
-                  <span>New</span>
-                  <span>Collection</span>
-                </div>
-                <div
-                  className={`flex flex-col gap-[10px] ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small text-[#FAFAFA]`}
-                >
-                  <span>{varieties}+</span>
-                  <span>Varieties</span>
+                  <span>Our</span>
+                  <span>Gallery</span>
                 </div>
               </div>
             </div>
 
-            <motion.div style={{ x }} className="flex gap-6">
-              {products?.slice(0, 4).map((product, index) => {
+
+            <motion.div style={{ x }} className="flex">
+              {listData?.slice(5, 10).map((product, index) => {
+
                 return (
                   <div
                     key={index}
                     className="group relative flex flex-col justify-center  md:w-[300px] w-[200px] overflow-hidden "
                   >
-                    <ProductCard key={product._id} item={product} />
+                    <ImageCard key={product._id} item={product} />
                   </div>
                 );
               })}
