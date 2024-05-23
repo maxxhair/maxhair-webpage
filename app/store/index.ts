@@ -12,14 +12,17 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
-  REGISTER
+  REGISTER,
+  createMigrate
 } from "redux-persist";
+import { migrations } from "./migrations";
 
 // Define the persist config for user and cart slices
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "cart"]
+  whitelist: ["user", "cart"],
+  migrate: createMigrate(migrations, { debug: false })
 };
 
 const rootReducer = combineReducers({

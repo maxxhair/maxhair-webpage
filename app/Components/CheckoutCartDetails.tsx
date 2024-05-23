@@ -1,12 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { productImage } from "../util/images";
 import Image from "next/image";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
 import CartItem from "./CartItem";
+import { addCouponCode, addDiscount } from "../store/redux/cartSlice";
 
 const CheckoutCartDetails = () => {
   const cartProducts = useSelector((state: RootState) => state.cart.cartItems);
+  const couponCode = useSelector((state: RootState) => state.cart.couponCode);
+  const discountPercentage = useSelector(
+    (state: RootState) => state.cart.discountPercentage
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [couponcodemsg, setCouponCodeMsg] = useState("");
+
+  useEffect(() => {
+    if (couponCode === "MAXX40") {
+      dispatch(addDiscount(40));
+      setCouponCodeMsg("40% discount is applied to total price");
+    } else if (couponCode === "MAXX20") {
+      dispatch(addDiscount(20));
+      setCouponCodeMsg("20% discount is applied to total price");
+    } else if (couponCode === "MAXX30") {
+      dispatch(addDiscount(30));
+      setCouponCodeMsg("30% discount is applied to total price");
+    } else if (couponCode === "MAXX50") {
+      dispatch(addDiscount(50));
+      setCouponCodeMsg("50% discount is applied to total price");
+    } else if (couponCode === "") {
+      dispatch(addDiscount(0));
+      setCouponCodeMsg("");
+    } else {
+      dispatch(addDiscount(0));
+      setCouponCodeMsg("Invalid Coupon Code");
+    }
+  }, [couponCode]);
 
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
@@ -18,7 +48,13 @@ const CheckoutCartDetails = () => {
     return totalPrice;
   });
 
-  const discount = parseInt(((40 / 100) * priceTotal).toFixed(2));
+  const handleUpdateCouponCode = (e: any) => {
+    dispatch(addCouponCode(e.target.value));
+  };
+
+  const discount = parseInt(
+    ((discountPercentage / 100) * priceTotal).toFixed(2)
+  );
 
   return (
     <div className="w-full lg:w-1/2 bg-[#F2ECE2] pt-16 px-8">
@@ -29,26 +65,29 @@ const CheckoutCartDetails = () => {
         <input
           placeholder="Discount code or gift card"
           type="text"
-          readOnly
           className="w-full bg-white outline-none py-3 px-2 rounded-lg"
-          value={cartProducts.length > 0 ? "MAXX40" : ""}
+          value={couponCode.toUpperCase()}
+          onChange={handleUpdateCouponCode}
         />
         <button
           className={
-            cartProducts.length > 0
-              ? "border px-6 py-3 border-green-400 text-green-400"
-              : "bg-transparent px-6 py-3 border border-black rounded-lg"
+            couponCode !== ""
+              ? "bg-transparent px-6 py-3 border border-green-400 rounded-lg text-green-400"
+              : "border border-black  px-6 py-3 rounded-lg"
           }
         >
-          {cartProducts.length > 0 ? "Applied" : "Apply"}
+          {couponCode !== "" ? "Applied" : "Apply"}
         </button>
       </div>
+      {couponcodemsg !== "" && <p className="text-sm">{couponcodemsg}</p>}
       <div className="">
         <p className="headline-small pt-5">
           <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Amount</p>
-              <p className="label-medium font-medium">${priceTotal}</p>
+              <p className="label-medium font-medium">
+                ${priceTotal.toFixed(2)}
+              </p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Discount</p>
@@ -58,18 +97,12 @@ const CheckoutCartDetails = () => {
               <p className="label-medium text-gray-500 font-medium">Shipping</p>
               <p className="label-medium font-medium">Free</p>
             </div>
-            <div className="w-full flex items-center justify-between">
-              <p className="label-medium text-gray-500 font-medium">
-                Coupon Applied
-              </p>
-              <p className="label-medium font-medium">$0.00</p>
-            </div>
           </div>
           <div className="py-5 flex flex-col gap-2">
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">TOTAL</p>
               <p className="label-medium font-medium">
-                ${priceTotal - discount}
+                ${(priceTotal - discount).toFixed(2)}
               </p>
             </div>
             <div className="w-full flex items-center justify-between">

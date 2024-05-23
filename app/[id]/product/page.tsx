@@ -32,7 +32,7 @@ import {
   getVariantsByProductId
 } from "../../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, setCount } from "../../store/redux/cartSlice";
+import { addProduct, setCount, setOpenCart } from "../../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { ProductStoreType } from "../../types";
 import { AppDispatch, RootState } from "../../store";
@@ -202,6 +202,7 @@ export default function Page() {
       product: productToSave
     };
     dispatch(addProduct(productStore));
+    dispatch(setOpenCart());
   };
 
   const getFilteredVariant = () => {

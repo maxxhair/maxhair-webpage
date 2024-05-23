@@ -5,10 +5,9 @@ import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
-import { firaSans } from "../util/fonts";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { prodimg } from "../util/images";
-import Link from "next/link";
+
 import Image from "next/image";
 import Card from "./_shopbytextures/Card";
 import axiosInstance from "../util/axiosInstance";
@@ -27,16 +26,6 @@ function ShopByTextures() {
       setList(data.data.data);
     });
   }, []);
-
-  //replace the below with api data
-  // const list = Array(4)
-  //   .fill()
-  //   .map(() => ({
-  //     name: "Yaki Curly",
-  //     details: "Lorem ipsum dolor sit amet consectetur. Etiam",
-  //     link: "",
-  //     image: prodimg,
-  //   }));
 
   if (!list) {
     return <div>Loading...</div>;

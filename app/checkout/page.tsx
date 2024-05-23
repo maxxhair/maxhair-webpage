@@ -6,8 +6,9 @@ import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, TextInput } from "flowbite-react";
 import axiosInstance from "../util/axiosInstance";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
+import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
 
 interface CheckoutFormData {
   name: string;
@@ -22,6 +23,10 @@ const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
   const [token, setToken] = useState(null);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const discountPercentage = useSelector(
+    (state: RootState) => state.cart.discountPercentage
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
@@ -36,9 +41,11 @@ const Checkout = () => {
     return totalPrice;
   });
 
-  const discount = parseInt(((40 / 100) * priceTotal).toFixed(2));
+  const discount = parseInt(
+    ((discountPercentage / 100) * priceTotal).toFixed(2)
+  );
 
-  const TotalPriceToPay = priceTotal - discount;
+  const TotalPriceToPay = (priceTotal - discount).toFixed(2);
 
   useEffect(() => {
     const handlePaymentMessage = async (event: MessageEvent) => {
@@ -70,6 +77,8 @@ const Checkout = () => {
               console.log("res", res);
               window.location.reload();
               window.location.href = "/shop";
+              dispatch(emptyCart());
+              dispatch(removeCouponCode());
             } catch (error) {
               console.log(error);
             }

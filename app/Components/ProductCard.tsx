@@ -53,24 +53,26 @@ const ProductCard: React.FC<Props> = ({ item }) => {
   return (
     <Link href={`/${item._id}/product`}>
       <div
-        className="prodcard pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
+        className=" pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
         onMouseOver={() => setHovered(true)}
         onMouseOut={() => setHovered(false)}
       >
         <Image
           src={imageUrl}
           alt="img-err"
-          className="m-auto"
-          width={120}
-          height={160}
+          className="m-auto border-1 border-black"
+          width={140}
+          height={200}
         />
-        <p className="text-center text-zinc-500 text-sm">{item.color.color}</p>
+        <p className="text-center text-zinc-500 text-sm py-1">
+          {item.color.color}
+        </p>
         <p
-          className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold`}
+          className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold pb-1`}
         >
           {item.product?.title}
         </p>
-        <p className="align-middle justify-center flex font-semibold ">
+        <p className="align-middle justify-center flex font-semibold pb-1">
           ${item.price}
         </p>
 
@@ -79,8 +81,8 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           <p>{item.type ? item.type.title : "Single Drawn"}</p>
         </div>
         {hovered && (
-          <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10">
-            ADD TO CART
+          <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10 pb-1">
+            VIEW PRODUCT
           </button>
         )}
       </div>

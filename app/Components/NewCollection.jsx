@@ -61,12 +61,12 @@ const Example = () => {
               </div>
             </div>
 
-            <motion.div style={{ x }} className="flex gap-4">
+            <motion.div style={{ x }} className="flex gap-6">
               {products?.slice(0, 4).map((product, index) => {
                 return (
                   <div
                     key={index}
-                    className="group relative flex flex-col justify-center lg:w-[400px] md:w-[300px] w-[200px] overflow-hidden "
+                    className="group relative flex flex-col justify-center  md:w-[300px] w-[200px] overflow-hidden "
                   >
                     <ProductCard key={product._id} item={product} />
                   </div>
