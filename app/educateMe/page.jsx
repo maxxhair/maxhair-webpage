@@ -5,8 +5,8 @@ import { brenda } from "../util/images";
 function page() {
   return (
     <div className=" mt-[80px] w-full bg-[#FAFAFA]">
-      <div className="py-[32px] px-[20px] w-full lg:h-[80vh] h-screen flex justify-center relative items-center">
-        <div className="w-[80%] h-[80%] relative ">
+      <div className="py-[32px] px-[20px] w-full lg:min-h-[80vh] min-h-screen  flex justify-center relative items-center">
+        <div className="lg:w-[80%] w-[90%] h-[80vh] relative ">
           <div className="absolute top-0 right-0 bg-[#E3D6C5] text-[#885C46] lg:w-[85%] w-full lg:min-h-[70%] min-h-full py-[20px] px-[20px] flex flex-col justify-center items-center">
             <div className="lg:absolute lg:-bottom-[120px] lg:-left-[200px] z-10 xl:h-[300px] lg:h-[250px] md:h-[200px] h-[200px] xl:w-[300px] lg:w-[250px] md:w-[200px] w-[200px] ">
               <Image
