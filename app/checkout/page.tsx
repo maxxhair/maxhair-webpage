@@ -77,6 +77,7 @@ const Checkout = () => {
               console.log("res", res);
               window.location.reload();
               window.location.href = "/";
+
               dispatch(emptyCart());
               dispatch(removeCouponCode());
             } catch (error) {
