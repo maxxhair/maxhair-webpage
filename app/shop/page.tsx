@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
 import { Spinner } from "flowbite-react";
+import axiosInstance from "../util/axiosInstance";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -69,12 +70,12 @@ const Shop = () => {
             <Image src={filtericon} alt="filter" />
             <p className="label-medium font-bold">Filter</p>
           </div>
-          <div className="bg-slate-200 h-[50vh] 2xl:h-[50vh] w-full flex flex-col gap-1 2xl:gap-6 justify-center">
+          <div className="bg-slate-200 h-[30vh] 2xl:h-[30vh] w-full flex flex-col gap-1 2xl:gap-6 justify-center">
             <CategorySelect />
             <ProductSelect />
-            <TextureSelect />
+            {/* <TextureSelect />
             <ColorsSelect />
-            <SizesSelect />
+            <SizesSelect /> */}
           </div>
         </div>
         <div className="w-full lg:w-[70%] 2xl:w-[65%]">

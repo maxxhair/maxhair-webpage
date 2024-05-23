@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Fira_Sans, Prompt } from "next/font/google";
-import ReviewCard from "../../Components/ReviewCard";
-import ProductCard from "../../Components/ProductCard";
+import ReviewCard from "../Components/ReviewCard";
+import ProductCard from "../Components/ProductCard";
 import {
   plus,
   deliveryImg,
@@ -15,28 +15,24 @@ import {
   productImage4,
   productImage5,
   prodimg
-} from "../../util/images";
+} from "../util/images";
 import React, { useEffect, useState } from "react";
-import ExtraInfoSection from "../../Components/ExtraInfoSection";
+import ExtraInfoSection from "../Components/ExtraInfoSection";
 import {
   colorOpts,
   list1,
   sizeOpts,
   textureOpts,
   typeOpts
-} from "../../util/staticData";
-import Rating from "../../Components/Rating";
-import {
-  getProduct,
-  getProducts,
-  getVariantsByProductId
-} from "../../util/serverSideProps";
+} from "../util/staticData";
+import Rating from "../Components/Rating";
+import { getProduct, getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, setCount, setOpenCart } from "../../store/redux/cartSlice";
+import { addProduct, setCount, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
-import { ProductStoreType } from "../../types";
-import { AppDispatch, RootState } from "../../store";
-import axiosInstance from "../../util/axiosInstance";
+import { ProductStoreType } from "../types";
+import { AppDispatch, RootState } from "../store";
+import axiosInstance from "../util/axiosInstance";
 
 interface Product {
   id: string;
@@ -108,8 +104,7 @@ export default function Page() {
   const dispatch = useDispatch<AppDispatch>();
 
   const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState<Product>();
-  const [productId, setProductId] = useState();
+  // const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState(true);
   const [variants, setVariants] = useState([]);
 
@@ -118,36 +113,22 @@ export default function Page() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();
-        setProducts(data);
+        const response = await axiosInstance.get("products");
+        setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
     };
-
-    const fetchProduct = async (id: string) => {
-      try {
-        const data = await getProduct(id);
-        setProduct(data);
-        setProductId(data.product._id);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct(id as string);
     fetchProducts();
   }, []);
 
   useEffect(() => {
-    if (productId) {
+    if (id) {
       const fetchProductVariants = async () => {
         try {
-          const data = await getVariantsByProductId(productId);
+          const data = await getVariantsByProductId(id as string);
           setVariants(data);
         } catch (error) {
           console.log(error);
@@ -156,41 +137,43 @@ export default function Page() {
 
       fetchProductVariants();
     }
-  }, [productId]);
+  }, [id]);
 
   useEffect(() => {
-    if (product) {
-      setSize(product.size.size);
-      setColor(product.color.color);
-      setType(product.type ? product.type?.title : "single drawn");
-      setTexture(product.texture?.title ?? "straight");
+    if (variants) {
+      setSize(variants[0]?.size?.size);
+      setColor(variants[0]?.color?.color);
+      setType(variants[0]?.type ? variants[0]?.type?.title : "Single drawn");
+      setTexture(variants[0]?.texture?.title ?? "straight");
     }
-  }, [product]);
+  }, [id, variants]);
 
-  const [selectedSize, setSize] = useState(product?.size?.size || null);
-  const [selectedColor, setColor] = useState(product?.color.color || null);
-  const [selectedType, setType] = useState("single drawn");
+  const [selectedSize, setSize] = useState(variants[0]?.size?.size || null);
+  const [selectedColor, setColor] = useState(variants[0]?.color?.color || null);
+  const [selectedType, setType] = useState(
+    variants[0]?.type ? variants[0]?.type?.title : "Single drawn"
+  );
   const [selectedTexture, setTexture] = useState(
-    product?.texture?.title || null
+    variants[0]?.texture?.title || null
   );
   const [filteredVariant, setFilteredVariant] = useState(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
-  const imageUrl =
-    product?.product?.images && product?.product?.images?.length > 0
-      ? `${baseUrl}/${product?.product?.images[0]}`
-      : prodimg;
+  const productImage =
+    variants[0]?.product?.images && variants[0].product?.images.length > 0
+      ? `${baseUrl}/${variants[0].product?.images[0]}`
+      : "";
 
-  const add = (product: Product) => {
+  const add = () => {
     const productToSave: ProductStoreType = {
       id: id as string,
-      name: product.product.title,
-      image: imageUrl,
+      name: variants[0].product.title,
+      image: productImage,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price
-          : product.price,
+          : variants[0].price,
       count: selectedQuantity,
       color: selectedColor,
       size: selectedSize as any,
@@ -226,8 +209,6 @@ export default function Page() {
     }
   };
 
-  const sizesAll = variants.map((variant) => variant.size.size);
-
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
     setFilteredVariant(newFilteredVariant);
@@ -238,14 +219,14 @@ export default function Page() {
   }
 
   return (
-    product && (
+    variants && (
       <div
         className={`${prompt.className}  bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}
       >
         <div className="md:flex flex-row inline">
           <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
             <Image
-              src={imageUrl}
+              src={productImage}
               alt="product-image-error"
               width={500}
               height={500}
@@ -268,13 +249,13 @@ export default function Page() {
           </div>
           <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0">
             <p className="text-sm font-semibold ">
-              Home - {product.product.title}{" "}
+              Home -{variants[0]?.product?.title}
               <span className="font-normal text-sm">
                 (only{" "}
                 {filteredVariant && filteredVariant[0]?.sku
                   ? filteredVariant[0]?.sku
-                  : product.sku}{" "}
-                left)
+                  : variants[0]?.sku}
+                &nbsp; left)
               </span>
             </p>
             <p className="text-sm font-semibold mt-5">Select Size</p>
@@ -378,16 +359,16 @@ export default function Page() {
                     +
                   </div>
                 </div>
-                {parseInt(product.sku) > 0 ? (
+                {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? (
                   <button
                     type="submit"
                     className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-                    onClick={() => add(product)}
+                    onClick={() => add()}
                   >
                     ADD TO CART (${" "}
                     {filteredVariant && filteredVariant[0]?.price
                       ? filteredVariant[0].price
-                      : product.price}{" "}
+                      : variants[0]?.price}{" "}
                     )
                   </button>
                 ) : (
@@ -398,7 +379,7 @@ export default function Page() {
                     PLACE ORDER (${" "}
                     {filteredVariant && filteredVariant[0]?.price
                       ? filteredVariant[0].price
-                      : product.price}{" "}
+                      : variants[0]?.price}{" "}
                     )
                   </button>
                 )}
@@ -482,7 +463,7 @@ export default function Page() {
             Repeat Orders
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.slice(0, 4).map((product: any) => (
+            {products.slice(5, 9).map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
           </div>

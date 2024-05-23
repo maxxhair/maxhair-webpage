@@ -69,6 +69,8 @@ function ShopByProducts() {
     return <div>Loading...</div>;
   }
 
+  console.log("products", list);
+
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center  w-full px-[30px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
@@ -107,7 +109,7 @@ function ShopByProducts() {
                           <Card
                             name={list[ele].title}
                             category={list[ele].category.title}
-                            link={`${list[ele].variants[0]}/product`}
+                            link={`${list[ele]._id}`}
                             image={list[ele].images[0] || prodimg}
                           />
                         </React.Fragment>
