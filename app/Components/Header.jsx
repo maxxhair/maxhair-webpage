@@ -59,7 +59,7 @@ function Header() {
             className={`md:flex hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
           >
             <Link href="/shop">Shop</Link>
-            <Link href="about">Educate Me</Link>
+            <Link href="educateMe">Educate Me</Link>
             <Link href="blog">Blog</Link>
             <Link href="contact">Contact</Link>
           </div>
