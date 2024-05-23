@@ -14,6 +14,7 @@ import productImage2 from "/public/AdobeStock_695305997_Preview 1.svg";
 import productImage3 from "/public/AdobeStock_696943661_Preview 1.svg";
 import productImage4 from "/public/AdobeStock_696943661_Preview 1 (1).svg";
 import productImage5 from "/public/image 789.svg";
+import brandLogo from "/public/brandLogo.svg";
 
 import sample1 from "/public/sample1.svg";
 import closeIcon from "/public/close.svg";
@@ -36,5 +37,6 @@ export {
   productImage2,
   productImage3,
   productImage4,
-  productImage5
+  productImage5,
+  brandLogo
 };

@@ -11,7 +11,7 @@ import ShopByTextures from "./Components/ShopByTextures";
 export default function Home() {
   return (
     <>
-      <div className="lg:h-[calc(110vh+60vh)] md:h-[calc(110vh+55vh)] h-[calc(110vh+50vh)] bg-[#FAFAFA]">
+      <div id="greet" className="bg-[#FAFAFA]">
         <div className="stickydiv top-[80px] ">
           <Greet />
           <ShopByTextures />

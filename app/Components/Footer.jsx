@@ -3,7 +3,13 @@
 import Image from "next/image";
 import { firaSans, firaSansLight } from "../util/fonts";
 import SubscribeForm from "./_footer/SubscribeForm";
-import { companyLogo, instagram, facebook, hairStrand } from "../util/images";
+import {
+  companyLogo,
+  instagram,
+  facebook,
+  hairStrand,
+  brandLogo
+} from "../util/images";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -45,21 +51,10 @@ function Footer() {
         </div>
         <div className="flex flex-col bg-footer-design xl:gap-[100px] w-full lg:gap-[80px] gap-[60px]">
           <div className="flex xl:justify-start justify-center items-center">
-            <Image src={companyLogo} alt="Maxx hair extensions" />
+            <Image src={brandLogo} alt="Maxx hair extensions" width={400} />
           </div>
           <div className="flex flex-wrap xl:flex-row gap-y-[40px] xl:justify-between flex-col w-full xl:items-start items-center xl:text-left text-center ">
-            <span className="flex flex-col xl:w-1/4 w-full xl:items-start items-center md:gap-[10px] gap-[5px]">
-              <span
-                className={`${firaSans.className} text-[#242424] font-thin lg:title-large md:title-medium title-small `}
-              >
-                Address
-              </span>
-              <span className="text-[#4F4F4F]  xl:w-full w-[80%] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]">
-                Lorem ipsum dolor sit amet consectetur Etiam urna elit dictum
-                torto Sagittis neque
-              </span>
-            </span>
-            <div className="flex xl:w-1/2 w-full justify-evenly ">
+            <div className="flex xl:w-1/2 w-full justify-between ">
               <span className="flex flex-col md:gap-[10px] gap-[5px]">
                 <span
                   className={`${firaSans.className} text-[#242424] font-thin lg:title-large md:title-medium title-small`}
@@ -85,17 +80,18 @@ function Footer() {
                 >
                   Company
                 </span>
-                <Link
-                  href="/company/contact"
-                  className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
-                >
-                  Contact us
-                </Link>
+
                 <Link
                   href="/company/about"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
                   About us
+                </Link>
+                <Link
+                  href="/company/about"
+                  className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
+                >
+                  Blog
                 </Link>
               </span>
               <span className="flex flex-col md:gap-[10px] gap-[5px]">
@@ -111,10 +107,10 @@ function Footer() {
                   Track Orders
                 </Link>
                 <Link
-                  href="/orders/catalogue"
+                  href="/"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
-                  Catalogue
+                  Contact Us
                 </Link>
               </span>
             </div>

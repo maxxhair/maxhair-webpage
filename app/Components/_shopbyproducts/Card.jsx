@@ -9,17 +9,17 @@ function Card({ name, category, link, image }) {
   const imageUrl = image && image.length > 0 ? `${baseUrl}/${image}` : prodimg;
 
   return (
-    <div className="bg-[#F6F6F6] flex flex-col h-auto w-[300px] p-[20px] pt-[30px] justify-evenly items-center">
-      <div className="h-[180px] w-[140px]">
-        <Image src={imageUrl} alt="" width={150} height={200} />
+    <div className="bg-[#F6F6F6] flex flex-col gap-[10px] h-auto w-[300px] px-[20px] py-[20px] justify-evenly items-center">
+      <div className="">
+        <Image src={imageUrl} alt="" width={300 - 20} height={200} />
       </div>
       <span
-        className={`${firaSans.className} lg:label-large md:label-medium label-small py-3`}
+        className={`${firaSans.className} lg:title-medium md:label-medium label-small truncate w-[80%] text-center`}
       >
         {name}
       </span>
       <span
-        className={`${firaSans.className} lg:body-large md:body-medium body-small pb-2`}
+        className={`${firaSans.className} lg:label-medium md:body-medium body-small`}
       >
         {category}
       </span>

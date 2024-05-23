@@ -1,7 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { closeIcon, companyLogo, shoppingCart } from "../util/images";
+import {
+  brandLogo,
+  closeIcon,
+  companyLogo,
+  shoppingCart
+} from "../util/images";
 import Link from "next/link";
 import { firaSans } from "../util/fonts";
 import user from "/public/user.svg";
@@ -52,7 +57,7 @@ function Header() {
       >
         <div className="w-full flex justify-around">
           <Link href="/" className="h-full ">
-            <Image src={companyLogo} alt="logo" className="h-full w-fit " />
+            <Image src={brandLogo} alt="logo" width={300} />
           </Link>
 
           <div
