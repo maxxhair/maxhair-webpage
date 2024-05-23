@@ -15,12 +15,13 @@ body {
 }
 
 :root {
+  --shopButtonDisplay: "all";
   --fromTop: 0;
   --colorToChange: "#FAFAFA";
   --greetHeight: 50vh;
   --minGreetHeight: 20vh;
   --scaleGreet: 0.9;
-  --transformGreet: 0.8px;
+  --transformGreet: 0.5px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -32,23 +33,19 @@ body {
 
 @media (min-width: 1228px) {
   :root {
-    --fromTop: 0;
-    --colorToChange: "#FAFAFA";
     --greetHeight: 55vh;
     --minGreetHeight: 20vh;
     --scaleGreet: 0.8;
-    --transformGreet: 0.9px;
+    --transformGreet: 0.5px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   :root {
-    --fromTop: 0;
-    --colorToChange: "#FAFAFA";
     --greetHeight: 60vh;
     --minGreetHeight: 20vh;
     --scaleGreet: 0.7;
-    --transformGreet: 0.8px;
+    --transformGreet: 0.9px;
   }
 }
 
@@ -111,12 +108,14 @@ body {
   transform: translateX(calc(var(--fromTop) / 2 * -1px));
   transition: all 0.3s ease;
   opacity: calc(1 - var(--fromTop) / 10);
+  user-select: var(--shopButtonDisplay);
 }
 
 .flyouts-right {
   transform: translateX(calc(var(--fromTop) / 2 * 1px));
   transition: all 0.3s ease;
   opacity: calc(1 - var(--fromTop) / 10);
+  pointer-events: var(--shopButtonDisplay);
 }
 
 .flyouts-down {

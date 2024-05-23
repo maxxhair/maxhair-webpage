@@ -12,7 +12,9 @@ function Card({ obj, selected, index }) {
 
   return (
     <div
-      className={` w-[400px] h-full flex flex-col justify-center cursor-pointer`}
+      className={` lg:w-[400px] md:w-[300px] w-[300px] border-2 flex flex-col justify-center transition-all duration-200 cursor-pointer ${
+        selected === index ? " border-[#242424] " : "border-transparent"
+      }`}
     >
       <div>
         <Image
@@ -20,33 +22,36 @@ function Card({ obj, selected, index }) {
           alt=""
           width={400}
           height={selected === index ? 500 : 450}
-          className={`w-full transition-all ${
-            selected === index ? "h-[500px]" : "h-[450px]"
-          } object-cover`}
+          className={`w-full transition-all duration-200 rounded-sm object-cover`}
         />
       </div>
       <div
-        className={`flex flex-col justify-center items-center gap-[10px] p-[20px] ${
-          selected === index && "border-2 border-t-0 border-[#242424]"
+        className={`flex flex-col justify-center transition-all duration-200 border-t-2  items-center gap-[5px] pb-[15px] ${
+          selected === index
+            ? " border-[#242424] bg-[#F2ECE2]"
+            : "border-transparent"
         }`}
       >
         <span
-          className={`${firaSans.className} ${
+          className={`${
+            firaSans.className
+          } p-[10px] transition-all duration-200 capitalize ${
             selected === index
-              ? "lg:title-large md:title-medium title-small"
+              ? "lg:title-large md:title-medium text-[#242424] title-small"
               : "lg:label-large md:label-medium label-small"
           }`}
         >
           {obj.title}
         </span>
-        {selected === index && (
-          <Link
-            href="shop"
-            className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
-          >
-            Buy Now
-          </Link>
-        )}
+
+        <Link
+          href="shop"
+          className={`text-[#FAFAFA] bg-[#242424] transition-all duration-200 lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px] ${
+            selected === index ? "opacity-100" : "opacity-0"
+          } `}
+        >
+          Buy Now
+        </Link>
       </div>
     </div>
   );
