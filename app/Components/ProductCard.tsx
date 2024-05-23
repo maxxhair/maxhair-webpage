@@ -9,31 +9,15 @@ import Link from "next/link";
 interface Product {
   _id: string;
   title: string;
-  price: number;
-  product: {
-    title: string;
-    images: string[];
-    category: {
-      _id: string;
-      title: string;
-    };
-  };
-  type: {
+  category: {
     _id: string;
     title: string;
   };
-  texture: {
+  cheapestVariant: {
     _id: string;
-    title: string;
+    price: number;
   };
-  color: {
-    _id: string;
-    color: string;
-  };
-  size: {
-    _id: string;
-    size: number;
-  };
+  images: string[];
 }
 
 interface Props {
@@ -46,12 +30,12 @@ const ProductCard: React.FC<Props> = ({ item }) => {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const imageUrl =
-    item?.product?.images && item?.product?.images.length > 0
-      ? `${baseUrl}/${item?.product?.images[0]}`
+    item?.images && item?.images.length > 0
+      ? `${baseUrl}/${item?.images[0]}`
       : prodimg;
 
   return (
-    <Link href={`/${item._id}/product`}>
+    <Link href={`/${item._id}`}>
       <div
         className=" pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
         onMouseOver={() => setHovered(true)}
@@ -64,21 +48,18 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           width={140}
           height={200}
         />
-        <p className="text-center text-zinc-500 text-sm py-1">
-          {item.color.color}
-        </p>
+
         <p
           className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold pb-1`}
         >
-          {item.product?.title}
+          {item?.title}
         </p>
         <p className="align-middle justify-center flex font-semibold pb-1">
-          ${item.price}
+          ${item?.cheapestVariant?.price}
         </p>
 
         <div className="flex justify-between  text-sm px-3">
-          <p>{item.product?.category?.title}</p>
-          <p>{item.type ? item.type.title : "Single Drawn"}</p>
+          <p>{item.category?.title}</p>
         </div>
         {hovered && (
           <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10 pb-1">
