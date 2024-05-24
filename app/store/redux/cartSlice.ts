@@ -20,7 +20,7 @@ const indexSameProduct = (
   action: ProductStoreType
 ) => {
   const sameProduct = (product: ProductStoreType) =>
-    product.id === action.id &&
+    product?.id === action.id &&
     product.color === action.color &&
     product.size === action.size &&
     product.type === action.type &&
@@ -46,6 +46,7 @@ const cartSlice = createSlice({
     },
     addProduct: (state, action) => {
       const cartItems = state.cartItems;
+      console.log(action.payload, "action.payload");
 
       const index = indexSameProduct(state, action.payload.product);
 
@@ -66,6 +67,7 @@ const cartSlice = createSlice({
       const indexItem = indexSameProduct(state, action.payload.product);
       state.cartItems[indexItem].count = action.payload.count;
     },
+
     emptyCart: (state) => {
       state.cartItems = [];
     },

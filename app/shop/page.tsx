@@ -80,7 +80,7 @@ const Shop = () => {
         </div>
         <div className="w-full lg:w-[70%] 2xl:w-[65%]">
           <div className="w-full hidden lg:flex items-center justify-end gap-3 my-4">
-            <p className="label-small">{products.length} items</p>
+            <p className="label-small">{products?.length} items</p>
             <p className="label-small">Sort by</p>
             <select className="h-auto bg-transparent focus:outline-none active:outline-none">
               <option value="Bestseller">Best Seller</option>

@@ -1,11 +1,56 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { firaSans } from "../util/fonts";
+import axiosInstance from "../util/axiosInstance";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store";
+import { userLoggedin } from "../store/redux/userSlice";
 
 const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors: { [key: string]: string } = {};
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = pattern.test(email);
+
+    if (!email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!isValidEmail) {
+      newErrors.email = "Enter correct Email";
+      isValid = false;
+    }
+    if (!password) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await axiosInstance.post("login", { email, password });
+        console.log(response.data.data);
+        dispatch(userLoggedin(response.data.data));
+        window.location.href = "/";
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
-    <div className=" max-w-sm">
+    <div className="max-lg:m-auto max-w-sm">
       <div>
         <h2
           className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
@@ -30,10 +75,15 @@ const LoginForm = () => {
               type="email"
               name="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="bg-gray-50 border sm:text-sm w-full p-3"
               placeholder="Email"
               required
             />
+            {errors.email && (
+              <div className="text-sm text-[#ff2828]">{errors.email}</div>
+            )}
           </div>
           <div>
             <input
@@ -41,9 +91,14 @@ const LoginForm = () => {
               name="password"
               id="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="bg-gray-50 border sm:text-sm w-full p-3"
               required
             />
+            {errors.password && (
+              <div className="text-sm text-[#ff2828]">{errors.password}</div>
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-start">
@@ -68,7 +123,12 @@ const LoginForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4  "
+            className={
+              !email || !password
+                ? "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4 "
+                : "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-black focus:ring-4  "
+            }
+            onClick={(e) => handleSubmit(e)}
           >
             SIGN IN
           </button>

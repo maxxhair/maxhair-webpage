@@ -4,7 +4,7 @@ import instagram from "/public/instagram.svg";
 import hairStrand from "/public/HairStrand.svg";
 import shoppingCart from "/public/shopping-cart.svg";
 import bgimg from "/public/kareya-saleh-tLKOj6cNwe0-unsplash 2.png";
-import logo from "/public/logo-black 2.svg";
+import logo from "/public/Frame 1618873035.svg";
 import prodimg from "/public/image 5.svg";
 import plus from "/public/Vector (3).svg";
 import deliveryImg from "/public/SVG.svg";
@@ -16,6 +16,7 @@ import productImage4 from "/public/AdobeStock_696943661_Preview 1 (1).svg";
 import productImage5 from "/public/image 789.svg";
 import brandLogo from "/public/brandLogo.svg";
 
+import brenda from "/public/image 790.svg";
 import sample1 from "/public/sample1.svg";
 import closeIcon from "/public/close.svg";
 
@@ -38,5 +39,6 @@ export {
   productImage3,
   productImage4,
   productImage5,
-  brandLogo
+  brandLogo,
+  brenda
 };

@@ -5,7 +5,7 @@ import Link from "next/link";
 const Navbar = ({ setToggle }) => {
   const items = [
     { title: "shop", id: "shop" },
-    { title: "educate me", id: "about" },
+    { title: "educate me", id: "educateMe" },
     { title: "blog", id: "blog" },
     { title: "Contact", id: "contact" },
   ];

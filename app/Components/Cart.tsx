@@ -63,8 +63,8 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     <>
       {cartItems.length > 0 ? (
         <div className="w-full">
-          {cartItems.map((item: any) => (
-            <CartItem key={item.id} product={item} />
+          {cartItems.map((item: any, index) => (
+            <CartItem key={index} product={item} />
           ))}
           <div className="w-full flex items-center gap-6 justify-between">
             <input

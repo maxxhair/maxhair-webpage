@@ -22,6 +22,7 @@ import {
   colorOpts,
   list1,
   sizeOpts,
+  staticImages,
   textureOpts,
   typeOpts
 } from "../util/staticData";
@@ -33,6 +34,7 @@ import { useParams } from "next/navigation";
 import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
 import axiosInstance from "../util/axiosInstance";
+import StockCard from "../Components/StockCard";
 
 interface Product {
   id: string;
@@ -100,13 +102,12 @@ const prompt = Prompt({
 
 export default function Page() {
   const { id } = useParams();
-
   const dispatch = useDispatch<AppDispatch>();
-
   const [products, setProducts] = useState([]);
   // const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState(true);
   const [variants, setVariants] = useState([]);
+  const [filteredVariant, setFilteredVariant] = useState(null);
 
   const [selectedQuantity, setQuantity] = useState(1);
 
@@ -156,7 +157,6 @@ export default function Page() {
   const [selectedTexture, setTexture] = useState(
     variants[0]?.texture?.title || null
   );
-  const [filteredVariant, setFilteredVariant] = useState(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
@@ -167,7 +167,7 @@ export default function Page() {
 
   const add = () => {
     const productToSave: ProductStoreType = {
-      id: id as string,
+      id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
       image: productImage,
       price:
@@ -209,6 +209,28 @@ export default function Page() {
     }
   };
 
+  const [stockCount, setStockCount] = useState();
+
+  useEffect(() => {
+    if (filteredVariant && filteredVariant.length > 0) {
+      const variant = filteredVariant[0];
+      if (variant.color.color.toLowerCase().trim() === "customcolor") {
+        const stock = variant.colorVariants.filter(
+          (colorVariant: any) => colorVariant.title === selectedColor
+        );
+        setStockCount(stock.length > 0 ? stock[0].stock : undefined);
+      } else {
+        setStockCount(variant.sku);
+      }
+    } else {
+      setStockCount(undefined);
+    }
+  }, [filteredVariant, selectedColor]);
+
+  console.log("filteredVariant", filteredVariant);
+
+  console.log("count", stockCount);
+
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
     setFilteredVariant(newFilteredVariant);
@@ -248,7 +270,7 @@ export default function Page() {
             <Image src={productImage5} alt="product-image-error" />
           </div>
           <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0">
-            <p className="text-sm font-semibold ">
+            {/* <p className="text-sm font-semibold ">
               Home -{variants[0]?.product?.title}
               <span className="font-normal text-sm">
                 (only{" "}
@@ -257,7 +279,13 @@ export default function Page() {
                   : variants[0]?.sku}
                 &nbsp; left)
               </span>
-            </p>
+            </p> */}
+            <StockCard
+              image={productImage}
+              name={variants[0]?.product?.title}
+              // stock={filteredVariant && filteredVariant[0]?.sku}
+              stock={stockCount}
+            />
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className=" mt-2">
               {[
@@ -287,7 +315,7 @@ export default function Page() {
               {colorOpts?.map((color) => (
                 <button
                   onClick={() => setColor(color)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${
                     selectedColor === color
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -303,7 +331,7 @@ export default function Page() {
               {typeOpts?.map((type) => (
                 <button
                   onClick={() => setType(type)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
                     selectedType === type
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -319,7 +347,7 @@ export default function Page() {
               {textureOpts?.map((texture) => (
                 <button
                   onClick={() => setTexture(texture)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
                     selectedTexture === texture
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -332,7 +360,7 @@ export default function Page() {
             </div>
             <div className="flex space-x-3 mt-4">
               <Image src={deliveryImg} alt="img-err" />
-              <p className=" sm:mt-1 ">Free Delivery & Easy Returns</p>
+              <p className=" mt-1 ">Free Delivery & Easy Returns</p>
             </div>
             <div className="sm:review-card mt-8">
               {(selectedSize === null ||
@@ -359,19 +387,19 @@ export default function Page() {
                     +
                   </div>
                 </div>
-                {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? (
-                  <button
-                    type="submit"
-                    className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-                    onClick={() => add()}
-                  >
-                    ADD TO CART (${" "}
-                    {filteredVariant && filteredVariant[0]?.price
-                      ? filteredVariant[0].price
-                      : variants[0]?.price}{" "}
-                    )
-                  </button>
-                ) : (
+                {/* {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? ( */}
+                <button
+                  type="submit"
+                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
+                  onClick={() => add()}
+                >
+                  ADD TO CART (${" "}
+                  {filteredVariant && filteredVariant[0]?.price
+                    ? filteredVariant[0].price
+                    : variants[0]?.price}{" "}
+                  )
+                </button>
+                {/* ) : (
                   <button
                     type="submit"
                     className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
@@ -382,10 +410,10 @@ export default function Page() {
                       : variants[0]?.price}{" "}
                     )
                   </button>
-                )}
+                )} */}
               </div>
             </div>
-            <div className="flex mt-4 border  border-neutral-200 rounded">
+            <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
               <Image src={logo} alt="img-err" className="m-3 w-16" />
               <p className="text-sm p-5 font-semibold">
                 Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
@@ -427,7 +455,7 @@ export default function Page() {
           </div>
         </div>
         <div className="md:flex mt-10 sm:inline">
-          <div className=" lg:w-5/12 lg:p-8 lg:pr-32 font-semibold sm:w-screen sm:p-12 mt-4">
+          <div className=" lg:w-5/12 lg:p-8  font-semibold m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -435,7 +463,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
+          <div className="lg:w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
@@ -449,7 +477,9 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8">
-          <p className={`${firaSans.className} text-3xl mt-10 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-10 font-bold`}
+          >
             Most Popular
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -459,7 +489,9 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8">
-          <p className={`${firaSans.className} text-3xl mt-8 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-8 font-bold`}
+          >
             Repeat Orders
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -469,21 +501,27 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8 text-sm">
-          <p className={`${firaSans.className} text-3xl mt-16 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
+          >
             Customer Reviews
           </p>
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div className="flex mt-8 ">
-              <p className={`${firaSans.className} text-5xl font-bold mt-2`}>
+              <p
+                className={`${firaSans.className} text-3xl lg:text-5xl font-bold mt-2`}
+              >
                 4.9
               </p>
               <Rating count={5} value={5} className="m-2 mt-auto" />
-              <p className="m-2 mt-auto">Based on 1611 3 reviews</p>
+              <p className="m-2 mt-auto text-xs lg:text-sm">
+                Based on 1611 3 reviews
+              </p>
             </div>
 
             <button
               type="submit"
-              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto "
+              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm "
             >
               Write A Review
             </button>
