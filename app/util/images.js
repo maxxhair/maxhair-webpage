@@ -4,7 +4,7 @@ import instagram from "/public/instagram.svg";
 import hairStrand from "/public/HairStrand.svg";
 import shoppingCart from "/public/shopping-cart.svg";
 import bgimg from "/public/kareya-saleh-tLKOj6cNwe0-unsplash 2.png";
-import logo from "/public/logo-black 2.svg";
+import logo from "/public/Frame 1618873035.svg";
 import prodimg from "/public/image 5.svg";
 import plus from "/public/Vector (3).svg";
 import deliveryImg from "/public/SVG.svg";

@@ -22,6 +22,7 @@ import {
   colorOpts,
   list1,
   sizeOpts,
+  staticImages,
   textureOpts,
   typeOpts
 } from "../util/staticData";
@@ -33,6 +34,7 @@ import { useParams } from "next/navigation";
 import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
 import axiosInstance from "../util/axiosInstance";
+import StockCard from "../Components/StockCard";
 
 interface Product {
   id: string;
@@ -225,6 +227,40 @@ export default function Page() {
       >
         <div className="md:flex flex-row inline">
           <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
+            {/* <Swiper
+              // slidesPerView={4}
+              spaceBetween={30}
+              freeMode={true}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[FreeMode, Pagination]}
+              className="mySwiper"
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                },
+
+                760: {
+                  slidesPerView: 2,
+                },
+
+                900: {
+                  slidesPerView: 3,
+                },
+                1200: {
+                  slidesPerView: 4,
+                },
+              }}
+            >
+              {staticImages.slice(0, 4).map((item) => {
+                return (
+                  <SwiperSlide key={"hello"}>
+                    <Image src={item} alt="product-image-error" />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper> */}
             <Image
               src={productImage}
               alt="product-image-error"
@@ -258,6 +294,7 @@ export default function Page() {
                 &nbsp; left)
               </span>
             </p>
+            <StockCard image={productImage1} />
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className=" mt-2">
               {[
@@ -287,7 +324,7 @@ export default function Page() {
               {colorOpts?.map((color) => (
                 <button
                   onClick={() => setColor(color)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${
                     selectedColor === color
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -303,7 +340,7 @@ export default function Page() {
               {typeOpts?.map((type) => (
                 <button
                   onClick={() => setType(type)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
                     selectedType === type
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -319,7 +356,7 @@ export default function Page() {
               {textureOpts?.map((texture) => (
                 <button
                   onClick={() => setTexture(texture)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded sm:pl-2.5 sm:pr-2.5 sm:text-xs sm:h-6 ${
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
                     selectedTexture === texture
                       ? "bg-[#E3D6C5] text-[#A47252]"
                       : "bg-neutral-100"
@@ -332,7 +369,7 @@ export default function Page() {
             </div>
             <div className="flex space-x-3 mt-4">
               <Image src={deliveryImg} alt="img-err" />
-              <p className=" sm:mt-1 ">Free Delivery & Easy Returns</p>
+              <p className=" mt-1 ">Free Delivery & Easy Returns</p>
             </div>
             <div className="sm:review-card mt-8">
               {(selectedSize === null ||
@@ -385,7 +422,7 @@ export default function Page() {
                 )}
               </div>
             </div>
-            <div className="flex mt-4 border  border-neutral-200 rounded">
+            <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
               <Image src={logo} alt="img-err" className="m-3 w-16" />
               <p className="text-sm p-5 font-semibold">
                 Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
@@ -427,7 +464,7 @@ export default function Page() {
           </div>
         </div>
         <div className="md:flex mt-10 sm:inline">
-          <div className=" lg:w-5/12 lg:p-8 lg:pr-32 font-semibold sm:w-screen sm:p-12 mt-4">
+          <div className=" lg:w-5/12 lg:p-8  font-semibold m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -435,7 +472,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
+          <div className="lg:w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
@@ -449,7 +486,9 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8">
-          <p className={`${firaSans.className} text-3xl mt-10 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-10 font-bold`}
+          >
             Most Popular
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -459,7 +498,9 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8">
-          <p className={`${firaSans.className} text-3xl mt-8 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-8 font-bold`}
+          >
             Repeat Orders
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -469,21 +510,27 @@ export default function Page() {
           </div>
         </div>
         <div className="m-8 text-sm">
-          <p className={`${firaSans.className} text-3xl mt-16 font-bold`}>
+          <p
+            className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
+          >
             Customer Reviews
           </p>
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div className="flex mt-8 ">
-              <p className={`${firaSans.className} text-5xl font-bold mt-2`}>
+              <p
+                className={`${firaSans.className} text-3xl lg:text-5xl font-bold mt-2`}
+              >
                 4.9
               </p>
               <Rating count={5} value={5} className="m-2 mt-auto" />
-              <p className="m-2 mt-auto">Based on 1611 3 reviews</p>
+              <p className="m-2 mt-auto text-xs lg:text-sm">
+                Based on 1611 3 reviews
+              </p>
             </div>
 
             <button
               type="submit"
-              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto "
+              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm "
             >
               Write A Review
             </button>

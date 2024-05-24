@@ -5,17 +5,21 @@ import React from "react";
 
 export default function Page() {
   return (
-    <div className="flex flex-row bg-white text-black">
-      <div className="w-1/2 ">
+    <div className="flex lg:flex-row flex-col bg-white text-black w-screen">
+      <div className="lg:w-1/2 w-full max-lg:hidden ">
         <Image
           src={bgimg}
           alt="bgimg error"
-          className="w-full object-cover h-screen"
+          className=" lg:object-cover lg:h-screen"
         />
       </div>
 
-      <div className="w-1/2 pt-24 pl-20">
-        <Image src={logo} alt="logo-error" />
+      <div className="w-full lg:w-1/2 pt-24 lg:pl-16">
+        <Image
+          src={logo}
+          alt="logo-error"
+          className="max-lg:m-auto  h-24 w-1/2"
+        />
         <SignupForm />
       </div>
     </div>

@@ -28,15 +28,15 @@ const CartItem: React.FC<Props> = ({ product }) => {
     }
     const payload = {
       product: {
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        price: product.price,
-        count: product.count,
-        color: product.color,
-        size: product.size,
-        type: product.type,
-        texture: product.texture
+        id: product?.id,
+        name: product?.name,
+        image: product?.image,
+        price: product?.price,
+        count: product?.count,
+        color: product?.color,
+        size: product?.size,
+        type: product?.type,
+        texture: product?.texture
       },
       count: count
     };
@@ -46,15 +46,15 @@ const CartItem: React.FC<Props> = ({ product }) => {
   const removeFromCart = () => {
     dispatch(
       removeProduct({
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        price: product.price,
-        count: product.count,
-        color: product.color,
-        size: product.size as any,
-        type: product.type,
-        texture: product.texture
+        id: product?.id,
+        name: product?.name,
+        image: product?.image,
+        price: product?.price,
+        count: product?.count,
+        color: product?.color,
+        size: product?.size as any,
+        type: product?.type,
+        texture: product?.texture
       })
     );
   };
@@ -87,18 +87,22 @@ const CartItem: React.FC<Props> = ({ product }) => {
           <div className="flex items-center gap-6">
             <div
               className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
-              onClick={() => setProductCount(product.count - 1)}
+              onClick={() => setProductCount(product?.count - 1)}
             >
               -
             </div>
-            <p className="label-medium">{product.count}</p>
+            <p className="label-medium">{product?.count}</p>
             <div
               className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
-              onClick={() => setProductCount(product.count + 1)}
+              onClick={() => setProductCount(product?.count + 1)}
             >
               +
             </div>
           </div>
+        </div>
+        <div className="flex flex-col h-full justify-between">
+          <p className="label-large">${product?.price * product?.count}</p>
+          <p className="label-medium underline cursor-pointer">Remove</p>
         </div>
       </div>
       <div className="flex lg:flex-col lg:gap-16 lg:w-auto w-full items-center h-full justify-between lg:border-t-0 border-t-2 p-2">

@@ -1,3 +1,12 @@
+import {
+  productImage,
+  productImage1,
+  productImage2,
+  productImage3,
+  productImage4,
+  productImage5,
+} from "./images";
+
 export const list = [
   {
     title:
@@ -151,6 +160,14 @@ export const textureOpts = [
 export const sizeOpts = [
   8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36
 ];
+export const staticImages = [
+  productImage,
+  productImage1,
+  productImage2,
+  productImage3,
+  productImage4,
+  productImage5,
+];
 
 export const productOptions = [
   { value: "all", label: "All" },
@@ -191,7 +208,7 @@ export const colorOptions = [
   { value: "natural", label: "Natural" },
   { value: "#121212", value: "#121212" },
   { value: "#000000", label: "#000000" },
-  { value: "#1b1b1b1", label: "#1b1b1b" }
+  { value: "#1b1b1b1", label: "#1b1b1b" },
 ];
 
 export const sizeOptions = [
@@ -204,5 +221,5 @@ export const sizeOptions = [
   { value: "26", label: "26''" },
   { value: "28", label: "28''" },
   { value: "30", label: "30''" },
-  { value: "32", label: "32''" }
+  { value: "32", label: "32''" },
 ];
