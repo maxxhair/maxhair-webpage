@@ -100,10 +100,6 @@ const CartItem: React.FC<Props> = ({ product }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col h-full justify-between">
-          <p className="label-large">${product?.price * product?.count}</p>
-          <p className="label-medium underline cursor-pointer">Remove</p>
-        </div>
       </div>
       <div className="flex lg:flex-col lg:gap-16 lg:w-auto w-full items-center h-full justify-between lg:border-t-0 border-t-2 p-2">
         <p className="label-large">

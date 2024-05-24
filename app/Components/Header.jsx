@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Drawer } from "flowbite-react";
 import { setCloseCart, setOpenCart } from "../store/redux/cartSlice";
 import { useEffect } from "react";
+import { isEmpty } from "lodash";
 import Cart from "./Cart";
 import Navbar from "./_header/Navbar";
 
@@ -22,6 +23,9 @@ function Header() {
   const dispatch = useDispatch();
   const cartOpen = useSelector((state) => state.cart.openCart);
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const loggedUser = useSelector((state) => state.user.user);
+
+  console.log(isEmpty(loggedUser));
 
   const cartCount = cartItems.length;
 
@@ -39,7 +43,6 @@ function Header() {
     } else {
       document.body.classList.remove("overflow-hidden");
     }
-
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
@@ -69,7 +72,7 @@ function Header() {
             <Link href="contact">Contact</Link>
           </div>
           <div className="flex items-center gap-5 justify-end">
-            <Link href="signin">
+            <Link href={isEmpty(loggedUser) ? "signin" : "profile"}>
               <Image src={user} alt="profile" className="w-6" />
             </Link>
 

@@ -4,7 +4,7 @@ import {
   productImage2,
   productImage3,
   productImage4,
-  productImage5,
+  productImage5
 } from "./images";
 
 export const list = [
@@ -104,7 +104,6 @@ export const categoriesOptions = [
 ];
 export const colorOpts = [
   "Natural",
-  "#PA/22",
   "#22",
   "#22b",
   "#11b",
@@ -166,7 +165,7 @@ export const staticImages = [
   productImage2,
   productImage3,
   productImage4,
-  productImage5,
+  productImage5
 ];
 
 export const productOptions = [
@@ -208,7 +207,7 @@ export const colorOptions = [
   { value: "natural", label: "Natural" },
   { value: "#121212", value: "#121212" },
   { value: "#000000", label: "#000000" },
-  { value: "#1b1b1b1", label: "#1b1b1b" },
+  { value: "#1b1b1b1", label: "#1b1b1b" }
 ];
 
 export const sizeOptions = [
@@ -221,5 +220,5 @@ export const sizeOptions = [
   { value: "26", label: "26''" },
   { value: "28", label: "28''" },
   { value: "30", label: "30''" },
-  { value: "32", label: "32''" },
+  { value: "32", label: "32''" }
 ];

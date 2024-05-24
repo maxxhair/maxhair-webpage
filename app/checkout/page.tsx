@@ -60,7 +60,6 @@ const Checkout = () => {
           if (event.data.eventStatus === "SUCCESS") {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
-            console.log(response);
             const body = {
               items: cartItems,
               total: TotalPriceToPay,

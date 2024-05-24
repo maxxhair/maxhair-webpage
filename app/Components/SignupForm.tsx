@@ -8,11 +8,11 @@ import { tosignin } from "./actions";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const SignupForm = () => {
@@ -53,23 +53,35 @@ const SignupForm = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      axiosInstance
-        .post("signup", {
+    // axiosInstance
+    //   .post("signup", {
+    //     email,
+    //     password,
+    //     fullName,
+    //     phoneNumber,
+    //   })
+    //   .then((res) => {
+    //     tosignin();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // }
+    try {
+      if (validateForm()) {
+        const response = await axiosInstance.post("signup", {
           email,
           password,
           fullName,
-          phoneNumber,
-        })
-        .then((res) => {
-          tosignin();
-        })
-        .catch((err) => {
-          console.log(err);
+          phoneNumber
         });
+        window.location.href = "signin";
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

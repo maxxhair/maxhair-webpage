@@ -19,9 +19,7 @@ const indexSameProduct = (
   state: InitialCartState,
   action: ProductStoreType
 ) => {
-  console.log(action, "action");
   const sameProduct = (product: ProductStoreType) =>
-    // console.log(product, "prodfasdfd");
     product?.id === action.id &&
     product.color === action.color &&
     product.size === action.size &&

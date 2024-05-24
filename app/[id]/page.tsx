@@ -102,13 +102,12 @@ const prompt = Prompt({
 
 export default function Page() {
   const { id } = useParams();
-
   const dispatch = useDispatch<AppDispatch>();
-
   const [products, setProducts] = useState([]);
   // const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState(true);
   const [variants, setVariants] = useState([]);
+  const [filteredVariant, setFilteredVariant] = useState(null);
 
   const [selectedQuantity, setQuantity] = useState(1);
 
@@ -158,7 +157,6 @@ export default function Page() {
   const [selectedTexture, setTexture] = useState(
     variants[0]?.texture?.title || null
   );
-  const [filteredVariant, setFilteredVariant] = useState(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
@@ -169,7 +167,7 @@ export default function Page() {
 
   const add = () => {
     const productToSave: ProductStoreType = {
-      id: id as string,
+      id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
       image: productImage,
       price:
@@ -211,6 +209,28 @@ export default function Page() {
     }
   };
 
+  const [stockCount, setStockCount] = useState();
+
+  useEffect(() => {
+    if (filteredVariant && filteredVariant.length > 0) {
+      const variant = filteredVariant[0];
+      if (variant.color.color.toLowerCase().trim() === "customcolor") {
+        const stock = variant.colorVariants.filter(
+          (colorVariant: any) => colorVariant.title === selectedColor
+        );
+        setStockCount(stock.length > 0 ? stock[0].stock : undefined);
+      } else {
+        setStockCount(variant.sku);
+      }
+    } else {
+      setStockCount(undefined);
+    }
+  }, [filteredVariant, selectedColor]);
+
+  console.log("filteredVariant", filteredVariant);
+
+  console.log("count", stockCount);
+
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
     setFilteredVariant(newFilteredVariant);
@@ -227,40 +247,6 @@ export default function Page() {
       >
         <div className="md:flex flex-row inline">
           <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
-            {/* <Swiper
-              // slidesPerView={4}
-              spaceBetween={30}
-              freeMode={true}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[FreeMode, Pagination]}
-              className="mySwiper"
-              breakpoints={{
-                640: {
-                  slidesPerView: 1,
-                },
-
-                760: {
-                  slidesPerView: 2,
-                },
-
-                900: {
-                  slidesPerView: 3,
-                },
-                1200: {
-                  slidesPerView: 4,
-                },
-              }}
-            >
-              {staticImages.slice(0, 4).map((item) => {
-                return (
-                  <SwiperSlide key={"hello"}>
-                    <Image src={item} alt="product-image-error" />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper> */}
             <Image
               src={productImage}
               alt="product-image-error"
@@ -284,7 +270,7 @@ export default function Page() {
             <Image src={productImage5} alt="product-image-error" />
           </div>
           <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0">
-            <p className="text-sm font-semibold ">
+            {/* <p className="text-sm font-semibold ">
               Home -{variants[0]?.product?.title}
               <span className="font-normal text-sm">
                 (only{" "}
@@ -293,8 +279,13 @@ export default function Page() {
                   : variants[0]?.sku}
                 &nbsp; left)
               </span>
-            </p>
-            <StockCard image={productImage1} />
+            </p> */}
+            <StockCard
+              image={productImage}
+              name={variants[0]?.product?.title}
+              // stock={filteredVariant && filteredVariant[0]?.sku}
+              stock={stockCount}
+            />
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className=" mt-2">
               {[
@@ -396,19 +387,19 @@ export default function Page() {
                     +
                   </div>
                 </div>
-                {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? (
-                  <button
-                    type="submit"
-                    className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-                    onClick={() => add()}
-                  >
-                    ADD TO CART (${" "}
-                    {filteredVariant && filteredVariant[0]?.price
-                      ? filteredVariant[0].price
-                      : variants[0]?.price}{" "}
-                    )
-                  </button>
-                ) : (
+                {/* {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? ( */}
+                <button
+                  type="submit"
+                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
+                  onClick={() => add()}
+                >
+                  ADD TO CART (${" "}
+                  {filteredVariant && filteredVariant[0]?.price
+                    ? filteredVariant[0].price
+                    : variants[0]?.price}{" "}
+                  )
+                </button>
+                {/* ) : (
                   <button
                     type="submit"
                     className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
@@ -419,7 +410,7 @@ export default function Page() {
                       : variants[0]?.price}{" "}
                     )
                   </button>
-                )}
+                )} */}
               </div>
             </div>
             <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
