@@ -18,7 +18,6 @@ export const getProduct = async (id) => {
 };
 
 export const getVariantsByProductId = async (productId: string) => {
-  console.log("productId", productId);
   try {
     const response = await axiosInstance.get(
       `variants/filter?products=${productId}`
