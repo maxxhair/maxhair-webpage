@@ -19,10 +19,20 @@ interface CheckoutFormData {
   zipcode: string;
 }
 
+interface LoggedUser {
+  email: string;
+  _id: string;
+  addresses: [];
+}
+
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
   const [token, setToken] = useState(null);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const loggedUser = useSelector(
+    (state: RootState) => state.user.user as LoggedUser
+  );
+
   const discountPercentage = useSelector(
     (state: RootState) => state.cart.discountPercentage
   );
@@ -117,12 +127,14 @@ const Checkout = () => {
         >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
-            <div className="flex">
-              <Link href="signin">
-                <p className="label-medium">Login</p>
-              </Link>
-              /<p className="label-medium">Continue as guest</p>
-            </div>
+            {!loggedUser.email && (
+              <div className="flex">
+                <Link href="signin">
+                  <p className="label-medium">Login</p>
+                </Link>
+                /<p className="label-medium">Continue as guest</p>
+              </div>
+            )}
           </div>
           <TextInput
             id="email"

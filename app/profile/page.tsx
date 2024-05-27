@@ -6,6 +6,29 @@ import ProfileSideNavbar from "../Components/ProfileSideNavbar";
 import MyOrders from "../Components/MyOrders";
 import Wishlist from "../Components/Wishlist";
 import ProfileSettings from "../Components/ProfileSettings";
+import AddressBox from "../Components/AddressBox";
+
+export const addresses = [
+  {
+    _id: "1",
+    name: "Laxman Balla",
+    contact: "+919490723391",
+    email: "laxman@wielabs.com",
+    address:
+      "Flat no -3, Sumadhura Ruchulu Curyy point Building, Megha Hills Road no -2",
+    landmark: "Ayyappa Society",
+    zipCode: "500081"
+  },
+  {
+    _id: "2",
+    name: "Laxman Balla",
+    contact: "+919490723391",
+    email: "laxman@wielabs.com",
+    address: "Sri Venkatesware Mens PG, Vittalrao nagar, Hitech City",
+    landmark: "Ayyappa Society",
+    zipCode: "500081"
+  }
+];
 
 const Profile = () => {
   const [navOption, setNavOption] = useState("orders");
@@ -27,7 +50,13 @@ const Profile = () => {
           </div>
         );
       case "addresses":
-        return <div className="w-[70%]">Addresses</div>;
+        return (
+          <div className="w-[70%]">
+            <AddressBox />
+            <AddressBox />
+            <AddressBox />
+          </div>
+        );
       case "account settings":
         return (
           <div className="w-[70%]">

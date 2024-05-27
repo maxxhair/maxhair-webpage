@@ -36,60 +36,6 @@ import { AppDispatch, RootState } from "../store";
 import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  sku: string;
-  product: {
-    _id: string;
-    title: string;
-    images: string[];
-    category: {
-      _id: string;
-      title: string;
-    };
-  };
-  type: {
-    _id: string;
-    title: string;
-  };
-  texture: {
-    _id: string;
-    title: string;
-  };
-  color: {
-    _id: string;
-    color: string;
-  };
-  size: {
-    _id: string;
-    size: number;
-  };
-}
-
-interface Variant {
-  _id: string;
-  sku: string;
-  color: {
-    _id: string;
-    color: string;
-  };
-  type: {
-    _id: string;
-    title: string;
-  };
-  texture: {
-    _id: string;
-    title: string;
-    image: string;
-  };
-  size: {
-    _id: string;
-    size: number;
-  };
-}
-
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
   subsets: ["latin"]
