@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 function Calc() {
-  const didRun = useRef(false);
   useEffect(() => {
     function setScrollVar() {
       const scrollTop = document.documentElement.scrollTop;
@@ -17,16 +16,10 @@ function Calc() {
       );
       document.documentElement.style.setProperty(
         "--shopButtonDisplay",
-        scrollTop >= 200 ? "none" : "all"
+        scrollTop > 0 ? "none" : "all"
       );
     }
-    if (!didRun.current) {
-      const element = document.getElementById("greet");
-      const height = parseFloat(window.getComputedStyle(element).height);
-      element.style.height = height * 2.3 + "px";
-      console.log(element.style.height);
-      didRun.current = true;
-    }
+
     window.addEventListener("scroll", setScrollVar);
     setScrollVar();
     return () => {
