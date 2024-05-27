@@ -2,6 +2,7 @@
 import { initialState as cartInitialState } from "./redux/cartSlice";
 import { initialState as userInitialState } from "./redux/userSlice";
 import { initialState as addressInitialState } from "./redux/addressesSlice";
+import { initialState as wishlistInitialState } from "./redux/wishlistSlice";
 
 export const migrations = {
   0: (state: any) => {
@@ -9,7 +10,8 @@ export const migrations = {
       ...state,
       cart: cartInitialState,
       user: userInitialState,
-      address: addressInitialState
+      address: addressInitialState,
+      wishlist: wishlistInitialState
     };
   },
   1: (state: any) => {
@@ -36,6 +38,14 @@ export const migrations = {
       ...state,
       address: {
         ...state.address
+      }
+    };
+  },
+  4: (state: any) => {
+    return {
+      ...state,
+      wishlist: {
+        ...state.wishlist
       }
     };
   }

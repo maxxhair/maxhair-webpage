@@ -23,3 +23,6 @@ const wishlistSlice = createSlice({
     }
   }
 });
+
+export const { addToWishList, removeFromWishList } = wishlistSlice.actions;
+export default wishlistSlice.reducer;

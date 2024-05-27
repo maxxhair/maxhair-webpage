@@ -7,6 +7,8 @@ import MyOrders from "../Components/MyOrders";
 import Wishlist from "../Components/Wishlist";
 import ProfileSettings from "../Components/ProfileSettings";
 import AddressBox from "../Components/AddressBox";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export const addresses = [
   {
@@ -32,6 +34,9 @@ export const addresses = [
 
 const Profile = () => {
   const [navOption, setNavOption] = useState("orders");
+  const wishlist = useSelector(
+    (state: RootState) => state.wishlist.wishListItems
+  );
 
   const getComponent = (option: string) => {
     switch (option) {
@@ -45,8 +50,9 @@ const Profile = () => {
       case "wishlists":
         return (
           <div className="w-[70%]">
-            <Wishlist />
-            <Wishlist />
+            {wishlist.map((wishlistItem: any) => (
+              <Wishlist key={wishlistItem.id} wishListItem={wishlistItem} />
+            ))}
           </div>
         );
       case "addresses":

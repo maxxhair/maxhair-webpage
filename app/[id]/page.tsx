@@ -5,16 +5,14 @@ import { Fira_Sans, Prompt } from "next/font/google";
 import ReviewCard from "../Components/ReviewCard";
 import ProductCard from "../Components/ProductCard";
 import {
-  plus,
   deliveryImg,
-  productImage,
   logo,
   productImage1,
   productImage2,
   productImage3,
   productImage4,
   productImage5,
-  prodimg,
+  prodimg
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../Components/ExtraInfoSection";
@@ -22,12 +20,11 @@ import {
   colorOpts,
   list1,
   sizeOpts,
-  staticImages,
   textureOpts,
-  typeOpts,
+  typeOpts
 } from "../util/staticData";
 import Rating from "../Components/Rating";
-import { getProduct, getVariantsByProductId } from "../util/serverSideProps";
+import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, setCount, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
@@ -35,22 +32,28 @@ import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
 import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
+import {
+  addToWishList,
+  removeFromWishList
+} from "../store/redux/wishlistSlice";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 export default function Page() {
   const { id } = useParams();
+  const wishList = useSelector(
+    (state: RootState) => state.wishlist.wishListItems
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [products, setProducts] = useState([]);
-  // const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState(true);
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
@@ -124,11 +127,11 @@ export default function Page() {
       color: selectedColor,
       size: selectedSize as any,
       type: selectedType,
-      texture: selectedTexture,
+      texture: selectedTexture
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave,
+      product: productToSave
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -173,18 +176,44 @@ export default function Page() {
     }
   }, [filteredVariant, selectedColor]);
 
-  console.log("filteredVariant", filteredVariant);
-
-  console.log("count", stockCount);
-
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
+    console.log(newFilteredVariant && newFilteredVariant[0]);
     setFilteredVariant(newFilteredVariant);
   }, [selectedSize, selectedColor, selectedType, selectedTexture]);
+
+  const isItemInWishList = (id: string) => {
+    return wishList.some((item) => item.id === id);
+  };
+
+  const handleWishlistToggle = () => {
+    const productToAdd: ProductStoreType = {
+      id: filteredVariant && filteredVariant[0]._id,
+      name: variants[0].product.title,
+      image: productImage,
+      price:
+        filteredVariant && filteredVariant[0]?.price
+          ? filteredVariant[0].price
+          : variants[0].price,
+      count: selectedQuantity,
+      color: selectedColor,
+      size: selectedSize as any,
+      type: selectedType,
+      texture: selectedTexture
+    };
+
+    if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
+      dispatch(removeFromWishList(filteredVariant && filteredVariant[0]?._id));
+    } else {
+      dispatch(addToWishList(productToAdd));
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  // console.log(filteredVariant && filteredVariant[0]?._id);
 
   return (
     variants && (
@@ -237,7 +266,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                ),
+                )
               ]
                 .sort(function (a, b) {
                   return a - b;
@@ -334,7 +363,13 @@ export default function Page() {
                   </div>
                   <div>
                     <label className="container">
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        onChange={handleWishlistToggle}
+                        checked={isItemInWishList(
+                          filteredVariant && filteredVariant[0]?._id
+                        )}
+                      />
                       <svg
                         id="Layer_1"
                         viewBox="0 0 26 26"
