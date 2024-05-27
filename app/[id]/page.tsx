@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { Fira_Sans, Prompt } from "next/font/google";
-import ReviewCard from "../Components/ReviewCard";
-import ProductCard from "../Components/ProductCard";
 import {
   deliveryImg,
   logo,
@@ -36,6 +34,9 @@ import {
   addToWishList,
   removeFromWishList
 } from "../store/redux/wishlistSlice";
+import MostPopular from "../Components/MostPopular";
+import RepeatOrders from "../Components/RepeatOrders";
+import CustomerReviews from "../Components/CustomerReviews";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -244,21 +245,10 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error" />
             <Image src={productImage5} alt="product-image-error" />
           </div>
-          <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0">
-            {/* <p className="text-sm font-semibold ">
-              Home -{variants[0]?.product?.title}
-              <span className="font-normal text-sm">
-                (only{" "}
-                {filteredVariant && filteredVariant[0]?.sku
-                  ? filteredVariant[0]?.sku
-                  : variants[0]?.sku}
-                &nbsp; left)
-              </span>
-            </p> */}
+          <div className="md:w-1/2 m-8 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
             <StockCard
               image={productImage}
               name={variants[0]?.product?.title}
-              // stock={filteredVariant && filteredVariant[0]?.sku}
               stock={stockCount}
             />
             <p className="text-sm font-semibold mt-5">Select Size</p>
@@ -382,7 +372,6 @@ export default function Page() {
                     </label>
                   </div>
                 </div>
-                {/* {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? ( */}
 
                 <button
                   type="submit"
@@ -395,18 +384,6 @@ export default function Page() {
                     : variants[0]?.price}{" "}
                   )
                 </button>
-                {/* ) : (
-                  <button
-                    type="submit"
-                    className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-                  >
-                    PLACE ORDER (${" "}
-                    {filteredVariant && filteredVariant[0]?.price
-                      ? filteredVariant[0].price
-                      : variants[0]?.price}{" "}
-                    )
-                  </button>
-                )} */}
               </div>
             </div>
             <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
@@ -450,8 +427,8 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="md:flex mt-10 sm:inline">
-          <div className=" lg:w-5/12 lg:p-8  font-semibold m-8">
+        <div className="md:flex mt-10 inline ">
+          <div className=" lg:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -459,7 +436,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="lg:w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
+          <div className="lg:w-7/12 p-6 h-auto text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
@@ -472,62 +449,9 @@ export default function Page() {
             })}
           </div>
         </div>
-        <div className="m-8">
-          <p
-            className={`${firaSans.className} text-xl lg:text-3xl mt-10 font-bold`}
-          >
-            Most Popular
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.slice(0, 4).map((product: any) => (
-              <ProductCard key={product._id} item={product} />
-            ))}
-          </div>
-        </div>
-        <div className="m-8">
-          <p
-            className={`${firaSans.className} text-xl lg:text-3xl mt-8 font-bold`}
-          >
-            Repeat Orders
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.slice(5, 9).map((product: any) => (
-              <ProductCard key={product._id} item={product} />
-            ))}
-          </div>
-        </div>
-        <div className="m-8 text-sm">
-          <p
-            className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
-          >
-            Customer Reviews
-          </p>
-          <div className="flex justify-between ">
-            <div className="flex mt-8 ">
-              <p
-                className={`${firaSans.className} text-3xl lg:text-5xl font-bold mt-2`}
-              >
-                4.9
-              </p>
-              <Rating count={5} value={5} className="m-2 mt-auto" />
-              <p className="m-2 mt-auto text-xs lg:text-sm">
-                Based on 1611 3 reviews
-              </p>
-            </div>
-
-            <button
-              type="submit"
-              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm "
-            >
-              Write A Review
-            </button>
-          </div>
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-        </div>
+        <MostPopular prods={products} />
+        <RepeatOrders prods={products} />
+        <CustomerReviews />
       </div>
     )
   );
