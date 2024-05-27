@@ -25,7 +25,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     let totalPrice = 0;
     if (cartItems.length > 0) {
       cartItems.map((item) =>
-        (totalPrice += item.price * item.count).toFixed(2)
+        (totalPrice += item?.price * item?.count).toFixed(2)
       );
     }
 
@@ -71,7 +71,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
               placeholder="Discount code or gift card"
               type="text"
               className="w-full bg-white outline-none py-3 px-2 rounded-lg"
-              value={couponCode.toUpperCase()}
+              value={couponCode?.toUpperCase()}
               onChange={handleCouponCodeChange}
             />
             <button

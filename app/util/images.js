@@ -19,6 +19,7 @@ import brandLogo from "/public/brandLogo.svg";
 import brenda from "/public/image 790.svg";
 import sample1 from "/public/sample1.svg";
 import closeIcon from "/public/close.svg";
+import contactUsBgImg from "/public/AdobeStock_779998205_Preview 2.svg";
 
 export {
   companyLogo,
@@ -40,5 +41,6 @@ export {
   productImage4,
   productImage5,
   brandLogo,
-  brenda
+  brenda,
+  contactUsBgImg,
 };
