@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { firaSans } from "../../util/fonts";
+import { prodimg } from "../../util/images";
 
 function Card({ obj, selected, index }) {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";

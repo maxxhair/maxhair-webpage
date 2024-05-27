@@ -1,4 +1,5 @@
 import companyLogo from "/public/brandlogo.png";
+import companyLogo2 from "/public/brandlogo2.svg";
 import facebook from "/public/facebook.svg";
 import instagram from "/public/instagram.svg";
 import hairStrand from "/public/HairStrand.svg";
@@ -20,6 +21,7 @@ import closeIcon from "/public/close.svg";
 
 export {
   companyLogo,
+  companyLogo2,
   facebook,
   instagram,
   hairStrand,

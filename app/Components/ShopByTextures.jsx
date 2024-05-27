@@ -44,7 +44,7 @@ function ShopByTextures() {
       <div className=" xl:w-[70%] lg:w-[90%] h-auto w-full relative ">
         <Swiper
           ref={sliderRef}
-          spaceBetween={40}
+          spaceBetween={0}
           slidesPerView={1}
           effect="coverflow"
           centeredSlides={true}
@@ -60,10 +60,10 @@ function ShopByTextures() {
           }}
           initialSlide={1}
           coverflowEffect={{
-            rotate: 5, // Rotate angle in degrees
+            rotate: 15, // Rotate angle in degrees
             stretch: 0, // Stretch space between slides
-            depth: 100, // Depth of the slide shadow
-            modifier: 2.5, // Effect multiplier
+            depth: 140, // Depth of the slide shadow
+            modifier: 1, // Effect multiplier
             slideShadows: false,
           }}
           onSlideChange={handleSlideChange}

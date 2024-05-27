@@ -4,10 +4,17 @@ import Calc from "./_greet/Calc";
 
 function Greet() {
   return (
-    <div className={`text-center w-full video-container`}>
+    <div
+      className={`text-center w-full lg:h-[600px] md:h-[500px] h-[400px] bg-[#FAFAFA]`}
+    >
       <div className={` w-full h-full relative flex justify-center`}>
         <Calc />
-        <video autoPlay loop muted className="w-full h-full object-cover video">
+        <video
+          autoPlay
+          loop
+          muted
+          className="w-full h-full object-cover video video-container"
+        >
           <source src="/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
