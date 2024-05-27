@@ -55,21 +55,6 @@ const SignupForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
-    // axiosInstance
-    //   .post("signup", {
-    //     email,
-    //     password,
-    //     fullName,
-    //     phoneNumber,
-    //   })
-    //   .then((res) => {
-    //     tosignin();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // }
     try {
       if (validateForm()) {
         const response = await axiosInstance.post("signup", {
@@ -184,7 +169,11 @@ const SignupForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4  "
+            className={
+              email && password && fullName && phoneNumber
+                ? "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-black focus:ring-4 cursor-pointer"
+                : "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4 cursor-not-allowed"
+            }
             onClick={(e) => handleSubmit(e)}
           >
             CREATE ACCOUNT

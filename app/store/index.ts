@@ -22,7 +22,7 @@ import { migrations } from "./migrations";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "cart"],
+  whitelist: ["user", "cart", "address"],
   migrate: createMigrate(migrations, { debug: false })
 };
 

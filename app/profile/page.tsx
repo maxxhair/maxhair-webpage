@@ -23,7 +23,7 @@ export const addresses = [
     _id: "2",
     name: "Laxman Balla",
     contact: "+919490723391",
-    email: "laxman@wielabs.com",
+    email: "ballalaxmanrao987@gmail.com",
     address: "Sri Venkatesware Mens PG, Vittalrao nagar, Hitech City",
     landmark: "Ayyappa Society",
     zipCode: "500081"
@@ -52,9 +52,9 @@ const Profile = () => {
       case "addresses":
         return (
           <div className="w-[70%]">
-            <AddressBox />
-            <AddressBox />
-            <AddressBox />
+            {addresses.map((address: any, index: number) => (
+              <AddressBox key={index} address={address} />
+            ))}
           </div>
         );
       case "account settings":
