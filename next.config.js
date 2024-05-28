@@ -1,10 +1,11 @@
 const nextConfig = {
   images: {
+    domains: ["backend.maxxhairextensions.com"],
     remotePatterns: [
       {
         protocol: "http",
         hostname: "192.168.50.22",
-        port: "3000",
+        port: "3008",
         pathname: "/**"
       },
       {

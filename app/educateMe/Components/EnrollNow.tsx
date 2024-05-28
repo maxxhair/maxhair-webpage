@@ -5,13 +5,13 @@ import Image from "next/image";
 import { companyLogo2 } from "../../util/images";
 import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
-const serialize = require("form-serialize");
+import serialize from "form-serialize";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const obj = serialize(event.target, { hash: true });
+    const obj = serialize(event.target as HTMLFormElement, { hash: true });
     console.log(obj);
   };
   return (

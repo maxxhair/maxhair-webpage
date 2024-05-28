@@ -25,16 +25,6 @@ function ShopByTextures() {
     });
   }, []);
 
-  //replace the below with api data
-  // const list = Array(4)
-  //   .fill()
-  //   .map(() => ({
-  //     name: "Yaki Curly",
-  //     details: "Lorem ipsum dolor sit amet consectetur. Etiam",
-  //     link: "",
-  //     image: prodimg,
-  //   }));
-
   if (!list) {
     return <div>Loading...</div>;
   }
@@ -52,11 +42,11 @@ function ShopByTextures() {
           loop
           autoplay={{
             delay: 3000,
-            disableOnInteraction: false,
+            disableOnInteraction: false
           }}
           navigation={{
             nextEl: ".swiper-next-button-sbt",
-            prevEl: ".swiper-prev-button-sbt",
+            prevEl: ".swiper-prev-button-sbt"
           }}
           initialSlide={1}
           coverflowEffect={{
@@ -64,16 +54,16 @@ function ShopByTextures() {
             stretch: 0, // Stretch space between slides
             depth: 140, // Depth of the slide shadow
             modifier: 1, // Effect multiplier
-            slideShadows: false,
+            slideShadows: false
           }}
           onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
-              slidesPerView: 2,
+              slidesPerView: 2
             },
             1440: {
-              slidesPerView: 3,
-            },
+              slidesPerView: 3
+            }
           }}
           className="shadow-none md:h-[700px] w-[650] "
         >
@@ -84,7 +74,7 @@ function ShopByTextures() {
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
               >
                 <Card obj={obj} selected={selected} index={index} />

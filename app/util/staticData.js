@@ -1,3 +1,12 @@
+import {
+  productImage,
+  productImage1,
+  productImage2,
+  productImage3,
+  productImage4,
+  productImage5
+} from "./images";
+
 export const list = [
   {
     title:
@@ -95,7 +104,6 @@ export const categoriesOptions = [
 ];
 export const colorOpts = [
   "Natural",
-  "#PA/22",
   "#22",
   "#22b",
   "#11b",
@@ -150,6 +158,14 @@ export const textureOpts = [
 ];
 export const sizeOpts = [
   8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36,
+];
+export const staticImages = [
+  productImage,
+  productImage1,
+  productImage2,
+  productImage3,
+  productImage4,
+  productImage5
 ];
 
 export const productOptions = [
