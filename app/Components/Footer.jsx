@@ -8,7 +8,7 @@ import {
   instagram,
   facebook,
   hairStrand,
-  brandLogo
+  brandLogo,
 } from "../util/images";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -53,7 +53,7 @@ function Footer() {
           <div className="flex xl:justify-start justify-center items-center">
             <Image src={brandLogo} alt="Maxx hair extensions" width={400} />
           </div>
-          <div className="flex flex-wrap xl:flex-row gap-y-[40px] xl:justify-between flex-col w-full xl:items-start items-center xl:text-left text-center ">
+          <div className="flex flex-wrap xl:flex-row gap-y-[40px] gap-x-[110px] flex-col w-full xl:items-start items-center xl:text-left text-center ">
             <div className="flex xl:w-1/2 w-full justify-between ">
               <span className="flex flex-col md:gap-[10px] gap-[5px]">
                 <span

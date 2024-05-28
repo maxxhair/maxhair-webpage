@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Modal } from "flowbite-react";
 import Image from "next/image";
 import { companyLogo2 } from "../../util/images";
@@ -9,10 +9,13 @@ import serialize from "form-serialize";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
+  const formRef = useRef(null);
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
     console.log(obj);
+    formRef.current.reset();
+    setOpenModal(false);
   };
   return (
     <>
@@ -42,6 +45,7 @@ function EnrollNow() {
         </Modal.Header>
         <Modal.Body className="bg-[#F9F6F3]">
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             className=" flex flex-col py-[20px] px-[20px] gap-[20px]"
           >
@@ -109,7 +113,7 @@ function EnrollNow() {
               <input
                 type="text"
                 required
-                name="istaHandle"
+                name="instaHandle"
                 id="instaHandle"
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               />
@@ -119,11 +123,15 @@ function EnrollNow() {
                 Are you right or left handed?*
               </label>
               <select
+                defaultValue=""
                 name="activeHand"
                 id="hand"
                 required
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               >
+                <option value="" disabled>
+                  Select an option
+                </option>
                 <option value="Left">Left</option>
                 <option value="Right">Right</option>
               </select>
@@ -172,11 +180,15 @@ function EnrollNow() {
                 Country*
               </label>
               <select
+                defaultValue=""
                 name="country"
                 id="country"
                 required
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               >
+                <option value="" disabled>
+                  Select an option
+                </option>
                 {countries.map((ele, index) => {
                   return (
                     <option key={index} value={`${ele}`}>
@@ -200,9 +212,10 @@ function EnrollNow() {
                   type="radio"
                   name="typeOfStylist"
                   id="salonOwner"
+                  value="salon owner"
                   required
                 />
-                <label htmlFor="salomOwner" className=" font-[500] label-small">
+                <label htmlFor="salonOwner" className=" font-[500] label-small">
                   Salon Owner
                 </label>
               </div>
@@ -211,6 +224,7 @@ function EnrollNow() {
                   type="radio"
                   name="typeOfStylist"
                   id="boothRenter"
+                  value="booth renter"
                   required
                 />
                 <label
@@ -225,6 +239,7 @@ function EnrollNow() {
                   type="radio"
                   name="typeOfStylist"
                   id="salonSuite"
+                  value="salon suite"
                   required
                 />
                 <label htmlFor="salonSuite" className=" font-[500] label-small">
@@ -236,6 +251,7 @@ function EnrollNow() {
                   type="radio"
                   name="typeOfStylist"
                   id="otherStylist"
+                  value="other"
                   required
                 />
                 <label
@@ -255,6 +271,7 @@ function EnrollNow() {
                   type="radio"
                   name="certified"
                   id="certifiedYes"
+                  value="yes"
                   required
                 />
                 <label
@@ -269,6 +286,7 @@ function EnrollNow() {
                   type="radio"
                   name="certified"
                   id="certifiedNo"
+                  value="no"
                   required
                 />
                 <label
@@ -289,6 +307,7 @@ function EnrollNow() {
                   type="radio"
                   name="deliveryOpinion"
                   id="fastDelivery"
+                  value="on time"
                   required
                 />
                 <label
@@ -303,6 +322,7 @@ function EnrollNow() {
                   type="radio"
                   name="deliveryOpinion"
                   id="lateDelivery"
+                  value="a bit late"
                   required
                 />
                 <label
@@ -322,6 +342,7 @@ function EnrollNow() {
                   type="radio"
                   name="coachable"
                   id="coachableYes"
+                  value="yes"
                   required
                 />
                 <label
@@ -336,6 +357,7 @@ function EnrollNow() {
                   type="radio"
                   name="coachable"
                   id="coachableNo"
+                  value="no"
                   required
                 />
                 <label
@@ -351,18 +373,22 @@ function EnrollNow() {
                 Approximately how many years have you been licensed*
               </label>
               <select
+                defaultValue=""
                 name="licenseYrs"
                 id="licenseYrs"
                 required
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               >
+                <option value="" disabled>
+                  Select an option
+                </option>
                 {Array(10)
                   .fill(0)
                   .map((_, index) => {
                     return (
                       <option
                         key={index + "yrs"}
-                        value={`${index === 9 ? index + 1 : "10+ years"}`}
+                        value={`${index !== 9 ? index + 1 : "10+ years"}`}
                       >
                         {index === 9 ? "10+ years" : index + 1}
                       </option>
@@ -433,11 +459,15 @@ function EnrollNow() {
                 Country*
               </label>
               <select
+                defaultValue=""
                 name="salonCountry"
                 id="saloncountry"
                 required
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               >
+                <option value="" disabled>
+                  Select an option
+                </option>
                 {countries.map((ele, index) => {
                   return (
                     <option key={index + "salon"} value={`${ele}`}>
@@ -462,6 +492,7 @@ function EnrollNow() {
                   type="radio"
                   name="canInvest"
                   id="canInvestYes"
+                  value="yes"
                   required
                 />
                 <label
@@ -476,6 +507,7 @@ function EnrollNow() {
                   type="radio"
                   name="canInvest"
                   id="canInvestNo"
+                  value="no"
                   required
                 />
                 <label
@@ -496,6 +528,7 @@ function EnrollNow() {
                   type="radio"
                   name="chosenProgram"
                   id="chosenProgramFull"
+                  value="pay in full $4200"
                   required
                 />
                 <label
@@ -510,6 +543,7 @@ function EnrollNow() {
                   type="radio"
                   name="chosenProgram"
                   id="chosenProgram3months"
+                  value="payment plan 3-months $1500/month"
                   required
                 />
                 <label
@@ -524,6 +558,7 @@ function EnrollNow() {
                   type="radio"
                   name="chosenProgram"
                   id="chosenProgram6months"
+                  value="payment plan 6-months $800/month"
                   required
                 />
                 <label
@@ -585,6 +620,7 @@ function EnrollNow() {
                   type="radio"
                   name="interviewInEnglish"
                   id="interviewInEnglishYes"
+                  value="yes"
                   required
                 />
                 <label
@@ -599,6 +635,7 @@ function EnrollNow() {
                   type="radio"
                   name="interviewInEnglish"
                   id="interviewInEnglishNo"
+                  value="no"
                   required
                 />
                 <label
@@ -621,7 +658,7 @@ function EnrollNow() {
               <input
                 type="submit"
                 value="submit application"
-                className={`text-[#FAFAFA] cursor-pointer bg-[#242424] lg:label-large md:label-medium label-small capitalize w-[60%] py-[20px] px-[30px] `}
+                className={`text-[#FAFAFA] cursor-pointer bg-[#242424] lg:label-large md:label-medium label-small capitalize w-[50%] py-[15px] px-[15px] `}
               />
             </div>
           </form>
