@@ -23,7 +23,7 @@ function Footer() {
           : "bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col  items-center"
       }
     >
-      <div className="h-[70px] w-full bg-[#FAFAFA] absolute top-0 left-0 "></div>
+      <div className="h-[70px] w-full !bg-[#FAFAFA] absolute top-0 left-0 "></div>
       <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide xl:gap-[100px] lg:gap-[80px] gap-[40px]">
         <div className="flex lg:justify-between justify-evenly items-center xl:text-left text-center xl:flex-row flex-col-reverse w-full xl:gap-[100px] lg:gap-[80px] gap-[60px]">
           <span
@@ -53,7 +53,7 @@ function Footer() {
           <div className="flex xl:justify-start justify-center items-center">
             <Image src={brandLogo} alt="Maxx hair extensions" width={400} />
           </div>
-          <div className="flex flex-wrap xl:flex-row gap-y-[40px] xl:justify-between flex-col w-full xl:items-start items-center xl:text-left text-center ">
+          <div className="flex flex-wrap xl:flex-row gap-y-[40px] gap-x-[110px] flex-col w-full xl:items-start items-center xl:text-left text-center ">
             <div className="flex xl:w-1/2 w-full justify-between ">
               <span className="flex flex-col md:gap-[10px] gap-[5px]">
                 <span

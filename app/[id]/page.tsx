@@ -2,12 +2,8 @@
 
 import Image from "next/image";
 import { Fira_Sans, Prompt } from "next/font/google";
-import ReviewCard from "../Components/ReviewCard";
-import ProductCard from "../Components/ProductCard";
 import {
-  plus,
   deliveryImg,
-  productImage,
   logo,
   productImage1,
   productImage2,
@@ -22,12 +18,11 @@ import {
   colorOpts,
   list1,
   sizeOpts,
-  staticImages,
   textureOpts,
   typeOpts
 } from "../util/staticData";
 import Rating from "../Components/Rating";
-import { getProduct, getVariantsByProductId } from "../util/serverSideProps";
+import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, setCount, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
@@ -35,60 +30,13 @@ import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
 import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
-
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  sku: string;
-  product: {
-    _id: string;
-    title: string;
-    images: string[];
-    category: {
-      _id: string;
-      title: string;
-    };
-  };
-  type: {
-    _id: string;
-    title: string;
-  };
-  texture: {
-    _id: string;
-    title: string;
-  };
-  color: {
-    _id: string;
-    color: string;
-  };
-  size: {
-    _id: string;
-    size: number;
-  };
-}
-
-interface Variant {
-  _id: string;
-  sku: string;
-  color: {
-    _id: string;
-    color: string;
-  };
-  type: {
-    _id: string;
-    title: string;
-  };
-  texture: {
-    _id: string;
-    title: string;
-    image: string;
-  };
-  size: {
-    _id: string;
-    size: number;
-  };
-}
+import {
+  addToWishList,
+  removeFromWishList
+} from "../store/redux/wishlistSlice";
+import MostPopular from "../Components/MostPopular";
+import RepeatOrders from "../Components/RepeatOrders";
+import CustomerReviews from "../Components/CustomerReviews";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -102,13 +50,14 @@ const prompt = Prompt({
 
 export default function Page() {
   const { id } = useParams();
+  const wishList = useSelector(
+    (state: RootState) => state.wishlist.wishListItems
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [products, setProducts] = useState([]);
-  // const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState(true);
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
-
   const [selectedQuantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -227,18 +176,44 @@ export default function Page() {
     }
   }, [filteredVariant, selectedColor]);
 
-  console.log("filteredVariant", filteredVariant);
-
-  console.log("count", stockCount);
-
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
+    console.log(newFilteredVariant && newFilteredVariant[0]);
     setFilteredVariant(newFilteredVariant);
   }, [selectedSize, selectedColor, selectedType, selectedTexture]);
+
+  const isItemInWishList = (id: string) => {
+    return wishList.some((item) => item.id === id);
+  };
+
+  const handleWishlistToggle = () => {
+    const productToAdd: ProductStoreType = {
+      id: filteredVariant && filteredVariant[0]._id,
+      name: variants[0].product.title,
+      image: productImage,
+      price:
+        filteredVariant && filteredVariant[0]?.price
+          ? filteredVariant[0].price
+          : variants[0].price,
+      count: selectedQuantity,
+      color: selectedColor,
+      size: selectedSize as any,
+      type: selectedType,
+      texture: selectedTexture
+    };
+
+    if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
+      dispatch(removeFromWishList(filteredVariant && filteredVariant[0]?._id));
+    } else {
+      dispatch(addToWishList(productToAdd));
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  // console.log(filteredVariant && filteredVariant[0]?._id);
 
   return (
     variants && (
@@ -269,21 +244,10 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error" />
             <Image src={productImage5} alt="product-image-error" />
           </div>
-          <div className="md:w-1/2 p-16 pl-8 sm:m-auto sm:text-xs xl:text-sm xl:m-0">
-            {/* <p className="text-sm font-semibold ">
-              Home -{variants[0]?.product?.title}
-              <span className="font-normal text-sm">
-                (only{" "}
-                {filteredVariant && filteredVariant[0]?.sku
-                  ? filteredVariant[0]?.sku
-                  : variants[0]?.sku}
-                &nbsp; left)
-              </span>
-            </p> */}
+          <div className="md:w-1/2 m-8 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
             <StockCard
               image={productImage}
               name={variants[0]?.product?.title}
-              // stock={filteredVariant && filteredVariant[0]?.sku}
               stock={stockCount}
             />
             <p className="text-sm font-semibold mt-5">Select Size</p>
@@ -386,11 +350,31 @@ export default function Page() {
                   >
                     +
                   </div>
+                  <div>
+                    <label className="container">
+                      <input
+                        type="checkbox"
+                        onChange={handleWishlistToggle}
+                        checked={isItemInWishList(
+                          filteredVariant && filteredVariant[0]?._id
+                        )}
+                      />
+                      <svg
+                        id="Layer_1"
+                        viewBox="0 0 26 26"
+                        xmlSpace="preserve"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                      >
+                        <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z" />
+                      </svg>
+                    </label>
+                  </div>
                 </div>
-                {/* {filteredVariant && parseInt(filteredVariant[0]?.sku) > 0 ? ( */}
+
                 <button
                   type="submit"
-                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
+                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-3 "
                   onClick={() => add()}
                 >
                   ADD TO CART (${" "}
@@ -399,18 +383,6 @@ export default function Page() {
                     : variants[0]?.price}{" "}
                   )
                 </button>
-                {/* ) : (
-                  <button
-                    type="submit"
-                    className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-2 "
-                  >
-                    PLACE ORDER (${" "}
-                    {filteredVariant && filteredVariant[0]?.price
-                      ? filteredVariant[0].price
-                      : variants[0]?.price}{" "}
-                    )
-                  </button>
-                )} */}
               </div>
             </div>
             <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
@@ -454,8 +426,8 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="md:flex mt-10 sm:inline">
-          <div className=" lg:w-5/12 lg:p-8  font-semibold m-8">
+        <div className="md:flex mt-10 inline ">
+          <div className=" lg:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -463,7 +435,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="lg:w-7/12 p-6 h-auto sm:text-xs xl:text-sm">
+          <div className="lg:w-7/12 p-6 h-auto text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
@@ -476,62 +448,9 @@ export default function Page() {
             })}
           </div>
         </div>
-        <div className="m-8">
-          <p
-            className={`${firaSans.className} text-xl lg:text-3xl mt-10 font-bold`}
-          >
-            Most Popular
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.slice(0, 4).map((product: any) => (
-              <ProductCard key={product._id} item={product} />
-            ))}
-          </div>
-        </div>
-        <div className="m-8">
-          <p
-            className={`${firaSans.className} text-xl lg:text-3xl mt-8 font-bold`}
-          >
-            Repeat Orders
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.slice(5, 9).map((product: any) => (
-              <ProductCard key={product._id} item={product} />
-            ))}
-          </div>
-        </div>
-        <div className="m-8 text-sm">
-          <p
-            className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
-          >
-            Customer Reviews
-          </p>
-          <div className="flex justify-between ">
-            <div className="flex mt-8 ">
-              <p
-                className={`${firaSans.className} text-3xl lg:text-5xl font-bold mt-2`}
-              >
-                4.9
-              </p>
-              <Rating count={5} value={5} className="m-2 mt-auto" />
-              <p className="m-2 mt-auto text-xs lg:text-sm">
-                Based on 1611 3 reviews
-              </p>
-            </div>
-
-            <button
-              type="submit"
-              className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm "
-            >
-              Write A Review
-            </button>
-          </div>
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-          <ReviewCard />
-        </div>
+        <MostPopular prods={products} />
+        <RepeatOrders prods={products} />
+        <CustomerReviews />
       </div>
     )
   );

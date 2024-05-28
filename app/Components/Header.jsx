@@ -25,8 +25,6 @@ function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const loggedUser = useSelector((state) => state.user.user);
 
-  console.log(isEmpty(loggedUser));
-
   const cartCount = cartItems.length;
 
   const handleCartOpen = () => {

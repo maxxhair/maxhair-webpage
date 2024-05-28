@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { productImage } from "../util/images";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
-import { Checkbox, TextInput } from "flowbite-react";
+import { Checkbox, Spinner, TextInput } from "flowbite-react";
 import axiosInstance from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
+import Cookies from "js-cookie";
 
 interface CheckoutFormData {
   name: string;
@@ -19,14 +19,40 @@ interface CheckoutFormData {
   zipcode: string;
 }
 
+interface LoggedUser {
+  email: string;
+  _id: string;
+  addresses: [];
+}
+
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const loggedUser = useSelector(
+    (state: RootState) => state.user.user as LoggedUser
+  );
+  const selectedAddress = useSelector((state: RootState) => state.address);
   const discountPercentage = useSelector(
     (state: RootState) => state.cart.discountPercentage
   );
+
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (selectedAddress) {
+      setCheckoutFormDate((prevState) => ({
+        ...prevState,
+        name: selectedAddress.name,
+        email: selectedAddress.email,
+        phone: selectedAddress.phone,
+        address: selectedAddress.address,
+        landmark: selectedAddress.landmark,
+        zipcode: selectedAddress.zipcode
+      }));
+    }
+  }, [selectedAddress]);
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
@@ -53,6 +79,7 @@ const Checkout = () => {
         const helcimPayJsIdentifierKey = "helcim-pay-js-" + token;
 
         if (event.data.eventName === helcimPayJsIdentifierKey) {
+          setLoading(false);
           if (event.data.eventStatus === "ABORTED") {
             console.error("Transaction failed!", event.data.eventMessage);
           }
@@ -61,6 +88,7 @@ const Checkout = () => {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
             const body = {
+              user_id: loggedUser && loggedUser?._id,
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name,
@@ -73,7 +101,6 @@ const Checkout = () => {
             };
             try {
               const res = await axiosInstance.post("orders", body);
-              console.log("res", res);
               window.location.reload();
               window.location.href = "/";
 
@@ -98,6 +125,7 @@ const Checkout = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axiosInstance.post("payments/get_tokens", {
         amount: TotalPriceToPay
       });
@@ -106,6 +134,7 @@ const Checkout = () => {
       appendHelcimPayIframe(res.data.data.checkoutToken);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -118,20 +147,23 @@ const Checkout = () => {
         >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
-            <div className="flex">
-              <Link href="signin">
-                <p className="label-medium">Login</p>
-              </Link>
-              /<p className="label-medium">Continue as guest</p>
-            </div>
+            {!loggedUser.email && (
+              <div className="flex">
+                <Link href="signin">
+                  <p className="label-medium">Login</p>
+                </Link>
+                /<p className="label-medium">Continue as guest</p>
+              </div>
+            )}
           </div>
           <TextInput
             id="email"
-            type="email"
+            type="text"
             placeholder="name@gmail.com"
             required
             className="pt-3"
             onChange={handleInputChange}
+            value={checkoutFormData?.email}
           />
           <div className="flex items-center gap-2 py-2">
             <Checkbox />
@@ -146,6 +178,7 @@ const Checkout = () => {
               placeholder="Full name"
               required
               onChange={handleInputChange}
+              value={checkoutFormData?.name}
             />
             <TextInput
               id="address"
@@ -153,23 +186,27 @@ const Checkout = () => {
               placeholder="Address"
               required
               onChange={handleInputChange}
+              value={checkoutFormData?.address}
             />
             <TextInput
               id="landmark"
               type="text"
               placeholder="Apartement, Landmark, Suite etc..(optional)"
               onChange={handleInputChange}
+              value={checkoutFormData?.landmark}
             />
             <TextInput
               id="zipcode"
               placeholder="344XXX"
               type="text"
               onChange={handleInputChange}
+              value={checkoutFormData?.zipcode}
             />
             <TextInput
               id="phone"
               placeholder="Phone"
               onChange={handleInputChange}
+              value={checkoutFormData?.phone}
             />
           </div>
           <p className="label-medium my-10">
@@ -180,10 +217,10 @@ const Checkout = () => {
             <span className="underline">Privacy Policy</span>
           </p>
           <button
-            className="w-full  bg-black text-white py-4 title-small tracking-widest font-semibold"
+            className="w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
             type="submit"
           >
-            PAY NOW
+            {!loading ? "PAY NOW" : <Spinner size="lg" color="#fff" />}
           </button>
         </form>
       </div>

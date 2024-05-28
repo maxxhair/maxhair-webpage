@@ -4,6 +4,7 @@
 
 body {
   position: relative;
+  background-color: #fafafa !important;
 }
 
 .checked {
@@ -18,10 +19,8 @@ body {
   --shopButtonDisplay: "all";
   --fromTop: 0;
   --colorToChange: "#FAFAFA";
-  --greetHeight: 50vh;
-  --minGreetHeight: 20vh;
   --scaleGreet: 0.9;
-  --transformGreet: 0.5px;
+  --transformGreet: 0.6px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -31,21 +30,10 @@ body {
   --transformGreet: 0.65px;
 }
 
-@media (min-width: 1228px) {
-  :root {
-    --greetHeight: 55vh;
-    --minGreetHeight: 20vh;
-    --scaleGreet: 0.8;
-    --transformGreet: 0.5px;
-  }
-}
-
 @media (min-width: 1024px) {
   :root {
-    --greetHeight: 60vh;
-    --minGreetHeight: 20vh;
     --scaleGreet: 0.7;
-    --transformGreet: 0.9px;
+    --transformGreet: 0.7px;
   }
 }
 
@@ -86,17 +74,13 @@ body {
 }
 
 .video-container {
-  height: max(
-    calc(var(--greetHeight) - ((var(--fromTop) / 200) * var(--greetHeight))),
-    var(--minGreetHeight)
-  );
-
+  opacity: calc(1 - var(--fromTop) / 10);
   transition: all 0.3s ease;
 }
 
 .video {
   transition: all 0.3s ease;
-  opacity: calc(1 - var(--fromTop) / 200);
+  opacity: calc(1 - var(--fromTop) / 100);
 }
 
 .stickydiv {
@@ -105,7 +89,7 @@ body {
 }
 
 .flyouts-left {
-  transform: translateX(calc(var(--fromTop) / 2 * -1px));
+  transform: translateX(calc(var(--fromTop) * -1px));
   transition: all 0.3s ease;
   opacity: calc(1 - var(--fromTop) / 10);
   user-select: var(--shopButtonDisplay);
@@ -119,8 +103,7 @@ body {
 }
 
 .flyouts-down {
-  transform: translateY(calc(var(--fromTop) / 1 * var(--transformGreet)))
-    scale(max(calc(1 - var(--fromTop) / 200), var(--scaleGreet)));
+  transform: translateY(calc(var(--fromTop) * var(--transformGreet)));
   transition: all 0.3s ease;
 }
 
@@ -134,4 +117,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.container svg {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  transition: all 0.3s;
+  fill: #666;
+}
+
+.container input:checked ~ svg {
+  fill: #e3474f;
 }
