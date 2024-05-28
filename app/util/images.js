@@ -21,6 +21,10 @@ import brenda from "/public/image 790.svg";
 import sample1 from "/public/sample1.svg";
 import closeIcon from "/public/close.svg";
 import contactUsBgImg from "/public/AdobeStock_779998205_Preview 2.svg";
+import blogImage1 from "/public/hair- under microscope.svg";
+import blogImage2 from "/public/Frame 1618873065.svg";
+import blogImage3 from "/public/unnamed_92ff5186-c4af-4cac-967e-533238f9669b_360x.jpg.svg";
+import blogImage4 from "/public/Frame 1618873065 (1).svg";
 
 export {
   companyLogo,
@@ -45,5 +49,9 @@ export {
   brandLogo,
   brenda,
   contactUsBgImg,
-  blogCardImg
+  blogCardImg,
+  blogImage1,
+  blogImage2,
+  blogImage3,
+  blogImage4,
 };
