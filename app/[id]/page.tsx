@@ -196,7 +196,7 @@ export default function Page() {
         className={`${prompt.className}  bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}
       >
         <div className="md:flex flex-row inline">
-          <div className=" md:w-6/12 p-8 sm:m-auto xl:m-0 sm:w-3/5 ">
+          <div className=" lg:w-1/2 m-8 max-lg:m-auto ">
             <Image
               src={productImage}
               alt="product-image-error"
@@ -342,7 +342,7 @@ export default function Page() {
 
                 <button
                   type="submit"
-                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-3 "
+                  className="h-12 w-full text-white font-medium xl:text-sm px-5 text-xs text-center bg-neutral-800 focus:ring-4 mt-3 "
                   onClick={() => add()}
                 >
                   ADD TO CART (${" "}
@@ -375,7 +375,7 @@ export default function Page() {
               </p>
             </div>
             <p className=" text-lg font-semibold mt-4">Description</p>
-            <div className="mt-3 text-sm">
+            <div className="mt-3 ">
               <p>
                 Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
                 tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
