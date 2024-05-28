@@ -6,10 +6,12 @@ import axiosInstance from "../util/axiosInstance";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { userLoggedin } from "../store/redux/userSlice";
+import { Spinner } from "flowbite-react";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -39,9 +41,10 @@ const LoginForm = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
+        setLoading(true);
         const response = await axiosInstance.post("login", { email, password });
-        console.log(response.data.data);
         dispatch(userLoggedin(response.data.data));
+        setLoading(false);
         window.location.href = "/";
       } catch (error) {
         console.log(error);
@@ -125,12 +128,12 @@ const LoginForm = () => {
             type="submit"
             className={
               !email || !password
-                ? "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4 "
-                : "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-black focus:ring-4  "
+                ? "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4"
+                : "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-black focus:ring-4 "
             }
             onClick={(e) => handleSubmit(e)}
           >
-            SIGN IN
+            {!loading ? "SIGN IN" : <Spinner size="md" color="#fff" />}
           </button>
         </form>
       </div>

@@ -46,15 +46,11 @@ const cartSlice = createSlice({
     },
     addProduct: (state, action) => {
       const cartItems = state.cartItems;
-      console.log(action.payload, "action.payload");
-
       const index = indexSameProduct(state, action.payload.product);
-
       if (index !== -1) {
         cartItems[index].count += action.payload.count;
         return;
       }
-
       return {
         ...state,
         cartItems: [...state.cartItems, action.payload.product]

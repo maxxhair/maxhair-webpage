@@ -10,7 +10,7 @@ type InitialAddressesState = {
   zipcode: string;
 };
 
-const initialState: InitialAddressesState = {
+export const initialState: InitialAddressesState = {
   _id: "",
   name: "",
   email: "",
@@ -25,6 +25,7 @@ const addressesSlice = createSlice({
   initialState,
   reducers: {
     selectAddress: (state, action) => {
+      state._id = action.payload._id;
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.phone = action.payload.phone;

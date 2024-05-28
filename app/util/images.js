@@ -1,4 +1,5 @@
 import companyLogo from "/public/brandlogo.png";
+import companyLogo2 from "/public/brandlogo2.svg";
 import facebook from "/public/facebook.svg";
 import instagram from "/public/instagram.svg";
 import hairStrand from "/public/HairStrand.svg";
@@ -15,7 +16,7 @@ import productImage3 from "/public/AdobeStock_696943661_Preview 1.svg";
 import productImage4 from "/public/AdobeStock_696943661_Preview 1 (1).svg";
 import productImage5 from "/public/image 789.svg";
 import brandLogo from "/public/brandLogo.svg";
-
+import blogCardImg from "/public/blogimgcontainer.png";
 import brenda from "/public/image 790.svg";
 import sample1 from "/public/sample1.svg";
 import closeIcon from "/public/close.svg";
@@ -23,6 +24,7 @@ import contactUsBgImg from "/public/AdobeStock_779998205_Preview 2.svg";
 
 export {
   companyLogo,
+  companyLogo2,
   facebook,
   instagram,
   hairStrand,
@@ -43,4 +45,5 @@ export {
   brandLogo,
   brenda,
   contactUsBgImg,
+  blogCardImg
 };

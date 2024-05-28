@@ -4,6 +4,7 @@ import { combineReducers, compose, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./redux/userSlice";
 import cartReducer from "./redux/cartSlice";
 import addressesReducer from "./redux/addressesSlice";
+import wishlistReducer from "./redux/wishlistSlice";
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
@@ -22,14 +23,15 @@ import { migrations } from "./migrations";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "cart"],
+  whitelist: ["user", "cart", "address", "wishlist"],
   migrate: createMigrate(migrations, { debug: false })
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
-  address: addressesReducer
+  address: addressesReducer,
+  wishlist: wishlistReducer
 });
 
 // Create a persisted reducer

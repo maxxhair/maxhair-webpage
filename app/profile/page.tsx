@@ -7,6 +7,8 @@ import MyOrders from "../Components/MyOrders";
 import Wishlist from "../Components/Wishlist";
 import ProfileSettings from "../Components/ProfileSettings";
 import AddressBox from "../Components/AddressBox";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export const addresses = [
   {
@@ -23,7 +25,7 @@ export const addresses = [
     _id: "2",
     name: "Laxman Balla",
     contact: "+919490723391",
-    email: "laxman@wielabs.com",
+    email: "ballalaxmanrao987@gmail.com",
     address: "Sri Venkatesware Mens PG, Vittalrao nagar, Hitech City",
     landmark: "Ayyappa Society",
     zipCode: "500081"
@@ -32,6 +34,9 @@ export const addresses = [
 
 const Profile = () => {
   const [navOption, setNavOption] = useState("orders");
+  const wishlist = useSelector(
+    (state: RootState) => state.wishlist.wishListItems
+  );
 
   const getComponent = (option: string) => {
     switch (option) {
@@ -45,16 +50,17 @@ const Profile = () => {
       case "wishlists":
         return (
           <div className="w-[70%]">
-            <Wishlist />
-            <Wishlist />
+            {wishlist.map((wishlistItem: any) => (
+              <Wishlist key={wishlistItem.id} wishListItem={wishlistItem} />
+            ))}
           </div>
         );
       case "addresses":
         return (
           <div className="w-[70%]">
-            <AddressBox />
-            <AddressBox />
-            <AddressBox />
+            {addresses.map((address: any, index: number) => (
+              <AddressBox key={index} address={address} />
+            ))}
           </div>
         );
       case "account settings":
