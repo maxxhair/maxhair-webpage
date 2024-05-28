@@ -1,15 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Modal } from "flowbite-react";
 import { countries } from "../../util/staticData";
 const serialize = require("form-serialize");
 
 function SendMoreInfo() {
   const [openModal, setOpenModal] = useState(false);
+  const formRef = useRef(null);
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const obj = serialize(event.target, { hash: true });
     console.log(obj);
+    formRef.current.reset();
+    setOpenModal(false);
   };
   return (
     <>
@@ -36,31 +39,38 @@ function SendMoreInfo() {
         </Modal.Header>
         <Modal.Body className="bg-[#F9F6F3]">
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             className=" flex flex-col py-[20px] px-[20px] gap-[20px]"
           >
             <div className="flex gap-[10px] w-full">
               <div className="w-1/2">
-                <label htmlFor="firstname" className=" font-[500] label-small">
+                <label
+                  htmlFor="firstnameMoreInfo"
+                  className=" font-[500] label-small"
+                >
                   First Name*
                 </label>
                 <input
                   type="text"
                   required
                   name="firstName"
-                  id="firstname"
+                  id="firstnameMoreInfo"
                   className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
                 />
               </div>
               <div className="w-1/2">
-                <label htmlFor="lastname" className=" font-[500] label-small">
+                <label
+                  htmlFor="lastnameMoreInfo"
+                  className=" font-[500] label-small"
+                >
                   Last Name*
                 </label>
                 <input
                   type="text"
                   required
                   name="lastName"
-                  id="lastname"
+                  id="lastnameMoreInfo"
                   className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
                 />
               </div>
@@ -78,15 +88,22 @@ function SendMoreInfo() {
               />
             </div>
             <div>
-              <label htmlFor="country" className=" font-[500] label-small">
+              <label
+                htmlFor="countryMoreInfo"
+                className=" font-[500] label-small"
+              >
                 Country*
               </label>
               <select
                 name="country"
-                id="country"
+                id="countryMoreInfo"
                 required
+                defaultValue=""
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               >
+                <option value="" disabled>
+                  Select an option
+                </option>
                 {countries.map((ele, index) => {
                   return (
                     <option key={index} value={`${ele}`}>
@@ -104,12 +121,12 @@ function SendMoreInfo() {
                 <input
                   type="radio"
                   name="certified"
-                  id="certifiedYes"
+                  id="certifiedYesMoreInfo"
                   value="yes"
                   required
                 />
                 <label
-                  htmlFor="certifiedYes"
+                  htmlFor="certifiedYesMoreInfo"
                   className=" font-[500] label-small"
                 >
                   Yes
@@ -119,12 +136,12 @@ function SendMoreInfo() {
                 <input
                   type="radio"
                   name="certified"
-                  id="certifiedNo"
+                  id="certifiedNoMoreInfo"
                   value="no"
                   required
                 />
                 <label
-                  htmlFor="certifiedNo"
+                  htmlFor="certifiedNoMoreInfo"
                   className=" font-[500] label-small"
                 >
                   No
