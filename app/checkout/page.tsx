@@ -8,6 +8,7 @@ import axiosInstance from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
+import Cookies from "js-cookie";
 
 interface CheckoutFormData {
   name: string;
@@ -36,6 +37,7 @@ const Checkout = () => {
   const discountPercentage = useSelector(
     (state: RootState) => state.cart.discountPercentage
   );
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -51,8 +53,6 @@ const Checkout = () => {
       }));
     }
   }, [selectedAddress]);
-
-  console.log("formdata", checkoutFormData);
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
@@ -88,6 +88,7 @@ const Checkout = () => {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
             const body = {
+              user_id: loggedUser && loggedUser?._id,
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name,
@@ -100,7 +101,6 @@ const Checkout = () => {
             };
             try {
               const res = await axiosInstance.post("orders", body);
-              console.log("res", res);
               window.location.reload();
               window.location.href = "/";
               dispatch(emptyCart());
