@@ -3,47 +3,32 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { firaSansMedium } from "../util/fonts";
-import ProductCard from "./ProductCard";
 import NewCollectionMobile from "./_newcollection/NewCollectionMobile";
 import { getProducts } from "../util/serverSideProps";
 import axiosInstance from "../util/axiosInstance";
 import ImageCard from "./ImageCard";
 
-const Example = () => {
-  const [varieties, setVarieties] = useState(40);
+const NewCollection = () => {
   const cards = Array(4).fill();
 
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: targetRef
+    target: targetRef,
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
 
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
     const getRequest = async () => {
-      const data = await axiosInstance.get("/products");
-      const temp = data.data.data;
-      setListData(temp);
+      try {
+        const data = await axiosInstance.get("/products");
+        const temp = data.data.data;
+        setListData(temp);
+      } catch (err) {
+        console.log("from new collections:", err);
+      }
     };
     getRequest();
   }, []);
@@ -84,4 +69,4 @@ const Example = () => {
   );
 };
 
-export default Example;
+export default NewCollection;
