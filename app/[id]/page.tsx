@@ -10,7 +10,7 @@ import {
   productImage3,
   productImage4,
   productImage5,
-  prodimg
+  prodimg,
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../Components/ExtraInfoSection";
@@ -19,7 +19,7 @@ import {
   list1,
   sizeOpts,
   textureOpts,
-  typeOpts
+  typeOpts,
 } from "../util/staticData";
 import Rating from "../Components/Rating";
 import { getVariantsByProductId } from "../util/serverSideProps";
@@ -32,20 +32,21 @@ import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
-  removeFromWishList
+  removeFromWishList,
 } from "../store/redux/wishlistSlice";
 import MostPopular from "../Components/MostPopular";
 import RepeatOrders from "../Components/RepeatOrders";
 import CustomerReviews from "../Components/CustomerReviews";
+import ProductImageSwiper from "../Components/ProductImageSwiper";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 export default function Page() {
@@ -127,11 +128,11 @@ export default function Page() {
       color: selectedColor,
       size: selectedSize as any,
       type: selectedType,
-      texture: selectedTexture
+      texture: selectedTexture,
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave
+      product: productToSave,
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -199,7 +200,7 @@ export default function Page() {
       color: selectedColor,
       size: selectedSize as any,
       type: selectedType,
-      texture: selectedTexture
+      texture: selectedTexture,
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -218,14 +219,17 @@ export default function Page() {
   return (
     variants && (
       <div
-        className={`${prompt.className}  bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}
+        className={`${prompt.className}  bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto m-8 2xl:mt-20`}
       >
         <div className="md:flex flex-row inline">
-          <div className=" lg:w-1/2 m-8 max-lg:m-auto ">
+          <div className=" block md:hidden m-4  w-3/5 mx-auto">
+            <ProductImageSwiper />
+          </div>
+          <div className="hidden md:block  md:w-1/2  max-lg:m-auto ">
             <Image
               src={productImage}
               alt="product-image-error"
-              width={500}
+              width={600}
               height={500}
             />
             <div className="w-full flex">
@@ -244,7 +248,8 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error" />
             <Image src={productImage5} alt="product-image-error" />
           </div>
-          <div className="md:w-1/2 m-8 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
+
+          <div className="md:w-1/2 m-4 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
             <StockCard
               image={productImage}
               name={variants[0]?.product?.title}
@@ -255,7 +260,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                )
+                ),
               ]
                 .sort(function (a, b) {
                   return a - b;
@@ -263,7 +268,7 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-                    className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                    className={` m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
                       selectedSize === size
                         ? "!bg-[#E3D6C5] text-[#A47252]"
                         : "bg-neutral-100"
@@ -427,7 +432,7 @@ export default function Page() {
           </div>
         </div>
         <div className="md:flex mt-10 inline ">
-          <div className=" lg:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
+          <div className=" md:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -435,7 +440,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="lg:w-7/12 p-6 h-auto text-xs xl:text-sm">
+          <div className="md:w-7/12 p-6 h-auto text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
