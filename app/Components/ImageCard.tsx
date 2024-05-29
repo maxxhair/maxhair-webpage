@@ -4,9 +4,11 @@ import { prodimg } from "../util/images";
 
 interface Props {
   item: any;
+  width: number;
+  height: number;
 }
 
-const ImageCard: React.FC<Props> = ({ item }) => {
+const ImageCard: React.FC<Props> = ({ item, width, height }) => {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const imageUrl =
@@ -14,7 +16,7 @@ const ImageCard: React.FC<Props> = ({ item }) => {
       ? `${baseUrl}/${item?.images[0]}`
       : prodimg;
 
-  return <Image src={imageUrl} alt="" width={380} height={480} />;
+  return <Image src={imageUrl} alt="" width={width} height={height} />;
 };
 
 export default ImageCard;

@@ -1,46 +1,49 @@
 "use client";
 import { useEffect, useState } from "react";
 import { firaSansMedium } from "../../util/fonts";
-import ProductCard from "../ProductCard";
-import { getProducts } from "../../util/serverSideProps";
+import ImageCard from "../ImageCard";
+import axiosInstance from "../../util/axiosInstance";
 
-function NewCollectionMobile({ cards }) {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+function NewCollectionMobile() {
+  const [listData, setListData] = useState([]);
   useEffect(() => {
-    const fetchProducts = async () => {
+    const getRequest = async () => {
       try {
-        const data = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
+        const data = await axiosInstance.get("/products");
+        const temp = data.data.data;
+        setListData(temp);
+      } catch (err) {
+        console.log("from new collections:", err);
       }
     };
-
-    fetchProducts();
+    getRequest();
   }, []);
 
   return (
-    <div className="lg:hidden flex flex-col md:gap-[40px] gap-[20px] p-[40px] justif-center items-center bg-[#FAFAFA]">
+    <>
       <span
-        className={` ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small text-[#242424]`}
+        className={` ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small w-full flex justify-center  text-[#242424]`}
       >
-        New Collection
+        Our Gallery
       </span>
-      {products?.slice(0, 4).map((product, index) => {
-        return (
-          <div
-            key={index + "---"}
-            className="group relative flex flex-col justify-center lg:w-[400px] md:w-[300px] w-[200px] overflow-hidden "
-          >
-            <ProductCard key={product._id} item={product} />
-          </div>
-        );
-      })}
-    </div>
+      <div className="lg:hidden grid md:grid-cols-3 grid-cols-2 md:gap-[60px] gap-[20px] place-items-center p-[40px] bg-[#FAFAFA]">
+        {listData?.slice(5, 11).map((product, index) => {
+          return (
+            <div
+              key={index + "---"}
+              className="group relative flex flex-col justify-center items-center lg:w-[400px] md:w-[300px] w-[200px] overflow-hidden "
+            >
+              <ImageCard
+                key={product._id}
+                item={product}
+                width={160}
+                height={240}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 
