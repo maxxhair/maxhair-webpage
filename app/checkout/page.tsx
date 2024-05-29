@@ -8,9 +8,10 @@ import axiosInstance from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
+import Cookies from "js-cookie";
 
 interface CheckoutFormData {
-  name: string;
+  fullname: string;
   email: string;
   phone: string;
   address: string;
@@ -36,6 +37,7 @@ const Checkout = () => {
   const discountPercentage = useSelector(
     (state: RootState) => state.cart.discountPercentage
   );
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -51,8 +53,6 @@ const Checkout = () => {
       }));
     }
   }, [selectedAddress]);
-
-  console.log("formdata", checkoutFormData);
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
@@ -88,9 +88,10 @@ const Checkout = () => {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
             const body = {
+              user_id: loggedUser && loggedUser?._id,
               items: cartItems,
               total: TotalPriceToPay,
-              name: checkoutFormData.name,
+              name: checkoutFormData.fullname,
               email: checkoutFormData.email,
               phone: checkoutFormData.phone,
               address: checkoutFormData.address,
@@ -100,7 +101,6 @@ const Checkout = () => {
             };
             try {
               const res = await axiosInstance.post("orders", body);
-              console.log("res", res);
               window.location.reload();
               window.location.href = "/";
               dispatch(emptyCart());
@@ -138,7 +138,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-[90%] lg:w-3/4 h-auto lg:h-[90vh] mx-auto mt-[14vh] lg:mt-[8vh] flex flex-col-reverse lg:flex-row">
+    <div className="w-[90%] lg:w-3/4 h-auto lg:h-[90vh] mx-auto mt-[14vh] lg:mt-[10vh] flex flex-col-reverse lg:flex-row">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
@@ -177,7 +177,7 @@ const Checkout = () => {
               placeholder="Full name"
               required
               onChange={handleInputChange}
-              value={checkoutFormData?.name}
+              value={checkoutFormData?.fullname}
             />
             <TextInput
               id="address"

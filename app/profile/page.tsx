@@ -10,28 +10,6 @@ import AddressBox from "../Components/AddressBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
-export const addresses = [
-  {
-    _id: "1",
-    name: "Laxman Balla",
-    contact: "+919490723391",
-    email: "laxman@wielabs.com",
-    address:
-      "Flat no -3, Sumadhura Ruchulu Curyy point Building, Megha Hills Road no -2",
-    landmark: "Ayyappa Society",
-    zipCode: "500081"
-  },
-  {
-    _id: "2",
-    name: "Laxman Balla",
-    contact: "+919490723391",
-    email: "ballalaxmanrao987@gmail.com",
-    address: "Sri Venkatesware Mens PG, Vittalrao nagar, Hitech City",
-    landmark: "Ayyappa Society",
-    zipCode: "500081"
-  }
-];
-
 const Profile = () => {
   const [navOption, setNavOption] = useState("orders");
   const wishlist = useSelector(
@@ -58,9 +36,10 @@ const Profile = () => {
       case "addresses":
         return (
           <div className="w-[70%]">
-            {addresses.map((address: any, index: number) => (
+            {/* {addresses.map((address: any, index: number) => (
               <AddressBox key={index} address={address} />
-            ))}
+            ))} */}
+            Addresses
           </div>
         );
       case "account settings":

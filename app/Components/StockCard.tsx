@@ -21,7 +21,7 @@ interface Props {
 const StockCard: React.FC<Props> = ({ image, name, stock }) => {
   return (
     <div className="w-full h-32 flex border-b-2 ">
-      <Image src={image} alt="product-image-error" className="w-20 h-28" />
+      <Image src={image} alt="product-image-error" width={80} height={140} />
       <div className="flex w-full justify-between m-4">
         <div className="flex flex-row lg:flex-col w-full">
           <p className={`${firaSans.className} text-sm lg:text-xl font-bold`}>

@@ -81,7 +81,7 @@ const CheckoutCartDetails = () => {
       </div>
       {couponcodemsg !== "" && <p className="text-sm">{couponcodemsg}</p>}
       <div className="">
-        <p className="headline-small pt-5">
+        <div className="headline-small pt-5">
           <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Amount</p>
@@ -112,7 +112,7 @@ const CheckoutCartDetails = () => {
               <p className="label-medium font-medium">01 Feb, 2023</p>
             </div>
           </div>
-        </p>
+        </div>
       </div>
     </div>
   );

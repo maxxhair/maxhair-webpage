@@ -58,7 +58,6 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
-
   const [selectedQuantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -168,9 +167,19 @@ export default function Page() {
         const stock = variant.colorVariants.filter(
           (colorVariant: any) => colorVariant.title === selectedColor
         );
-        setStockCount(stock.length > 0 ? stock[0].stock : undefined);
+        setStockCount(
+          stock.length > 0
+            ? selectedType === "Single drawn"
+              ? stock[0].stockSingleDrawn
+              : stock[0].stockDoubleDrawn
+            : undefined
+        );
       } else {
-        setStockCount(variant.sku);
+        setStockCount(
+          selectedType === "Single drawn"
+            ? variant.stockSingleDrawn
+            : variant.stockDoubleDrawn
+        );
       }
     } else {
       setStockCount(undefined);
@@ -252,7 +261,7 @@ export default function Page() {
               stock={stockCount}
             />
             <p className="text-sm font-semibold mt-5">Select Size</p>
-            <div className=" mt-2">
+            <div className="mt-2">
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
@@ -264,7 +273,7 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-                    className={` w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                    className={`w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
                       selectedSize === size
                         ? "!bg-[#E3D6C5] text-[#A47252]"
                         : "bg-neutral-100"
