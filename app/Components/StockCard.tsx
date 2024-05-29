@@ -22,8 +22,11 @@ const StockCard: React.FC<Props> = ({ image, name, stock }) => {
   return (
     <div className="w-full h-32 flex border-b-2 ">
       <Image src={image} alt="product-image-error" width={80} height={140} />
-      <div className="flex w-full justify-between m-4">
-        <div className="flex flex-row lg:flex-col w-full">
+      <div className="flex lg:flex-row flex-col w-full justify-between m-4 ">
+        <div
+          className="flex flex-row lg:flex-col w-full gap-3 lg:items-start items-center 
+        "
+        >
           <p className={`${firaSans.className} text-sm lg:text-xl font-bold`}>
             {name}
           </p>

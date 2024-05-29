@@ -54,9 +54,14 @@ const NewCollection = () => {
                 return (
                   <div
                     key={index}
-                    className="group relative flex flex-col justify-center  md:w-[300px] w-[200px] overflow-hidden "
+                    className="group relative flex flex-col justify-center items-center w-[400px] overflow-hidden "
                   >
-                    <ImageCard key={product._id} item={product} />
+                    <ImageCard
+                      key={product._id}
+                      item={product}
+                      width={350}
+                      height={400}
+                    />
                   </div>
                 );
               })}
