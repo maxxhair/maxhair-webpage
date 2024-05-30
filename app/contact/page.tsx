@@ -7,9 +7,9 @@ import ContactForm from "../Components/ContactForm";
 
 const Contact = () => {
   return (
-    <div className="max-lg:m-6 text-xs lg:text-base lg:w-4/5 m-auto  h-full">
-      <div className="text-center relative flex justify-center max-lg:hidden">
-        <Image src={contactUsBgImg} alt="bg-img-error" />
+    <div className="text-xs lg:text-base w-full lg:w-4/5 h-full mx-auto">
+      <div className="text-center relative flex justify-center w-full">
+        <Image src={contactUsBgImg} alt="background image" />
         <div className="p-[20px] flex flex-col gap-[20px] color-shift items-center bottom-28 absolute ">
           <span
             className={`${firaSans.className} flex flex-col md:w-[600px] w-full lg:display-medium md:headline-large headline-medium font-[700]  text-white`}
@@ -28,7 +28,7 @@ const Contact = () => {
         <p className="mt-5 ml-5">
           <b>Home</b> - Contact
         </p>
-        <div className="w-10/12 md:w-5/12 m-auto text-center mt-16">
+        <div className="w-full mt-8 md:w-1/2 mx-auto text-center lg:mt-16">
           <p className={`${firaSansMedium.className} text-2xl lg:text-4xl`}>
             Get In Touch With Us
           </p>

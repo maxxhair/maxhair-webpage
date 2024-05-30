@@ -60,7 +60,7 @@ const CheckoutCartDetails = () => {
   );
 
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] pt-16 px-8">
+    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 lg:pt-16 lg:px-8">
       {cartProducts.map((item: any) => (
         <CartItem key={item.id} product={item} />
       ))}
