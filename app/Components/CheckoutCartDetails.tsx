@@ -32,6 +32,9 @@ const CheckoutCartDetails = () => {
     } else if (couponCode === "") {
       dispatch(addDiscount(0));
       setCouponCodeMsg("");
+    } else if (couponCode === "MAXX60") {
+      dispatch(addDiscount(60));
+      setCouponCodeMsg("60% discount is applied to total price");
     } else {
       dispatch(addDiscount(0));
       setCouponCodeMsg("Invalid Coupon Code");

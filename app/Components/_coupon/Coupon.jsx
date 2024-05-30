@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 function Coupon() {
   //set both of these values with api
-  const [coupon, setCoupon] = useState("WELCOME40");
+  const [coupon, setCoupon] = useState("MAXX40");
   const [offer, setOffer] = useState(40);
   const [{ x, y }, setPosition] = useState({ x: 0, y: 0 });
 
@@ -33,7 +33,7 @@ function Coupon() {
         transition={{
           type: "spring",
           stiffness: 100,
-          damping: 10,
+          damping: 10
         }}
         ref={ref}
         className={`${firaSansBold.className} text-[#FFC250] lg:h-[100px] md:h-[60px] h-[20px]  w-[20px] select-none relative flex justify-center font-black lg:text-[180px] md:text-[120px] text-[80px]`}
