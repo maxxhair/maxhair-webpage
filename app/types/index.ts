@@ -8,5 +8,5 @@ export type ProductStoreType = {
   size: string;
   type: string;
   texture: string;
-  remark: string;
+  remark?: string;
 };
