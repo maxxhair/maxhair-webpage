@@ -168,9 +168,19 @@ export default function Page() {
         const stock = variant.colorVariants.filter(
           (colorVariant: any) => colorVariant.title === selectedColor
         );
-        setStockCount(stock.length > 0 ? stock[0].stock : undefined);
+        setStockCount(
+          stock.length > 0
+            ? selectedType === "Single drawn"
+              ? stock[0].stockSingleDrawn
+              : stock[0].stockDoubleDrawn
+            : undefined
+        );
       } else {
-        setStockCount(variant.sku);
+        setStockCount(
+          selectedType === "Single drawn"
+            ? variant.stockSingleDrawn
+            : variant.stockDoubleDrawn
+        );
       }
     } else {
       setStockCount(undefined);
@@ -256,7 +266,7 @@ export default function Page() {
               stock={stockCount}
             />
             <p className="text-sm font-semibold mt-5">Select Size</p>
-            <div className=" mt-2">
+            <div className="mt-2">
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
@@ -268,7 +278,11 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
+<<<<<<< HEAD
                     className={` m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
+=======
+                    className={`w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+>>>>>>> 1826f0d0d681ffedb31139b7e32a133b7671b6d8
                       selectedSize === size
                         ? "!bg-[#E3D6C5] text-[#A47252]"
                         : "bg-neutral-100"
@@ -340,21 +354,25 @@ export default function Page() {
                   Please select your required variant to add to cart
                 </div>
               )}
-              <div className="flex ">
-                <div className="flex items-center gap-6 m-3">
-                  <div
-                    className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
-                    onClick={() => setQuantity(selectedQuantity - 1)}
-                  >
-                    -
+              <div className="flex lg:flex-row flex-col">
+                <div className="flex items-center gap-6 m-3 justify-between">
+                  <div className="flex items-center gap-6">
+                    {" "}
+                    <div
+                      className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+                      onClick={() => setQuantity(selectedQuantity - 1)}
+                    >
+                      -
+                    </div>
+                    <p className="label-medium">{selectedQuantity}</p>
+                    <div
+                      className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+                      onClick={() => setQuantity(selectedQuantity + 1)}
+                    >
+                      +
+                    </div>
                   </div>
-                  <p className="label-medium">{selectedQuantity}</p>
-                  <div
-                    className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
-                    onClick={() => setQuantity(selectedQuantity + 1)}
-                  >
-                    +
-                  </div>
+
                   <div>
                     <label className="container">
                       <input
