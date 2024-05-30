@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import { contactUsBgImg } from "../util/images";
 import { firaSans, firaSansBold, firaSansMedium, prompt } from "../util/fonts";
-import { Textarea } from "flowbite-react";
 import ContactForm from "../Components/ContactForm";
 
 const Contact = () => {
@@ -28,7 +27,7 @@ const Contact = () => {
         <p className="mt-5 ml-5">
           <b>Home</b> - Contact
         </p>
-        <div className="w-full mt-8 md:w-1/2 mx-auto text-center lg:mt-16">
+        <div className="w-full p-4 mt-8 md:w-1/2 mx-auto text-center lg:mt-16">
           <p className={`${firaSansMedium.className} text-2xl lg:text-4xl`}>
             Get In Touch With Us
           </p>

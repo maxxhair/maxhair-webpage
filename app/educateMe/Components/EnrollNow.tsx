@@ -6,16 +6,27 @@ import { companyLogo2 } from "../../util/images";
 import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
+import axiosInstance from "../../util/axiosInstance";
+import toast from "react-hot-toast";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
   const formRef = useRef(null);
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    event
+  ) => {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
-    console.log(obj);
-    formRef.current.reset();
-    setOpenModal(false);
+    try {
+      const res = await axiosInstance.post("user-details", obj);
+      toast.success("Enrolled Successfully");
+      formRef.current.reset();
+      setOpenModal(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
   };
   return (
     <>

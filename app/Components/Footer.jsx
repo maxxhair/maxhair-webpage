@@ -62,13 +62,13 @@ function Footer() {
                   Shop
                 </span>
                 <Link
-                  href="/shop/contact"
+                  href="/contact"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
                   Contact us
                 </Link>
                 <Link
-                  href="/shop/about"
+                  href="/about"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
                   About us
@@ -88,7 +88,7 @@ function Footer() {
                   About us
                 </Link>
                 <Link
-                  href="/company/about"
+                  href="/blog"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
                   Blog
@@ -121,7 +121,6 @@ function Footer() {
                 Follow US
               </span>
               <div className="flex gap-[10px]">
-                {/* <Link href="https://x.com/" target="_blank"><Image src={ } alt="" /></Link> */}
                 <Link href="https://www.instagram.com/" target="_blank">
                   <Image src={instagram} alt="" />
                 </Link>

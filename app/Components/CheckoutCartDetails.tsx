@@ -60,10 +60,12 @@ const CheckoutCartDetails = () => {
   );
 
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 lg:pt-16 lg:px-8">
-      {cartProducts.map((item: any) => (
-        <CartItem key={item.id} product={item} />
-      ))}
+    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 lg:pt-8 lg:px-8">
+      <div className="h-[50vh] overflow-y-scroll">
+        {cartProducts.map((item: any) => (
+          <CartItem key={item.id} product={item} />
+        ))}
+      </div>
       <div className="w-full flex items-center gap-6 justify-between">
         <input
           placeholder="Discount code or gift card"
