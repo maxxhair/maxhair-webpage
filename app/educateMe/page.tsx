@@ -83,7 +83,7 @@ function page() {
           How Much Does It Cost To Get Certified?
         </span>
         <div className="flex lg:flex-row flex-col xl:w-[70%] lg:w-[80%] w-full gap-[20px] justify-center items-center ">
-          <div className="bg-[#FAFAFA] shadow-md flex flex-col justify-evenly items-center h-full text-center gap-[10px] lg:w-[calc(40%-10px)] w-[60%] px-[20px] py-[20px]">
+          <div className="bg-[#FAFAFA] shadow-md flex flex-col justify-evenly items-center h-full text-center gap-[10px] lg:w-[calc(50%-10px)] w-[60%] px-[20px] py-[20px]">
             <span
               className={`${firaSans.className} lg:title-large md:title-medium title-small uppercase text-[#885C46]`}
             >
@@ -92,36 +92,25 @@ function page() {
             <span
               className={`${firaSansMedium.className} lg:headline-large md:headline-medium headline-small`}
             >
-              $4,200
+              $3,500
             </span>
             <span className="capitalize xl:w-[60%] w-[70%]">
-              Save up to $600 when you pay in full
+              Save up to $100 when you pay in full
             </span>
           </div>
-          <div className="bg-[#FAFAFA] shadow-md flex flex-col justify-around items-center h-full text-center gap-[10px] lg:w-[calc(60%-10px)] w-[90%] px-[20px] py-[20px]">
+          <div className="bg-[#FAFAFA] shadow-md flex flex-col justify-around items-center h-full text-center gap-[10px] lg:w-[calc(50%-10px)] w-[90%] px-[20px] py-[20px]">
             <span
               className={`${firaSans.className} lg:title-large md:title-medium title-small uppercase text-[#885C46]`}
             >
               payment plan
             </span>
-            <div className="h-full flex justify-evenly items-center w-full">
-              <div className="flex flex-col gap-[10px] justify-center text-center items-center">
-                <span
-                  className={`${firaSansMedium.className} lg:headline-large md:headline-medium headline-small`}
-                >
-                  $1,500
-                </span>
-                <span className="capitalize w-[80%]">3 Payments of $4,500</span>
-              </div>
-              <div className=" w-[2px] h-[100px] bg-[#F2ECE2]"></div>
-              <div className="flex flex-col justify-center gap-[10px] text-center items-center">
-                <span
-                  className={`${firaSansMedium.className} lg:headline-large md:headline-medium headline-small`}
-                >
-                  $800
-                </span>
-                <span className="capitalize w-[80%]">6 Payments of $4,800</span>
-              </div>
+            <div className="flex flex-col gap-[10px] justify-center text-center items-center">
+              <span
+                className={`${firaSansMedium.className} lg:headline-large md:headline-medium headline-small`}
+              >
+                $1,200
+              </span>
+              <span className="capitalize">3 Payments of $3,600</span>
             </div>
           </div>
         </div>
