@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
 import Cookies from "js-cookie";
 import OrderPlacedModal from "../Components/OrderPlacedModal";
+import toast from "react-hot-toast";
 
 interface CheckoutFormData {
   name: string;
@@ -31,7 +32,7 @@ const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
-  const [openSuccessModal, setOpenSucessModal] = useState<boolean>(false);
+  // const [openSuccessModal, setOpenSucessModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
     (state: RootState) => state.user.user as LoggedUser
@@ -105,6 +106,7 @@ const Checkout = () => {
               const res = await axiosInstance.post("orders", body);
               dispatch(emptyCart());
               dispatch(removeCouponCode());
+              toast.success("Order placed successfully");
               window.location.reload();
               window.location.href = "/";
             } catch (error) {
@@ -165,7 +167,7 @@ const Checkout = () => {
         dispatch(emptyCart());
         dispatch(removeCouponCode());
         setLoad(false);
-        setOpenSucessModal(true);
+        toast.success("Order placed successfully");
       }
     } catch (error) {
       console.log(error);
@@ -265,10 +267,10 @@ const Checkout = () => {
         </form>
       </div>
       <CheckoutCartDetails />
-      <OrderPlacedModal
+      {/* <OrderPlacedModal
         openModal={openSuccessModal}
         setOpenModal={setOpenSucessModal}
-      />
+      /> */}
     </div>
   );
 };
