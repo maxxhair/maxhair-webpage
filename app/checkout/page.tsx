@@ -167,6 +167,8 @@ const Checkout = () => {
         dispatch(emptyCart());
         dispatch(removeCouponCode());
         setLoad(false);
+        window.location.reload();
+        window.location.href = "/";
         toast.success("Order placed successfully");
       }
     } catch (error) {
