@@ -4,12 +4,12 @@ import { Fira_Sans, Prompt } from "next/font/google";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 interface Props {
@@ -33,7 +33,7 @@ const StockCard: React.FC<Props> = ({ image, name, stock }) => {
           <p>Only {stock} left</p>
         </div>
         <div className="flex">
-          <Rating count={5} value={4.5} className=" mt-auto" />
+          <Rating count={5} value={4.5} className="mt-auto" />
           <p className=" mt-auto ml-3">15185 Reviews</p>
         </div>
       </div>

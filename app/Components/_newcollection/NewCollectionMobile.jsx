@@ -22,7 +22,7 @@ function NewCollectionMobile() {
   return (
     <>
       <span
-        className={` ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small w-full flex justify-center  text-[#242424]`}
+        className={` ${firaSansMedium.className} lg:headline-large md:headline-medium headline-small w-full flex lg:hidden justify-center  text-[#242424]`}
       >
         Our Gallery
       </span>

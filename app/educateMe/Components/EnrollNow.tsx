@@ -6,16 +6,27 @@ import { companyLogo2 } from "../../util/images";
 import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
+import axiosInstance from "../../util/axiosInstance";
+import toast from "react-hot-toast";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
   const formRef = useRef(null);
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    event
+  ) => {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
-    console.log(obj);
-    formRef.current.reset();
-    setOpenModal(false);
+    try {
+      const res = await axiosInstance.post("user-details", obj);
+      toast.success("Enrolled Successfully");
+      formRef.current.reset();
+      setOpenModal(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
   };
   return (
     <>
@@ -35,8 +46,7 @@ function EnrollNow() {
               Maxx Hair Extensions is the #1 most requested hand-tied method by
               clients.Maxx Hair Extensions is the only extension method
               protected by a U.S. Patent.See for yourself what the hype is about
-              and join the growing community of IBE ®  certified stylists
-              worldwide.
+              and join the growing community of certified stylists worldwide.
             </span>
             <span className="title-small">
               Start your certification journey today!
@@ -520,8 +530,8 @@ function EnrollNow() {
             </div>
             <div className="flex flex-col gap-[20px]">
               <span className=" font-[500] label-small">
-                Which of the following options would you select if accepted into
-                the IBE program*
+                Which of the following options would you like to select for the
+                training session.
               </span>
               <div className="flex items-center gap-[10px]">
                 <input
@@ -585,75 +595,6 @@ function EnrollNow() {
                 className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
               />
             </div>
-            <div>
-              <label htmlFor="startWorkBy" className=" font-[500] label-small">
-                If accepted as an IBE® stylist, when would you want to start
-                working with your mentor?*
-              </label>
-              <input
-                type="text"
-                name="startWorkBy"
-                id="startWorkBy"
-                required
-                className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-              />
-            </div>
-            <div>
-              <label htmlFor="foundOutBy" className=" font-[500] label-small">
-                How did you hear about IBE®? If it was an IBE® stylist what was
-                their name?*
-              </label>
-              <input
-                type="text"
-                id="foundOutBy"
-                name="foundOutAboutIBEFrom"
-                required
-                className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-              />
-            </div>
-            <div className="flex flex-col gap-[20px]">
-              <span className=" font-[500] label-small">
-                Are you able to have an admission interview in English?*
-              </span>
-              <div className="flex items-center gap-[10px]">
-                <input
-                  type="radio"
-                  name="interviewInEnglish"
-                  id="interviewInEnglishYes"
-                  value="yes"
-                  required
-                />
-                <label
-                  htmlFor="interviewInEnglishYes"
-                  className=" font-[500] label-small"
-                >
-                  Yes
-                </label>
-              </div>
-              <div className="flex items-center gap-[10px]">
-                <input
-                  type="radio"
-                  name="interviewInEnglish"
-                  id="interviewInEnglishNo"
-                  value="no"
-                  required
-                />
-                <label
-                  htmlFor="interviewInEnglishNo"
-                  className=" font-[500] label-small"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-            <span className="body-small">
-              By clicking SUBMIT APPLICATION, you agree to receive marketing
-              text messages from Invisible Bead Extensions at the number
-              provided, including messages sent by autodialer. Consent is not a
-              condition of any purchase. Message and data rates may apply.
-              Message frequency varies. Reply HELP for help or STOP to cancel.
-              View our Privacy Policy and Terms of Service.
-            </span>
             <div className="flex w-full justify-center">
               <input
                 type="submit"

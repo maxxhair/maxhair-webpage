@@ -147,3 +147,8 @@ body {
 .container input:checked ~ svg {
   fill: #e3474f;
 }
+
+.no-outline:focus {
+  outline: none !important;
+  box-shadow: none;
+}

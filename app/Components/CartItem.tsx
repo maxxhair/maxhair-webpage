@@ -16,6 +16,7 @@ interface Props {
     type: string;
     image: string;
     color: string;
+    remark: string;
   };
 }
 
@@ -36,9 +37,9 @@ const CartItem: React.FC<Props> = ({ product }) => {
         color: product?.color,
         size: product?.size,
         type: product?.type,
-        texture: product?.texture,
+        texture: product?.texture
       },
-      count: count,
+      count: count
     };
     dispatch(setCount(payload as any));
   };
@@ -55,6 +56,7 @@ const CartItem: React.FC<Props> = ({ product }) => {
         size: product?.size as any,
         type: product?.type,
         texture: product?.texture,
+        remark: product?.remark
       })
     );
   };
@@ -64,15 +66,18 @@ const CartItem: React.FC<Props> = ({ product }) => {
   const imageUrl = `${baseUrl}/${product?.image}`;
 
   return (
-    <div className="my-5 w-full h-auto bg-white lg:p-6 md:p-4 p-2 flex lg:flex-row flex-col md:items-center justify-between">
+    <div className="my-3 w-full h-auto bg-white lg:p-6 md:p-4 p-2 flex lg:flex-row flex-col md:items-center justify-between">
       <div className="flex gap-4 p-4 w-full">
         <Image src={productImage} alt="cartProduct" width={115} height={180} />
         <div className="flex flex-col gap-2 w-full items-start">
-          <p className="lg:headline-small md:title-medium title-small flex lg:flex-row justify-center text-center gap-2 flex-col flex-wrap">
+          <p className="lg:headline-small md:title-medium title-small flex items-start lg:flex-row justify-center text-center gap-2 flex-col flex-wrap">
             <span>{product?.name}</span>
             <span className="lg:block hidden">-</span>
             <span>{product?.texture}</span>
           </p>
+          {product.remark.length > 0 && (
+            <p className="label-small">({product.remark})</p>
+          )}
           <p className="lg:label-medium md:body-medium body-small">
             {product?.type}
           </p>
