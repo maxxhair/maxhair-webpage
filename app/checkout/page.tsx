@@ -103,6 +103,7 @@ const Checkout = () => {
               const res = await axiosInstance.post("orders", body);
               window.location.reload();
               window.location.href = "/";
+
               dispatch(emptyCart());
               dispatch(removeCouponCode());
             } catch (error) {

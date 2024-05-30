@@ -49,8 +49,10 @@ const NewCollection = () => {
               </div>
             </div>
 
+
             <motion.div style={{ x }} className="flex">
               {listData?.slice(5, 10).map((product, index) => {
+
                 return (
                   <div
                     key={index}
