@@ -148,14 +148,6 @@ function SendMoreInfo() {
                 </label>
               </div>
             </div>
-            <span className="body-small">
-              By clicking SUBMIT APPLICATION, you agree to receive marketing
-              text messages from Invisible Bead Extensions at the number
-              provided, including messages sent by autodialer. Consent is not a
-              condition of any purchase. Message and data rates may apply.
-              Message frequency varies. Reply HELP for help or STOP to cancel.
-              View our Privacy Policy and Terms of Service.
-            </span>
             <div className="flex w-full justify-center">
               <input
                 type="submit"

@@ -32,6 +32,9 @@ const CheckoutCartDetails = () => {
     } else if (couponCode === "") {
       dispatch(addDiscount(0));
       setCouponCodeMsg("");
+    } else if (couponCode === "MAXX60") {
+      dispatch(addDiscount(60));
+      setCouponCodeMsg("60% discount is applied to total price");
     } else {
       dispatch(addDiscount(0));
       setCouponCodeMsg("Invalid Coupon Code");
@@ -57,7 +60,7 @@ const CheckoutCartDetails = () => {
   );
 
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] pt-16 px-8">
+    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 lg:pt-16 lg:px-8">
       {cartProducts.map((item: any) => (
         <CartItem key={item.id} product={item} />
       ))}

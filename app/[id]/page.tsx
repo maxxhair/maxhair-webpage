@@ -38,6 +38,8 @@ import MostPopular from "../Components/MostPopular";
 import RepeatOrders from "../Components/RepeatOrders";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
+import { Spinner, TextInput } from "flowbite-react";
+import Loader from "../Components/Loader";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -56,7 +58,7 @@ export default function Page() {
   );
   const dispatch = useDispatch<AppDispatch>();
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
   const [selectedQuantity, setQuantity] = useState(1);
@@ -79,13 +81,14 @@ export default function Page() {
     if (id) {
       const fetchProductVariants = async () => {
         try {
+          setLoading(true);
           const data = await getVariantsByProductId(id as string);
           setVariants(data);
+          setLoading(false);
         } catch (error) {
           console.log(error);
         }
       };
-
       fetchProductVariants();
     }
   }, [id]);
@@ -129,6 +132,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
+      remark: dualTexture,
     };
     const productStore = {
       count: selectedQuantity,
@@ -159,7 +163,9 @@ export default function Page() {
     }
   };
 
-  const [stockCount, setStockCount] = useState();
+  const [stockCount, setStockCount] = useState(0);
+  const [dualTexture, setDualTexture] = useState<string>("");
+  const [openTextBox, setOpenTextBox] = useState(false);
 
   useEffect(() => {
     if (filteredVariant && filteredVariant.length > 0) {
@@ -189,7 +195,6 @@ export default function Page() {
 
   useEffect(() => {
     const newFilteredVariant = getFilteredVariant();
-    console.log(newFilteredVariant && newFilteredVariant[0]);
     setFilteredVariant(newFilteredVariant);
   }, [selectedSize, selectedColor, selectedType, selectedTexture]);
 
@@ -211,6 +216,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
+      remark: dualTexture,
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -220,11 +226,22 @@ export default function Page() {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (selectedTexture === "Dual Texture") {
+      setOpenTextBox(true);
+    } else {
+      setOpenTextBox(false);
+      setDualTexture("");
+    }
+  }, [textureOpts, selectedTexture]);
 
-  // console.log(filteredVariant && filteredVariant[0]?._id);
+  if (loading) {
+    return (
+      <div className="w-full h-screen grid place-items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     variants && (
@@ -233,9 +250,9 @@ export default function Page() {
       >
         <div className="md:flex flex-row inline">
           <div className=" block md:hidden m-4  w-3/5 mx-auto">
-            <ProductImageSwiper />
+            <ProductImageSwiper mainImage={productImage} />
           </div>
-          <div className="hidden md:block  md:w-1/2  max-lg:m-auto ">
+          <div className="hidden md:block md:w-1/2 p-8 sm:m-auto xl:m-0 sm:w-3/5">
             <Image
               src={productImage}
               alt="product-image-error"
@@ -246,12 +263,12 @@ export default function Page() {
               <Image
                 src={productImage1}
                 alt="product-image-error"
-                className=" w-1/2"
+                className="w-1/2"
               />
               <Image
                 src={productImage2}
                 alt="product-image-error"
-                className=" w-1/2"
+                className="w-1/2"
               />
             </div>
             <Image src={productImage3} alt="product-image-error" />
@@ -278,11 +295,7 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-<<<<<<< HEAD
-                    className={` m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
-=======
-                    className={`w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
->>>>>>> 1826f0d0d681ffedb31139b7e32a133b7671b6d8
+                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
                       selectedSize === size
                         ? "!bg-[#E3D6C5] text-[#A47252]"
                         : "bg-neutral-100"
@@ -309,8 +322,8 @@ export default function Page() {
                 </button>
               ))}
             </div>
-            <p className="text-sm font-semibold mt-4 ">Type</p>
-            <div className=" mt-2">
+            <p className="text-sm font-semibold mt-4">Type</p>
+            <div className="mt-2">
               {typeOpts?.map((type) => (
                 <button
                   onClick={() => setType(type)}
@@ -341,11 +354,36 @@ export default function Page() {
                 </button>
               ))}
             </div>
+            {openTextBox && (
+              <div className="w-1/2 my-3">
+                <p className="label-small md:label-medium pb-2">
+                  Mention the combination of the textures here:
+                </p>
+                <TextInput
+                  type="text"
+                  onChange={(e) => setDualTexture(e.target.value)}
+                  className="no-outline:focus"
+                />
+              </div>
+            )}
             <div className="flex space-x-3 mt-4">
               <Image src={deliveryImg} alt="img-err" />
-              <p className=" mt-1 ">Free Delivery & Easy Returns</p>
+              <p className="mt-1 label-small lg:label-medium">
+                Free Delivery & Easy Returns
+              </p>
             </div>
-            <div className="sm:review-card mt-8">
+            <div className="py-4">
+              {stockCount === 0 ? (
+                <p className="label-small lg:label-medium text-red-600">
+                  Stock Unavailabe ! Don&apos;t worry still you can place order
+                </p>
+              ) : (
+                <p className="label-small lg:label-medium text-green-900">
+                  Hurry Up..! only {stockCount} is left
+                </p>
+              )}
+            </div>
+            <div className="sm:review-card">
               {(selectedSize === null ||
                 selectedColor === null ||
                 selectedTexture === null ||
@@ -449,8 +487,8 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="md:flex mt-10 inline ">
-          <div className=" md:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
+        <div className="md:flex mt-10 inline">
+          <div className=" lg:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis

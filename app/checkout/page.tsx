@@ -103,6 +103,7 @@ const Checkout = () => {
               const res = await axiosInstance.post("orders", body);
               window.location.reload();
               window.location.href = "/";
+
               dispatch(emptyCart());
               dispatch(removeCouponCode());
             } catch (error) {
@@ -138,7 +139,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-[90%] lg:w-3/4 h-auto lg:h-[90vh] mx-auto mt-[14vh] lg:mt-[10vh] flex flex-col-reverse lg:flex-row">
+    <div className="w-full p-3 lg:p-0 lg:w-3/4 h-auto lg:h-[90vh] mx-auto mt-[14vh] lg:mt-[10vh] flex flex-col-reverse lg:flex-row">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"

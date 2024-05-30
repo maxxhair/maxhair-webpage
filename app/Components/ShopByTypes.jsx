@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { firaSans } from "../util/fonts";
-import { prodimg } from "../util/images";
+import { prodimg, productImage5 } from "../util/images";
 import Link from "next/link";
 
 function ShopByTypes() {
   const list = [
-    { name: "Front Lace Wig", link: "", image: prodimg },
-    { name: "Single Drawn", link: "", image: prodimg },
-    { name: "Double Drawn", link: "", image: prodimg }
+    { name: "Front Lace Wig", link: "", image: productImage5 },
+    { name: "Single Drawn", link: "", image: productImage5 },
+    { name: "Double Drawn", link: "", image: productImage5 }
   ];
   return (
     <div className="flex flex-col bg-[#885C46] min-h-[800px] h-[90vh] w-full justify-evenly items-center md:py-[40px] py-[20px] px-[20px]">

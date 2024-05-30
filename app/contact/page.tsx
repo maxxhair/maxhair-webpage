@@ -22,7 +22,7 @@ const Contact = () => {
         <BreadcrumbItem className="capitalize">Contact</BreadcrumbItem>
       </Breadcrumb>
       <div>
-        <div className="w-10/12 md:w-5/12 m-auto text-center mt-16">
+        <div className="w-full mt-8 md:w-1/2 mx-auto text-center lg:mt-16">
           <p className={`${firaSansMedium.className} text-2xl lg:text-4xl`}>
             Get In Touch With Us
           </p>

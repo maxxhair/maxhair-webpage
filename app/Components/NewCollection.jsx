@@ -13,7 +13,7 @@ const NewCollection = () => {
 
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: targetRef,
+    target: targetRef
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
@@ -48,7 +48,6 @@ const NewCollection = () => {
                 </div>
               </div>
             </div>
-
             <motion.div style={{ x }} className="flex">
               {listData?.slice(5, 10).map((product, index) => {
                 return (

@@ -10,22 +10,20 @@ const CustomerReviews = () => {
       >
         Customer Reviews
       </p>
-      <div className="flex justify-between ">
-        <div className="flex mt-8 ">
+      <div className="flex flex-col gap-3 lg:flex-row justify-between">
+        <div className="flex gap-3 mt-4 lg:mt-8 items-center">
           <p
-            className={`${firaSans.className} text-3xl lg:text-5xl font-bold mt-2`}
+            className={`${firaSans.className} text-3xl lg:text-5xl font-bold `}
           >
             4.9
           </p>
-          <Rating count={5} value={5} className="m-2 mt-auto" />
-          <p className="m-2 mt-auto text-xs lg:text-sm">
-            Based on 1611 3 reviews
-          </p>
+          <Rating count={5} value={5} className="" />
+          <p className="text-xs lg:text-sm">Based on 1611 3 reviews</p>
         </div>
 
         <button
           type="submit"
-          className="  h-10 text-white font-medium px-5  text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm "
+          className="h-10 text-white font-medium px-5 text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm"
         >
           Write A Review
         </button>
