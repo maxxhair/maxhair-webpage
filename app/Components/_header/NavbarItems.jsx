@@ -7,7 +7,7 @@ const Navbar = ({ setToggle }) => {
     { title: "shop", id: "shop" },
     { title: "educate me", id: "educateMe" },
     { title: "blog", id: "blog" },
-    { title: "Contact", id: "contact" },
+    { title: "Contact", id: "contact" }
   ];
 
   const navList = {
@@ -15,16 +15,16 @@ const Navbar = ({ setToggle }) => {
       opacity: 1,
       transition: {
         delayChildren: 0.2,
-        staggerChildren: 0.07,
-      },
+        staggerChildren: 0.07
+      }
     },
     hidden: {
       opacity: 0,
       transition: {
         staggerChildren: 0.05,
-        staggerDirection: -1,
-      },
-    },
+        staggerDirection: -1
+      }
+    }
   };
 
   const navItem = {
@@ -32,16 +32,16 @@ const Navbar = ({ setToggle }) => {
       y: 0,
       opacity: 1,
       transition: {
-        y: { stiffness: 1000, velocity: -100 },
-      },
+        y: { stiffness: 1000, velocity: -100 }
+      }
     },
     hidden: {
       y: 50,
       opacity: 0,
       transition: {
-        y: { stiffness: 1000, velocity: -100 },
-      },
-    },
+        y: { stiffness: 1000, velocity: -100 }
+      }
+    }
   };
 
   return (
