@@ -107,7 +107,6 @@ const Checkout = () => {
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              window.location.reload();
               window.location.href = "/";
             } catch (error) {
               console.log(error);
@@ -167,17 +166,17 @@ const Checkout = () => {
         dispatch(emptyCart());
         dispatch(removeCouponCode());
         setLoad(false);
-        window.location.reload();
         window.location.href = "/";
         toast.success("Order placed successfully");
       }
     } catch (error) {
       console.log(error);
+      setLoad(false);
     }
   };
 
   return (
-    <div className="w-full p-3 lg:p-0 lg:w-3/4 h-auto lg:h-[90vh] mx-auto mt-[14vh] lg:mt-[10vh] flex flex-col-reverse lg:flex-row">
+    <div className="w-full p-3 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] lg:mt-[12vh] flex flex-col-reverse lg:flex-row mb-10">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"

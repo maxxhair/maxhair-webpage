@@ -12,7 +12,7 @@ import Loader from "./Loader";
 
 function ShopByProducts() {
   const [selected, setSelected] = useState(0);
-  const [numberOfCards, setNumberOfCards] = useState(8);
+  const [numberOfCards, setNumberOfCards] = useState(6);
   const [tempArr, setTempArr] = useState([]);
   const [list, setListData] = useState(null);
 
@@ -105,7 +105,8 @@ function ShopByProducts() {
                     justifyContent: "center"
                   }}
                 >
-                  <div className="flex gap-[20px] justify-center items-center flex-wrap h-[calc(540px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
+                  <div className="flex gap-1 md:gap-[20px] justify-center items-center flex-wrap h-[calc(540px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
+                    {/* <div className="w-full md:w-3/4 grid grid-cols-2 place-items-center lg:grid-cols-3"> */}
                     {tempArr.map((ele) => {
                       return (
                         <React.Fragment key={ele}>

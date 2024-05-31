@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Image from "next/image";
 import { firaSans } from "../../util/fonts";
-import { prodimg } from "../../util/images";
+import { prodimg, productImage5 } from "../../util/images";
 
 function Card({ obj, selected, index }) {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
@@ -9,11 +10,11 @@ function Card({ obj, selected, index }) {
   const imageUrl =
     obj.image_url && obj.image_url.length > 0
       ? `${baseUrl}/${obj.image_url}`
-      : prodimg;
+      : productImage5;
 
   return (
     <div
-      className={` lg:w-[400px] md:w-[300px] w-[300px] border-2 flex flex-col justify-center transition-all duration-200 cursor-pointer ${
+      className={` lg:w-[400px] md:w-[300px] w-[250px] border-2 flex flex-col justify-center transition-all duration-200 cursor-pointer ${
         selected === index ? " border-[#242424] " : "border-transparent"
       }`}
     >
@@ -23,13 +24,13 @@ function Card({ obj, selected, index }) {
           alt=""
           width={400}
           height={selected === index ? 500 : 450}
-          className={`w-full transition-all duration-200 rounded-sm object-cover`}
+          className={`w-full transition-all duration-200 rounded-sm  object-cover`}
         />
       </div>
       <div
-        className={`flex flex-col justify-center transition-all duration-200 border-t-2  items-center gap-[5px] pb-[15px] ${
+        className={`flex flex-col justify-center transition-all duration-200 border-t-2  items-center gap-[0.5] md:gap-1 pb-[15px] ${
           selected === index
-            ? " border-[#242424] bg-[#F2ECE2]"
+            ? "border-[#242424] bg-[#F2ECE2]"
             : "border-transparent"
         }`}
       >
@@ -47,7 +48,7 @@ function Card({ obj, selected, index }) {
 
         <Link
           href="shop"
-          className={`text-[#FAFAFA] bg-[#242424] transition-all duration-200 lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px] ${
+          className={`text-[#FAFAFA] bg-[#242424] transition-all duration-200 lg:label-large md:label-medium label-small uppercase w-fit py-[5px] px-[10px] md:py-[10px] md:px-[30px] ${
             selected === index ? "opacity-100" : "opacity-0"
           } `}
         >
