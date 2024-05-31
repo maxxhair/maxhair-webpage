@@ -107,7 +107,6 @@ const Checkout = () => {
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              window.location.reload();
               window.location.href = "/";
             } catch (error) {
               console.log(error);
@@ -167,12 +166,12 @@ const Checkout = () => {
         dispatch(emptyCart());
         dispatch(removeCouponCode());
         setLoad(false);
-        window.location.reload();
         window.location.href = "/";
         toast.success("Order placed successfully");
       }
     } catch (error) {
       console.log(error);
+      setLoad(false);
     }
   };
 

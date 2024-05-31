@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { userLoggedin } from "../store/redux/userSlice";
 import { Spinner } from "flowbite-react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -48,6 +49,8 @@ const LoginForm = () => {
         window.location.href = "/";
       } catch (error) {
         console.log(error);
+        toast.error(error.response.data.message);
+        setLoading(false);
       }
     }
   };
