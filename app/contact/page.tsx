@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { contactUsBgImg } from "../util/images";
-import { firaSans, firaSansBold, firaSansMedium, prompt } from "../util/fonts";
+import { firaSans, firaSansMedium, prompt } from "../util/fonts";
 import ContactForm from "../Components/ContactForm";
 
 const Contact = () => {

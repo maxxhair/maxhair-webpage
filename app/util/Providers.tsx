@@ -24,7 +24,12 @@ const Providers: React.FC<Props> = ({ children }: Props) => {
       <PersistGate loading={null} persistor={persistor}>
         <Toaster />
         {children}
-        <Next13ProgressBar height="4px" color="#0A2FFF" showOnShallow />
+        <Next13ProgressBar
+          height="4px"
+          color="#0A2FFF"
+          showOnShallow
+          options={{ showSpinner: false }}
+        />
       </PersistGate>
     </Provider>
   );

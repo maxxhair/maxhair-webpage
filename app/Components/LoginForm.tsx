@@ -53,14 +53,13 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-lg:m-auto max-w-sm">
-      <div>
-        <h2
-          className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
-        >
-          Sign In
-        </h2>
-      </div>
+    <div className="w-1/2 p-4">
+      <h2
+        className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
+      >
+        Sign In
+      </h2>
+
       <div>
         <p className="mt-5 text-sm font-light text-gray-500">
           Don’t have an account yet?{" "}
