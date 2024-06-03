@@ -60,7 +60,7 @@ const CheckoutCartDetails = () => {
   );
 
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 h-[85vh] overflow-y-scroll lg:pt-8 lg:px-8">
+    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 h-[85vh] overflow-y-scroll lg:pt-8 lg:px-8 flex-1">
       <span className="lg:title-large title-medium ">
         {`Cart items (${cartProducts.length})`}
       </span>
