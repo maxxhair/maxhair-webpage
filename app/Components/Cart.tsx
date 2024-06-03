@@ -123,7 +123,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           </div>
           <Link href="/checkout">
             <button
-              className="w-full my-5 bg-black text-white py-4 uppercase title-small tracking-widest font-semibold"
+              className="w-full my-5 bg-black text-white py-4 uppercase title-small tracking-widest font-semibold mb-10"
               onClick={handleClose}
             >
               Checkout
