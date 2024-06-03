@@ -33,7 +33,7 @@ function Coupon() {
         transition={{
           type: "spring",
           stiffness: 100,
-          damping: 10
+          damping: 10,
         }}
         ref={ref}
         className={`${firaSansBold.className} text-[#FFC250] lg:h-[100px] md:h-[60px] h-[20px]  w-[20px] select-none relative flex justify-center font-black lg:text-[180px] md:text-[120px] text-[80px]`}
