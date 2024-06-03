@@ -25,7 +25,6 @@ function Header() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const loggedUser = useSelector((state) => state.user.user);
   const path = usePathname();
-  console.log(path);
 
   const cartCount = cartItems.length;
 
