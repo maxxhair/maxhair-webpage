@@ -58,8 +58,9 @@ function Header() {
         }
       >
         <div className="w-full flex justify-around">
+          <Navbar />
           <Link href="/" className="h-full ">
-            <Image src={brandLogo} alt="logo" width={300} />
+            <Image src={brandLogo} alt="logo" width={200} />
           </Link>
 
           <div
@@ -91,23 +92,25 @@ function Header() {
             </Link>
           </div>
           <div className="flex items-center gap-5 justify-end">
-            <Link href={isEmpty(loggedUser) ? "signin" : "profile"}>
+            <Link
+              href={isEmpty(loggedUser) ? "signin" : "profile"}
+              className="md:block hidden"
+            >
               <Image src={user} alt="profile" className="w-6" />
             </Link>
 
-            <div className=" border-l-[1px] border-[#D1D1D8]  h-full w-[100px] flex justify-center items-center relative">
+            <div className=" md:border-l-[1px] md:border-[#D1D1D8] h-full md:w-[100px] w-[50px] flex justify-center items-center relative">
               <Image
                 src={shoppingCart}
                 alt="shopping cart"
-                className="cursor-pointer"
+                className="cursor-pointer w-5 h-5"
                 onClick={handleCartOpen}
               />
-              <div className="absolute top-0 left-[30%] -translate-x-[30%] -translate-y-[30%] bg-pink-100 w-6 h-6 aspect-square rounded-full grid place-items-center">
+              <div className="absolute top-0 md:right-[20%] right-0 bg-pink-100 w-5 h-5 body-small aspect-square rounded-full grid place-items-center">
                 {cartCount}
               </div>
             </div>
           </div>
-          <Navbar />
         </div>
       </header>
       <Drawer
@@ -121,8 +124,8 @@ function Header() {
           <Image
             src={closeIcon}
             alt="close"
-            className="cursor-pointer"
             onClick={handleCartClose}
+            className=" cursor-pointer "
           />
         </div>
         <Cart handleClose={handleCartClose} />

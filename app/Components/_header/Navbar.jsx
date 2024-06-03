@@ -13,17 +13,17 @@ const Navbar = () => {
       opacity: 1,
       transition: {
         x: { velocity: 100 },
-        duration: 0.3
-      }
+        duration: 0.3,
+      },
     },
     hidden: {
       //x: -250,
       opacity: 0,
       transition: {
         x: { velocity: 100 },
-        duration: 0.3
-      }
-    }
+        duration: 0.3,
+      },
+    },
   };
 
   return (
@@ -35,19 +35,21 @@ const Navbar = () => {
         <div className="w-full h-[3px] bg-[#384347]"></div>
         <div className="w-full h-[3px] bg-[#384347]"></div>
         <div
-          className={`${isToggled ? "w-full" : "w-1/2"} h-[3px] bg-[#384347]`}
+          className={`${
+            isToggled ? "w-full" : "w-1/2"
+          } transition-all h-[3px] bg-[#384347]`}
         ></div>
       </button>
       <AnimatePresence>
         {isToggled && (
           <motion.div
-            className=" bg-transparent w-full min-h-fit flex md:hidden justify-around items-center absolute top-[100%] right-0 z-50 "
+            className="border-t-2 bg-transparent w-full min-h-fit flex md:hidden justify-around items-center absolute top-[100%] right-0 z-50 "
             initial="hidden"
             animate={isToggled ? "visible" : "hidden"}
             exit="hidden"
             variants={navContainer}
           >
-            <div className="bg-white flex w-[90%] mt-[10px] px-[32px] py-[32px]  shadow-lg">
+            <div className="bg-[#f9f6f3] flex w-full  px-[32px] py-[32px]  shadow-lg">
               <NavbarItems setToggle={setToggle} />
             </div>
           </motion.div>

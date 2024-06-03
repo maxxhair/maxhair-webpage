@@ -58,7 +58,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           ${item?.cheapestVariant?.price}
         </p>
 
-        <p className="flex justify-center w-full text-sm px-3">
+        <p className="flex justify-center text-center w-full text-sm px-3">
           {item.category?.title}
         </p>
 

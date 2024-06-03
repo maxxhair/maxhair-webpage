@@ -56,7 +56,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-1/2 p-4">
+    <div className="md:w-1/2 w-full p-10">
       <h2
         className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
       >
