@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, Spinner, TextInput } from "flowbite-react";
@@ -32,6 +32,7 @@ const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
+  const [submitButton, setSubmitButton] = useState(null);
   // const [openSuccessModal, setOpenSucessModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
@@ -53,7 +54,7 @@ const Checkout = () => {
         phone: selectedAddress.phone,
         address: selectedAddress.address,
         landmark: selectedAddress.landmark,
-        zipcode: selectedAddress.zipcode
+        zipcode: selectedAddress.zipcode,
       }));
     }
   }, [selectedAddress]);
@@ -100,7 +101,7 @@ const Checkout = () => {
               address: checkoutFormData.address,
               landmark: checkoutFormData.landmark,
               zipcode: checkoutFormData.zipcode,
-              transactionId: response.data.data.transactionId
+              transactionId: response.data.data.transactionId,
             };
             try {
               const res = await axiosInstance.post("orders", body);
@@ -124,12 +125,24 @@ const Checkout = () => {
     };
   }, [token]);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submitButton) {
+      if (submitButton === "cash") {
+        console.log("from cash");
+        handlePlaceOrderCash();
+      } else if (submitButton === "card") {
+        handlePlaceOrderCard();
+        console.log("from card");
+      }
+    }
+  };
+
+  const handlePlaceOrderCard = async () => {
     try {
       setLoading(true);
       const res = await axiosInstance.post("payments/get_tokens", {
-        amount: TotalPriceToPay
+        amount: TotalPriceToPay,
       });
       setToken(res.data.data.checkoutToken);
       // @ts-ignore
@@ -140,7 +153,7 @@ const Checkout = () => {
     }
   };
 
-  const handlePlaceOrder = async () => {
+  const handlePlaceOrderCash = async () => {
     const body = {
       user_id: loggedUser && loggedUser?._id,
       items: cartItems,
@@ -150,7 +163,7 @@ const Checkout = () => {
       phone: checkoutFormData.phone,
       address: checkoutFormData.address,
       landmark: checkoutFormData.landmark,
-      zipcode: checkoutFormData.zipcode
+      zipcode: checkoutFormData.zipcode,
     };
     try {
       if (
@@ -176,7 +189,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-full p-3 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] lg:mt-[12vh] flex flex-col-reverse lg:flex-row mb-10">
+    <div className="w-full p-5 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] lg:mt-[12vh] flex flex-col-reverse lg:flex-row mb-10">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
@@ -256,15 +269,19 @@ const Checkout = () => {
           <button
             className="w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
             type="submit"
+            name="card"
+            onClick={() => setSubmitButton("card")}
           >
             {!loading ? "Pay Through Card" : <Spinner size="lg" color="#fff" />}
           </button>
-          <div
+          <button
+            type="submit"
             className="w-full text-center cursor-pointer bg-black text-white py-4 title-small tracking-widest font-semibold mt-4"
-            onClick={handlePlaceOrder}
+            name="cash"
+            onClick={() => setSubmitButton("cash")}
           >
             {!load ? "Pay Through Cash" : <Spinner size="lg" color="#fff" />}
-          </div>
+          </button>
         </form>
       </div>
       <CheckoutCartDetails />
