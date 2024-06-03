@@ -35,9 +35,9 @@ const ProductCard: React.FC<Props> = ({ item }) => {
       : prodimg;
 
   return (
-    <Link href={`/${item._id}`}>
+    <Link href={`/${item._id}`} title={item?.title}>
       <div
-        className=" pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
+        className="p-2 h-auto transition-all duration-300 bg-white hover:bg-[#e3d6c5] relative"
         onMouseOver={() => setHovered(true)}
         onMouseOut={() => setHovered(false)}
       >
@@ -50,7 +50,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
         />
 
         <p
-          className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold pb-1`}
+          className={`${firaSans.className} text-center text-xl font-semibold pb-1 truncate`}
         >
           {item?.title}
         </p>
@@ -58,14 +58,17 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           ${item?.cheapestVariant?.price}
         </p>
 
-        <div className="flex justify-between  text-sm px-3">
-          <p>{item.category?.title}</p>
-        </div>
-        {hovered && (
-          <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10 pb-1">
-            VIEW PRODUCT
-          </button>
-        )}
+        <p className="flex justify-center text-center w-full text-sm px-3">
+          {item.category?.title}
+        </p>
+
+        <button
+          className={`w-full h-10 bg-[#242424] grid place-items-center text-white ${
+            hovered ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          VIEW PRODUCT
+        </button>
       </div>
     </Link>
   );
