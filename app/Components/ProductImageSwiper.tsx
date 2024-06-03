@@ -6,11 +6,7 @@ import { productImage1, productImage2, productImage3 } from "../util/images";
 import Image from "next/image";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
 
-interface Props {
-  mainImage: string;
-}
-
-const ProductImageSwiper: React.FC<Props> = ({ mainImage }) => {
+const ProductImageSwiper = ({ mainImage }) => {
   const images = [mainImage, productImage1, productImage2, productImage3];
 
   return (

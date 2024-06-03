@@ -80,7 +80,7 @@ const Shop = () => {
               <option value="Newest">Newest</option>
             </select>
           </div>
-          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:gap-4 lg:gap-y-12">
+          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:gap-4 lg:gap-y-12 gap-5">
             {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
