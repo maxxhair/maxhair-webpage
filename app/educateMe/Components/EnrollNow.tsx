@@ -8,6 +8,8 @@ import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
 import axiosInstance from "../../util/axiosInstance";
 import toast from "react-hot-toast";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
@@ -19,7 +21,7 @@ function EnrollNow() {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
     try {
-      const res = await axiosInstance.post("user-details", obj);
+      await axiosInstance.post("user-details", obj);
       toast.success("Enrolled Successfully");
       formRef.current.reset();
       setOpenModal(false);
@@ -94,18 +96,20 @@ function EnrollNow() {
               <label htmlFor="phoneno" className=" font-[500] label-small">
                 Phone Number*
               </label>
-              <input
-                type="tel"
-                id="phoneno"
-                name="phoneNo"
-                pattern="\d{10}"
-                title="Phone number format: XXXXXXXXXX"
-                className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-                required
+              <PhoneInput
+                enableSearch
+                countryCodeEditable={false}
+                inputProps={{
+                  name: "phoneNo",
+                  id: "phoneno",
+                  required: true,
+                  className:
+                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12",
+                }}
               />
             </div>
             <div className="w-full">
-              <label htmlFor="email" className=" font-[500] label-small">
+              <label htmlFor="email" className=" font-[500] label-small ">
                 Email*
               </label>
               <input

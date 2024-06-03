@@ -8,11 +8,11 @@ import { tosignin } from "./actions";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 const SignupForm = () => {
@@ -61,7 +61,7 @@ const SignupForm = () => {
           email,
           password,
           fullName,
-          phoneNumber
+          phoneNumber,
         });
         window.location.href = "signin";
       }
@@ -71,7 +71,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="md:w-1/2 p-6 md:p-0">
+    <div className="md:w-1/2 w-full p-10 md:p-0">
       <h2
         className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
       >

@@ -1,24 +1,8 @@
 import Image from "next/image";
 import Rating from "./Rating";
-import { Fira_Sans, Prompt } from "next/font/google";
+import { firaSans } from "../util/fonts";
 
-const firaSans = Fira_Sans({
-  weight: ["400", "700"],
-  subsets: ["latin"]
-});
-
-const prompt = Prompt({
-  weight: ["400", "700"],
-  subsets: ["latin"]
-});
-
-interface Props {
-  image: string;
-  name: string;
-  stock: number;
-}
-
-const StockCard: React.FC<Props> = ({ image, name, stock }) => {
+const StockCard = ({ image, name, stock }) => {
   return (
     <div className="w-full h-32 flex border-b-2 ">
       <Image src={image} alt="product-image-error" width={80} height={140} />

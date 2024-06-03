@@ -21,6 +21,11 @@ import brenda from "/public/image 790.svg";
 import sample1 from "/public/sample1.svg";
 import closeIcon from "/public/close.svg";
 import contactUsBgImg from "/public/AdobeStock_779998205_Preview 2.svg";
+import blogsForNavbarIcon from "/public/blogsForNavbar.svg";
+import contactForNavbarIcon from "/public/contactForNavbar.svg";
+import educateForNavbarIcon from "/public/educateForNavbar.svg";
+import shopForNavbarIcon from "/public/shopForNavbar.svg";
+import profileForNavbarIcon from "/public/profileForNavbar.svg";
 
 export {
   companyLogo,
@@ -45,5 +50,10 @@ export {
   brandLogo,
   brenda,
   contactUsBgImg,
-  blogCardImg
+  blogCardImg,
+  blogsForNavbarIcon,
+  contactForNavbarIcon,
+  educateForNavbarIcon,
+  shopForNavbarIcon,
+  profileForNavbarIcon,
 };
