@@ -6,7 +6,7 @@ import Image from "next/image";
 const MyOrders = () => {
   return (
     <div className="w-full border-2 mb-10 border-pink-200">
-      <div className="w-full p-5 flex items-end justify-between bg-pink-50">
+      <div className="w-full p-5 flex flex-col items-start gap-5 md:flex-row md:items-end justify-between bg-pink-50">
         <div className="flex flex-col gap-3">
           <p className={`${firaSans.className} headline-small`}>
             Order no: #123456789
@@ -32,7 +32,7 @@ const MyOrders = () => {
       <div className="w-full p-5 flex items-center gap-5 ">
         <Image src={prodimg} alt="cartProduct" width={115} height={180} />
         <div className="flex flex-col gap-2 w-full items-start">
-          <p className="lg:headline-small md:title-medium title-small flex lg:flex-row justify-center text-center gap-2 flex-col flex-wrap">
+          <p className="lg:headline-small md:title-medium title-small flex lg:flex-row justify-center gap-2 flex-col flex-wrap">
             <span>Machine Weft - Curly</span>
           </p>
           <div className="flex items-center gap-5">

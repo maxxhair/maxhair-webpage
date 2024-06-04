@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   return (
-    <section className="mt-36 w-full px-8 lg:w-3/4 mx-auto">
+    <section className="mt-36 w-[90%] lg:w-3/4 mx-auto">
       <ProfileHeader activeOption={navOption} />
       <div className="w-full hidden lg:flex items-start justify-between my-20">
         <ProfileSideNavbar
@@ -64,7 +64,7 @@ const Profile = () => {
         />
         {getComponent(navOption)}
       </div>
-      <Tabs className="mt-7 ring-0 lg:hidden" style="underline">
+      <Tabs className="mt-7 focus:ring-0 lg:hidden">
         <Tabs.Item
           active
           title="Orders"

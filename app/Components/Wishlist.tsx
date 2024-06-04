@@ -59,8 +59,8 @@ const Wishlist: React.FC<Props> = ({ wishListItem }) => {
         height={180}
       />
       <div className="flex flex-col gap-10 xl:flex-row items-start xl:items-center justify-between pl-4">
-        <div className="flex flex-row xl:flex-col gap-2 items-center ">
-          <p className="xl:headline-small md:title-medium label-small xl:title-small flex xl:flex-row justify-center xl:text-center gap-2 flex-col flex-wrap">
+        <div className="flex flex-row xl:flex-col gap-2 items-center xl:items-start">
+          <p className="xl:headline-small md:title-medium label-small xl:title-small flex xl:flex-row justify-center xl:text-start gap-2 flex-col flex-wrap">
             <span>
               {wishListItem.name} - {wishListItem.texture}
             </span>
