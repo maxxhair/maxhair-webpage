@@ -62,7 +62,6 @@ function Header() {
           <Link href="/" className="h-full ">
             <Image src={brandLogo} alt="logo" width={200} />
           </Link>
-
           <div
             className={`md:flex md:items-center hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
           >
@@ -125,7 +124,7 @@ function Header() {
             src={closeIcon}
             alt="close"
             onClick={handleCartClose}
-            className=" cursor-pointer "
+            className="cursor-pointer"
           />
         </div>
         <Cart handleClose={handleCartClose} />

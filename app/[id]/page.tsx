@@ -112,7 +112,7 @@ export default function Page() {
     const productToSave: ProductStoreType = {
       id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
-      image: productImage,
+      image: productImage as string,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price
@@ -196,7 +196,7 @@ export default function Page() {
     const productToAdd: ProductStoreType = {
       id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
-      image: productImage,
+      image: productImage as string,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price

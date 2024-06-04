@@ -15,7 +15,7 @@ const MyOrders = () => {
             Order Date : <span className="text-black">22 May 2024 2:40 PM</span>
           </p>
           <p className="body-medium text-gray-400">
-            Estimated Delivery Date :{" "}
+            Estimated Delivery Date :
             <span className="text-black">28 May 2024</span>
           </p>
         </div>
@@ -24,8 +24,7 @@ const MyOrders = () => {
             Order Status : <span className="text-black">Inprogress</span>
           </p>
           <p className="body-medium text-gray-400">
-            Payment Method :{" "}
-            <span className="text-black">Cash on delivery</span>
+            Payment Method :<span className="text-black">Cash on delivery</span>
           </p>
         </div>
       </div>

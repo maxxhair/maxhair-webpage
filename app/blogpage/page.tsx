@@ -179,7 +179,7 @@ const BlogPage = () => {
           </p>
         </div>
       </div>
-      <div className="lg:w-1/3 max-lg:m-4 ">
+      <div className="lg:w-1/3 max-lg:m-4 lg:sticky lg:h-[45vh] lg:top-28 lg:right-0">
         <b>Latest Blogs</b>
         <LatestBlogCard />
         <LatestBlogCard />
