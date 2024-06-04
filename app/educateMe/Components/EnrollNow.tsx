@@ -14,7 +14,6 @@ import "react-phone-input-2/lib/style.css";
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
   const formRef = useRef(null);
-
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
@@ -104,7 +103,7 @@ function EnrollNow() {
                   id: "phoneno",
                   required: true,
                   className:
-                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12",
+                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12"
                 }}
               />
             </div>

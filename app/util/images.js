@@ -6,7 +6,7 @@ import hairStrand from "/public/HairStrand.svg";
 import shoppingCart from "/public/shopping-cart.svg";
 import bgimg from "/public/kareya-saleh-tLKOj6cNwe0-unsplash 2.png";
 import logo from "/public/Frame 1618873035.svg";
-import prodimg from "/public/image 5.svg";
+import prodimg from "/public/emptyimage.webp";
 import plus from "/public/Vector (3).svg";
 import deliveryImg from "/public/SVG.svg";
 import productImage from "/public/adult-Remix-navygreycobalt-1.jpg.svg";
@@ -26,6 +26,10 @@ import contactForNavbarIcon from "/public/contactForNavbar.svg";
 import educateForNavbarIcon from "/public/educateForNavbar.svg";
 import shopForNavbarIcon from "/public/shopForNavbar.svg";
 import profileForNavbarIcon from "/public/profileForNavbar.svg";
+import blogImage1 from "/public/hair- under microscope.svg";
+import blogImage2 from "/public/Frame 1618873065.svg";
+import blogImage3 from "/public/unnamed_92ff5186-c4af-4cac-967e-533238f9669b_360x.jpg.svg";
+import blogImage4 from "/public/Frame 1618873065 (1).svg";
 
 export {
   companyLogo,
@@ -56,4 +60,8 @@ export {
   educateForNavbarIcon,
   shopForNavbarIcon,
   profileForNavbarIcon,
+  blogImage1,
+  blogImage2,
+  blogImage3,
+  blogImage4
 };

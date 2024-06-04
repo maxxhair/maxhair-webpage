@@ -10,7 +10,7 @@ import {
   productImage3,
   productImage4,
   productImage5,
-  prodimg,
+  prodimg
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../Components/ExtraInfoSection";
@@ -19,7 +19,7 @@ import {
   list1,
   sizeOpts,
   textureOpts,
-  typeOpts,
+  typeOpts
 } from "../util/staticData";
 import Rating from "../Components/Rating";
 import { getVariantsByProductId } from "../util/serverSideProps";
@@ -32,7 +32,7 @@ import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
-  removeFromWishList,
+  removeFromWishList
 } from "../store/redux/wishlistSlice";
 import MostPopular from "../Components/MostPopular";
 import RepeatOrders from "../Components/RepeatOrders";
@@ -112,7 +112,7 @@ export default function Page() {
     const productToSave: ProductStoreType = {
       id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
-      image: productImage,
+      image: productImage as string,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price
@@ -122,11 +122,11 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave,
+      product: productToSave
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -196,7 +196,7 @@ export default function Page() {
     const productToAdd: ProductStoreType = {
       id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
-      image: productImage,
+      image: productImage as string,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price
@@ -206,7 +206,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -265,7 +265,8 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error-4" />
             <Image src={productImage5} alt="product-image-error-5" />
           </div>
-          <div className="md:w-1/2 m-8 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
+
+          <div className="md:w-1/2 m-4 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
             <StockCard
               image={productImage}
               name={variants[0]?.product?.title}
@@ -276,7 +277,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                ),
+                )
               ]
                 .sort(function (a, b) {
                   return a - b;
@@ -284,7 +285,7 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-                    className={`w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
                       selectedSize === size
                         ? "!bg-[#E3D6C5] text-[#A47252]"
                         : "bg-neutral-100"
@@ -422,7 +423,7 @@ export default function Page() {
                 </div>
                 <button
                   type="submit"
-                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-3 "
+                  className="h-12 w-full text-white font-medium xl:text-sm px-5 text-xs text-center bg-neutral-800 focus:ring-4 mt-3 "
                   onClick={() => add()}
                 >
                   ADD TO CART (${" "}
@@ -443,7 +444,7 @@ export default function Page() {
               </p>
             </div>
             <p className=" text-lg font-semibold mt-4">Description</p>
-            <div className="mt-3 text-sm">
+            <div className="mt-3 ">
               <p>
                 Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
                 tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -483,7 +484,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="lg:w-7/12 p-6 h-auto text-xs xl:text-sm">
+          <div className="md:w-7/12 p-6 h-auto text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection

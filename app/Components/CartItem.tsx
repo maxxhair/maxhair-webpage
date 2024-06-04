@@ -37,9 +37,9 @@ const CartItem: React.FC<Props> = ({ product }) => {
         color: product?.color,
         size: product?.size,
         type: product?.type,
-        texture: product?.texture,
+        texture: product?.texture
       },
-      count: count,
+      count: count
     };
     dispatch(setCount(payload as any));
   };
@@ -56,7 +56,7 @@ const CartItem: React.FC<Props> = ({ product }) => {
         size: product?.size as any,
         type: product?.type,
         texture: product?.texture,
-        remark: product?.remark,
+        remark: product?.remark
       })
     );
   };
@@ -69,24 +69,22 @@ const CartItem: React.FC<Props> = ({ product }) => {
     <div className="my-3 w-full h-auto bg-white lg:p-6 md:p-4 p-1 flex lg:flex-row flex-col md:items-center justify-between">
       <div className="flex gap-4 p-4 w-full">
         <Image src={productImage} alt="cartProduct" width={100} height={150} />
-        <div className="flex flex-col gap-1 w-full md:items-start items-center">
-          <p className="lg:headline-small md:title-small label-medium flex items-start md:flex-row justify-center text-center flex-col flex-wrap">
+        <div className="flex flex-col gap-1 w-full md:items-start items-start">
+          <p className="lg:headline-small md:title-small label-medium flex items-start md:flex-row justify-center flex-col flex-wrap">
             <span className="md:w-auto w-full text-center">
               {product?.name}
             </span>
             <span className="lg:block hidden">-</span>
-            <span className="md:w-auto w-full text-center">
-              {product?.texture}
-            </span>
+            <span className="md:w-auto w-full">{product?.texture}</span>
           </p>
-          {product.remark.length > 0 && (
+          {product?.remark?.length > 0 && (
             <p className="label-small">({product.remark})</p>
           )}
           <p className="lg:label-medium md:body-medium body-small">
             {product?.type}
           </p>
           <div className="flex flex-col items-start md:flex-row md:items-center gap-1 md:gap-5">
-            <p className="lg:label-small md:body-medium body-small text-gray-500 md:w-auto w-full text-center ">
+            <p className="lg:label-small md:body-medium body-small text-gray-500 md:w-auto w-full">
               Size: {product?.size}
             </p>
             <p className="lg:label-small md:body-medium body-small text-gray-500 ">

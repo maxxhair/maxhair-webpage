@@ -152,3 +152,7 @@ body {
   outline: none !important;
   box-shadow: none;
 }
+
+.focus\:ring-cyan-300:focus {
+  --tw-ring-opacity: 0 !important;
+}

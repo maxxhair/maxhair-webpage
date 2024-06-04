@@ -55,7 +55,7 @@ function Footer() {
           </div>
           <div className="flex flex-wrap xl:flex-row gap-y-[40px] gap-x-[110px] flex-col w-full xl:items-start items-center xl:text-left text-center ">
             <div className="flex xl:w-1/2 w-full justify-between ">
-              <span className="flex flex-col md:gap-[10px] gap-[5px]">
+              <span className="flex flex-col items-start md:gap-[10px] gap-[5px]">
                 <span
                   className={`${firaSans.className} text-[#242424] font-thin lg:title-large md:title-medium title-small`}
                 >
@@ -74,7 +74,7 @@ function Footer() {
                   About us
                 </Link>
               </span>
-              <span className="flex flex-col md:gap-[10px] gap-[5px]">
+              <span className="flex flex-col items-start md:gap-[10px] gap-[5px]">
                 <span
                   className={`${firaSans.className} text-[#242424] font-thin lg:title-large md:title-medium title-small`}
                 >
@@ -94,7 +94,7 @@ function Footer() {
                   Blog
                 </Link>
               </span>
-              <span className="flex flex-col md:gap-[10px] gap-[5px]">
+              <span className="flex flex-col items-start md:gap-[10px] gap-[5px]">
                 <span
                   className={`${firaSans.className} text-[#242424] font-thin lg:title-large md:title-medium title-small`}
                 >
