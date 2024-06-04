@@ -265,7 +265,8 @@ export default function Page() {
             <Image src={productImage4} alt="product-image-error-4" />
             <Image src={productImage5} alt="product-image-error-5" />
           </div>
-          <div className="md:w-1/2 m-8 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
+
+          <div className="md:w-1/2 m-4 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
             <StockCard
               image={productImage}
               name={variants[0]?.product?.title}
@@ -284,7 +285,7 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-                    className={`w-10 h-10 m-1.5 bg-neutral-100 text-center p-2.5 xl:text-sm border border-neutral-200 rounded max-md:w-6 max-md:h-6 max-md:p-0.5 sm:text-xs ${
+                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
                       selectedSize === size
                         ? "!bg-[#E3D6C5] text-[#A47252]"
                         : "bg-neutral-100"
@@ -422,7 +423,7 @@ export default function Page() {
                 </div>
                 <button
                   type="submit"
-                  className="h-12 w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-800 focus:ring-4 mt-3 "
+                  className="h-12 w-full text-white font-medium xl:text-sm px-5 text-xs text-center bg-neutral-800 focus:ring-4 mt-3 "
                   onClick={() => add()}
                 >
                   ADD TO CART (${" "}
@@ -443,7 +444,7 @@ export default function Page() {
               </p>
             </div>
             <p className=" text-lg font-semibold mt-4">Description</p>
-            <div className="mt-3 text-sm">
+            <div className="mt-3 ">
               <p>
                 Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
                 tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
@@ -483,7 +484,7 @@ export default function Page() {
               nam quis non at bibendum nulla nulla
             </p>
           </div>
-          <div className="lg:w-7/12 p-6 h-auto text-xs xl:text-sm">
+          <div className="md:w-7/12 p-6 h-auto text-xs xl:text-sm">
             {list1.map((obj, index) => {
               return (
                 <ExtraInfoSection
