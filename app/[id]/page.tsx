@@ -10,7 +10,7 @@ import {
   productImage3,
   productImage4,
   productImage5,
-  prodimg,
+  prodimg
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../Components/ExtraInfoSection";
@@ -19,7 +19,7 @@ import {
   list1,
   sizeOpts,
   textureOpts,
-  typeOpts,
+  typeOpts
 } from "../util/staticData";
 import Rating from "../Components/Rating";
 import { getVariantsByProductId } from "../util/serverSideProps";
@@ -32,7 +32,7 @@ import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
-  removeFromWishList,
+  removeFromWishList
 } from "../store/redux/wishlistSlice";
 import MostPopular from "../Components/MostPopular";
 import RepeatOrders from "../Components/RepeatOrders";
@@ -122,11 +122,11 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave,
+      product: productToSave
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -206,7 +206,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -276,7 +276,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                ),
+                )
               ]
                 .sort(function (a, b) {
                   return a - b;

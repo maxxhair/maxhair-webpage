@@ -37,9 +37,9 @@ const CartItem: React.FC<Props> = ({ product }) => {
         color: product?.color,
         size: product?.size,
         type: product?.type,
-        texture: product?.texture,
+        texture: product?.texture
       },
-      count: count,
+      count: count
     };
     dispatch(setCount(payload as any));
   };
@@ -56,7 +56,7 @@ const CartItem: React.FC<Props> = ({ product }) => {
         size: product?.size as any,
         type: product?.type,
         texture: product?.texture,
-        remark: product?.remark,
+        remark: product?.remark
       })
     );
   };
