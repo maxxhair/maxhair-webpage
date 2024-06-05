@@ -20,9 +20,9 @@ const Blogpage = () => {
         <BreadcrumbItem className="capitalize">Our Blog</BreadcrumbItem>
       </Breadcrumb>
       <div className="w-full p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-          <BlogCard key={item} />
-        ))}
+        {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => ( */}
+        <BlogCard />
+        {/* ))} */}
       </div>
     </section>
   );

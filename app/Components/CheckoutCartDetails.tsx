@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { productImage } from "../util/images";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import CartItem from "./CartItem";

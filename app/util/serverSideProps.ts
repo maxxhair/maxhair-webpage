@@ -8,7 +8,8 @@ export const getProducts = async () => {
     console.log(error);
   }
 };
-export const getProduct = async (id) => {
+
+export const getProduct = async (id: string) => {
   try {
     const response = await axiosInstance.get(`variants/filter?products=${id}`);
     return response.data.data;

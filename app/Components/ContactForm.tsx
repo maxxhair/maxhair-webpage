@@ -1,4 +1,4 @@
-import { prompt } from "../util/fonts";
+import React from "react";
 
 const ContactForm = () => {
   return (

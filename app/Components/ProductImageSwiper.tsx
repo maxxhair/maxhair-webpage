@@ -4,7 +4,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { productImage1, productImage2, productImage3 } from "../util/images";
 import Image from "next/image";
-import { FreeMode, Navigation, Pagination } from "swiper/modules";
+import { FreeMode, Pagination } from "swiper/modules";
 
 const ProductImageSwiper = ({ mainImage }) => {
   const images = [mainImage, productImage1, productImage2, productImage3];

@@ -82,7 +82,7 @@ function Footer() {
                 </span>
 
                 <Link
-                  href="/company/about"
+                  href="/about"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
                   About us
@@ -107,7 +107,7 @@ function Footer() {
                   Track Orders
                 </Link>
                 <Link
-                  href="/"
+                  href="/contact"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"
                 >
                   Contact Us

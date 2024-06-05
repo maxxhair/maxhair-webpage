@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  brandLogo,
-  closeIcon,
-  companyLogo,
-  shoppingCart
-} from "../util/images";
+import { brandLogo, closeIcon, shoppingCart } from "../util/images";
 import Link from "next/link";
 import { firaSans } from "../util/fonts";
 import user from "/public/user.svg";
@@ -97,7 +92,6 @@ function Header() {
             >
               <Image src={user} alt="profile" className="w-6" />
             </Link>
-
             <div className=" md:border-l-[1px] md:border-[#D1D1D8] h-full md:w-[100px] w-[50px] flex justify-center items-center relative">
               <Image
                 src={shoppingCart}

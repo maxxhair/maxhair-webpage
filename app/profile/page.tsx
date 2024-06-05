@@ -10,9 +10,13 @@ import AddressBox from "../Components/AddressBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { Tabs } from "flowbite-react";
+import OrdersSection from "../Components/OrdersSection";
+import WishlistSection from "../Components/WishlistSection";
+import AddressesSection from "../Components/AddressesSection";
 
 const Profile = () => {
   const [navOption, setNavOption] = useState("orders");
+
   const wishlist = useSelector(
     (state: RootState) => state.wishlist.wishListItems
   );
@@ -20,35 +24,13 @@ const Profile = () => {
   const getComponent = (option: string) => {
     switch (option) {
       case "orders":
-        return (
-          <div className="w-[70%]">
-            <MyOrders />
-            <MyOrders />
-          </div>
-        );
+        return <OrdersSection />;
       case "wishlists":
-        return (
-          <div className="w-[70%]">
-            {wishlist.map((wishlistItem: any) => (
-              <Wishlist key={wishlistItem.id} wishListItem={wishlistItem} />
-            ))}
-          </div>
-        );
+        return <WishlistSection />;
       case "addresses":
-        return (
-          <div className="w-[70%]">
-            {/* {addresses.map((address: any, index: number) => (
-              <AddressBox key={index} address={address} />
-            ))} */}
-            Addresses
-          </div>
-        );
-      case "account settings":
-        return (
-          <div className="w-[70%]">
-            <ProfileSettings />
-          </div>
-        );
+        return <AddressesSection />;
+      case "account":
+        return <ProfileSettings />;
       default:
         return <div>Something went wrong</div>;
     }
@@ -64,6 +46,7 @@ const Profile = () => {
         />
         {getComponent(navOption)}
       </div>
+
       <Tabs className="mt-7 focus:ring-0 lg:hidden">
         <Tabs.Item
           active
@@ -76,7 +59,7 @@ const Profile = () => {
           title="Addresses"
           className="!ring-0 outline-none !focus:ring-transparent"
         >
-          Addresses
+          <AddressesSection />
         </Tabs.Item>
         <Tabs.Item
           title="Wishlists"

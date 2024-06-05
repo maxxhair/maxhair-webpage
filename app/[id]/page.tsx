@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Fira_Sans, Prompt } from "next/font/google";
 import {
   deliveryImg,
   logo,
@@ -14,14 +13,7 @@ import {
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import ExtraInfoSection from "../Components/ExtraInfoSection";
-import {
-  colorOpts,
-  list1,
-  sizeOpts,
-  textureOpts,
-  typeOpts
-} from "../util/staticData";
-import Rating from "../Components/Rating";
+import { colorOpts, list1, textureOpts, typeOpts } from "../util/staticData";
 import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, setCount, setOpenCart } from "../store/redux/cartSlice";
@@ -39,7 +31,6 @@ import RepeatOrders from "../Components/RepeatOrders";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
 import { Spinner, TextInput } from "flowbite-react";
-import Loader from "../Components/Loader";
 
 export default function Page() {
   const { id } = useParams();
