@@ -7,9 +7,10 @@ const BlogHeading = () => {
       <p
         className={`${firaSansMedium.className} text-lg lg:text-2xl font-medium lg:w-3/4 mt-2`}
       >
-        Maxx hair extensions brings you a sequence of educational posts to help
-        you understand and better experience hair and pay those locks, the
-        respect they deserve.
+        Have you ever wondered why is hair so precious? What makes up a strand
+        of hair? what is it made of? Why is it so difficult to find good hair?
+        And what makes up good hair? And most importantly what makes it so
+        expensive? We have heard you!
       </p>
       <div className="flex justify-between">
         <p className="text-xs mt-2">

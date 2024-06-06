@@ -3,9 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { firaSans } from "../util/fonts";
 import ProductCard from "../Components/ProductCard";
-import filtericon from "/public/filter.svg";
-import Image from "next/image";
-import { CategorySelect, ProductSelect } from "../Components/SelectInputs";
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
 import { Spinner } from "flowbite-react";
@@ -27,7 +24,6 @@ const Shop = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
@@ -58,20 +54,7 @@ const Shop = () => {
         at bibendum nulla nulla.
       </p>
       <div className="w-full flex flex-col lg:flex-row justify-between my-7 relative">
-        <div className="w-full lg:w-[25%] static lg:sticky top-28 h-[50vh] lg:h-[80vh] 2xl:h-[70vh]">
-          <div className="flex items-center gap-2 my-4">
-            <Image src={filtericon} alt="filter" />
-            <p className="label-medium font-bold">Filter</p>
-          </div>
-          <div className="bg-slate-200 h-[30vh] 2xl:h-[30vh] w-full flex flex-col gap-1 2xl:gap-6 justify-center">
-            <CategorySelect />
-            <ProductSelect />
-            {/* <TextureSelect />
-            <ColorsSelect />
-            <SizesSelect /> */}
-          </div>
-        </div>
-        <div className="w-full lg:w-[70%] 2xl:w-[65%]">
+        <div className="w-full ">
           <div className="w-full hidden lg:flex items-center justify-end gap-3 my-4">
             <p className="label-small">{products?.length} items</p>
             <p className="label-small">Sort by</p>
@@ -80,7 +63,7 @@ const Shop = () => {
               <option value="Newest">Newest</option>
             </select>
           </div>
-          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:gap-4 lg:gap-y-12 gap-5">
+          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 md:gap-4 lg:gap-y-12 gap-5">
             {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}

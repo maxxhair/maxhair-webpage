@@ -1,7 +1,6 @@
 import Image from "next/image";
 import BlogHeading from "../Components/BlogHeading";
-import { firaSansMedium } from "../util/fonts";
-import { blogImage1, blogImage2, blogImage3, blogImage4 } from "../util/images";
+import { blogImage1, blogImage2, blogImage4 } from "../util/images";
 import LatestBlogCard from "../Components/LatestBlogCard";
 
 const BlogPage = () => {
@@ -12,7 +11,6 @@ const BlogPage = () => {
         <div className="mt-8 leading-relaxed space-y-4">
           <p> Let’s begin with the anatomy of hair.</p>
           <p>
-            {" "}
             When you look at a strand of hair under the micro-scope, you will
             find the following:
           </p>
@@ -22,7 +20,7 @@ const BlogPage = () => {
             medulla defines the category and origin of hair. Some studies
             suggest that It is found only in thick grey or white hair. Next time
             you see a bundle of natural grey or white hair, remember, most
-            likely there is a medulla in there.{" "}
+            likely there is a medulla in there.
           </p>
           <p>
             <b> Cortex </b>- Constituent to 75% of the hair weight. It is made
@@ -30,24 +28,21 @@ const BlogPage = () => {
             called disulphide bonds. Cortex gives hair its strength and its
             colors. Cortex contains melanin granules that controls the color of
             hair. All those home remedies your mom and grand mom taught you
-            about, were to strengthen this part of the hair.{" "}
+            about, were to strengthen this part of the hair.
           </p>
           <p>
-            {" "}
             <b> Cuticle</b> - Layers of overlapping, flat, translucent cells
             that are meant to protect the cortex. Cuticles are like tiles on the
             roof of a house. They are layered and provide protection. Cuticles
             face away from the scalp and this is what gives the rough texture to
-            the hair. The position of cuticles defines the quality of hair.{" "}
+            the hair. The position of cuticles defines the quality of hair.
           </p>
           <Image src={blogImage1} alt="blog-Image-error" />
           <p>
-            {" "}
             This is how intrinsically a strand of hair is built. More on it in
-            the next post.{" "}
+            the next post.
           </p>
           <p className="lg:text-lg ">
-            {" "}
             <b> How to care for your cuticle.</b>
           </p>
           <Image
@@ -56,7 +51,7 @@ const BlogPage = () => {
             className="w-3/4 mx-auto m-8"
           />
           <p>
-            Well, we now know how important the cuticle is lets take care of it.{" "}
+            Well, we now know how important the cuticle is lets take care of it.
           </p>
           <ol className=" list-inside list-decimal space-y-4 ">
             <li>
@@ -98,10 +93,8 @@ const BlogPage = () => {
               tangles, resulting in smoother, more manageable hair.
             </li>
           </ol>
-
           <p className="lg:text-lg">
-            {" "}
-            <b>What is Virgin remy hair</b>{" "}
+            <b>What is Virgin remy hair</b>
           </p>
           <Image
             src={blogImage4}
@@ -110,7 +103,7 @@ const BlogPage = () => {
           />
           <p>
             What distinguishes Virgin Remy hair extensions from their
-            counterparts? unravel the essence.{" "}
+            counterparts? unravel the essence.
           </p>
           <ol className=" list-inside list-decimal space-y-4">
             <li>
@@ -128,28 +121,24 @@ const BlogPage = () => {
               mimicking the behavior of your own hair.
             </li>
           </ol>
-
           <p>
-            {" "}
             <b> The Ethical Aspect: </b>
           </p>
           <p>
-            {" "}
             Beyond its aesthetic appeal, Virgin Remy hair extensions also carry
             ethical significance. Unlike non-Remy extensions, which often
             involve collecting fallen or discarded hair from various sources,
             Remy extensions are sourced through ethical means. They are
             typically obtained from donors who have voluntarily parted with
             their hair, ensuring fair compensation and ethical practices
-            throughout the supply chain.{" "}
+            throughout the supply chain.
           </p>
           <p>
-            {" "}
-            <b> Quality That Speaks Volumes:</b>{" "}
+            <b> Quality That Speaks Volumes:</b>
           </p>
           <p>
             Investing in Virgin Remy hair extensions is not just a matter of
-            style; it’s a commitment to quality. Here’s why:{" "}
+            style; it’s a commitment to quality. Here’s why:
           </p>
           <ol className=" list-inside list-decimal space-y-4">
             <li>
@@ -157,7 +146,7 @@ const BlogPage = () => {
               sourcing, Virgin Remy extensions boast remarkable durability. With
               proper care, they can last significantly longer than non-Remy
               alternatives, maintaining their luster and softness for months on
-              end.{" "}
+              end.
             </li>
             <li>
               <u>Versatility:</u> Whether you prefer sleek and straight or
@@ -168,8 +157,7 @@ const BlogPage = () => {
             </li>
           </ol>
           <p>
-            {" "}
-            <b> Natural Look and Feel: </b>{" "}
+            <b> Natural Look and Feel: </b>
           </p>
           <p>
             One of the hallmarks of Virgin Remy extensions is their ability to

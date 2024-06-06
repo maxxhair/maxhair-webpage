@@ -3,16 +3,14 @@
 import { Fira_Sans, Prompt } from "next/font/google";
 import React, { useState } from "react";
 import axiosInstance from "../util/axiosInstance";
-import { redirect } from "next/navigation";
-import { tosignin } from "./actions";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 const prompt = Prompt({
   weight: ["400", "700"],
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const SignupForm = () => {
@@ -61,7 +59,7 @@ const SignupForm = () => {
           email,
           password,
           fullName,
-          phoneNumber,
+          phoneNumber
         });
         window.location.href = "signin";
       }
@@ -87,7 +85,6 @@ const SignupForm = () => {
             SIGN IN
           </a>
         </p>
-
         <form className="space-y-4 md:space-y-6 mt-5" action="#">
           <div>
             <input

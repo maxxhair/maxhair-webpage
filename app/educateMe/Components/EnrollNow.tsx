@@ -41,7 +41,7 @@ function EnrollNow() {
       </button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header className="bg-white">
-          <div className="flex flex-col py-[20px] px-[20px] gap-[10px]">
+          <div className="flex flex-col p-2 gap-[10px]">
             <Image src={companyLogo2} alt="Maxx hair extentions" />
             <span className="body-small leading-5">
               Maxx Hair Extensions is the #1 most requested hand-tied method by
@@ -98,6 +98,7 @@ function EnrollNow() {
               <PhoneInput
                 enableSearch
                 countryCodeEditable={false}
+                country={"us"}
                 inputProps={{
                   name: "phoneNo",
                   id: "phoneno",

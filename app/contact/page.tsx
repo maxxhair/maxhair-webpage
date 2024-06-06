@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { contactUsBgImg } from "../util/images";
-import { firaSans, firaSansMedium, prompt } from "../util/fonts";
+import { firaSansMedium } from "../util/fonts";
 import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
 import ContactForm from "../Components/ContactForm";
 

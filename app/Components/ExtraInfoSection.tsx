@@ -11,7 +11,6 @@ function ExtraInfoSection({ title, body, isOpen }) {
     <div>
       <div className="flex w-full justify-between border-b-2 lg:h-9 sm:h-6 mt-4">
         <p>{title}</p>
-
         <span
           onClick={() => {
             setClicked((clicked) => !clicked);
@@ -34,10 +33,10 @@ function ExtraInfoSection({ title, body, isOpen }) {
             className=" text-[#000000] border-[1px] border-[#ECECEC] w-full flex flex-col md:gap-[40px] gap-[20px] px-[40px] py-[20px] lg:body-large md:body-medium body-small"
           >
             {expanded
-              ? body.map((ele, index) => {
+              ? body.map((ele: any, index: number) => {
                   return <p key={index}>{ele}</p>;
                 })
-              : body.map((ele, index) => {
+              : body.map((ele: any, index: number) => {
                   if (index === 0) return <p key={index}>{ele}</p>;
                   if (index === 1)
                     return (

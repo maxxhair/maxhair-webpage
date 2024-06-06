@@ -48,7 +48,6 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           width={140}
           height={200}
         />
-
         <p
           className={`${firaSans.className} text-center text-xl font-semibold pb-1 truncate`}
         >
@@ -61,7 +60,6 @@ const ProductCard: React.FC<Props> = ({ item }) => {
         <p className="flex justify-center text-center w-full text-sm px-3">
           {item.category?.title}
         </p>
-
         <button
           className={`w-full h-10 bg-[#242424] grid place-items-center text-white ${
             hovered ? "opacity-100" : "opacity-0"

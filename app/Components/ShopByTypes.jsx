@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { firaSans } from "../util/fonts";
-import { prodimg, productImage5 } from "../util/images";
+import { productImage5 } from "../util/images";
 import Link from "next/link";
 
 function ShopByTypes() {
@@ -38,7 +38,6 @@ function ShopByTypes() {
           </div>
         </div>
         <div className="w-full h-full relative p-[20px]">
-          {" "}
           <Image
             src={list[2].image}
             alt=""
@@ -58,7 +57,6 @@ function ShopByTypes() {
             </Link>
           </div>
         </div>
-        {/* </div> */}
       </div>
     </div>
   );

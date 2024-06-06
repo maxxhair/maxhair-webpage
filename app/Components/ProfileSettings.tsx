@@ -31,7 +31,7 @@ const ProfileSettings = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-[70%]">
       <form className="w-full lg:w-1/2 flex flex-col gap-6">
         <div className="">
           <p className="label-medium pb-2">Full Name :</p>

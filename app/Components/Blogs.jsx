@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import Image from "next/image";
-import { sample1 } from "../util/images";
+import { blogImage2, sample1 } from "../util/images";
 import Link from "next/link";
 import { firaSans, firaSansMedium } from "../util/fonts";
 import { useCallback, useRef, useState } from "react";
@@ -25,26 +25,26 @@ function Blogs() {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "The advice we've ever heard about Hair Extensions",
-      image: sample1,
+      image: sample1
     },
     {
-      body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
-      link: "",
-      data: "The History of Hair",
-      image: sample1,
-    },
-    {
-      body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
-      link: "",
-      data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
-      image: sample1,
+      body: "Have you ever wondered why is hair so precious? What makes up a strand of hair? what is it made of? Why is it so difficult to find good hair? And what makes up good hair? And most importantly what makes it so expensive? We have heard you!",
+      link: "/blogpage",
+      data: "Know your hair",
+      image: blogImage2
     },
     {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
-      image: sample1,
+      image: sample1
     },
+    {
+      body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
+      link: "",
+      data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
+      image: sample1
+    }
   ];
 
   return (
@@ -113,7 +113,7 @@ function Blogs() {
             stretch: 0,
             depth: 0,
             modifier: 2.5,
-            slideShadows: false,
+            slideShadows: false
           }}
           spaceBetween={10}
           slidesPerView={1}
@@ -122,19 +122,19 @@ function Blogs() {
           modules={[Navigation, EffectCoverflow]}
           navigation={{
             nextEl: ".swiper-next-button-blogs",
-            prevEl: ".swiper-prev-button-blogs",
+            prevEl: ".swiper-prev-button-blogs"
           }}
           onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
               slidesPerView: 2,
-              delay: 5000,
+              delay: 5000
             },
 
             1440: {
               slidesPerView: 3,
-              delay: 3000,
-            },
+              delay: 3000
+            }
           }}
         >
           {list.map((obj, index) => {
@@ -144,7 +144,7 @@ function Blogs() {
                 style={{
                   display: "flex",
                   justifyContent: "flex-start",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
               >
                 <div

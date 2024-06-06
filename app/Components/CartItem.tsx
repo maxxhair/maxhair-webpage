@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import { productImage } from "../util/images";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { removeProduct, setCount } from "../store/redux/cartSlice";
@@ -61,14 +60,15 @@ const CartItem: React.FC<Props> = ({ product }) => {
     );
   };
 
-  const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
-
-  const imageUrl = `${baseUrl}/${product?.image}`;
-
   return (
     <div className="my-3 w-full h-auto bg-white lg:p-6 md:p-4 p-1 flex lg:flex-row flex-col md:items-center justify-between">
       <div className="flex gap-4 p-4 w-full">
-        <Image src={productImage} alt="cartProduct" width={100} height={150} />
+        <Image
+          src={product?.image}
+          alt="cartProduct"
+          width={100}
+          height={150}
+        />
         <div className="flex flex-col gap-1 w-full md:items-start items-start">
           <p className="lg:headline-small md:title-small label-medium flex items-start md:flex-row justify-center flex-col flex-wrap">
             <span className="md:w-auto w-full text-center">

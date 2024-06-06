@@ -8,7 +8,6 @@ import axiosInstance from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
-import Cookies from "js-cookie";
 import OrderPlacedModal from "../Components/OrderPlacedModal";
 import toast from "react-hot-toast";
 
@@ -54,7 +53,7 @@ const Checkout = () => {
         phone: selectedAddress.phone,
         address: selectedAddress.address,
         landmark: selectedAddress.landmark,
-        zipcode: selectedAddress.zipcode,
+        zipcode: selectedAddress.zipcode
       }));
     }
   }, [selectedAddress]);
@@ -101,7 +100,7 @@ const Checkout = () => {
               address: checkoutFormData.address,
               landmark: checkoutFormData.landmark,
               zipcode: checkoutFormData.zipcode,
-              transactionId: response.data.data.transactionId,
+              transactionId: response.data.data.transactionId
             };
             try {
               const res = await axiosInstance.post("orders", body);
@@ -142,7 +141,7 @@ const Checkout = () => {
     try {
       setLoading(true);
       const res = await axiosInstance.post("payments/get_tokens", {
-        amount: TotalPriceToPay,
+        amount: TotalPriceToPay
       });
       setToken(res.data.data.checkoutToken);
       // @ts-ignore
@@ -163,7 +162,7 @@ const Checkout = () => {
       phone: checkoutFormData.phone,
       address: checkoutFormData.address,
       landmark: checkoutFormData.landmark,
-      zipcode: checkoutFormData.zipcode,
+      zipcode: checkoutFormData.zipcode
     };
     try {
       if (
