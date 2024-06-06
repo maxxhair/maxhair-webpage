@@ -43,13 +43,18 @@ const LoginForm = () => {
     if (validateForm()) {
       try {
         setLoading(true);
-        const response = await axiosInstance.post("login", { email, password });
+        const response = await axiosInstance.post(
+          "login",
+          { email, password },
+          { withCredentials: true }
+        );
+        console.log("response", response.headers["Set-Cookie"]);
         dispatch(userLoggedin(response.data.data));
         setLoading(false);
         window.location.href = "/";
       } catch (error) {
         console.log(error);
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message);
         setLoading(false);
       }
     }

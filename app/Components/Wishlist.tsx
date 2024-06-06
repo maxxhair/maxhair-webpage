@@ -51,14 +51,14 @@ const Wishlist: React.FC<Props> = ({ wishListItem }) => {
   };
 
   return (
-    <div className="w-full p-3 xl:p-5 flex items-center  border-2 border-pink-200 mb-10">
+    <div className="w-full p-3 xl:p-5 flex items-center border-2 border-pink-200 mb-10">
       <Image
         src={wishListItem.image || prodimg}
         alt="cartProduct"
         width={115}
         height={180}
       />
-      <div className="flex flex-col gap-10 xl:flex-row items-start xl:items-center justify-between pl-4">
+      <div className="w-full flex flex-col gap-10 xl:flex-row items-start xl:items-center justify-between pl-4">
         <div className="flex flex-row xl:flex-col gap-2 items-center xl:items-start">
           <p className="xl:headline-small md:title-medium label-small xl:title-small flex xl:flex-row justify-center xl:text-start gap-2 flex-col flex-wrap">
             <span>

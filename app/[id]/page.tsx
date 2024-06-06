@@ -16,7 +16,7 @@ import ExtraInfoSection from "../Components/ExtraInfoSection";
 import { colorOpts, list1, textureOpts, typeOpts } from "../util/staticData";
 import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, setCount, setOpenCart } from "../store/redux/cartSlice";
+import { addProduct, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";

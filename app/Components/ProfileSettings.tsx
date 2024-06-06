@@ -2,8 +2,11 @@
 
 import { TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
+import toast from "react-hot-toast";
+import axiosInstance from "../util/axiosInstance";
+import { userLoggedin } from "../store/redux/userSlice";
 
 interface UserDetails {
   _id: string;
@@ -13,9 +16,8 @@ interface UserDetails {
 }
 
 const ProfileSettings = () => {
-  const userDetails = useSelector(
-    (state: RootState) => state.user.user as UserDetails
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const userDetails = useSelector((state: RootState) => state.user.user as any);
 
   const [user, setUser] = useState<UserDetails>();
 
@@ -27,12 +29,32 @@ const ProfileSettings = () => {
   };
 
   useEffect(() => {
-    setUser(userDetails);
-  }, []);
+    setUser(userDetails?.user && (userDetails.user as any));
+  }, [userDetails, user]);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.put(`users/${user._id}`, {
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber
+      });
+      console.log(response);
+      toast.success("User Details Updated");
+      dispatch(userLoggedin(response.data.data));
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   return (
     <div className="w-[70%]">
-      <form className="w-full lg:w-1/2 flex flex-col gap-6">
+      <form
+        className="w-full lg:w-1/2 flex flex-col gap-6"
+        onSubmit={handleSubmit}
+      >
         <div className="">
           <p className="label-medium pb-2">Full Name :</p>
           <TextInput
