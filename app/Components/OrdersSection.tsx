@@ -1,10 +1,30 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import MyOrders from "./MyOrders";
+import axiosInstance from "../util/axiosInstance";
+import toast from "react-hot-toast";
 
 const OrdersSection = () => {
+  const [orders, setOrders] = useState<any[]>();
+
+  const getUserOrders = async () => {
+    try {
+      const res = await axiosInstance.get("orders");
+      setOrders(res?.data?.data);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserOrders();
+  }, []);
+
   return (
     <div className="w-[70%]">
-      <MyOrders />
+      {orders &&
+        orders?.map((order: any) => <MyOrders order={order} key={order._id} />)}
     </div>
   );
 };

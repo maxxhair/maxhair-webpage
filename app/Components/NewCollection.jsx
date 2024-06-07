@@ -5,8 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { firaSansMedium } from "../util/fonts";
 import NewCollectionMobile from "./_newcollection/NewCollectionMobile";
 import { getProducts } from "../util/serverSideProps";
-import axiosInstance from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import ImageCard from "./ImageCard";
+import axios from "axios";
 
 const NewCollection = () => {
   const cards = Array(4).fill();
@@ -23,7 +24,7 @@ const NewCollection = () => {
   useEffect(() => {
     const getRequest = async () => {
       try {
-        const data = await axiosInstance.get("/products");
+        const data = await axios.get(`${baseUrl}products`);
         const temp = data.data.data;
         setListData(temp);
       } catch (err) {

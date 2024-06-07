@@ -41,7 +41,6 @@ const ProfileSettings = () => {
         email: user.email,
         phoneNumber: user.phoneNumber
       });
-      console.log(response);
       toast.success("User Details Updated");
       dispatch(userLoggedin(response.data.data));
     } catch (error) {

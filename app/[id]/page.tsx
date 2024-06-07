@@ -31,6 +31,7 @@ import RepeatOrders from "../Components/RepeatOrders";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
 import { Spinner, TextInput } from "flowbite-react";
+import axios from "axios";
 
 export default function Page() {
   const { id } = useParams();
@@ -47,7 +48,9 @@ export default function Page() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axiosInstance.get("products");
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}products`
+        );
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);

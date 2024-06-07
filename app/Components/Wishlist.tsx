@@ -48,6 +48,7 @@ const Wishlist: React.FC<Props> = ({ wishListItem }) => {
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
+    RemoveItemFromWishList();
   };
 
   return (

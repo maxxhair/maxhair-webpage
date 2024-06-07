@@ -62,6 +62,11 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     dispatch(addCouponCode(e.target.value));
   };
 
+  const today = new Date();
+  const EstimatedDeliveryDate = new Date(
+    today.getTime() + 4 * 24 * 60 * 60 * 1000
+  ).toDateString();
+
   return (
     <>
       {cartItems.length > 0 ? (
@@ -117,7 +122,9 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
                 <p className="label-medium text-gray-500 font-medium">
                   Estimated Delivery by
                 </p>
-                <p className="label-medium font-medium">01 Feb, 2023</p>
+                <p className="label-medium font-medium">
+                  {EstimatedDeliveryDate}
+                </p>
               </div>
             </div>
           </div>

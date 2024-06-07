@@ -4,12 +4,15 @@ import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, Spinner, TextInput } from "flowbite-react";
-import axiosInstance from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
 import OrderPlacedModal from "../Components/OrderPlacedModal";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { LoggedUser } from "../types";
+import { useRouter } from "next/navigation";
 
 interface CheckoutFormData {
   name: string;
@@ -20,11 +23,11 @@ interface CheckoutFormData {
   zipcode: string;
 }
 
-interface LoggedUser {
-  email: string;
-  _id: string;
-  addresses: [];
-}
+// interface LoggedUser {
+//   email: string;
+//   _id: string;
+//   addresses: [];
+// }
 
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
@@ -43,6 +46,7 @@ const Checkout = () => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (selectedAddress) {
@@ -91,7 +95,7 @@ const Checkout = () => {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
             const body = {
-              user_id: loggedUser && loggedUser?._id,
+              user_id: loggedUser.user && loggedUser.user._id,
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name,
@@ -103,11 +107,11 @@ const Checkout = () => {
               transactionId: response.data.data.transactionId
             };
             try {
-              const res = await axiosInstance.post("orders", body);
+              const res = await axios.post(`${baseUrl}orders`, body);
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              window.location.href = "/";
+              push("/");
             } catch (error) {
               console.log(error);
             }
@@ -140,7 +144,7 @@ const Checkout = () => {
   const handlePlaceOrderCard = async () => {
     try {
       setLoading(true);
-      const res = await axiosInstance.post("payments/get_tokens", {
+      const res = await axios.post(`${baseUrl}payments/get_tokens`, {
         amount: TotalPriceToPay
       });
       setToken(res.data.data.checkoutToken);
@@ -154,7 +158,7 @@ const Checkout = () => {
 
   const handlePlaceOrderCash = async () => {
     const body = {
-      user_id: loggedUser && loggedUser?._id,
+      user_id: loggedUser.user && loggedUser?.user._id,
       items: cartItems,
       total: TotalPriceToPay,
       name: checkoutFormData.name,
@@ -174,11 +178,11 @@ const Checkout = () => {
         checkoutFormData.phone.length > 0
       ) {
         setLoad(true);
-        const res = await axiosInstance.post("orders", body);
+        const res = await axios.post(`${baseUrl}orders`, body);
         dispatch(emptyCart());
         dispatch(removeCouponCode());
         setLoad(false);
-        window.location.href = "/";
+        push("/");
         toast.success("Order placed successfully");
       }
     } catch (error) {
@@ -196,7 +200,7 @@ const Checkout = () => {
         >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
-            {!loggedUser.email && (
+            {!loggedUser.user.email && (
               <div className="flex">
                 <Link href="signin">
                   <p className="label-medium">Login</p>

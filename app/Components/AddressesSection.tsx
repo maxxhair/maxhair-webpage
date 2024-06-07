@@ -57,11 +57,7 @@ const AddressesSection = () => {
         mobileNumber: addressFormData.mobileNumber,
         user: user._id
       };
-      const res = await axiosInstance.post("address", body, {
-        headers: {
-          Authorization: `Bearer ${user.cookie}`
-        }
-      });
+      const res = await axiosInstance.post("address", body);
       handleCloseModal();
       getuserAddresses();
       console.log("res", res);
@@ -72,12 +68,8 @@ const AddressesSection = () => {
 
   const getuserAddresses = async () => {
     try {
-      const response = await axiosInstance.get("address", {
-        headers: {
-          Authorization: `Bearer ${user.cookie}`
-        }
-      });
-      setAddresses(response.data.data);
+      const response = await axiosInstance.get("address");
+      setAddresses(response?.data?.data);
     } catch (error) {
       toast.error(error);
     }

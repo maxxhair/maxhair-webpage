@@ -2,7 +2,7 @@
 
 import { Fira_Sans, Prompt } from "next/font/google";
 import React, { useState } from "react";
-import axiosInstance from "../util/axiosInstance";
+import axios from "axios";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -55,12 +55,15 @@ const SignupForm = () => {
     e.preventDefault();
     try {
       if (validateForm()) {
-        const response = await axiosInstance.post("signup", {
-          email,
-          password,
-          fullName,
-          phoneNumber
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}signup`,
+          {
+            email,
+            password,
+            fullName,
+            phoneNumber
+          }
+        );
         window.location.href = "signin";
       }
     } catch (error) {

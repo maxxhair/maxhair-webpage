@@ -2,14 +2,15 @@
 import { useEffect, useState } from "react";
 import { firaSansMedium } from "../../util/fonts";
 import ImageCard from "../ImageCard";
-import axiosInstance from "../../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../../util/axiosInstance";
+import axios from "axios";
 
 function NewCollectionMobile() {
   const [listData, setListData] = useState([]);
   useEffect(() => {
     const getRequest = async () => {
       try {
-        const data = await axiosInstance.get("/products");
+        const data = await axios.get(`${baseUrl}products`);
         const temp = data.data.data;
         setListData(temp);
       } catch (err) {

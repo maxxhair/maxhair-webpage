@@ -5,7 +5,6 @@ import { AppDispatch, RootState } from "../store";
 import { selectAddress } from "../store/redux/addressesSlice";
 import toast from "react-hot-toast";
 import axiosInstance from "../util/axiosInstance";
-import { LoggedUser } from "../types";
 import UpdateAddress from "./UpdateAddress";
 
 interface Props {
@@ -25,7 +24,6 @@ interface Props {
 const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
   const dispatch = useDispatch<AppDispatch>();
   const selectedAddress = useSelector((state: RootState) => state.address._id);
-  const user = useSelector((state: RootState) => state.user.user as LoggedUser);
   const selected = selectedAddress === address._id;
 
   const [openUpdateAddressModal, setOpenUpdateAddressModal] = useState(false);
@@ -48,11 +46,7 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
 
   const handleDeleteAddress = async () => {
     try {
-      await axiosInstance.delete(`address/${address._id}`, {
-        headers: {
-          Authorization: `Bearer ${user.cookie}`
-        }
-      });
+      await axiosInstance.delete(`address/${address._id}`);
       getAddresses();
     } catch (error) {
       toast.error(error);

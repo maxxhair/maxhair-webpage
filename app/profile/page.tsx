@@ -53,7 +53,7 @@ const Profile = () => {
           title="Orders"
           className="!ring-0 focus:ring-0 outline-none focus:ring-transparent"
         >
-          <MyOrders />
+          <OrdersSection />
         </Tabs.Item>
         <Tabs.Item
           title="Addresses"

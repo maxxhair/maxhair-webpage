@@ -47,7 +47,6 @@ const UpdateAddress: React.FC<Props> = ({
     event
   ) => {
     event.preventDefault();
-    console.log("update inputs", fomState);
     try {
       const response = await axiosInstance.put(
         `address/${address._id}`,

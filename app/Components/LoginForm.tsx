@@ -2,18 +2,21 @@
 
 import React, { useState } from "react";
 import { firaSans } from "../util/fonts";
-import axiosInstance from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { userLoggedin } from "../store/redux/userSlice";
 import { Spinner } from "flowbite-react";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const { push } = useRouter();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateForm = () => {
@@ -43,15 +46,14 @@ const LoginForm = () => {
     if (validateForm()) {
       try {
         setLoading(true);
-        const response = await axiosInstance.post(
-          "login",
+        const response = await axios.post(
+          `${baseUrl}login`,
           { email, password },
           { withCredentials: true }
         );
-        console.log("response", response.headers["Set-Cookie"]);
         dispatch(userLoggedin(response.data.data));
         setLoading(false);
-        window.location.href = "/";
+        push("/");
       } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.message);
