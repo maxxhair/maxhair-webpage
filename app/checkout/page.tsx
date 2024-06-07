@@ -4,12 +4,14 @@ import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, Spinner, TextInput } from "flowbite-react";
-import axiosInstance from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
-import OrderPlacedModal from "../Components/OrderPlacedModal";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { LoggedUser } from "../types";
+import { useRouter } from "next/navigation";
 
 interface CheckoutFormData {
   name: string;
@@ -18,12 +20,8 @@ interface CheckoutFormData {
   address: string;
   landmark: string;
   zipcode: string;
-}
-
-interface LoggedUser {
-  email: string;
-  _id: string;
-  addresses: [];
+  state: string;
+  country: string;
 }
 
 const Checkout = () => {
@@ -32,7 +30,6 @@ const Checkout = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const [submitButton, setSubmitButton] = useState(null);
-  // const [openSuccessModal, setOpenSucessModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
     (state: RootState) => state.user.user as LoggedUser
@@ -43,16 +40,20 @@ const Checkout = () => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (selectedAddress) {
       setCheckoutFormDate((prevState) => ({
         ...prevState,
         name: selectedAddress.name,
-        email: selectedAddress.email,
+        email: loggedUser.user && loggedUser.user.email,
         phone: selectedAddress.phone,
-        address: selectedAddress.address,
+        address:
+          selectedAddress.houseNumber + " " + selectedAddress.streetAddress1,
         landmark: selectedAddress.landmark,
+        state: selectedAddress.state,
+        country: selectedAddress.country,
         zipcode: selectedAddress.zipcode
       }));
     }
@@ -91,23 +92,28 @@ const Checkout = () => {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
             const body = {
-              user_id: loggedUser && loggedUser?._id,
+              user_id: loggedUser.user && loggedUser.user._id,
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name,
               email: checkoutFormData.email,
               phone: checkoutFormData.phone,
-              address: checkoutFormData.address,
+              address:
+                checkoutFormData.address +
+                " " +
+                checkoutFormData.state +
+                " " +
+                checkoutFormData.country,
               landmark: checkoutFormData.landmark,
               zipcode: checkoutFormData.zipcode,
               transactionId: response.data.data.transactionId
             };
             try {
-              const res = await axiosInstance.post("orders", body);
+              const res = await axios.post(`${baseUrl}orders`, body);
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              window.location.href = "/";
+              push("/");
             } catch (error) {
               console.log(error);
             }
@@ -140,7 +146,7 @@ const Checkout = () => {
   const handlePlaceOrderCard = async () => {
     try {
       setLoading(true);
-      const res = await axiosInstance.post("payments/get_tokens", {
+      const res = await axios.post(`${baseUrl}payments/get_tokens`, {
         amount: TotalPriceToPay
       });
       setToken(res.data.data.checkoutToken);
@@ -154,13 +160,18 @@ const Checkout = () => {
 
   const handlePlaceOrderCash = async () => {
     const body = {
-      user_id: loggedUser && loggedUser?._id,
+      user_id: loggedUser.user && loggedUser?.user._id,
       items: cartItems,
       total: TotalPriceToPay,
       name: checkoutFormData.name,
       email: checkoutFormData.email,
       phone: checkoutFormData.phone,
-      address: checkoutFormData.address,
+      address:
+        checkoutFormData.address +
+        " " +
+        checkoutFormData.state +
+        " " +
+        checkoutFormData.country,
       landmark: checkoutFormData.landmark,
       zipcode: checkoutFormData.zipcode
     };
@@ -174,11 +185,11 @@ const Checkout = () => {
         checkoutFormData.phone.length > 0
       ) {
         setLoad(true);
-        const res = await axiosInstance.post("orders", body);
+        const res = await axios.post(`${baseUrl}orders`, body);
         dispatch(emptyCart());
         dispatch(removeCouponCode());
         setLoad(false);
-        window.location.href = "/";
+        push("/");
         toast.success("Order placed successfully");
       }
     } catch (error) {
@@ -196,7 +207,7 @@ const Checkout = () => {
         >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
-            {!loggedUser.email && (
+            {!loggedUser.user.email && (
               <div className="flex">
                 <Link href="signin">
                   <p className="label-medium">Login</p>
@@ -243,6 +254,20 @@ const Checkout = () => {
               placeholder="Apartement, Landmark, Suite etc..(optional)"
               onChange={handleInputChange}
               value={checkoutFormData?.landmark}
+            />
+            <TextInput
+              id="state"
+              type="text"
+              placeholder="State"
+              onChange={handleInputChange}
+              value={checkoutFormData?.state}
+            />
+            <TextInput
+              id="country"
+              type="text"
+              placeholder="Country"
+              onChange={handleInputChange}
+              value={checkoutFormData?.country}
             />
             <TextInput
               id="zipcode"

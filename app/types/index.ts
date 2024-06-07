@@ -10,3 +10,8 @@ export type ProductStoreType = {
   texture: string;
   remark?: string;
 };
+
+export type LoggedUser = {
+  cookie: string;
+  user: any;
+};

@@ -7,8 +7,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Card from "./_shopbyproducts/Card";
 import { prodimg } from "../util/images";
 
-import axiosInstance from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import Loader from "./Loader";
+import axios from "axios";
 
 function ShopByProducts() {
   const [selected, setSelected] = useState(0);
@@ -36,7 +37,7 @@ function ShopByProducts() {
   };
   const getRequest = async () => {
     try {
-      const data = await axiosInstance.get("/products");
+      const data = await axios.get(`${baseUrl}products`);
       const temp = data.data.data;
       setListData(temp);
     } catch (err) {

@@ -1,10 +1,12 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { addCouponCode, addDiscount } from "../store/redux/cartSlice";
+import axios from "axios";
+import { baseUrl } from "../util/axiosInstance";
+import { isEmpty } from "lodash";
 
 interface Props {
   handleClose: () => void;
@@ -28,31 +30,8 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
         (totalPrice += item?.price * item?.count).toFixed(2)
       );
     }
-
     return totalPrice;
   });
-
-  const handleApplyCouponCode = () => {
-    if (couponCode === "MAXX40") {
-      dispatch(addDiscount(40));
-      setCouponCodeMsg("40% discount is applied to total price");
-    } else if (couponCode === "MAXX20") {
-      dispatch(addDiscount(20));
-      setCouponCodeMsg("20% discount is applied to total price");
-    } else if (couponCode === "MAXX30") {
-      dispatch(addDiscount(30));
-      setCouponCodeMsg("30% discount is applied to total price");
-    } else if (couponCode === "MAXX50") {
-      dispatch(addDiscount(50));
-      setCouponCodeMsg("50% discount is applied to total price");
-    } else if (couponCode === "MAXX60") {
-      dispatch(addDiscount(60));
-      setCouponCodeMsg("60% discount is applied to total price");
-    } else {
-      dispatch(addDiscount(0));
-      setCouponCodeMsg("Invalid Coupon Code");
-    }
-  };
 
   const discount = parseInt(
     ((discountPercentage / 100) * priceTotal).toFixed(2)
@@ -60,6 +39,30 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
 
   const handleCouponCodeChange = (e: any) => {
     dispatch(addCouponCode(e.target.value));
+  };
+
+  const today = new Date();
+  const EstimatedDeliveryDate = new Date(
+    today.getTime() + 4 * 24 * 60 * 60 * 1000
+  ).toDateString();
+
+  const VerifyCouponCode = async () => {
+    try {
+      if (!couponCode) {
+        dispatch(addDiscount(0));
+        setCouponCodeMsg("");
+        return;
+      }
+      const response = await axios.get(`${baseUrl}coupons/${couponCode}`);
+      if (!isEmpty(response.data)) {
+        dispatch(addDiscount(response.data[0].discount));
+        setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+      }
+    } catch (error) {
+      if (error.response.status === 404) {
+        setCouponCodeMsg("Coupon does not exist");
+      }
+    }
   };
 
   return (
@@ -79,7 +82,8 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
             />
             <button
               className="bg-transparent px-6 py-3 border border-black rounded-lg"
-              onClick={handleApplyCouponCode}
+              // onClick={handleApplyCouponCode}
+              onClick={VerifyCouponCode}
             >
               Apply
             </button>
@@ -117,7 +121,9 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
                 <p className="label-medium text-gray-500 font-medium">
                   Estimated Delivery by
                 </p>
-                <p className="label-medium font-medium">01 Feb, 2023</p>
+                <p className="label-medium font-medium">
+                  {EstimatedDeliveryDate}
+                </p>
               </div>
             </div>
           </div>

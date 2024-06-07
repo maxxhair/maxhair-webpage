@@ -14,31 +14,6 @@ const CheckoutCartDetails = () => {
 
   const [couponcodemsg, setCouponCodeMsg] = useState("");
 
-  useEffect(() => {
-    if (couponCode === "MAXX40") {
-      dispatch(addDiscount(40));
-      setCouponCodeMsg("40% discount is applied to total price");
-    } else if (couponCode === "MAXX20") {
-      dispatch(addDiscount(20));
-      setCouponCodeMsg("20% discount is applied to total price");
-    } else if (couponCode === "MAXX30") {
-      dispatch(addDiscount(30));
-      setCouponCodeMsg("30% discount is applied to total price");
-    } else if (couponCode === "MAXX50") {
-      dispatch(addDiscount(50));
-      setCouponCodeMsg("50% discount is applied to total price");
-    } else if (couponCode === "") {
-      dispatch(addDiscount(0));
-      setCouponCodeMsg("");
-    } else if (couponCode === "MAXX60") {
-      dispatch(addDiscount(60));
-      setCouponCodeMsg("60% discount is applied to total price");
-    } else {
-      dispatch(addDiscount(0));
-      setCouponCodeMsg("Invalid Coupon Code");
-    }
-  }, [couponCode]);
-
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
@@ -72,7 +47,6 @@ const CheckoutCartDetails = () => {
           type="text"
           className="w-full bg-white outline-none py-3 px-2 rounded-lg"
           value={couponCode.toUpperCase()}
-          onChange={handleUpdateCouponCode}
         />
         <button
           className={

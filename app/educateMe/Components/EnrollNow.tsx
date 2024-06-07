@@ -6,10 +6,11 @@ import { companyLogo2 } from "../../util/images";
 import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
-import axiosInstance from "../../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../../util/axiosInstance";
 import toast from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import axios from "axios";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
@@ -20,7 +21,7 @@ function EnrollNow() {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
     try {
-      await axiosInstance.post("user-details", obj);
+      await axios.post(`${baseUrl}user-details`, obj);
       toast.success("Enrolled Successfully");
       formRef.current.reset();
       setOpenModal(false);

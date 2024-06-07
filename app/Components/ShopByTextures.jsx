@@ -9,7 +9,8 @@ import "swiper/css/autoplay";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import Card from "./_shopbytextures/Card";
-import axiosInstance from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import axios from "axios";
 
 function ShopByTextures() {
   const [selected, setSelected] = useState(0);
@@ -21,8 +22,8 @@ function ShopByTextures() {
   }, []);
 
   useEffect(() => {
-    axiosInstance
-      .get("/textures")
+    axios
+      .get(`${baseUrl}textures`)
       .then((data) => {
         setList(data.data.data);
       })
@@ -67,11 +68,11 @@ function ShopByTextures() {
           loop
           autoplay={{
             delay: 3000,
-            disableOnInteraction: false,
+            disableOnInteraction: false
           }}
           navigation={{
             nextEl: ".swiper-next-button-sbt",
-            prevEl: ".swiper-prev-button-sbt",
+            prevEl: ".swiper-prev-button-sbt"
           }}
           initialSlide={1}
           coverflowEffect={{
@@ -79,16 +80,16 @@ function ShopByTextures() {
             stretch: 0, // Stretch space between slides
             depth: 140, // Depth of the slide shadow
             modifier: 1, // Effect multiplier
-            slideShadows: false,
+            slideShadows: false
           }}
           onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
-              slidesPerView: 2,
+              slidesPerView: 2
             },
             1440: {
-              slidesPerView: 3,
-            },
+              slidesPerView: 3
+            }
           }}
           className="shadow-none md:h-[700px] h-[400px] w-[650] "
         >
@@ -99,7 +100,7 @@ function ShopByTextures() {
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
               >
                 <Card obj={obj} selected={selected} index={index} />

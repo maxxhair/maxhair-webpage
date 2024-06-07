@@ -1,8 +1,9 @@
-import axiosInstance from "./axiosInstance";
+import axios from "axios";
+import axiosInstance, { baseUrl } from "./axiosInstance";
 
 export const getProducts = async () => {
   try {
-    const response = await axiosInstance.get("products");
+    const response = await axios.get(`${baseUrl}products`);
     return response.data.data;
   } catch (error) {
     console.log(error);
@@ -11,7 +12,9 @@ export const getProducts = async () => {
 
 export const getProduct = async (id: string) => {
   try {
-    const response = await axiosInstance.get(`variants/filter?products=${id}`);
+    const response = await axios.get(
+      `${baseUrl}variants/filter?products=${id}`
+    );
     return response.data.data;
   } catch (error) {
     console.log(error);
@@ -20,8 +23,8 @@ export const getProduct = async (id: string) => {
 
 export const getVariantsByProductId = async (productId: string) => {
   try {
-    const response = await axiosInstance.get(
-      `variants/filter?products=${productId}`
+    const response = await axios.get(
+      `${baseUrl}variants/filter?products=${productId}`
     );
     return response.data.data;
   } catch (error) {}
