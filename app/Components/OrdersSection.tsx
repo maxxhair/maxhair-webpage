@@ -11,9 +11,9 @@ const OrdersSection = () => {
   const getUserOrders = async () => {
     try {
       const res = await axiosInstance.get("orders");
-      setOrders(res?.data?.data);
+      setOrders(res?.data);
     } catch (error) {
-      toast.error(error);
+      console.log(error);
     }
   };
 

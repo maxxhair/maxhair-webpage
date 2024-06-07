@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "../store";
 import toast from "react-hot-toast";
 import axiosInstance from "../util/axiosInstance";
 import { userLoggedin } from "../store/redux/userSlice";
+import { LoggedUser } from "../types";
 
 interface UserDetails {
   _id: string;
@@ -17,9 +18,16 @@ interface UserDetails {
 
 const ProfileSettings = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const userDetails = useSelector((state: RootState) => state.user.user as any);
+  const userDetails = useSelector(
+    (state: RootState) => state.user.user as LoggedUser
+  );
 
-  const [user, setUser] = useState<UserDetails>();
+  const [user, setUser] = useState<UserDetails>({
+    _id: "",
+    fullName: "",
+    email: "",
+    phoneNumber: ""
+  });
 
   const handleInputChange = (e: any) => {
     setUser({
@@ -29,8 +37,15 @@ const ProfileSettings = () => {
   };
 
   useEffect(() => {
-    setUser(userDetails?.user && (userDetails.user as any));
-  }, [userDetails, user]);
+    if (userDetails) {
+      setUser({
+        _id: userDetails.user._id,
+        fullName: userDetails.user.fullName,
+        email: userDetails.user.email,
+        phoneNumber: userDetails.user.phoneNumber
+      });
+    }
+  }, [userDetails]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -42,7 +57,11 @@ const ProfileSettings = () => {
         phoneNumber: user.phoneNumber
       });
       toast.success("User Details Updated");
-      dispatch(userLoggedin(response.data.data));
+      const updatedUserDetails = {
+        ...userDetails,
+        user: response.data.data
+      };
+      dispatch(userLoggedin(updatedUserDetails));
     } catch (error) {
       toast.error(error);
     }

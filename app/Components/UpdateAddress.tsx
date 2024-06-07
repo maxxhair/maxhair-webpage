@@ -8,6 +8,7 @@ import { LoggedUser } from "../types";
 interface Props {
   address: {
     _id: string;
+    name: string;
     houseNumber: string;
     streetAddress1: string;
     state: string;
@@ -27,6 +28,7 @@ const UpdateAddress: React.FC<Props> = ({
 }) => {
   const user = useSelector((state: RootState) => state.user.user as LoggedUser);
   const [fomState, setFormState] = useState({
+    name: address.name,
     houseNumber: address.houseNumber,
     streetAddress1: address.streetAddress1,
     landmark: address.landmark,
@@ -63,6 +65,15 @@ const UpdateAddress: React.FC<Props> = ({
   return (
     <React.Fragment>
       <form className="space-y-6" onSubmit={handleUpdateAddress}>
+        <input
+          type="text"
+          required
+          id="name"
+          placeholder="Full Name"
+          onChange={handleInputChange}
+          value={fomState.name}
+          className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+        />
         <input
           type="text"
           required

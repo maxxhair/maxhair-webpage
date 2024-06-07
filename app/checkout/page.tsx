@@ -4,11 +4,10 @@ import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, Spinner, TextInput } from "flowbite-react";
-import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
-import OrderPlacedModal from "../Components/OrderPlacedModal";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { LoggedUser } from "../types";
@@ -21,13 +20,9 @@ interface CheckoutFormData {
   address: string;
   landmark: string;
   zipcode: string;
+  state: string;
+  country: string;
 }
-
-// interface LoggedUser {
-//   email: string;
-//   _id: string;
-//   addresses: [];
-// }
 
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
@@ -35,7 +30,6 @@ const Checkout = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const [submitButton, setSubmitButton] = useState(null);
-  // const [openSuccessModal, setOpenSucessModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
     (state: RootState) => state.user.user as LoggedUser
@@ -53,10 +47,13 @@ const Checkout = () => {
       setCheckoutFormDate((prevState) => ({
         ...prevState,
         name: selectedAddress.name,
-        email: selectedAddress.email,
+        email: loggedUser.user && loggedUser.user.email,
         phone: selectedAddress.phone,
-        address: selectedAddress.address,
+        address:
+          selectedAddress.houseNumber + " " + selectedAddress.streetAddress1,
         landmark: selectedAddress.landmark,
+        state: selectedAddress.state,
+        country: selectedAddress.country,
         zipcode: selectedAddress.zipcode
       }));
     }
@@ -101,7 +98,12 @@ const Checkout = () => {
               name: checkoutFormData.name,
               email: checkoutFormData.email,
               phone: checkoutFormData.phone,
-              address: checkoutFormData.address,
+              address:
+                checkoutFormData.address +
+                " " +
+                checkoutFormData.state +
+                " " +
+                checkoutFormData.country,
               landmark: checkoutFormData.landmark,
               zipcode: checkoutFormData.zipcode,
               transactionId: response.data.data.transactionId
@@ -164,7 +166,12 @@ const Checkout = () => {
       name: checkoutFormData.name,
       email: checkoutFormData.email,
       phone: checkoutFormData.phone,
-      address: checkoutFormData.address,
+      address:
+        checkoutFormData.address +
+        " " +
+        checkoutFormData.state +
+        " " +
+        checkoutFormData.country,
       landmark: checkoutFormData.landmark,
       zipcode: checkoutFormData.zipcode
     };
@@ -247,6 +254,20 @@ const Checkout = () => {
               placeholder="Apartement, Landmark, Suite etc..(optional)"
               onChange={handleInputChange}
               value={checkoutFormData?.landmark}
+            />
+            <TextInput
+              id="state"
+              type="text"
+              placeholder="State"
+              onChange={handleInputChange}
+              value={checkoutFormData?.state}
+            />
+            <TextInput
+              id="country"
+              type="text"
+              placeholder="Country"
+              onChange={handleInputChange}
+              value={checkoutFormData?.country}
             />
             <TextInput
               id="zipcode"

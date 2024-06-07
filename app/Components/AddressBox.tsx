@@ -10,6 +10,7 @@ import UpdateAddress from "./UpdateAddress";
 interface Props {
   address: {
     _id: string;
+    name: string;
     houseNumber: string;
     streetAddress1: string;
     state: string;
@@ -32,16 +33,19 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
   const handleCloseModal = () => setOpenUpdateAddressModal(false);
 
   const selectAddressForCheckout = () => {
-    // dispatch(
-    //   selectAddress({
-    //     _id: address._id,
-    //     email: address.email,
-    //     address: address.address,
-    //     landmark: address.landmark,
-    //     zipcode: address.zipCode,
-    //     phone: address.contact
-    //   })
-    // );
+    dispatch(
+      selectAddress({
+        _id: address._id,
+        houseNumber: address.houseNumber,
+        name: address.name,
+        streetAddress1: address.streetAddress1,
+        state: address.state,
+        country: address.country,
+        landmark: address.landmark,
+        zipcode: address.zipcode,
+        phone: address.mobileNumber
+      })
+    );
   };
 
   const handleDeleteAddress = async () => {
@@ -58,7 +62,7 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Radio onClick={selectAddressForCheckout} checked={selected} />
-          <p className="label-medium font-bold">{address.landmark}</p>
+          <p className="label-medium font-bold">{address.name}</p>
         </div>
         <p
           className="label-small text-red-400 cursor-pointer"
@@ -68,7 +72,7 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
         </p>
       </div>
       <p className="label-small pl-9">
-        {address?.houseNumber}, {address?.streetAddress1}, {address?.landmark},{" "}
+        {address?.houseNumber}, {address?.streetAddress1}, {address?.landmark},
         {address?.zipcode}
       </p>
       <div className="w-full flex items-center justify-between">

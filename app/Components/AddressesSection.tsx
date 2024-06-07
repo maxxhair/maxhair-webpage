@@ -16,12 +16,14 @@ interface Address {
   landmark: string;
   zipcode: string;
   mobileNumber: string;
+  name: string;
 }
 
 const AddressesSection = () => {
   const [openAddAddressModal, setOpenAddAddressModal] =
     useState<boolean>(false);
   const [addressFormData, setAddressFormData] = useState<Address>({
+    name: "",
     houseNumber: "",
     streetAddress1: "",
     state: "",
@@ -48,6 +50,7 @@ const AddressesSection = () => {
     event.preventDefault();
     try {
       const body = {
+        name: addressFormData.name,
         houseNumber: addressFormData.houseNumber,
         streetAddress1: addressFormData.streetAddress1,
         state: addressFormData.state,
@@ -60,18 +63,17 @@ const AddressesSection = () => {
       const res = await axiosInstance.post("address", body);
       handleCloseModal();
       getuserAddresses();
-      console.log("res", res);
     } catch (error) {
-      toast.error(error);
+      console.log(error);
     }
   };
 
   const getuserAddresses = async () => {
     try {
       const response = await axiosInstance.get("address");
-      setAddresses(response?.data?.data);
+      setAddresses(response?.data);
     } catch (error) {
-      toast.error(error);
+      console.log(error);
     }
   };
 
@@ -103,6 +105,15 @@ const AddressesSection = () => {
         <Modal.Header>Add New Address</Modal.Header>
         <Modal.Body>
           <form className="space-y-6" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              required
+              id="name"
+              placeholder="Full Name"
+              onChange={handleInputChange}
+              value={addressFormData.name}
+              className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+            />
             <input
               type="text"
               required
