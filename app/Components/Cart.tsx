@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
-import { addCouponCode, addDiscount } from "../store/redux/cartSlice";
+import {
+  addCouponCode,
+  addDiscount,
+  removeCouponCode
+} from "../store/redux/cartSlice";
 import axios from "axios";
 import { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
@@ -40,6 +44,15 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   const handleCouponCodeChange = (e: any) => {
     dispatch(addCouponCode(e.target.value));
   };
+
+  useEffect(() => {
+    if (cartItems.length < 1) {
+      dispatch(removeCouponCode());
+      dispatch(addDiscount(0));
+      setCouponCodeMsg("");
+      return;
+    }
+  }, [cartItems]);
 
   const today = new Date();
   const EstimatedDeliveryDate = new Date(

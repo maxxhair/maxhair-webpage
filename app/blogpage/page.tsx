@@ -5,7 +5,7 @@ import LatestBlogCard from "../Components/LatestBlogCard";
 
 const BlogPage = () => {
   return (
-    <div className=" lg:flex  md:w-3/4 mx-auto mt-[12vh] gap-6 max-lg:text-xs">
+    <div className=" lg:flex  md:w-3/4 mx-auto mt-[20vh] gap-6 max-lg:text-xs">
       <div className=" lg:w-8/12 max-lg:m-4">
         <BlogHeading />
         <div className="mt-8 leading-relaxed space-y-4">
@@ -167,7 +167,7 @@ const BlogPage = () => {
           </p>
         </div>
       </div>
-      <div className="lg:w-1/3 max-lg:m-4 lg:sticky lg:h-[45vh] lg:top-28 lg:right-0">
+      <div className="lg:w-1/3 max-lg:m-4 lg:sticky lg:h-[45vh] lg:top-32 lg:right-0">
         <b>Latest Blogs</b>
         <LatestBlogCard />
         <LatestBlogCard />

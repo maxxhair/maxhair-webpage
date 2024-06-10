@@ -8,7 +8,7 @@ import {
   contactForNavbarIcon,
   educateForNavbarIcon,
   profileForNavbarIcon,
-  shopForNavbarIcon,
+  shopForNavbarIcon
 } from "../../util/images";
 import Image from "next/image";
 
@@ -19,12 +19,16 @@ const Navbar = ({ setToggle }) => {
     {
       title: isEmpty(loggedUser) ? "Sign In" : "Profile",
       id: isEmpty(loggedUser) ? "signin" : "profile",
-      icon: profileForNavbarIcon,
+      icon: profileForNavbarIcon
     },
     { title: "Shop", id: "shop", icon: shopForNavbarIcon },
-    { title: "Educate Me", id: "educateMe", icon: educateForNavbarIcon },
+    {
+      title: "Meet Our Stylist",
+      id: "meetOurStylist",
+      icon: educateForNavbarIcon
+    },
     { title: "Blog", id: "blog", icon: blogsForNavbarIcon },
-    { title: "Contact", id: "contact", icon: contactForNavbarIcon },
+    { title: "Contact", id: "contact", icon: contactForNavbarIcon }
   ];
 
   const navList = {
@@ -32,16 +36,16 @@ const Navbar = ({ setToggle }) => {
       opacity: 1,
       transition: {
         delayChildren: 0.2,
-        staggerChildren: 0.07,
-      },
+        staggerChildren: 0.07
+      }
     },
     hidden: {
       opacity: 0,
       transition: {
         staggerChildren: 0.05,
-        staggerDirection: -1,
-      },
-    },
+        staggerDirection: -1
+      }
+    }
   };
 
   const navItem = {
@@ -49,16 +53,16 @@ const Navbar = ({ setToggle }) => {
       x: 0,
       opacity: 1,
       transition: {
-        x: { stiffness: 100, velocity: 10 },
-      },
+        x: { stiffness: 100, velocity: 10 }
+      }
     },
     hidden: {
       x: 20,
       opacity: 0,
       transition: {
-        x: { stiffness: 100, velocity: 10 },
-      },
-    },
+        x: { stiffness: 100, velocity: 10 }
+      }
+    }
   };
 
   return (

@@ -49,13 +49,13 @@ function Header() {
         className={
           pathname === "/signin" || pathname === "/signup"
             ? "hidden"
-            : "border-b-[1px] border-[#D1D1D8] flex items-center justify-end pt-[30px] pb-[20px] w-full px-[20px] h-[80px] relative bg-[#FAFAFA]"
+            : "border-b-[1px] border-[#D1D1D8] flex items-center justify-end pt-[20px] pb-[10px] w-full px-[20px] relative bg-[#FAFAFA]"
         }
       >
         <div className="w-full flex justify-around">
           <Navbar />
           <Link href="/" className="h-full ">
-            <Image src={brandLogo} alt="logo" width={200} />
+            <Image src={brandLogo} alt="logo" width={400} />
           </Link>
           <div
             className={`md:flex md:items-center hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
@@ -67,10 +67,12 @@ function Header() {
               Shop
             </Link>
             <Link
-              href="educateMe"
-              className={path === "/educateMe" ? "border-b-2 border-black" : ""}
+              href="meetOurStylist"
+              className={
+                path === "/meetOurStylist" ? "border-b-2 border-black" : ""
+              }
             >
-              Educate Me
+              Meet Our Stylist
             </Link>
             <Link
               href="blog"
@@ -99,7 +101,7 @@ function Header() {
                 className="cursor-pointer w-5 h-5"
                 onClick={handleCartOpen}
               />
-              <div className="absolute top-0 md:right-[20%] right-0 bg-pink-100 w-5 h-5 body-small aspect-square rounded-full grid place-items-center">
+              <div className="absolute top-3 md:right-[25%] right-0 bg-pink-100 w-6 h-6 body-small aspect-square rounded-full grid place-items-center">
                 {cartCount}
               </div>
             </div>
