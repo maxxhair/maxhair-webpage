@@ -32,6 +32,11 @@ const CheckoutCartDetails = () => {
     ((discountPercentage / 100) * priceTotal).toFixed(2)
   );
 
+  const today = new Date();
+  const EstimatedDeliveryDate = new Date(
+    today.getTime() + 4 * 24 * 60 * 60 * 1000
+  ).toDateString();
+
   return (
     <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 h-[85vh] overflow-y-scroll lg:pt-8 lg:px-8 flex-1">
       <span className="lg:title-large title-medium ">
@@ -88,7 +93,11 @@ const CheckoutCartDetails = () => {
               <p className="label-medium text-gray-500 font-medium">
                 Estimated Delivery by
               </p>
-              <p className="label-medium font-medium">01 Feb, 2023</p>
+              <p className="label-medium font-medium">
+                {cartProducts.length > 0
+                  ? EstimatedDeliveryDate
+                  : "Un Estimated"}
+              </p>
             </div>
           </div>
         </div>

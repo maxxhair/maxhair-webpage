@@ -12,6 +12,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { LoggedUser } from "../types";
 import { useRouter } from "next/navigation";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface CheckoutFormData {
   name: string;
@@ -61,6 +63,10 @@ const Checkout = () => {
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
+  };
+
+  const handlePhoneInputChange = (value: any) => {
+    setCheckoutFormDate({ ...checkoutFormData, phone: value });
   };
 
   const priceTotal = useSelector((state: RootState) => {
@@ -191,6 +197,8 @@ const Checkout = () => {
         setLoad(false);
         push("/");
         toast.success("Order placed successfully");
+      } else {
+        toast.error("Please fill all the fields");
       }
     } catch (error) {
       console.log(error);
@@ -276,11 +284,15 @@ const Checkout = () => {
               onChange={handleInputChange}
               value={checkoutFormData?.zipcode}
             />
-            <TextInput
-              id="phone"
-              placeholder="Phone"
-              onChange={handleInputChange}
-              value={checkoutFormData?.phone}
+            <PhoneInput
+              enableSearch
+              country={"us"}
+              inputProps={{
+                id: "phone",
+                required: true,
+                className: "w-full border-[#d1d5db] rounded-md"
+              }}
+              onChange={handlePhoneInputChange}
             />
           </div>
           <p className="label-medium my-10">
@@ -291,7 +303,12 @@ const Checkout = () => {
             <span className="underline">Privacy Policy</span>
           </p>
           <button
-            className="w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
+            className={
+              cartItems.length > 0
+                ? "w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
+                : "w-full justify-center bg-gray-300 text-white py-4 title-small tracking-widest font-semibold"
+            }
+            disabled={cartItems.length <= 0}
             type="submit"
             name="card"
             onClick={() => setSubmitButton("card")}
@@ -300,7 +317,12 @@ const Checkout = () => {
           </button>
           <button
             type="submit"
-            className="w-full text-center cursor-pointer bg-black text-white py-4 title-small tracking-widest font-semibold mt-4"
+            disabled={cartItems.length <= 0}
+            className={
+              cartItems.length > 0
+                ? "w-full text-center bg-black text-white py-4 title-small tracking-widest font-semibold mt-4"
+                : "w-full text-center bg-gray-300 text-white py-4 title-small tracking-widest font-semibold mt-4"
+            }
             name="cash"
             onClick={() => setSubmitButton("cash")}
           >
