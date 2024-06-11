@@ -68,7 +68,7 @@ const ProfileSettings = () => {
   };
 
   return (
-    <div className="w-[70%]">
+    <div className="w-full">
       <form
         className="w-full lg:w-1/2 flex flex-col gap-6"
         onSubmit={handleSubmit}

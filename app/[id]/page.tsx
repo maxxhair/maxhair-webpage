@@ -240,7 +240,7 @@ export default function Page() {
             <Image
               src={productImage}
               alt="product-image-error-0"
-              width={500}
+              width={800}
               height={500}
             />
             <div className="w-full flex">
@@ -352,9 +352,7 @@ export default function Page() {
             )}
             <div className="flex space-x-3 mt-4">
               <Image src={deliveryImg} alt="img-err" />
-              <p className="mt-1 label-small lg:label-medium">
-                Free Delivery & Easy Returns
-              </p>
+              <p className="mt-1 label-small lg:label-medium">Free Delivery</p>
             </div>
             <div className="py-4">
               {stockCount === 0 ? (

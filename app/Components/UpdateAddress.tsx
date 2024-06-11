@@ -4,6 +4,8 @@ import axiosInstance from "../util/axiosInstance";
 import { RootState } from "../store";
 import { useSelector } from "react-redux";
 import { LoggedUser } from "../types";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface Props {
   address: {
@@ -43,6 +45,10 @@ const UpdateAddress: React.FC<Props> = ({
       ...fomState,
       [e.target.id]: e.target.value
     });
+  };
+
+  const handlePhoneInputChange = (value: any) => {
+    setFormState({ ...fomState, mobileNumber: value });
   };
 
   const handleUpdateAddress: React.FormEventHandler<HTMLFormElement> = async (
@@ -126,13 +132,17 @@ const UpdateAddress: React.FC<Props> = ({
           value={fomState.country}
           className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
         />
-        <input
-          type="text"
-          id="mobileNumber"
-          placeholder="Phone"
-          onChange={handleInputChange}
+        <PhoneInput
+          enableSearch
+          country={"us"}
           value={fomState.mobileNumber}
-          className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+          inputProps={{
+            id: "mobileNumber",
+            required: true,
+            className:
+              "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px] pl-12"
+          }}
+          onChange={handlePhoneInputChange}
         />
         <button
           type="submit"

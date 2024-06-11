@@ -44,7 +44,7 @@ const Profile = () => {
           activeOption={navOption}
           setNavOption={setNavOption}
         />
-        {getComponent(navOption)}
+        <div className="w-[70%]">{getComponent(navOption)}</div>
       </div>
 
       <Tabs className="mt-7 focus:ring-0 lg:hidden">

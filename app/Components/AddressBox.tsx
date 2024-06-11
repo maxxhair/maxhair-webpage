@@ -2,7 +2,7 @@ import { Modal, Radio } from "flowbite-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
-import { selectAddress } from "../store/redux/addressesSlice";
+import { emptyAddress, selectAddress } from "../store/redux/addressesSlice";
 import toast from "react-hot-toast";
 import axiosInstance from "../util/axiosInstance";
 import UpdateAddress from "./UpdateAddress";
@@ -51,6 +51,7 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
   const handleDeleteAddress = async () => {
     try {
       await axiosInstance.delete(`address/${address._id}`);
+      dispatch(emptyAddress());
       getAddresses();
     } catch (error) {
       toast.error(error);
