@@ -1,9 +1,22 @@
-import React from "react";
+"use client";
+import serialize from "form-serialize";
+import React, { useRef } from "react";
 
 const ContactForm = () => {
+  const formRef = useRef();
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const obj = serialize(e.target as HTMLFormElement, { hash: true });
+    console.log(obj);
+  };
+
   return (
     <div className={`w-3/4 md:w-1/2 xl:w-1/3  m-auto`}>
-      <form className={`space-y-4 md:space-y-6 mt-2 lg:mt-5`} action="#">
+      <form
+        className={`space-y-4 md:space-y-6 mt-2 lg:mt-5`}
+        onSubmit={handleSubmit}
+        ref={formRef}
+      >
         <div>
           <input
             type="text"

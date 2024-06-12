@@ -71,7 +71,7 @@ const Navbar = ({ setToggle }) => {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="flex flex-col gap-[20px] "
+        className="flex flex-col gap-[20px]"
         variants={navList}
       >
         {items.map((obj, index) => (

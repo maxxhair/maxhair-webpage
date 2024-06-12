@@ -3,7 +3,7 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
-import { Checkbox, Spinner, TextInput } from "flowbite-react";
+import { Checkbox, Modal, Spinner, TextInput } from "flowbite-react";
 import { baseUrl } from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
@@ -14,6 +14,7 @@ import { LoggedUser } from "../types";
 import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import AddressesSection from "../Components/AddressesSection";
 
 interface CheckoutFormData {
   name: string;
@@ -32,6 +33,7 @@ const Checkout = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const [submitButton, setSubmitButton] = useState(null);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
     (state: RootState) => state.user.user as LoggedUser
@@ -59,6 +61,7 @@ const Checkout = () => {
         zipcode: selectedAddress.zipcode
       }));
     }
+    setOpenModal(false);
   }, [selectedAddress]);
 
   const handleInputChange = (e: any) => {
@@ -164,6 +167,17 @@ const Checkout = () => {
     }
   };
 
+  const validate = (checkoutFormData: CheckoutFormData) => {
+    return (
+      checkoutFormData.name.trim().length > 0 &&
+      checkoutFormData.email.trim().length > 0 &&
+      checkoutFormData.landmark.trim().length > 0 &&
+      checkoutFormData.address.trim().length > 0 &&
+      checkoutFormData.zipcode.trim().length > 0 &&
+      checkoutFormData.phone.trim().length > 0
+    );
+  };
+
   const handlePlaceOrderCash = async () => {
     const body = {
       user_id: loggedUser.user && loggedUser?.user._id,
@@ -182,14 +196,7 @@ const Checkout = () => {
       zipcode: checkoutFormData.zipcode
     };
     try {
-      if (
-        checkoutFormData.name.length > 0 &&
-        checkoutFormData.email.length > 0 &&
-        checkoutFormData.landmark.length > 0 &&
-        checkoutFormData.address.length > 0 &&
-        checkoutFormData.zipcode.length > 0 &&
-        checkoutFormData.phone.length > 0
-      ) {
+      if (validate(checkoutFormData)) {
         setLoad(true);
         const res = await axios.post(`${baseUrl}orders`, body);
         dispatch(emptyCart());
@@ -207,7 +214,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-full p-5 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] lg:mt-[12vh] flex flex-col-reverse lg:flex-row mb-10">
+    <div className="w-full p-5 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
@@ -215,7 +222,7 @@ const Checkout = () => {
         >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
-            {!loggedUser.user.email && (
+            {!loggedUser?.user?.email && (
               <div className="flex">
                 <Link href="signin">
                   <p className="label-medium">Login</p>
@@ -237,8 +244,18 @@ const Checkout = () => {
             <Checkbox />
             <p className="label-medium">Email me with news and offers</p>
           </div>
+          <div className="flex items-center justify-between py-3">
+            <p className="headline-small">Shipping Address</p>
+            {loggedUser?.user?.email && (
+              <p
+                className="body-small text-blue-500 hover:underline cursor-pointer"
+                onClick={() => setOpenModal(true)}
+              >
+                Change Address
+              </p>
+            )}
+          </div>
 
-          <p className="headline-small py-3">Shipping Address</p>
           <div className="flex flex-col gap-4">
             <TextInput
               id="name"
@@ -287,10 +304,11 @@ const Checkout = () => {
             <PhoneInput
               enableSearch
               country={"us"}
+              value={checkoutFormData?.phone}
               inputProps={{
                 id: "phone",
                 required: true,
-                className: "w-full border-[#d1d5db] rounded-md"
+                className: "w-full border-[#d1d5db] rounded-md pl-12"
               }}
               onChange={handlePhoneInputChange}
             />
@@ -331,10 +349,22 @@ const Checkout = () => {
         </form>
       </div>
       <CheckoutCartDetails />
-      {/* <OrderPlacedModal
-        openModal={openSuccessModal}
-        setOpenModal={setOpenSucessModal}
-      /> */}
+      <Modal
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        dismissible
+        className="!overflow-y-scroll"
+      >
+        <Modal.Header>Choose Address</Modal.Header>
+        <Modal.Body>
+          <AddressesSection />
+          <Link href="/profile">
+            <button className="bg-black text-white uppercase px-5 py-2 body-medium mx-auto">
+              Add New
+            </button>
+          </Link>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

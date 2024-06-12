@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import MyOrders from "./MyOrders";
 import axiosInstance from "../util/axiosInstance";
-import toast from "react-hot-toast";
 
 const OrdersSection = () => {
   const [orders, setOrders] = useState<any[]>();
@@ -22,9 +21,16 @@ const OrdersSection = () => {
   }, []);
 
   return (
-    <div className="w-[70%]">
-      {orders &&
-        orders?.map((order: any) => <MyOrders order={order} key={order._id} />)}
+    <div className="w-full">
+      {orders && orders.length > 0 ? (
+        orders?.map((order: any) => <MyOrders order={order} key={order._id} />)
+      ) : (
+        <div className="w-full min-h-[30vh] grid place-items-center">
+          <p className="headline-small xl:headline-medium text-center">
+            No Orders
+          </p>
+        </div>
+      )}
     </div>
   );
 };

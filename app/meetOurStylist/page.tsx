@@ -76,7 +76,7 @@ function page() {
           </div>
         </div>
       </div>
-      <div className="bg-[#885C46] w-full flex flex-col justify-center items-center gap-[40px] px-[20px] py-[40px]">
+      {/* <div className="bg-[#885C46] w-full flex flex-col justify-center items-center gap-[40px] px-[20px] py-[40px]">
         <span
           className={`text-center text-[#F9F6F3] ${firaSans.className} lg:title-large md:title-medium title-small`}
         >
@@ -128,7 +128,7 @@ function page() {
             future!
           </span>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

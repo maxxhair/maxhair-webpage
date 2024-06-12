@@ -38,9 +38,20 @@ const addressesSlice = createSlice({
       state.country = action.payload.country;
       state.landmark = action.payload.landmark;
       state.zipcode = action.payload.zipcode;
+    },
+    emptyAddress: (state) => {
+      state._id = "";
+      state.name = "";
+      state.phone = "";
+      state.houseNumber = "";
+      state.streetAddress1 = "";
+      state.state = "";
+      state.country = "";
+      state.landmark = "";
+      state.zipcode = "";
     }
   }
 });
 
-export const { selectAddress } = addressesSlice.actions;
+export const { selectAddress, emptyAddress } = addressesSlice.actions;
 export default addressesSlice.reducer;

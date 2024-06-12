@@ -2,10 +2,11 @@ import { Modal, Radio } from "flowbite-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
-import { selectAddress } from "../store/redux/addressesSlice";
+import { emptyAddress, selectAddress } from "../store/redux/addressesSlice";
 import toast from "react-hot-toast";
 import axiosInstance from "../util/axiosInstance";
 import UpdateAddress from "./UpdateAddress";
+import { usePathname } from "next/navigation";
 
 interface Props {
   address: {
@@ -24,6 +25,7 @@ interface Props {
 
 const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const path = usePathname();
   const selectedAddress = useSelector((state: RootState) => state.address._id);
   const selected = selectedAddress === address._id;
 
@@ -51,6 +53,7 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
   const handleDeleteAddress = async () => {
     try {
       await axiosInstance.delete(`address/${address._id}`);
+      dispatch(emptyAddress());
       getAddresses();
     } catch (error) {
       toast.error(error);
@@ -64,12 +67,14 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
           <Radio onClick={selectAddressForCheckout} checked={selected} />
           <p className="label-medium font-bold">{address.name}</p>
         </div>
-        <p
-          className="label-small text-red-400 cursor-pointer"
-          onClick={handleDeleteAddress}
-        >
-          Remove
-        </p>
+        {path === "/profile" && (
+          <p
+            className="label-small text-red-400 cursor-pointer"
+            onClick={handleDeleteAddress}
+          >
+            Remove
+          </p>
+        )}
       </div>
       <p className="label-small pl-9">
         {address?.houseNumber}, {address?.streetAddress1}, {address?.landmark},
@@ -80,9 +85,11 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
           <p className="label-small">Contact - {address.mobileNumber}</p>
           <p className="label-small">Country - {address.country}</p>
         </div>
-        <p className="label-small cursor-pointer" onClick={handleOpenModal}>
-          Update
-        </p>
+        {path === "/profile" && (
+          <p className="label-small cursor-pointer" onClick={handleOpenModal}>
+            Update
+          </p>
+        )}
       </div>
       <Modal show={openUpdateAddressModal} onClose={handleCloseModal}>
         <Modal.Header>Update Address</Modal.Header>
