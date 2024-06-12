@@ -22,7 +22,6 @@ interface Address {
 
 const AddressesSection = () => {
   const path = usePathname();
-  const dispatch = useDispatch();
   const [openAddAddressModal, setOpenAddAddressModal] =
     useState<boolean>(false);
   const [addresses, setAddresses] = useState<Address[]>([]);

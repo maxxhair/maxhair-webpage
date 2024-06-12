@@ -37,7 +37,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
   return (
     <Link href={`/${item._id}`} title={item?.title}>
       <div
-        className="p-2 h-auto transition-all duration-300 bg-white hover:bg-[#e3d6c5] relative"
+        className="px-2 py-5 h-auto transition-all duration-300 bg-white hover:bg-[#e3d6c5] relative"
         onMouseOver={() => setHovered(true)}
         onMouseOut={() => setHovered(false)}
       >
@@ -61,7 +61,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
           {item.category?.title}
         </p>
         <button
-          className={`w-full h-10 bg-[#242424] grid place-items-center text-white ${
+          className={`w-full h-10 bg-[#242424] grid place-items-center absolute bottom-0 left-0 text-white ${
             hovered ? "opacity-100" : "opacity-0"
           }`}
         >

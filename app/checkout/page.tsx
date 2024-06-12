@@ -61,6 +61,7 @@ const Checkout = () => {
         zipcode: selectedAddress.zipcode
       }));
     }
+    setOpenModal(false);
   }, [selectedAddress]);
 
   const handleInputChange = (e: any) => {
@@ -357,6 +358,11 @@ const Checkout = () => {
         <Modal.Header>Choose Address</Modal.Header>
         <Modal.Body>
           <AddressesSection />
+          <Link href="/profile">
+            <button className="bg-black text-white uppercase px-5 py-2 body-medium mx-auto">
+              Add New
+            </button>
+          </Link>
         </Modal.Body>
       </Modal>
     </div>
