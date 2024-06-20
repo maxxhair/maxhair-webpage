@@ -12,6 +12,8 @@ import {
 import axios from "axios";
 import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
+import Image from "next/image";
+import { closeIcon } from "../util/images";
 
 interface Props {
   handleClose: () => void;
@@ -97,8 +99,15 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     } catch (error) {
       if (error.response.status === 404) {
         setCouponCodeMsg("Coupon does not exist");
+        dispatch(addDiscount(0));
       }
     }
+  };
+
+  const handleRemoveCoupon = () => {
+    dispatch(removeCouponCode());
+    dispatch(addDiscount(0));
+    setCouponCodeMsg("");
   };
 
   return (
@@ -109,13 +118,21 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
             <CartItem key={index} product={item} />
           ))}
           <div className="w-full flex items-center gap-3 lg:gap-6 justify-between">
-            <input
-              placeholder="Discount code or gift card"
-              type="text"
-              className="w-full bg-white outline-none py-3 px-2 rounded-lg"
-              value={couponCode?.toUpperCase()}
-              onChange={handleCouponCodeChange}
-            />
+            <div className="relative w-full">
+              <input
+                placeholder="Discount code or gift card"
+                type="text"
+                className="w-full bg-white outline-none py-3 px-2 rounded-lg relative"
+                value={couponCode?.toUpperCase()}
+                onChange={handleCouponCodeChange}
+              />
+              <Image
+                src={closeIcon}
+                alt="close"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 cursor-pointer"
+                onClick={handleRemoveCoupon}
+              />
+            </div>
             <button
               className="bg-transparent px-6 py-3 border border-black rounded-lg"
               // onClick={handleApplyCouponCode}
