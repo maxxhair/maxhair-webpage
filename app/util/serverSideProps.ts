@@ -27,5 +27,16 @@ export const getVariantsByProductId = async (productId: string) => {
       `${baseUrl}variants/filter?products=${productId}`
     );
     return response.data.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserOrders = async () => {
+  try {
+    const response = await axiosInstance.get("orders");
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -6,10 +6,11 @@ import { AppDispatch, RootState } from "../store";
 import {
   addCouponCode,
   addDiscount,
+  fetchCartProducts,
   removeCouponCode
 } from "../store/redux/cartSlice";
 import axios from "axios";
-import { baseUrl } from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
 
 interface Props {
@@ -45,6 +46,24 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     dispatch(addCouponCode(e.target.value));
   };
 
+  const addToCart = async () => {
+    try {
+      const res = await axiosInstance.post(``);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const successCallback = () => {};
+  const errorCallback = (error: string) => {
+    console.log(error);
+  };
+  const input = {
+    successCallback,
+    errorCallback,
+    value: {}
+  };
+
   useEffect(() => {
     if (cartItems.length < 1) {
       dispatch(removeCouponCode());
@@ -53,6 +72,10 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
       return;
     }
   }, [cartItems]);
+
+  useEffect(() => {
+    dispatch(fetchCartProducts(input));
+  }, []);
 
   const today = new Date();
   const EstimatedDeliveryDate = new Date(
