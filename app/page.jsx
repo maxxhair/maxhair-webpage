@@ -10,7 +10,7 @@ import ShopByTextures from "./Components/ShopByTextures";
 
 export default function Home() {
   return (
-    <section className="mt-24 xl:mt-28">
+    <section className="mt-20 xl:mt-28">
       <Greet />
       <ShopByTextures />
       <OfferSpace />
