@@ -1,5 +1,5 @@
 "use client";
-import { Modal } from "flowbite-react";
+import { Modal, Spinner } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../util/axiosInstance";
 import { useDispatch } from "react-redux";
@@ -25,20 +25,33 @@ const AddressesSection = () => {
   const [openAddAddressModal, setOpenAddAddressModal] =
     useState<boolean>(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [showMore, setShowMore] = useState<boolean>(false);
   const handleCloseModal = () => setOpenAddAddressModal(false);
 
   const getuserAddresses = async () => {
     try {
+      setLoading(true);
       const response = await axiosInstance.get("address");
       setAddresses(response?.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getuserAddresses();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Spinner size={"xl"} />
+      </div>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -55,19 +68,36 @@ const AddressesSection = () => {
           </div>
         )}
         {addresses.length > 0 ? (
-          addresses.map((address: any, index: number) => (
-            <AddressBox
-              key={index}
-              address={address}
-              getAddresses={getuserAddresses}
-            />
-          ))
+          addresses
+            .slice(0, showMore ? addresses.length : 4)
+            .map((address: any, index: number) => (
+              <AddressBox
+                key={index}
+                address={address}
+                getAddresses={getuserAddresses}
+              />
+            ))
         ) : (
           <div className="w-full min-h-[30vh] grid place-items-center">
             <p className="headline-small xl:headline-medium text-center">
               Empty Addresses
             </p>
           </div>
+        )}
+        {!showMore ? (
+          <p
+            className="text-center text-blue-500 hover:underline cursor-pointer"
+            onClick={() => setShowMore(true)}
+          >
+            {addresses.length > 4 && "show more"}
+          </p>
+        ) : (
+          <p
+            className="text-center text-blue-500 hover:underline cursor-pointer"
+            onClick={() => setShowMore(false)}
+          >
+            show less
+          </p>
         )}
       </div>
       <Modal show={openAddAddressModal} onClose={handleCloseModal}>

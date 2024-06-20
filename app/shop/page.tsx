@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React, { useEffect, useState } from "react";
 import { firaSans } from "../util/fonts";
@@ -7,35 +7,8 @@ import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
 import { Spinner } from "flowbite-react";
 
-const Shop = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const data = await getProducts();
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="w-full h-screen grid place-items-center">
-        <div className="">
-          <Spinner aria-label="Default status example" />
-        </div>
-      </div>
-    );
-  }
+const Shop = async () => {
+  const prods = await getProducts();
 
   return (
     <section className="mt-28 lg:mt-52 w-full p-5 lg:p-0 lg:w-4/5 mx-auto">
@@ -56,7 +29,7 @@ const Shop = () => {
       <div className="w-full flex flex-col lg:flex-row justify-between my-7 relative">
         <div className="w-full ">
           <div className="w-full hidden lg:flex items-center justify-end gap-3 my-4">
-            <p className="label-small">{products?.length} items</p>
+            <p className="label-small">{prods?.length} items</p>
             <p className="label-small">Sort by</p>
             <select className="h-auto bg-transparent focus:outline-none active:outline-none">
               <option value="Bestseller">Best Seller</option>
@@ -64,7 +37,7 @@ const Shop = () => {
             </select>
           </div>
           <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 2xl:gap-10 md:gap-4 lg:gap-y-12 gap-5">
-            {products?.map((product: any) => (
+            {prods?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
           </div>

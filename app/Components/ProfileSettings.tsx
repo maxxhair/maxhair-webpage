@@ -39,10 +39,10 @@ const ProfileSettings = () => {
   useEffect(() => {
     if (userDetails) {
       setUser({
-        _id: userDetails.user._id,
-        fullName: userDetails.user.fullName,
-        email: userDetails.user.email,
-        phoneNumber: userDetails.user.phoneNumber
+        _id: userDetails?.user?._id,
+        fullName: userDetails?.user?.fullName,
+        email: userDetails?.user?.email,
+        phoneNumber: userDetails?.user?.phoneNumber
       });
     }
   }, [userDetails]);
