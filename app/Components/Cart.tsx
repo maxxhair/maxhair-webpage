@@ -84,9 +84,16 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     today.getTime() + 4 * 24 * 60 * 60 * 1000
   ).toDateString();
 
+  useEffect(() => {
+    if (couponCode.length !== 6) {
+      dispatch(addDiscount(0));
+      setCouponCodeMsg("");
+    }
+  }, [couponCode]);
+
   const VerifyCouponCode = async () => {
     try {
-      if (!couponCode) {
+      if (!couponCode && couponCode.length !== 6) {
         dispatch(addDiscount(0));
         setCouponCodeMsg("");
         return;
