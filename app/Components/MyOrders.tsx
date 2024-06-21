@@ -61,7 +61,7 @@ const MyOrders: React.FC<Props> = ({ order }) => {
       </div>
       {order.items &&
         order.items.map((item) => (
-          <div className="w-full p-5 flex items-center gap-5 ">
+          <div key={item._id} className="w-full p-5 flex items-center gap-5 ">
             <Image
               src={item.image || prodimg}
               alt="cartProduct"

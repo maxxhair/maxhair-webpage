@@ -112,18 +112,18 @@ const cartSlice = createSlice({
       state.discountPercentage = action.payload;
     }
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchCartProducts.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(fetchCartProducts.fulfilled, (state, action: any) => {
-      state.isLoading = false;
-      state.cartItems = action.payload;
-    });
-    builder.addCase(fetchCartProducts.rejected, (state) => {
-      state.isLoading = false;
-    });
-  }
+  // extraReducers: (builder) => {
+  //   builder.addCase(fetchCartProducts.pending, (state) => {
+  //     state.isLoading = true;
+  //   });
+  //   builder.addCase(fetchCartProducts.fulfilled, (state, action: any) => {
+  //     state.isLoading = false;
+  //     state.cartItems = action.payload;
+  //   });
+  //   builder.addCase(fetchCartProducts.rejected, (state) => {
+  //     state.isLoading = false;
+  //   });
+  // }
 });
 
 export const {

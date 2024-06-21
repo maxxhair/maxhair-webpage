@@ -1,4 +1,4 @@
-import { firaSansBold, firaSansMedium } from "../util/fonts";
+import { firaSansMedium } from "../util/fonts";
 
 const BlogHeading = () => {
   return (

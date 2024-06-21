@@ -7,7 +7,7 @@ import {
   addCouponCode,
   addDiscount,
   fetchCartProducts,
-  removeCouponCode
+  removeCouponCode,
 } from "../store/redux/cartSlice";
 import axios from "axios";
 import axiosInstance, { baseUrl } from "../util/axiosInstance";
@@ -32,6 +32,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
+    console.log("DKDKD", cartItems[0]);
     if (cartItems?.length > 0) {
       cartItems?.map((item) =>
         (totalPrice += item?.price * item?.count).toFixed(2)
@@ -48,13 +49,13 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     dispatch(addCouponCode(e.target.value));
   };
 
-  const addToCart = async () => {
-    try {
-      const res = await axiosInstance.post(``);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const addToCart = async () => {
+  //   try {
+  //     const res = await axiosInstance.post(``);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const successCallback = () => {};
   const errorCallback = (error: string) => {
@@ -63,11 +64,11 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   const input = {
     successCallback,
     errorCallback,
-    value: {}
+    value: {},
   };
 
   useEffect(() => {
-    if (cartItems.length < 1) {
+    if (cartItems?.length < 1) {
       dispatch(removeCouponCode());
       dispatch(addDiscount(0));
       setCouponCodeMsg("");
@@ -75,9 +76,9 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     }
   }, [cartItems]);
 
-  useEffect(() => {
-    dispatch(fetchCartProducts(input));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchCartProducts(input));
+  // }, []);
 
   const today = new Date();
   const EstimatedDeliveryDate = new Date(
@@ -121,9 +122,10 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     <>
       {cartItems?.length > 0 ? (
         <div className="w-full">
-          {cartItems?.map((item: any, index) => (
-            <CartItem key={index} product={item} />
-          ))}
+          {cartItems &&
+            cartItems?.map((item: any, index) => (
+              <CartItem key={index} product={item} />
+            ))}
           <div className="w-full flex items-center gap-3 lg:gap-6 justify-between">
             <div className="relative w-full">
               <input
