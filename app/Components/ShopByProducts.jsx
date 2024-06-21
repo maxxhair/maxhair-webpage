@@ -28,7 +28,7 @@ function ShopByProducts() {
       let temp = [];
       for (
         let i = selected * numberOfCards;
-        i < Math.min(selected * numberOfCards + numberOfCards, list.length);
+        i < Math.min(selected * numberOfCards + numberOfCards, list?.length);
         i++
       )
         temp.push(i);

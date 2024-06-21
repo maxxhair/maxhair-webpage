@@ -21,7 +21,7 @@ function Header() {
   const loggedUser = useSelector((state) => state.user.user);
   const path = usePathname();
 
-  const cartCount = cartItems.length;
+  const cartCount = cartItems?.length;
 
   const handleCartOpen = () => {
     cartOpen ? dispatch(setCloseCart()) : dispatch(setOpenCart());
