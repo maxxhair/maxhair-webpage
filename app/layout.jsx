@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Providers from "./util/Providers";
+import ScrolltoTop from "./Components/ScrolltoTop";
 
 export const metadata = {
   title: "Maxx Hair",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body className={`${prompt.className}`}>
+        <ScrolltoTop />
         <Providers>
           <div className="fixed top-0 w-full z-20">
             <Header />

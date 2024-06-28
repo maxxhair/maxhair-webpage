@@ -7,7 +7,7 @@ import {
   addCouponCode,
   addDiscount,
   fetchCartProducts,
-  removeCouponCode,
+  removeCouponCode
 } from "../store/redux/cartSlice";
 import axios from "axios";
 import axiosInstance, { baseUrl } from "../util/axiosInstance";
@@ -32,7 +32,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
-    console.log("DKDKD", cartItems[0]);
     if (cartItems?.length > 0) {
       cartItems?.map((item) =>
         (totalPrice += item?.price * item?.count).toFixed(2)
@@ -64,7 +63,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   const input = {
     successCallback,
     errorCallback,
-    value: {},
+    value: {}
   };
 
   useEffect(() => {

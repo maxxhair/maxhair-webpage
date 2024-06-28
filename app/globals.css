@@ -156,3 +156,7 @@ body {
 .focus\:ring-cyan-300:focus {
   --tw-ring-opacity: 0 !important;
 }
+
+input[type="radio"] {
+  display: none;
+}

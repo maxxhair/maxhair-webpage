@@ -33,6 +33,7 @@ import ProductImageSwiper from "../Components/ProductImageSwiper";
 import { Modal, Spinner, TextInput } from "flowbite-react";
 import axios from "axios";
 import AuthenticationModel from "../Components/AuthenticationModel";
+import ProductImageSlider from "../Components/ProductImagesSlider";
 
 export default function Page() {
   const { id } = useParams();
@@ -155,6 +156,14 @@ export default function Page() {
   const [dualTexture, setDualTexture] = useState<string>("");
   const [openTextBox, setOpenTextBox] = useState(false);
   const [openSignupModel, setSignUpModel] = useState(false);
+  const images = [
+    productImage,
+    productImage1,
+    productImage2,
+    productImage3,
+    productImage4,
+    productImage5
+  ];
 
   const handleSignupModelOpen = () => setSignUpModel(true);
   const handleSignupModelClose = () => setSignUpModel(false);
@@ -252,7 +261,10 @@ export default function Page() {
           <div className=" block md:hidden m-4  w-3/5 mx-auto">
             <ProductImageSwiper mainImage={productImage1} />
           </div>
-          <div className="hidden md:block md:w-1/2 p-8 sm:m-auto xl:m-0 sm:w-3/5">
+          {/* <div className="hidden md:block md:w-1/2 h-[75vh] sticky top-[15vh]  sm:m-auto xl:m-0 sm:w-3/5">
+            <ProductImageSlider swiperImages={images} />
+          </div> */}
+          <div className="hidden md:block md:w-1/2  sm:m-auto xl:m-0 sm:w-3/5">
             <Image
               src={productImage}
               alt="product-image-error-0"
