@@ -32,7 +32,6 @@ const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
-  const [submitButton, setSubmitButton] = useState(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
@@ -141,18 +140,6 @@ const Checkout = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (submitButton) {
-      if (submitButton === "cash") {
-        console.log("from cash");
-        handlePlaceOrderCash();
-      } else if (submitButton === "card") {
-        handlePlaceOrderCard();
-        console.log("from card");
-      }
-    }
-  };
-
-  const handlePlaceOrderCard = async () => {
     try {
       setLoading(true);
       const res = await axios.post(`${baseUrl}payments/get_tokens`, {
@@ -164,52 +151,6 @@ const Checkout = () => {
     } catch (error) {
       console.log(error);
       setLoading(false);
-    }
-  };
-
-  const validate = (checkoutFormData: CheckoutFormData) => {
-    return (
-      checkoutFormData.name.trim().length > 0 &&
-      checkoutFormData.email.trim().length > 0 &&
-      checkoutFormData.landmark.trim().length > 0 &&
-      checkoutFormData.address.trim().length > 0 &&
-      checkoutFormData.zipcode.trim().length > 0 &&
-      checkoutFormData.phone.trim().length > 0
-    );
-  };
-
-  const handlePlaceOrderCash = async () => {
-    const body = {
-      user_id: loggedUser.user && loggedUser?.user._id,
-      items: cartItems,
-      total: TotalPriceToPay,
-      name: checkoutFormData.name,
-      email: checkoutFormData.email,
-      phone: checkoutFormData.phone,
-      address:
-        checkoutFormData.address +
-        " " +
-        checkoutFormData.state +
-        " " +
-        checkoutFormData.country,
-      landmark: checkoutFormData.landmark,
-      zipcode: checkoutFormData.zipcode
-    };
-    try {
-      if (validate(checkoutFormData)) {
-        setLoad(true);
-        const res = await axios.post(`${baseUrl}orders`, body);
-        dispatch(emptyCart());
-        dispatch(removeCouponCode());
-        setLoad(false);
-        push("/");
-        toast.success("Order placed successfully");
-      } else {
-        toast.error("Please fill all the fields");
-      }
-    } catch (error) {
-      console.log(error);
-      setLoad(false);
     }
   };
 
@@ -329,22 +270,8 @@ const Checkout = () => {
             disabled={cartItems?.length <= 0}
             type="submit"
             name="card"
-            onClick={() => setSubmitButton("card")}
           >
             {!loading ? "Pay Through Card" : <Spinner size="lg" color="#fff" />}
-          </button>
-          <button
-            type="submit"
-            disabled={cartItems?.length <= 0}
-            className={
-              cartItems?.length > 0
-                ? "w-full text-center bg-black text-white py-4 title-small tracking-widest font-semibold mt-4"
-                : "w-full text-center bg-gray-300 text-white py-4 title-small tracking-widest font-semibold mt-4"
-            }
-            name="cash"
-            onClick={() => setSubmitButton("cash")}
-          >
-            {!load ? "Pay Through Cash" : <Spinner size="lg" color="#fff" />}
           </button>
         </form>
       </div>
