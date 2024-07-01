@@ -10,10 +10,12 @@ import { blogImage2, sample1 } from "../util/images";
 import Link from "next/link";
 import { firaSans, firaSansMedium } from "../util/fonts";
 import { useCallback, useRef, useState } from "react";
+import { generateSlug } from "../util/slug";
 
 function Blogs() {
   const [selected, setSelected] = useState(1);
   const sliderRefBlogs = useRef(null);
+  const slug = generateSlug("Know Your Hair");
   const handleSlideChange = useCallback(() => {
     const swiper = sliderRefBlogs.current.swiper;
     setSelected(swiper.realIndex);
@@ -29,7 +31,7 @@ function Blogs() {
     },
     {
       body: "Have you ever wondered why is hair so precious? What makes up a strand of hair? what is it made of? Why is it so difficult to find good hair? And what makes up good hair? And most importantly what makes it so expensive? We have heard you!",
-      link: "/blogpage",
+      link: `/blog/${slug}`,
       data: "Know your hair",
       image: blogImage2
     },

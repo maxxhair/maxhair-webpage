@@ -1,5 +1,5 @@
 import InfoSection from "./_faq/InfoSection";
-import { firaSans, firaSansBold } from "../util/fonts";
+import { firaSans } from "../util/fonts";
 import { list } from "../util/staticData";
 
 function Faq() {
@@ -15,7 +15,7 @@ function Faq() {
           FAQ
         </span>
         <span
-          className={` text-center lg:label-large md:label-medium label-small`}
+          className={`text-center lg:label-large md:label-medium label-small`}
         >
           The purpose of a FAQ is generally to provide information on frequent
           questions or concerns. however, the format is a useful means of

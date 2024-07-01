@@ -28,6 +28,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
 
   const dispatch = useDispatch<AppDispatch>();
   const [couponcodemsg, setCouponCodeMsg] = useState("");
+  const [couponCodeApplied, setCouponCodeApplied] = useState<boolean>(false);
 
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
@@ -47,14 +48,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   const handleCouponCodeChange = (e: any) => {
     dispatch(addCouponCode(e.target.value));
   };
-
-  // const addToCart = async () => {
-  //   try {
-  //     const res = await axiosInstance.post(``);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const successCallback = () => {};
   const errorCallback = (error: string) => {
@@ -102,11 +95,13 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
       if (!isEmpty(response.data)) {
         dispatch(addDiscount(response.data[0].discount));
         setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+        setCouponCodeApplied(true);
       }
     } catch (error) {
       if (error.response.status === 404) {
         setCouponCodeMsg("Coupon does not exist");
         dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
       }
     }
   };
@@ -149,7 +144,17 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
               Apply
             </button>
           </div>
-          {couponcodemsg && <p className="text-sm">{couponcodemsg}</p>}
+          {couponcodemsg && (
+            <p
+              className={
+                couponCodeApplied
+                  ? `text-sm text-green-500`
+                  : `text-sm text-red-500`
+              }
+            >
+              {couponcodemsg}
+            </p>
+          )}
           <div className="">
             <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
               <div className="w-full flex items-center justify-between">

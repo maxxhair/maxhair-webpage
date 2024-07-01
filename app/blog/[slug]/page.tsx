@@ -1,12 +1,12 @@
 import Image from "next/image";
-import BlogHeading from "../Components/BlogHeading";
-import { blogImage1, blogImage2, blogImage4 } from "../util/images";
-import LatestBlogCard from "../Components/LatestBlogCard";
+import BlogHeading from "../../Components/BlogHeading";
+import { blogImage1, blogImage2, blogImage4 } from "../../util/images";
+import LatestBlogCard from "../../Components/LatestBlogCard";
 
 const BlogPage = () => {
   return (
-    <div className=" lg:flex  md:w-3/4 mx-auto mt-[20vh] gap-6 max-lg:text-xs">
-      <div className=" lg:w-8/12 max-lg:m-4">
+    <div className="lg:flex  md:w-3/4 mx-auto mt-[20vh] gap-6 max-lg:text-xs">
+      <div className="lg:w-8/12 max-lg:m-4">
         <BlogHeading />
         <div className="mt-8 leading-relaxed space-y-4">
           <p> Let’s begin with the anatomy of hair.</p>

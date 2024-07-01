@@ -1,4 +1,4 @@
-import { Modal, Radio } from "flowbite-react";
+import { Checkbox, Modal } from "flowbite-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
@@ -64,7 +64,11 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
     <div className="w-full p-5 flex flex-col gap-4 border-2 border-pink-200 mb-10">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Radio onClick={selectAddressForCheckout} checked={selected} />
+          <Checkbox
+            onChange={selectAddressForCheckout}
+            checked={selected}
+            className="ring-0 focus:ring-transparent cursor-pointer"
+          />
           <p className="label-medium font-bold">{address.name}</p>
         </div>
         {path === "/profile" && (

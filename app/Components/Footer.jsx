@@ -1,15 +1,8 @@
 "use client";
-
 import Image from "next/image";
 import { firaSans, firaSansLight } from "../util/fonts";
 import SubscribeForm from "./_footer/SubscribeForm";
-import {
-  companyLogo,
-  instagram,
-  facebook,
-  hairStrand,
-  brandLogo
-} from "../util/images";
+import { instagram, facebook, hairStrand, brandLogo } from "../util/images";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -80,7 +73,6 @@ function Footer() {
                 >
                   Company
                 </span>
-
                 <Link
                   href="/about"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"

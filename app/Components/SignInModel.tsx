@@ -1,17 +1,14 @@
 "use client";
 
-import { Fira_Sans, Prompt } from "next/font/google";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
-import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { userLoggedin } from "../store/redux/userSlice";
 import { Spinner } from "flowbite-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
 import { firaSans } from "../util/fonts";
 
 interface Props {
@@ -47,7 +44,6 @@ const SignInModel: React.FC<Props> = ({
       newErrors.password = "Password is required";
       isValid = false;
     }
-
     setErrors(newErrors);
     return isValid;
   };
@@ -80,7 +76,6 @@ const SignInModel: React.FC<Props> = ({
       >
         Sign In
       </h2>
-
       <div>
         <p className="mt-5 text-sm font-light text-gray-500">
           Don’t have an account yet?{" "}
@@ -91,7 +86,6 @@ const SignInModel: React.FC<Props> = ({
             SIGN UP
           </span>
         </p>
-
         <form className="space-y-4 md:space-y-6 mt-5" action="#">
           <div>
             <input

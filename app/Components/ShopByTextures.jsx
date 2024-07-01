@@ -7,9 +7,8 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { useCallback, useEffect, useRef, useState } from "react";
-
 import Card from "./_shopbytextures/Card";
-import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import axios from "axios";
 
 function ShopByTextures() {

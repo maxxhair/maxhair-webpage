@@ -50,11 +50,9 @@ const CustomerReviews = () => {
           Write A Review
         </button>
       </div>
-      <ReviewCard />
-      <ReviewCard />
-      <ReviewCard />
-      <ReviewCard />
-      <ReviewCard />
+      {[1, 2, 3, 4].map((index) => (
+        <ReviewCard key={index} />
+      ))}
       <Modal
         show={reviewModelOpen}
         dismissible

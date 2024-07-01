@@ -26,8 +26,8 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body className={`${prompt.className}`}>
-        <ScrolltoTop />
         <Providers>
+          <ScrolltoTop />
           <div className="fixed top-0 w-full z-20">
             <Header />
           </div>

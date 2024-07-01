@@ -2,7 +2,6 @@
 import { Modal, Spinner } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../util/axiosInstance";
-import { useDispatch } from "react-redux";
 import AddressBox from "./AddressBox";
 import "react-phone-input-2/lib/style.css";
 import { usePathname } from "next/navigation";

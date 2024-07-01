@@ -7,7 +7,7 @@ const ScrolltoTop = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [path]);
-  return null;
+  return;
 };
 
 export default ScrolltoTop;
