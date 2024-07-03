@@ -1,13 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { firaSans } from "../util/fonts";
 import ReviewCard from "./ReviewCard";
-import { Modal, RatingStar, Textarea } from "flowbite-react";
+import { Button, Modal, Textarea } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 import StarRating from "./StarRating";
+import { useParams } from "next/navigation";
+import axiosInstance from "../util/axiosInstance";
+import { getProductReviews, reviewAverage } from "../util/serverSideProps";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { isEmpty } from "lodash";
 
 const CustomerReviews = () => {
+  const { id } = useParams();
+  const loggedUser = useSelector((state: RootState) => state.user.user);
   const [reviewModelOpen, setReviewModalOpen] = useState<boolean>(false);
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
+  const [showDeletePopup, setShowDeletePopup] = useState<boolean>(false);
+  const [productReviews, setProductReviews] = useState<any>(null);
+  const [showmore, setShowMore] = useState<boolean>(false);
+  const [reviewTodelete, setReviewTodelete] = useState(null);
+
+  const fetchReviews = async () => {
+    try {
+      const reviews = await getProductReviews(id as string);
+      setProductReviews(reviews);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, [id]);
 
   const handleReviewModalOpen = () => {
     setReviewModalOpen(true);
@@ -17,9 +43,33 @@ const CustomerReviews = () => {
     setReviewModalOpen(false);
   };
 
-  const handleSubmitReview = () => {
+  const handleSubmitReview = async () => {
     try {
-      console.log(review, rating);
+      const data = {
+        rating: rating,
+        comment: review
+      };
+      const res = await axiosInstance.post(`reviews/${id}`, data);
+      setProductReviews([res?.data?.data, ...productReviews]);
+      handleReviewModalClose();
+      setRating(0);
+      setReview("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleShowMore = () => {
+    setShowMore(!showmore);
+  };
+
+  const handleDeleteReview = async () => {
+    try {
+      const res = await axiosInstance.delete(`reviews/${id}`);
+      setProductReviews(
+        productReviews.filter((review: any) => review._id !== reviewTodelete)
+      );
+      setShowDeletePopup(false);
     } catch (error) {
       console.log(error);
     }
@@ -37,22 +87,43 @@ const CustomerReviews = () => {
           <p
             className={`${firaSans.className} text-3xl lg:text-5xl font-bold `}
           >
-            4.9
+            {productReviews && reviewAverage(productReviews)}
           </p>
           <StarRating ratingValue={5} readOnly={true} />
-          <p className="text-xs lg:text-sm">Based on 16113 reviews</p>
+          <p className="text-xs lg:text-sm">
+            Based on {productReviews?.length} reviews
+          </p>
         </div>
-        <button
-          type="submit"
-          className="h-10 text-white font-medium px-5 text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm"
-          onClick={handleReviewModalOpen}
-        >
-          Write A Review
-        </button>
+        {!isEmpty(loggedUser) && (
+          <button
+            type="submit"
+            className="h-10 text-white font-medium px-5 text-center bg-neutral-800 focus:ring-4 mt-auto text-xs lg:text-sm"
+            onClick={handleReviewModalOpen}
+          >
+            Write A Review
+          </button>
+        )}
       </div>
-      {[1, 2, 3, 4].map((index) => (
-        <ReviewCard key={index} />
-      ))}
+      {productReviews &&
+        productReviews
+          ?.slice(0, showmore ? productReviews.length : 4)
+          .map((prodReview: any, index: number) => (
+            <ReviewCard
+              key={index}
+              prodReview={prodReview}
+              fetchReviews={fetchReviews}
+              onDelete={(reviewId: string) => {
+                setShowDeletePopup(true);
+                setReviewTodelete(reviewId);
+              }}
+            />
+          ))}
+      <div
+        className="w-full mx-auto my-4 text-md md:text-lg text-blue-500 text-center hover:underline cursor-pointer"
+        onClick={handleShowMore}
+      >
+        {productReviews?.length > 4 && (!showmore ? "Show More" : "Show Less")}
+      </div>
       <Modal
         show={reviewModelOpen}
         dismissible
@@ -66,7 +137,11 @@ const CustomerReviews = () => {
           </div>
           <div className="mt-8">
             <p className="lg:text-lg">Write your opinion:</p>
-            <Textarea rows={5} />
+            <Textarea
+              rows={5}
+              onChange={(e) => setReview(e.target.value)}
+              value={review}
+            />
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -78,6 +153,30 @@ const CustomerReviews = () => {
             Submit
           </button>
         </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showDeletePopup}
+        onClose={() => setShowDeletePopup(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this Review?
+            </h3>
+            <div className="flex items-center justify-center gap-3">
+              <Button color="failure" onClick={handleDeleteReview}>
+                Yes, I&apos;m sure
+              </Button>
+              <Button onClick={() => setShowDeletePopup(false)}>
+                No, Cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
       </Modal>
     </div>
   );

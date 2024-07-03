@@ -1,11 +1,8 @@
-// "use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { firaSans } from "../util/fonts";
 import ProductCard from "../Components/ProductCard";
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
-import { Spinner } from "flowbite-react";
 
 const Shop = async () => {
   const prods = await getProducts();

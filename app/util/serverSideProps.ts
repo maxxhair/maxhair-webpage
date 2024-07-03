@@ -40,3 +40,25 @@ export const getUserOrders = async () => {
     console.log(error);
   }
 };
+
+export const getProductReviews = async (productId: string) => {
+  try {
+    const response = await axios.get(`${baseUrl}reviews/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching variant reviews:", error);
+    throw error;
+  }
+};
+
+export const reviewAverage = (productReviews) => {
+  let sum = 0;
+  let count = 0;
+  for (const review of productReviews) {
+    if (review.rating) {
+      sum += review.rating;
+      count++;
+    }
+  }
+  return (sum / count).toFixed(1);
+};
