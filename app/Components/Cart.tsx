@@ -6,11 +6,10 @@ import { AppDispatch, RootState } from "../store";
 import {
   addCouponCode,
   addDiscount,
-  fetchCartProducts,
   removeCouponCode
 } from "../store/redux/cartSlice";
 import axios from "axios";
-import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
 import Image from "next/image";
 import { closeIcon } from "../util/images";
@@ -67,10 +66,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
       return;
     }
   }, [cartItems]);
-
-  // useEffect(() => {
-  //   dispatch(fetchCartProducts(input));
-  // }, []);
 
   const today = new Date();
   const EstimatedDeliveryDate = new Date(
@@ -148,8 +143,8 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
             <p
               className={
                 couponCodeApplied
-                  ? `text-sm text-green-500`
-                  : `text-sm text-red-500`
+                  ? `text-md text-green-500`
+                  : `text-md text-red-500`
               }
             >
               {couponcodemsg}
@@ -185,7 +180,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
               </div>
               <div className="w-full flex items-center justify-between">
                 <p className="label-medium text-gray-500 font-medium">
-                  Estimated Delivery by
+                  Estimated Delivery Date
                 </p>
                 <p className="label-medium font-medium">
                   {EstimatedDeliveryDate}
