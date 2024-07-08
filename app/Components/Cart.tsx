@@ -6,11 +6,10 @@ import { AppDispatch, RootState } from "../store";
 import {
   addCouponCode,
   addDiscount,
-  fetchCartProducts,
   removeCouponCode
 } from "../store/redux/cartSlice";
 import axios from "axios";
-import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
 import Image from "next/image";
 import { closeIcon } from "../util/images";
@@ -28,6 +27,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
 
   const dispatch = useDispatch<AppDispatch>();
   const [couponcodemsg, setCouponCodeMsg] = useState("");
+  const [couponCodeApplied, setCouponCodeApplied] = useState<boolean>(false);
 
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
@@ -48,14 +48,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     dispatch(addCouponCode(e.target.value));
   };
 
-  // const addToCart = async () => {
-  //   try {
-  //     const res = await axiosInstance.post(``);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const successCallback = () => {};
   const errorCallback = (error: string) => {
     console.log(error);
@@ -74,10 +66,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
       return;
     }
   }, [cartItems]);
-
-  // useEffect(() => {
-  //   dispatch(fetchCartProducts(input));
-  // }, []);
 
   const today = new Date();
   const EstimatedDeliveryDate = new Date(
@@ -102,11 +90,13 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
       if (!isEmpty(response.data)) {
         dispatch(addDiscount(response.data[0].discount));
         setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+        setCouponCodeApplied(true);
       }
     } catch (error) {
       if (error.response.status === 404) {
         setCouponCodeMsg("Coupon does not exist");
         dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
       }
     }
   };
@@ -149,7 +139,17 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
               Apply
             </button>
           </div>
-          {couponcodemsg && <p className="text-sm">{couponcodemsg}</p>}
+          {couponcodemsg && (
+            <p
+              className={
+                couponCodeApplied
+                  ? `text-md text-green-500`
+                  : `text-md text-red-500`
+              }
+            >
+              {couponcodemsg}
+            </p>
+          )}
           <div className="">
             <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
               <div className="w-full flex items-center justify-between">
@@ -180,7 +180,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
               </div>
               <div className="w-full flex items-center justify-between">
                 <p className="label-medium text-gray-500 font-medium">
-                  Estimated Delivery by
+                  Estimated Delivery Date
                 </p>
                 <p className="label-medium font-medium">
                   {EstimatedDeliveryDate}

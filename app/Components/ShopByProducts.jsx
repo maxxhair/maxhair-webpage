@@ -6,8 +6,7 @@ import { firaSansMedium } from "../util/fonts";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Card from "./_shopbyproducts/Card";
 import { prodimg } from "../util/images";
-
-import axiosInstance, { baseUrl } from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import Loader from "./Loader";
 import axios from "axios";
 

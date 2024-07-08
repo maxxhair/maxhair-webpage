@@ -25,7 +25,7 @@ interface Props {
 
 const AddAddressForm: React.FC<Props> = ({
   getuserAddresses,
-  handleCloseModal,
+  handleCloseModal
 }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user as any);
@@ -37,13 +37,13 @@ const AddAddressForm: React.FC<Props> = ({
     country: "",
     landmark: "",
     zipcode: "",
-    mobileNumber: "",
+    mobileNumber: ""
   });
 
   const handleInputChange = (e: any) => {
     setAddressFormData({
       ...addressFormData,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   };
   const handlePhoneInputChange = (value: any) => {
@@ -64,10 +64,9 @@ const AddAddressForm: React.FC<Props> = ({
         landmark: addressFormData.landmark,
         zipcode: addressFormData.zipcode,
         mobileNumber: addressFormData.mobileNumber,
-        user: user._id,
+        user: user._id
       };
       const res = await axiosInstance.post("address", body);
-      console.log("response", res.data);
       dispatch(
         selectAddress({
           _id: res.data.data._id,
@@ -78,7 +77,7 @@ const AddAddressForm: React.FC<Props> = ({
           country: res.data.data.country,
           landmark: res.data.data.landmark,
           zipcode: res.data.data.zipcode,
-          phone: res.data.data.mobileNumber,
+          phone: res.data.data.mobileNumber
         })
       );
       handleCloseModal();
@@ -158,7 +157,7 @@ const AddAddressForm: React.FC<Props> = ({
           id: "mobileNumber",
           required: true,
           className:
-            "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px] pl-12",
+            "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px] pl-12"
         }}
         onChange={handlePhoneInputChange}
       />

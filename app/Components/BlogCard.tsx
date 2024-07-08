@@ -1,9 +1,11 @@
 import { Card } from "flowbite-react";
 import Link from "next/link";
+import { generateSlug } from "../util/slug";
 
 export function BlogCard() {
+  const slug = generateSlug("Know your Hair");
   return (
-    <Link href="/blogpage">
+    <Link href={`/blog/${slug}`}>
       <Card
         className="max-w-sm mx-auto cursor-pointer"
         imgAlt="Meaningful alt text for an image that is not purely decorative"

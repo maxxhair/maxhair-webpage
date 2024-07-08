@@ -9,7 +9,7 @@ const LatestBlogCard = () => {
       <p className={`${firaSansMedium.className} p-2 m-auto max-xl:text-xs `}>
         Curly And Confident: How To Manage Deep Curly Hair With Ease <br />
         <a
-          href="blogidhere"
+          href="#"
           className="text-[#A47252] hover:underline font-semibold max-xl:text-xs"
         >
           Read More

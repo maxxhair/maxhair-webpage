@@ -61,13 +61,19 @@ function Header() {
             className={`md:flex md:items-center hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
           >
             <Link
-              href="shop"
+              href="/shop"
               className={path === "/shop" ? "border-b-2 border-black" : ""}
             >
               Shop
             </Link>
             <Link
-              href="meetOurStylist"
+              href="/ourstory"
+              className={path === "/ourstory" ? "border-b-2 border-black" : ""}
+            >
+              Our Story
+            </Link>
+            <Link
+              href="/meetOurStylist"
               className={
                 path === "/meetOurStylist" ? "border-b-2 border-black" : ""
               }
@@ -75,13 +81,13 @@ function Header() {
               Meet Our Stylist
             </Link>
             <Link
-              href="blog"
+              href="/blog"
               className={path === "/blog" ? "border-b-2 border-black" : ""}
             >
               Blog
             </Link>
             <Link
-              href="contact"
+              href="/contact"
               className={path === "/contact" ? "border-b-2 border-black" : ""}
             >
               Contact

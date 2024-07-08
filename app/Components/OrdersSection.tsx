@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyOrders from "./MyOrders";
 import axiosInstance from "../util/axiosInstance";
-import { getUserOrders } from "../util/serverSideProps";
 import { Spinner } from "flowbite-react";
 
 const OrdersSection = () => {

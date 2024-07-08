@@ -1,15 +1,8 @@
 "use client";
-
 import Image from "next/image";
 import { firaSans, firaSansLight } from "../util/fonts";
 import SubscribeForm from "./_footer/SubscribeForm";
-import {
-  companyLogo,
-  instagram,
-  facebook,
-  hairStrand,
-  brandLogo
-} from "../util/images";
+import { instagram, facebook, hairStrand, brandLogo } from "../util/images";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -26,15 +19,15 @@ function Footer() {
       <div className="h-[70px] w-full !bg-[#FAFAFA] absolute top-0 left-0 "></div>
       <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide xl:gap-[100px] lg:gap-[80px] gap-[40px]">
         <div className="flex lg:justify-between justify-evenly items-center xl:text-left text-center xl:flex-row flex-col-reverse w-full xl:gap-[100px] lg:gap-[80px] gap-[60px]">
-          <span
+          {/* <span
             className={`lg:headline-large md:headline-medium headline-small flex flex-col gap-[10px] `}
+          > */}
+          <span
+            className={`lg:headline-large md:headline-medium headline-small font-extrabold text-[#242424] ${firaSans.className}`}
           >
-            <span
-              className={`font-extrabold text-[#242424] ${firaSans.className}`}
-            >
-              Subscribe to follow
-            </span>
-            <span
+            Subscribe to follow
+          </span>
+          {/* <span
               className={`font-[100] uppercase text-[#4F4F4F] ${firaSansLight.className}`}
             >
               Infinity projects, funding and
@@ -43,8 +36,8 @@ function Footer() {
               className={` uppercase text-[#A47252] ${firaSansLight.className}`}
             >
               career opportunities.
-            </span>
-          </span>
+            </span> */}
+          {/* </span> */}
           <div className="border-[7px] border-[#F2ECE2] bg-[#A47252] h-fit md:min-w-[390px] min-w-[300px] px-[30px] py-[40px]">
             <SubscribeForm />
           </div>
@@ -80,7 +73,6 @@ function Footer() {
                 >
                   Company
                 </span>
-
                 <Link
                   href="/about"
                   className="text-[#4F4F4F] xl:text-left text-center tracking-wide lg:label-large md:label-medium label-small leading-[32px]"

@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
   }
 });
 
+//Interceptor for api autorization access using access-token
 axiosInstance.interceptors.request.use(
   (config) => {
     const state = store.getState();

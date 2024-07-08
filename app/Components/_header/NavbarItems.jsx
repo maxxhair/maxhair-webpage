@@ -10,6 +10,7 @@ import {
   profileForNavbarIcon,
   shopForNavbarIcon
 } from "../../util/images";
+import ourstory from "../../../public/aboutus.svg";
 import Image from "next/image";
 
 const Navbar = ({ setToggle }) => {
@@ -22,6 +23,7 @@ const Navbar = ({ setToggle }) => {
       icon: profileForNavbarIcon
     },
     { title: "Shop", id: "shop", icon: shopForNavbarIcon },
+    { title: "Our Story", id: "ourstory", icon: ourstory },
     {
       title: "Meet Our Stylist",
       id: "meetOurStylist",

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import CartItem from "./CartItem";
 import { addCouponCode, addDiscount } from "../store/redux/cartSlice";
+import axios from "axios";
+import { baseUrl } from "../util/axiosInstance";
+import { isEmpty } from "lodash";
 
 const CheckoutCartDetails = () => {
   const cartProducts = useSelector((state: RootState) => state.cart.cartItems);
@@ -13,6 +16,36 @@ const CheckoutCartDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [couponcodemsg, setCouponCodeMsg] = useState("");
+  const [couponCodeApplied, setCouponCodeApplied] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (couponCode.length !== 6) {
+      dispatch(addDiscount(0));
+      setCouponCodeMsg("");
+    }
+  }, [couponCode]);
+
+  const VerifyCouponCode = async () => {
+    try {
+      if (!couponCode && couponCode.length !== 6) {
+        dispatch(addDiscount(0));
+        setCouponCodeMsg("");
+        return;
+      }
+      const response = await axios.get(`${baseUrl}coupons/${couponCode}`);
+      if (!isEmpty(response.data)) {
+        dispatch(addDiscount(response.data[0].discount));
+        setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+        setCouponCodeApplied(true);
+      }
+    } catch (error) {
+      if (error.response.status === 404) {
+        setCouponCodeMsg("Coupon does not exist");
+        dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
+      }
+    }
+  };
 
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
@@ -51,18 +84,26 @@ const CheckoutCartDetails = () => {
           type="text"
           className="w-full bg-white outline-none py-3 px-2 rounded-lg"
           value={couponCode.toUpperCase()}
+          onChange={handleUpdateCouponCode}
         />
         <button
-          className={
-            couponCode !== ""
-              ? "bg-transparent px-6 py-3 border border-green-400 rounded-lg text-green-400"
-              : "border border-black  px-6 py-3 rounded-lg"
-          }
+          className="bg-transparent px-6 py-3 border border-black rounded-lg"
+          onClick={VerifyCouponCode}
         >
-          {couponCode !== "" ? "Applied" : "Apply"}
+          Apply
         </button>
       </div>
-      {couponcodemsg !== "" && <p className="text-sm">{couponcodemsg}</p>}
+      {couponcodemsg !== "" && (
+        <p
+          className={
+            couponCodeApplied
+              ? `text-sm text-green-500`
+              : `text-sm text-red-500`
+          }
+        >
+          {couponcodemsg}
+        </p>
+      )}
       <div className="">
         <div className="headline-small pt-5">
           <div className="py-5 border-b border-gray-500 flex flex-col gap-2">

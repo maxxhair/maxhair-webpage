@@ -17,6 +17,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "backend.maxxhairextensions.com",
         pathname: "/**"
+      },
+      {
+        protocol: "http",
+        hostname: "192.168.50.184",
+        port: "3008",
+        pathname: "/**"
       }
     ]
   }

@@ -405,7 +405,6 @@ export default function Page() {
               <div className="flex lg:flex-row flex-col">
                 <div className="flex items-center gap-6 m-3 justify-between">
                   <div className="flex items-center gap-6">
-                    {" "}
                     <div
                       className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
                       onClick={() => setQuantity(selectedQuantity - 1)}

@@ -1,13 +1,32 @@
 "use client";
+import axios from "axios";
 import serialize from "form-serialize";
 import React, { useRef } from "react";
+import toast from "react-hot-toast";
 
 const ContactForm = () => {
-  const formRef = useRef();
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const formRef = useRef<HTMLFormElement>();
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const obj = serialize(e.target as HTMLFormElement, { hash: true });
-    console.log(obj);
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}contact`,
+        {
+          fullName: obj.fullname,
+          emailId: obj.email,
+          subject: obj.subject,
+          message: obj.message
+        }
+      );
+      if (res.status === 201) {
+        toast.success("Your message has been sent successfully!");
+        formRef?.current?.reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
