@@ -53,7 +53,7 @@ const BlogPage = () => {
           <p>
             Well, we now know how important the cuticle is lets take care of it.
           </p>
-          <ol className=" list-inside list-decimal space-y-4 ">
+          <ol className="list-inside list-decimal space-y-4 ">
             <li>
               <u> Cleansing:</u> Use a sulfate-free, pH-balanced shampoo to
               cleanse your hair extensions without stripping away its natural

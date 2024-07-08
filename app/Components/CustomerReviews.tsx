@@ -31,9 +31,11 @@ const CustomerReviews = () => {
     }
   };
 
+  console.log("reviews", productReviews);
+
   useEffect(() => {
     fetchReviews();
-  }, [id]);
+  }, []);
 
   const handleReviewModalOpen = () => {
     setReviewModalOpen(true);
@@ -50,7 +52,7 @@ const CustomerReviews = () => {
         comment: review
       };
       const res = await axiosInstance.post(`reviews/${id}`, data);
-      setProductReviews([res?.data?.data, ...productReviews]);
+      fetchReviews();
       handleReviewModalClose();
       setRating(0);
       setReview("");
@@ -87,7 +89,7 @@ const CustomerReviews = () => {
           <p
             className={`${firaSans.className} text-3xl lg:text-5xl font-bold `}
           >
-            {productReviews && reviewAverage(productReviews)}
+            {productReviews?.length > 0 && reviewAverage(productReviews)}
           </p>
           <StarRating ratingValue={5} readOnly={true} />
           <p className="text-xs lg:text-sm">

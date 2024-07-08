@@ -9,51 +9,100 @@ import {
 
 export const list = [
   {
-    title:
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque",
+    title: "1.Where is your hair sourced from?",
     body: [
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla."
+      "At maxx hair extensions, hair is ethically sourced from the temples in India."
     ]
   },
   {
     title:
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque",
+      "2.Is your hair remy? What kind of treatment does your hair undergo?",
     body: [
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla."
+      "Maxx hair extensions only produces virgin remy. Our hair does not undergo any chemical treatment or process. Once the hair product is made, it is washed with shampoo for hygiene reasons."
     ]
   },
   {
-    title:
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque",
+    title: "3.Why did you name your company maxx?",
     body: [
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla."
+      "That’s a good question, maxx stands for maximum. It is the motto of the brand to provide maximum of everything, maximum value, maximum trust, maximum volume and maximum length."
     ]
   },
   {
-    title:
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque",
+    title: "4.Is your hair cuticle free?",
     body: [
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla."
+      "No, at maxx hair extensions we “DO NOT” remove the cuticle. Cuticle is an essential part of the hair anatomy and should not be removed. We strive to retain the cuticle as much as possible. Thus extending the longevity of the product."
     ]
   },
   {
-    title:
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque",
+    title: "5.How long does your hair last?",
     body: [
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla.",
-      "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla."
+      "If taken good care, our hair bundles last forever. This is not a chemically treated product so the life span is forever. Unless you use harsh chemicals that breaks the hair down."
+    ]
+  },
+  {
+    title: "6.Is this virgin hair?",
+    body: [
+      "Yes, maxx hair extensions produces only high quality virgin remy hair."
+    ]
+  },
+  {
+    title: "7.What is your delivery time?",
+    body: [
+      "We are a global company with warehouses around the globe. Depending on where and what you order the delivery time differs. Typically within USA the delivery time is 3 - 5 business days. For custom orders, it is 10-12 business days?"
+    ]
+  },
+  {
+    title: "8.Do you manufacture hair in the United States?",
+    body: ["No, Our manufacturing unit is in India."]
+  },
+  {
+    title: "9.What is the length of your bundles?",
+    body: [
+      "We have a range of sizes that you can choose from. All our bundles usually have a little extra for trimming and styling purposes."
+    ]
+  },
+  {
+    title: "10.How much hair do I get in a bundle?",
+    body: [
+      "Each hair bundle is 100 grams or 3.6 ounces. All out bundles usually have a few extra grams"
+    ]
+  },
+  {
+    title: "11.Does your wefts shed?",
+    body: [
+      "This is a natural product dealing with natural textures. Therefore you will experience natural shedding but not enormous amount."
+    ]
+  },
+  {
+    title: "12.How long are your wefts?",
+    body: [
+      "We do not have a standard weft width. The width varies based on the length of hair. Longer the length, shorter the weft. Shorter the length, wider the weft."
+    ]
+  },
+  {
+    title: "13.What is your return policy?",
+    body: [
+      "At maxx hair extensions, quality is our priority. To maintain high standard of hygiene we do not accept returns. If there is a manufacturing defect with the product you purchased, please reach out to us via email at support@maxxhe.com and we will handle it on case to case basis."
+    ]
+  },
+  {
+    title: "14.How do you handle customer support?",
+    body: ["You can reach us via email at support@maxxhe.com"]
+  },
+  {
+    title: "15.What if the product I am looking for is out of stock?",
+    body: [
+      "We are factory backed shop, therefore all products are always in stock. The only difference is in the delivery time."
+    ]
+  },
+  {
+    title: "16.How do enroll myself as a stylist on your website?",
+    body: [
+      "Thank you for your interest in becoming a part of our journey, Please reach out to us at admin@maxxhe.com and we will subscribe you based don your credentials."
     ]
   }
 ];
+
 export const list1 = [
   {
     title: "Features",

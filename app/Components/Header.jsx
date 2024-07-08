@@ -67,6 +67,12 @@ function Header() {
               Shop
             </Link>
             <Link
+              href="/ourstory"
+              className={path === "/ourstory" ? "border-b-2 border-black" : ""}
+            >
+              Our Story
+            </Link>
+            <Link
               href="/meetOurStylist"
               className={
                 path === "/meetOurStylist" ? "border-b-2 border-black" : ""

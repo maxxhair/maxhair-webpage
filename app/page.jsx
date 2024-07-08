@@ -13,10 +13,10 @@ export default function Home() {
     <section className="mt-20 xl:mt-28">
       <Greet />
       <ShopByTextures />
-      <OfferSpace />
+      {/* <OfferSpace /> */}
       <ShopByProducts />
       <NewCollection />
-      <ShopByTypes />
+      {/* <ShopByTypes /> */}
       <Reviews />
       <Blogs />
       <Faq />

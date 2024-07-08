@@ -81,7 +81,7 @@ function Blogs() {
               read more
             </Link>
           </div>
-          <div className="w-full flex justify-end gap-[10px]">
+          {/* <div className="w-full flex justify-end gap-[10px]">
             <button
               className={`swiper-prev-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
                 selected === 0
@@ -102,11 +102,11 @@ function Blogs() {
             >
               {">"}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className=" xl:w-[70%] lg:w-[90%] w-full relative  ">
-        <Swiper
+        {/* <Swiper
           ref={sliderRefBlogs}
           initialSlide={1}
           effect="coverflow"
@@ -138,8 +138,8 @@ function Blogs() {
               delay: 3000
             }
           }}
-        >
-          {list.map((obj, index) => {
+        > */}
+        {/* {list.map((obj, index) => {
             return (
               <SwiperSlide
                 key={index}
@@ -148,25 +148,27 @@ function Blogs() {
                   justifyContent: "flex-start",
                   alignItems: "center"
                 }}
-              >
-                <div
-                  className={` ${
-                    selected === index
-                      ? "bg-[#242424] text-[#F2ECE2]"
-                      : "text-[#242424] bg-white"
-                  }  lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2`}
-                >
-                  <Image
-                    src={obj.image}
-                    alt="error"
-                    className="object-cover h-[90px] w-[90px]"
-                  />
-                  <span className="line-clamp-2">{obj.data}</span>
-                </div>
-              </SwiperSlide>
-            );
+              > */}
+        {/* <div
+          className="
+           lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2"
+        >
+          <Image
+            src={blogImage2}
+            alt="error"
+            className="object-cover h-[90px] w-[90px]"
+          />
+          <span className="line-clamp-2">
+            Have you ever wondered why is hair so precious? What makes up a
+            strand of hair? what is it made of? Why is it so difficult to find
+            good hair? And what makes up good hair? And most importantly what
+            makes it so expensive? We have heard you!
+          </span>
+        </div> */}
+        {/* </SwiperSlide> */}
+        {/* );
           })}
-        </Swiper>
+        </Swiper> */}
       </div>
     </div>
   );

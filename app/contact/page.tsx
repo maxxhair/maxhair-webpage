@@ -1,16 +1,17 @@
 import Image from "next/image";
 import React from "react";
-import { contactUsBgImg } from "../util/images";
+import contactusbanner from "../../public/contactusbanner.png";
 import { firaSansMedium } from "../util/fonts";
 import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
 import ContactForm from "../Components/ContactForm";
+import Faq from "../Components/Faq";
 
 const Contact = () => {
   return (
-    <section className="w-full md:w-3/4 mx-auto mt-[10vh]">
+    <section className="w-full md:w-3/4 mx-auto mt-[10vh] md:mt-[14vh]">
       <div className="w-full relative">
-        <Image src={contactUsBgImg} alt="blogs" />
-        <div className="flex flex-col items-center gap-4 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-white">
+        <Image src={contactusbanner} alt="blogs" />
+        <div className="flex flex-col items-center gap-4 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-black">
           <p className={`${firaSansMedium.className} headline-large`}>
             Contact Us
           </p>
@@ -34,6 +35,7 @@ const Contact = () => {
           </p>
         </div>
         <ContactForm />
+        <Faq />
       </div>
     </section>
   );

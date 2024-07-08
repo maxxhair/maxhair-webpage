@@ -51,7 +51,7 @@ export const getProductReviews = async (productId: string) => {
   }
 };
 
-export const reviewAverage = (productReviews) => {
+export const reviewAverage = (productReviews: any) => {
   let sum = 0;
   let count = 0;
   for (const review of productReviews) {
