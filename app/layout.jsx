@@ -9,7 +9,7 @@ import ScrolltoTop from "./Components/ScrolltoTop";
 
 export const metadata = {
   title: "Maxx Hair",
-  description: "hair extensions"
+  description: "hair extensions",
 };
 
 export default function RootLayout({ children }) {

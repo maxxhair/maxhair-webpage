@@ -31,6 +31,16 @@ import blogImage2 from "/public/Frame 1618873065.svg";
 import blogImage3 from "/public/unnamed_92ff5186-c4af-4cac-967e-533238f9669b_360x.jpg.svg";
 import blogImage4 from "/public/Frame 1618873065 (1).svg";
 import tiktok from "/public/ticktok.svg";
+import OurStory1 from "/public/ourstory1.png";
+import OurStory2 from "/public/ourstory2.png";
+import OurStory3 from "/public/ourstory3.png";
+import OurStory4 from "/public/ourstory4.png";
+import OurStory5 from "/public/ourstory5.png";
+import OurStoryWig1 from "/public/wig-1.png";
+import OurStoryWig2 from "/public/wig-2.png";
+import OurStoryWig3 from "/public/wig-3.png";
+import OurStoryWig4 from "/public/wig-4.png";
+import rings from "/public/rings.png";
 
 export {
   companyLogo,
@@ -65,5 +75,15 @@ export {
   blogImage2,
   blogImage3,
   blogImage4,
-  tiktok
+  tiktok,
+  OurStory1,
+  OurStory2,
+  OurStory3,
+  OurStory4,
+  OurStory5,
+  OurStoryWig1,
+  OurStoryWig2,
+  OurStoryWig3,
+  OurStoryWig4,
+  rings
 };
