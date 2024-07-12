@@ -7,6 +7,75 @@ import {
   productImage5
 } from "./images";
 
+export const textureTypesData = [
+  {
+    id: 1,
+    type: "Type 1",
+    data: [
+      {
+        name: "Straight",
+        img: "/straighttxt.png"
+      },
+      {
+        name: "Wavy",
+        img: "/wavytxt.png"
+      }
+    ]
+  },
+  {
+    id: 2,
+    type: "Type 2",
+    data: [
+      {
+        name: "Curly",
+        img: "/straighttxt.png"
+      },
+      {
+        name: "Deep Wave",
+        img: "/wavytxt.png"
+      },
+      {
+        name: "Body Wave",
+        img: "/straighttxt.png"
+      },
+      {
+        name: "Jackson Wave",
+        img: "/wavytxt.png"
+      }
+    ]
+  },
+  {
+    id: 3,
+    type: "Type 3",
+    data: [
+      {
+        name: "Kinky",
+        img: "/wavytxt.png"
+      },
+      {
+        name: "Organic",
+        img: "/straighttxt.png"
+      },
+      {
+        name: "Coil Curly",
+        img: "/straighttxt.png"
+      },
+      {
+        name: "Curly Ringlet",
+        img: "/wavytxt.png"
+      },
+      {
+        name: "Super Deep",
+        img: "/straighttxt.png"
+      },
+      {
+        name: "relaxed/Yaki/Blowout",
+        img: "/wavytxt.png"
+      }
+    ]
+  }
+];
+
 export const list = [
   {
     title: "1.Where is your hair sourced from?",
@@ -185,6 +254,7 @@ export const colorOpts = [
   "Orange"
 ];
 export const typeOpts = ["Single drawn", "Double drawn"];
+
 export const textureOpts = [
   "Bone Straight",
   "Straight Wavy",

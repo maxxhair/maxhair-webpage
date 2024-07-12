@@ -31,8 +31,6 @@ const CustomerReviews = () => {
     }
   };
 
-  console.log("reviews", productReviews);
-
   useEffect(() => {
     fetchReviews();
   }, []);
@@ -78,7 +76,7 @@ const CustomerReviews = () => {
   };
 
   return (
-    <div className="m-8 text-sm">
+    <div className="text-sm">
       <p
         className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
       >

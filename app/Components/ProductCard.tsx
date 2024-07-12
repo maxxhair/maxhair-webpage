@@ -36,37 +36,20 @@ const ProductCard: React.FC<Props> = ({ item }) => {
 
   return (
     <Link href={`/${item._id}`} title={item?.title}>
-      <div
-        className="px-2 py-5 h-auto transition-all duration-300 bg-white hover:bg-[#e3d6c5] relative"
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
-      >
-        <Image
-          src={imageUrl}
-          alt="img-err"
-          className="m-auto border-1 border-black"
-          width={140}
-          height={200}
-        />
+      <div className="px-3 py-5 h-auto transition-all duration-300 bg-white  relative shadow-lg rounded-md">
+        <div className="relative xl:w-full aspect-[3/4]">
+          <Image
+            src={imageUrl}
+            alt="img-err"
+            className="m-auto border-1 border-black"
+            layout="fill"
+          />
+        </div>
         <p
-          className={`${firaSans.className} text-center text-xl font-semibold pb-1 truncate`}
+          className={`${firaSans.className} text-center text-xl font-semibold py-4`}
         >
           {item?.title}
         </p>
-        <p className="align-middle justify-center flex font-semibold pb-1">
-          ${item?.cheapestVariant?.price}
-        </p>
-
-        <p className="flex justify-center text-center w-full text-sm px-3">
-          {item.category?.title}
-        </p>
-        <button
-          className={`w-full h-10 bg-[#242424] grid place-items-center absolute bottom-0 left-0 text-white ${
-            hovered ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          VIEW PRODUCT
-        </button>
       </div>
     </Link>
   );

@@ -95,7 +95,7 @@ function Header() {
           </div>
           <div className="flex items-center gap-5 justify-end">
             <Link
-              href={isEmpty(loggedUser) ? "signin" : "profile"}
+              href={isEmpty(loggedUser) ? "/signin" : "/profile"}
               className="md:block hidden"
             >
               <Image src={user} alt="profile" className="w-6" />

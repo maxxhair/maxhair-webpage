@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 
 const MostPopular = (props) => {
   return (
-    <div className="m-8">
+    <div>
       <p
         className={`${firaSans.className} text-xl lg:text-3xl my-10 font-bold`}
       >

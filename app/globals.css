@@ -37,9 +37,9 @@ body {
   }
 }
 
-.bg-footer-design {
+/* .bg-footer-design {
   background-image: url("../public/Group3042773.svg");
-}
+} */
 
 /* ScrollableDiv.css */
 .scrollableDiv {
@@ -157,6 +157,22 @@ body {
   --tw-ring-opacity: 0 !important;
 }
 
-input[type="radio"] {
-  display: none;
+.text-shadow-gold {
+  color: transparent;
+  -webkit-text-stroke: 1px #b1845e;
+}
+
+.text-shadow-white {
+  color: transparent;
+  -webkit-text-stroke: 1px #fafafa;
+}
+
+.text-shadow-yellow {
+  color: transparent;
+  -webkit-text-stroke: 1px #e3d6c5;
+}
+
+.text-90 {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }

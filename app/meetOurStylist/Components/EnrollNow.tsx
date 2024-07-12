@@ -105,7 +105,7 @@ function EnrollNow() {
                   id: "phoneno",
                   required: true,
                   className:
-                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12"
+                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12",
                 }}
               />
             </div>
@@ -214,7 +214,7 @@ function EnrollNow() {
               </select>
             </div>
             <span
-              className={`${firaSans.className} lg:title-larg font-[500] title-small`}
+              className={`${firaSans.className} lg:title-large font-[500] title-small`}
             >
               Personal Information
             </span>

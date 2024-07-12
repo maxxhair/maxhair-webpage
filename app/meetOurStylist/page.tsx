@@ -47,7 +47,7 @@ function page() {
           </div>
         </div>
       </div>
-      <div className="w-full  bg-[#F2ECE2] flex justify-center items-center py-[50px] px-[10px]">
+      <div className="w-full bg-[#F2ECE2] flex justify-center items-center py-[50px] px-[10px]">
         <div className="flex flex-wrap justify-center gap-[20px] xl:w-full w-[80%]">
           <div className="bg-[#FAFAFA] shadow-md sm:h-[350px] h-[300px] flex flex-col px-[20px] py-[20px] justify-evenly items-center text-center xl:w-[600px] w-full ">
             <span

@@ -9,8 +9,15 @@ import Faq from "../Components/Faq";
 const Contact = () => {
   return (
     <section className="w-full md:w-3/4 mx-auto mt-[10vh] md:mt-[14vh]">
-      <div className="w-full relative">
-        <Image src={contactusbanner} alt="blogs" />
+      <div className="w-full relative h-[50vh] md:h-[60vh] lg:h-[70vh]">
+        <Image
+          src={contactusbanner}
+          alt="blogs"
+          layout="fill"
+          objectFit="cover"
+          sizes="100vw"
+          className="z-0"
+        />
         <div className="flex flex-col items-center gap-4 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-black">
           <p className={`${firaSansMedium.className} headline-large`}>
             Contact Us

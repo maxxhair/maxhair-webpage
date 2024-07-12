@@ -16,24 +16,26 @@ const Shop = async () => {
         <span>-</span>
         <p className="label-medium lg:label-large">Shop</p>
       </div>
-      <h1 className={`${firaSans.className} headline-medium`}>All Products</h1>
-      <p className="label-medium lg:label-large w-full lg:w-3/4">
-        Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-        tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus
-        bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non
-        at bibendum nulla nulla.
+      <h1 className={`${firaSans.className} headline-medium`}>Products</h1>
+      <p className="label-medium lg:label-large w-full lg:w-3/4 text-justify mt-5">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome to Maxx
+        hair extensions, where we cater to a diverse range of needs with our
+        extensive selection of high-quality virgin remy human hair products.
+        Whether you’re looking for a quick DIY product or a long-term hair
+        bundle that you want a stylist to install, we have something for
+        everyone. Each product reflects our unwavering commitment to quality and
+        value, ensuring you get the best-in-class functionality and style.
+        Thereby enhancing your lifestyle and boosting your confidence. All our
+        products are made with <b>100% virgin remy cuticle hair</b>. You can
+        wash them, color them, style them to your liking. Explore our wide
+        variety of offerings and experience the difference today!
+      </p>
+      <p className="font-semibold text-3xl mt-7">
+        Once again, Quality is our priority!
       </p>
       <div className="w-full flex flex-col lg:flex-row justify-between my-7 relative">
         <div className="w-full ">
-          <div className="w-full hidden lg:flex items-center justify-end gap-3 my-4">
-            <p className="label-small">{prods?.length} items</p>
-            <p className="label-small">Sort by</p>
-            <select className="h-auto bg-transparent focus:outline-none active:outline-none">
-              <option value="Bestseller">Best Seller</option>
-              <option value="Newest">Newest</option>
-            </select>
-          </div>
-          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 2xl:gap-10 md:gap-4 lg:gap-y-12 gap-5">
+          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 2xl:gap-16 md:gap-4 lg:gap-y-12 gap-5">
             {prods?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
