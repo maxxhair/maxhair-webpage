@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 
 const RepeatOrders = (props) => {
   return (
-    <div className="m-8">
+    <div>
       <p className={`${firaSans.className} text-xl lg:text-3xl my-8 font-bold`}>
         Repeat Orders
       </p>

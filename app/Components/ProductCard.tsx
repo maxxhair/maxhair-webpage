@@ -36,7 +36,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
 
   return (
     <Link href={`/${item._id}`} title={item?.title}>
-      <div className="px-3 py-5 h-auto transition-all duration-300 bg-white hover:bg-[#e3d6c5] relative">
+      <div className="px-3 py-5 h-auto transition-all duration-300 bg-white  relative shadow-lg rounded-md">
         <div className="relative xl:w-full aspect-[3/4]">
           <Image
             src={imageUrl}

@@ -30,6 +30,7 @@ import blogImage1 from "/public/hair- under microscope.svg";
 import blogImage2 from "/public/Frame 1618873065.svg";
 import blogImage3 from "/public/unnamed_92ff5186-c4af-4cac-967e-533238f9669b_360x.jpg.svg";
 import blogImage4 from "/public/Frame 1618873065 (1).svg";
+import tiktok from "/public/ticktok.svg";
 
 export {
   companyLogo,
@@ -63,5 +64,6 @@ export {
   blogImage1,
   blogImage2,
   blogImage3,
-  blogImage4
+  blogImage4,
+  tiktok
 };

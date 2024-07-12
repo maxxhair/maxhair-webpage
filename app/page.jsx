@@ -16,8 +16,8 @@ export default function Home() {
       {/* <OfferSpace /> */}
       <ShopByProducts />
       <NewCollection />
-      {/* <ShopByTypes /> */}
-      <Reviews />
+      <ShopByTypes />
+      {/* <Reviews /> */}
       <Blogs />
       <Faq />
     </section>

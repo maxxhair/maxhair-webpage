@@ -20,7 +20,6 @@ import { addProduct, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { LoggedUser, ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
-import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
@@ -254,9 +253,7 @@ export default function Page() {
 
   return (
     variants && (
-      <div
-        className={` bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}
-      >
+      <div className={`text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}>
         <div className="md:flex flex-row inline">
           <div className=" block md:hidden m-4  w-3/5 mx-auto">
             <ProductImageSwiper mainImage={productImage1} />
@@ -454,15 +451,6 @@ export default function Page() {
                 </button>
               </div>
             </div>
-            <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
-              <Image src={logo} alt="img-err" className="m-3 w-16" />
-              <p className="text-sm p-5 font-semibold">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-            </div>
             <p className=" text-lg font-semibold mt-4">Description</p>
             <div className="mt-3 ">
               <p>
@@ -471,31 +459,10 @@ export default function Page() {
                 rhoncus bibendum aliquam montes magna blandit lobortis quis.
                 Eget nam quis non at bibendum nulla nulla
               </p>
-
-              <p className="mt-1.5">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-
-              <p className="mt-1.5">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-
-              <p className="mt-1.5">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
             </div>
           </div>
         </div>
-        <div className="md:flex md:flex-col lg:flex-row mt-10 inline">
+        {/* <div className="md:flex md:flex-col lg:flex-row mt-10 inline">
           <div className="lg:w-5/12 lg:p-8 font-semibold mt-8 max-xl:m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
@@ -516,10 +483,11 @@ export default function Page() {
               );
             })}
           </div>
-        </div>
-        <MostPopular prods={products} />
-        <RepeatOrders prods={products} />
+        </div> */}
         <CustomerReviews />
+        {/* <MostPopular prods={products} />
+        <RepeatOrders prods={products} /> */}
+
         <Modal
           show={openSignupModel}
           onClose={handleSignupModelClose}
