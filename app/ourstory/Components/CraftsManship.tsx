@@ -1,12 +1,16 @@
 import Image from "next/image";
 import { OurStory3 } from "../../util/images";
 import { firaSans, firaSansBold } from "../../util/fonts";
+import ImageAnimation from "./Animation/ImageAnimation";
 
 function CraftsManship() {
   return (
     <div className=" relative h-auto w-screen py-[32px] px-[32px] flex flex-col justify-center items-center gap-10">
       <div className="flex flex-col justify-center xl:w-[60%] lg:w-[70%] md:w-[80%] w-[90%]">
-        <Image src={OurStory3} alt="Hair Photo" className="w-full h-auto" />
+        <div className="w-full h-auto">
+          <ImageAnimation image={OurStory3} alternative="Hair Photo" />
+        </div>
+
         <span
           className={`${firaSansBold.className} lg:pl-10 md:pl-5 xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px] lg:-translate-y-10 md:-translate-y-5  uppercase text-shadow-gold lg:display-large md:display-medium display-small`}
         >

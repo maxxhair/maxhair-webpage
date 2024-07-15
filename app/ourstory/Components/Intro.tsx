@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { OurStory2 } from "../../util/images";
 import { firaSans, firaSansLight } from "../../util/fonts";
+import ImageAnimation from "./Animation/ImageAnimation";
 
 function Intro() {
   return (
-    <div className="w-screen h-auto flex lg:flex-row flex-col justify-center items-center lg:gap-28 md:gap-16 gap-10 px-[32px] py-[32px]">
+    <div className="w-screen h-auto flex lg:flex-row flex-col justify-center items-center lg:gap-28 md:gap-16 gap-10 px-[32px] md:py-[32px] py-[20px]">
       <div className="h-full flex justify-center items-center">
-        <Image src={OurStory2} alt="" />
+        <ImageAnimation image={OurStory2} alternative="Hair Quality" />
       </div>
       <div className="flex flex-col justify-center  gap-5 lg:w-[50%] md:w-[80%] w-full lg:text-left text-balance">
         <span className="lg:label-large md:label-medium label-small text-[#3D3D3D] ">
