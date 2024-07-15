@@ -12,12 +12,12 @@ function CraftsManship() {
         </div>
 
         <span
-          className={`${firaSansBold.className} lg:pl-10 md:pl-5 xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px] lg:-translate-y-10 md:-translate-y-5  uppercase text-shadow-gold lg:display-large md:display-medium display-small`}
+          className={`${firaSansBold.className} z-10 lg:pl-10 md:pl-5 xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px] lg:-translate-y-10 md:-translate-y-5  uppercase text-shadow-gold lg:display-large md:display-medium display-small`}
         >
           Expert
         </span>
         <span
-          className={`${firaSansBold.className} lg:pl-10 md:pl-5  xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px] lg:-translate-y-10 md:-translate-y-5 uppercase text-shadow-gold lg:display-large md:display-medium display-small`}
+          className={`${firaSansBold.className} z-10 lg:pl-10 md:pl-5  xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px] lg:-translate-y-10 md:-translate-y-5 uppercase text-shadow-gold lg:display-large md:display-medium display-small`}
         >
           Craftsmanship
         </span>

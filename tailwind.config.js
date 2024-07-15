@@ -22,7 +22,7 @@ module.exports = {
     function ({ addUtilities }) {
       const newUtilities = {
         ".display-large": {
-          fontSize: "90px",
+          fontSize: "87px",
         },
         ".display-medium": {
           fontSize: "61px",

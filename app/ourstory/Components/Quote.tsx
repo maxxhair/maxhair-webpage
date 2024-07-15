@@ -4,9 +4,9 @@ import DivAnimation from "./Animation/DivAnimation";
 
 function Quote() {
   return (
-    <div className="relative flex flex-col justify-center w-full px-[32px] py-[32px] pl-[5vw] gap-10 xl:mt-20 lg:mt-10 md:mt-5 mt-0">
+    <div className="relative xl:h-screen h-[58vh] lg:min-h-[800px] min-h-[730px] flex flex-col justify-center w-full px-[32px] py-[32px] pl-[5vw] gap-10 xl:mt-8 lg:mt-4 md:mt-2 mt-0">
       <span
-        className={`${firaSansLight.className} xl:display-large lg:display-medium display-small w-[90%]`}
+        className={`${firaSansLight.className} xl:display-large lg:display-medium display-small md:w-[90%] w-full xl:leading-[110px] lg:leading-[90px] md:leading-[70px] leading-[60px]`}
       >
         Our extensions are more than just products; they are a testament to our
         dedication to quality, ethics, and customer satisfaction.
