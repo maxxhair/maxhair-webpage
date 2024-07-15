@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { IoClose } from "react-icons/io5";
 import { prodimg } from "../util/images";
 import React, { useState } from "react";
 import { firaSans } from "../util/fonts";
@@ -29,7 +30,6 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({ item }) => {
   const router = useRouter();
-  const [hovered, setHovered] = useState(false);
   const [openSubProducts, setOpenSubProducts] = useState(false);
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
@@ -74,7 +74,6 @@ const ProductCard: React.FC<Props> = ({ item }) => {
         dismissible
         size="md"
       >
-        <Modal.Header>Sub Products</Modal.Header>
         <Modal.Body>
           <div className="relative w-full object-cover aspect-[3/4]">
             <Image
@@ -83,9 +82,14 @@ const ProductCard: React.FC<Props> = ({ item }) => {
               className="m-auto border-1 border-black"
               layout="fill"
             />
+            <div
+              className="bg-gray-300 w-fit p-1 rounded-full absolute top-3 right-3 cursor-pointer"
+              onClick={() => setOpenSubProducts(false)}
+            >
+              <IoClose size={"1.5rem"} className="" />
+            </div>
           </div>
           <div className="flex flex-col gap-4">
-            {" "}
             <p
               className={`${firaSans.className} text-center text-xl font-semibold py-2`}
             >
