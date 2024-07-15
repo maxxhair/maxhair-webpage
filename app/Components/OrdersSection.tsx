@@ -34,9 +34,9 @@ const OrdersSection = () => {
 
   return (
     <div className="w-full">
-      {orders && orders.length > 0 ? (
+      {orders && orders?.length > 0 ? (
         orders
-          ?.slice(0, showMore ? orders.length : 4)
+          ?.slice(0, showMore ? orders?.length : 4)
           .map((order: any) => <MyOrders order={order} key={order._id} />)
       ) : (
         <div className="w-full min-h-[30vh] grid place-items-center">
@@ -50,7 +50,7 @@ const OrdersSection = () => {
           className="text-center text-blue-500 hover:underline cursor-pointer"
           onClick={() => setShowMore(true)}
         >
-          {orders.length > 4 && "show more"}
+          {orders?.length > 4 && "show more"}
         </p>
       ) : (
         <p

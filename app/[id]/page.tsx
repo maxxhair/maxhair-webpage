@@ -3,7 +3,6 @@
 import Image from "next/image";
 import {
   deliveryImg,
-  logo,
   productImage1,
   productImage2,
   productImage3,
@@ -12,8 +11,7 @@ import {
   prodimg
 } from "../util/images";
 import React, { useEffect, useState } from "react";
-import ExtraInfoSection from "../Components/ExtraInfoSection";
-import { colorOpts, list1, textureOpts, typeOpts } from "../util/staticData";
+import { colorOpts, textureOpts, typeOpts } from "../util/staticData";
 import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, setOpenCart } from "../store/redux/cartSlice";
@@ -251,6 +249,10 @@ export default function Page() {
     );
   }
 
+  const productDescription = products.filter(
+    (product) => product?._id === id
+  )[0];
+
   return (
     variants && (
       <div className={`text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}>
@@ -453,37 +455,10 @@ export default function Page() {
             </div>
             <p className=" text-lg font-semibold mt-4">Description</p>
             <div className="mt-3 ">
-              <p>
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
+              <p>{productDescription && productDescription?.description}</p>
             </div>
           </div>
         </div>
-        {/* <div className="md:flex md:flex-col lg:flex-row mt-10 inline">
-          <div className="lg:w-5/12 lg:p-8 font-semibold mt-8 max-xl:m-8">
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-              tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-              rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget
-              nam quis non at bibendum nulla nulla
-            </p>
-          </div>
-          <div className="md:w-7/12 p-6 h-auto text-xs xl:text-sm">
-            {list1.map((obj, index) => {
-              return (
-                <ExtraInfoSection
-                  key={index}
-                  title={obj.title}
-                  body={obj.body}
-                  isOpen={index === 0}
-                />
-              );
-            })}
-          </div>
-        </div> */}
         <CustomerReviews />
         {/* <MostPopular prods={products} />
         <RepeatOrders prods={products} /> */}

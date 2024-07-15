@@ -35,6 +35,7 @@ const StarRating: React.FC<Props> = ({
               value={idx + 1}
               checked={ratingValue === idx + 1}
               disabled={readOnly}
+              className="hidden"
             />
             <FaStar
               color={

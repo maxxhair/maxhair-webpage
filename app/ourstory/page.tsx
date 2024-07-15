@@ -17,8 +17,8 @@ import Reactive2 from "./Components/Reactive2";
 
 const OurStory = () => {
   return (
-    <div className="mt-28 md:mt-24 xl:mt-28">
-      <div className="w-screen h-screen relative flex justify-evenly items-center">
+    <div className="mt-20 md:mt-24 xl:mt-28 ">
+      <div className="w-screen min-h-[800px] h-screen relative flex justify-between p-10 items-center">
         <Image
           src={OurStory1}
           alt="Header Image"
@@ -28,19 +28,15 @@ const OurStory = () => {
           <Image
             src={OurStoryWig1}
             alt="wig-1"
-            className="-rotate-6"
-            width={300}
-            height={300}
+            className=" lg:w-[300px] md:w-[200px] w-[120px] lg:h-[300px] md:h-[200px] h-[120px] -rotate-6"
           />
           <Image
             src={OurStoryWig2}
             alt="wig-2"
-            className="-rotate-6 scale-90 translate-x-28 translate-y-10"
-            width={300}
-            height={300}
+            className="lg:w-[300px] md:w-[200px] w-[120px] lg:h-[300px] md:h-[200px] h-[120px] -rotate-6 scale-90 md:translate-x-28 translate-x-12 translate-y-10"
           />
         </div>
-        <div className="flex flex-col justify-center items-center text-center gap-5">
+        <div className="z-10 absolute top-0 left-0 h-full w-full flex flex-col justify-center items-center text-center gap-5">
           <span
             className={`text-[#B1845E] lg:display-medium md:display-small headline-large ${firaSansMedium.className}`}
           >
@@ -61,16 +57,12 @@ const OurStory = () => {
           <Image
             src={OurStoryWig3}
             alt="wig-3"
-            className=""
-            width={300}
-            height={300}
+            className="lg:w-[300px] md:w-[200px] w-[120px] lg:h-[300px] md:h-[200px] h-[120px]"
           />
           <Image
             src={OurStoryWig4}
             alt="wig-4"
-            className="rotate-12 -translate-x-20 scale-90 translate-y-10"
-            width={300}
-            height={300}
+            className="lg:w-[300px] md:w-[200px] w-[120px] lg:h-[300px] md:h-[200px] h-[120px] rotate-12 md:-translate-x-20 -translate-x-10 scale-90 translate-y-10"
           />
         </div>
       </div>
