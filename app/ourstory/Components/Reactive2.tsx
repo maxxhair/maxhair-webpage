@@ -1,5 +1,4 @@
 import { firaSans, firaSansBold } from "../../util/fonts";
-import Image from "next/image";
 import { OurStory5 } from "../../util/images";
 import DivAnimation from "./Animation/DivAnimation";
 import ImageAnimation from "./Animation/ImageAnimation";
@@ -17,16 +16,16 @@ function Reactive2() {
         >
           <span>Quality</span> <span>Assurance</span>
         </span>
-        <div className="h-auto 2xl:-translate-y-[10%] xl:-translate-y-[20%] xl:w-[60%] w-full">
+        <div className="h-auto 2xl:-translate-y-[10%] xl:-translate-y-[20%] -translate-y-[30%] xl:w-[60%] w-full">
           <ImageAnimation image={OurStory5} alternative="Quality Assurance" />
         </div>
-        <div className="flex flex-col gap-5 text-[#fafafa]">
+        <div className="flex flex-col lg:gap-5 gap-1 text-[#fafafa]">
           <span
             className={`${firaSans.className}  lg:title-large md:title-medium title-small`}
           >
             Quality Assurance
           </span>
-          <span className=" lg:body-large md:body-medium body-small xl:w-[450px] w-full font-extralight leading-[35.24px]">
+          <span className=" lg:body-large md:body-medium body-small xl:w-[450px] w-full font-extralight lg:leading-[35.24px] md:leading-[28px] leading-[22px]">
             Each bundle of hair goes through multi-stage processing and numerous
             quality checks. Our rigorous process ensures that only the finest
             hair reaches product development.
@@ -34,7 +33,7 @@ function Reactive2() {
         </div>
 
         <span
-          className={`${firaSansBold.className} xl:block flex flex-col justify-center items-center h-full  xl:relative absolute xl:top-0 lg:top-[10%] top-0 xl:left-0 -left-1/2 text-nowrap uppercase xl:text-shadow-white text-shadow-gold xl:text-0 text-90 2xl:text-[140px] xl:text-[110px] lg:text-[90px] md:text-[70px] text-[50px] `}
+          className={`${firaSansBold.className} xl:block flex flex-col justify-center items-center h-full  xl:relative absolute xl:top-0 lg:top-[10%] top-0 xl:left-0 -left-[60%] text-nowrap uppercase xl:text-shadow-white text-shadow-gold xl:text-0 text-90 2xl:text-[140px] xl:text-[110px] lg:text-[90px] md:text-[70px] text-[50px] xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px]`}
         >
           <span>Quality</span> <span>Assurance</span>
         </span>

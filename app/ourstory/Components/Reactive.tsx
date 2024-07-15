@@ -35,13 +35,13 @@ function Reactive() {
             </span>
           </div>
 
-          <div className="flex flex-col gap-5 text-[#fafafa]">
+          <div className="flex flex-col lg:gap-5 gap-3 text-[#fafafa]">
             <span
               className={`${firaSans.className}  lg:title-large md:title-medium title-small`}
             >
               Sourcing Excellence
             </span>
-            <span className=" lg:body-large md:body-medium body-small xl:w-[450px] lg:w-[400px] md:w-[80%] font-extralight w-full leading-[35.24px]">
+            <span className=" lg:body-large md:body-medium body-small xl:w-[450px] lg:w-[400px] md:w-[80%] font-extralight w-full lg:leading-[35.24px] md:leading-[28px] leading-[22px]">
               Our team of highly professional SMEs follows a thorough 110-point
               check to identify the best raw material. Our manufacturing process
               begins right at the source, ensuring only the highest quality hair
