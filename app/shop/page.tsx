@@ -18,17 +18,17 @@ const Shop = async () => {
       </div>
       <h1 className={`${firaSans.className} headline-medium`}>Products</h1>
       <p className="label-medium lg:label-large w-full lg:w-3/4 text-justify mt-5">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome to Maxx
-        hair extensions, where we cater to a diverse range of needs with our
-        extensive selection of high-quality virgin remy human hair products.
-        Whether you’re looking for a quick DIY product or a long-term hair
-        bundle that you want a stylist to install, we have something for
-        everyone. Each product reflects our unwavering commitment to quality and
-        value, ensuring you get the best-in-class functionality and style.
-        Thereby enhancing your lifestyle and boosting your confidence. All our
-        products are made with <b>100% virgin remy cuticle hair</b>. You can
-        wash them, color them, style them to your liking. Explore our wide
-        variety of offerings and experience the difference today!
+        &emsp;&emsp;Welcome to Maxx hair extensions, where we cater to a diverse
+        range of needs with our extensive selection of high-quality virgin remy
+        human hair products. Whether you’re looking for a quick DIY product or a
+        long-term hair bundle that you want a stylist to install, we have
+        something for everyone. Each product reflects our unwavering commitment
+        to quality and value, ensuring you get the best-in-class functionality
+        and style. Thereby enhancing your lifestyle and boosting your
+        confidence. All our products are made with{" "}
+        <b>100% virgin remy cuticle hair</b>. You can wash them, color them,
+        style them to your liking. Explore our wide variety of offerings and
+        experience the difference today!
       </p>
       <p className="font-semibold text-3xl mt-7">
         Once again, Quality is our priority!

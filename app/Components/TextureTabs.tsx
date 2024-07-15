@@ -7,14 +7,14 @@ const TextureTabs = () => {
   const [selected, setSelected] = useState(1);
   return (
     <>
-      <div className="flex items-center gap-10 my-10">
+      <div className="flex items-center gap-3 md:gap-10 my-10">
         {textureTypesData.map((textureType) => (
           <button
             key={textureType.id}
             className={
               selected === textureType.id
-                ? "px-6 py-2  border border-black text-lg bg-black text-white font-bold"
-                : "px-6 py-2 bg-transparent border border-white text-lg text-white font-bold"
+                ? "px-6 py-2  border border-black text-sm md:text-lg bg-black text-white font-bold"
+                : "px-6 py-2 bg-transparent border border-white text-sm md:text-lg text-white font-bold"
             }
             onClick={() => setSelected(textureType.id)}
           >
