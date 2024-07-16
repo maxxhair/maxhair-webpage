@@ -1,11 +1,18 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import { firaSans } from "../util/fonts";
 import ProductCard from "../Components/ProductCard";
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
 
-const Shop = async () => {
-  const prods = await getProducts();
+const Shop = () => {
+  const [products, setProducts] = React.useState([]);
+
+  useEffect(() => {
+    getProducts().then((prods) => {
+      setProducts(prods);
+    });
+  }, []);
 
   return (
     <section className="mt-28 lg:mt-52 w-full p-5 lg:p-0 lg:w-4/5 mx-auto">
@@ -36,7 +43,7 @@ const Shop = async () => {
       <div className="w-full flex flex-col lg:flex-row justify-between my-7 relative">
         <div className="w-full ">
           <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 2xl:gap-16 md:gap-4 lg:gap-y-12 gap-5">
-            {prods?.map((product: any) => (
+            {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}
           </div>
