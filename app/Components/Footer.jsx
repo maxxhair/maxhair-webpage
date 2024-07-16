@@ -7,7 +7,7 @@ import {
   facebook,
   hairStrand,
   brandLogo,
-  tiktok
+  tiktok,
 } from "../util/images";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -43,8 +43,8 @@ function Footer() {
             : "h-[70px] w-full !bg-[#FAFAFA] absolute top-0 left-0 "
         }
       ></div>
-      <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide xl:gap-[100px] lg:gap-[80px] gap-[40px]">
-        <div className="flex lg:justify-between justify-evenly items-center xl:text-left text-center xl:flex-row flex-col-reverse w-full xl:gap-[100px] lg:gap-[80px] gap-[60px]">
+      <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide xl:gap-[60px] lg:gap-[40px] gap-[20px]">
+        <div className="flex lg:justify-between justify-evenly items-center xl:text-left text-center xl:flex-row flex-col-reverse w-full xl:gap-[60px] lg:gap-[40px] gap-[20px]">
           <span
             className={`lg:headline-large md:headline-medium headline-small font-extrabold text-[#242424] ${firaSans.className}`}
           >
@@ -54,7 +54,7 @@ function Footer() {
             <SubscribeForm />
           </div>
         </div>
-        <div className="flex flex-col bg-footer-design xl:gap-[100px] w-full lg:gap-[80px] gap-[60px]">
+        <div className="flex flex-col bg-footer-design xl:gap-[40px] w-full lg:gap-[20px] gap-[10px]">
           <div className="flex xl:justify-start justify-center items-center">
             <Image src={brandLogo} alt="Maxx hair extensions" width={400} />
           </div>

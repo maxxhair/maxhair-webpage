@@ -58,7 +58,7 @@ function Header() {
             <Image src={brandLogo} alt="logo" width={400} />
           </Link>
           <div
-            className={`md:flex md:items-center hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
+            className={`xl:flex xl:items-center hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
           >
             <Link
               href="/shop"

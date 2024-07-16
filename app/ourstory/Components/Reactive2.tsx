@@ -16,7 +16,7 @@ function Reactive2() {
         >
           <span>Quality</span> <span>Assurance</span>
         </span>
-        <div className="h-auto 2xl:-translate-y-[10%] xl:-translate-y-[20%] -translate-y-[30%] xl:w-[60%] w-full">
+        <div className="h-auto 2xl:-translate-y-[10%] xl:-translate-y-[15%] -translate-y-[20%] xl:w-[60%] w-full">
           <ImageAnimation image={OurStory5} alternative="Quality Assurance" />
         </div>
         <div className="flex flex-col lg:gap-5 gap-1 text-[#fafafa]">
@@ -33,7 +33,7 @@ function Reactive2() {
         </div>
 
         <span
-          className={`${firaSansBold.className} xl:block flex flex-col justify-center items-center h-full  xl:relative absolute xl:top-0 lg:top-[10%] top-0 xl:left-0 -left-[60%] text-nowrap uppercase xl:text-shadow-white text-shadow-gold xl:text-0 text-90 2xl:text-[140px] xl:text-[110px] lg:text-[90px] md:text-[70px] text-[50px] xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px]`}
+          className={`${firaSansBold.className} xl:block flex flex-col justify-center items-center h-full xl:mt-10 xl:relative absolute xl:top-0 lg:top-[10%] top-0 xl:left-0 -left-[50%] text-nowrap uppercase xl:text-shadow-white text-shadow-gold xl:text-0 text-90 2xl:text-[140px] xl:text-[110px] lg:text-[90px] md:text-[70px] text-[50px] xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[60.4px]`}
         >
           <span>Quality</span> <span>Assurance</span>
         </span>

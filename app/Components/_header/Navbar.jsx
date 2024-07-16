@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <>
       <button
-        className="flex flex-col gap-[5px] md:hidden justify-center rounded-full w-[50px] h-[px] bg-transparent p-[8px]"
+        className="flex flex-col gap-[5px] xl:hidden justify-center rounded-full w-[50px] h-[px] bg-transparent p-[8px]"
         onClick={() => setToggle(!isToggled)}
       >
         <div className="w-full h-[3px] bg-[#384347]"></div>
@@ -43,13 +43,13 @@ const Navbar = () => {
       <AnimatePresence>
         {isToggled && (
           <motion.div
-            className="border-t-2 bg-transparent w-full min-h-fit flex md:hidden justify-around items-center absolute top-[100%] right-0 z-50 "
+            className="border-t-2 bg-transparent w-full min-h-fit flex xl:hidden justify-around items-center absolute top-[100%] right-0 z-50 "
             initial="hidden"
             animate={isToggled ? "visible" : "hidden"}
             exit="hidden"
             variants={navContainer}
           >
-            <div className="bg-[#f9f6f3] flex w-full  px-[32px] py-[32px]  shadow-lg">
+            <div className="bg-[#f9f6f3] flex w-full px-[32px] py-[32px]  shadow-lg">
               <NavbarItems setToggle={setToggle} />
             </div>
           </motion.div>

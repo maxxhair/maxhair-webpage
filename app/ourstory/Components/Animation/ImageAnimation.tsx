@@ -31,9 +31,9 @@ function ImageAnimation({ image, alternative }: ImageAnimationProps) {
         ref.current = node;
         inViewRef(node);
       }}
-      initial={{ opacity: 0, scale: 0.9, y: "0%" }}
-      animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-      transition={{ duration: 1 }}
+      initial={{ opacity: 0, y: "0%" }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.3 }}
       className="h-full w-full"
       style={{ y: ySpring }}
     >
