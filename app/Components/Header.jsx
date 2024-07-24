@@ -107,9 +107,11 @@ function Header() {
                 className="cursor-pointer w-5 h-5"
                 onClick={handleCartOpen}
               />
-              <div className="absolute top-3 md:right-[25%] right-0 bg-pink-100 w-6 h-6 body-small aspect-square rounded-full grid place-items-center">
-                {cartCount}
-              </div>
+              {cartCount > 0 && (
+                <div className="absolute top-3 md:right-[25%] right-0 bg-pink-100 w-6 h-6 body-small aspect-square rounded-full grid place-items-center">
+                  {cartCount}
+                </div>
+              )}
             </div>
           </div>
         </div>
