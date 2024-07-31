@@ -1,12 +1,13 @@
 import React from "react";
-import { contactUsBgImg } from "../util/images";
 import blogbanner from "../../public/blogbanner.png";
 import Image from "next/image";
 import { firaSans } from "../util/fonts";
 import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
-import { BlogCard } from "../Components/BlogCard";
+import BlogCard from "../Components/BlogCard";
+import { fetchBlogs } from "../util/serverSideProps";
 
-const Blogpage = () => {
+const Blogpage = async () => {
+  const blogs = await fetchBlogs();
   return (
     <section className="w-full md:w-4/5 lg:3/4 mx-auto mt-[10vh] md:mt-[14vh]">
       <div className="w-full relative h-[50vh] md:h-[60vh] lg:h-[70vh]">
@@ -28,7 +29,9 @@ const Blogpage = () => {
         <BreadcrumbItem className="capitalize">Our Blog</BreadcrumbItem>
       </Breadcrumb>
       <div className="w-full p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
-        <BlogCard />
+        {blogs.map((blog) => (
+          <BlogCard key={blog._id} blog={blog} />
+        ))}
       </div>
     </section>
   );
