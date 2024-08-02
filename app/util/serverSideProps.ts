@@ -55,7 +55,7 @@ export const reviewAverage = (productReviews: any) => {
   let sum = 0;
   let count = 0;
   for (const review of productReviews) {
-    if (review.rating) {
+    if (review?.rating) {
       sum += review.rating;
       count++;
     }

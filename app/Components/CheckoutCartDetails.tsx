@@ -6,6 +6,7 @@ import { addCouponCode, addDiscount } from "../store/redux/cartSlice";
 import axios from "axios";
 import { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
+import { CouponValidation } from "../util/helpers";
 
 const CheckoutCartDetails = () => {
   const cartProducts = useSelector((state: RootState) => state.cart.cartItems);
@@ -18,31 +19,41 @@ const CheckoutCartDetails = () => {
   const [couponcodemsg, setCouponCodeMsg] = useState("");
   const [couponCodeApplied, setCouponCodeApplied] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (couponCode.length !== 6) {
-      dispatch(addDiscount(0));
-      setCouponCodeMsg("");
-    }
-  }, [couponCode]);
-
   const VerifyCouponCode = async () => {
     try {
-      if (!couponCode && couponCode.length !== 6) {
+      if (!couponCode) {
         dispatch(addDiscount(0));
         setCouponCodeMsg("");
         return;
       }
       const response = await axios.get(`${baseUrl}coupons/${couponCode}`);
+
       if (!isEmpty(response.data)) {
-        dispatch(addDiscount(response.data[0].discount));
-        setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
-        setCouponCodeApplied(true);
+        const validateCoupon = CouponValidation(response.data[0], priceTotal);
+        console.log("Coupon Validation:", validateCoupon);
+
+        if (!validateCoupon.errors.discount) {
+          dispatch(addDiscount(Number(validateCoupon.couponAmount)));
+          setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+          setCouponCodeApplied(true);
+        } else {
+          setCouponCodeMsg(validateCoupon.errors.discount);
+          dispatch(addDiscount(0));
+          setCouponCodeApplied(false);
+        }
+      } else {
+        setCouponCodeMsg("Invalid coupon code");
+        dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
       }
     } catch (error) {
-      if (error.response.status === 404) {
+      if (error?.response?.status === 404) {
         setCouponCodeMsg("Coupon does not exist");
         dispatch(addDiscount(0));
         setCouponCodeApplied(false);
+      } else {
+        console.error("Error verifying coupon code:", error);
+        setCouponCodeMsg("An error occurred. Please try again.");
       }
     }
   };
@@ -55,6 +66,12 @@ const CheckoutCartDetails = () => {
     }
     return totalPrice;
   });
+
+  useEffect(() => {
+    if (couponCodeApplied && couponCode.length > 0) {
+      VerifyCouponCode();
+    }
+  }, [couponCodeApplied, couponCode, priceTotal]);
 
   const handleUpdateCouponCode = (e: any) => {
     dispatch(addCouponCode(e.target.value));
@@ -115,7 +132,7 @@ const CheckoutCartDetails = () => {
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Discount</p>
-              <p className="label-medium font-medium">${discount}</p>
+              <p className="label-medium font-medium">${discountPercentage}</p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Shipping</p>
@@ -126,7 +143,7 @@ const CheckoutCartDetails = () => {
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">TOTAL</p>
               <p className="label-medium font-medium">
-                ${(priceTotal - discount).toFixed(2)}
+                ${(priceTotal - discountPercentage).toFixed(2)}
               </p>
             </div>
             <div className="w-full flex items-center justify-between">

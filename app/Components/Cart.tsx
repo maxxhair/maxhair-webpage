@@ -13,6 +13,7 @@ import { baseUrl } from "../util/axiosInstance";
 import { isEmpty } from "lodash";
 import Image from "next/image";
 import { closeIcon } from "../util/images";
+import { CouponValidation } from "../util/helpers";
 
 interface Props {
   handleClose: () => void;
@@ -87,19 +88,51 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
         return;
       }
       const response = await axios.get(`${baseUrl}coupons/${couponCode}`);
+
+      // if (!isEmpty(response.data)) {
+      //   const validateCoupon = CouponValidation(response.data[0], priceTotal);
+      //   console.log("Coponnnn", validateCoupon);
+      //   dispatch(addDiscount(response.data[0].discount));
+      //   setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+      //   setCouponCodeApplied(true);
+      // }
+
       if (!isEmpty(response.data)) {
-        dispatch(addDiscount(response.data[0].discount));
-        setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
-        setCouponCodeApplied(true);
-      }
-    } catch (error) {
-      if (error.response.status === 404) {
-        setCouponCodeMsg("Coupon does not exist");
+        const validateCoupon = CouponValidation(response.data[0], priceTotal);
+        console.log("Coupon Validation:", validateCoupon);
+
+        if (!validateCoupon.errors.discount) {
+          dispatch(addDiscount(Number(validateCoupon.couponAmount)));
+          setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+          setCouponCodeApplied(true);
+        } else {
+          setCouponCodeMsg(validateCoupon.errors.discount);
+          dispatch(addDiscount(0));
+          setCouponCodeApplied(false);
+        }
+      } else {
+        setCouponCodeMsg("Invalid coupon code");
         dispatch(addDiscount(0));
         setCouponCodeApplied(false);
       }
+    } catch (error) {
+      if (error?.response?.status === 404) {
+        setCouponCodeMsg("Coupon does not exist");
+        dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
+      } else {
+        console.error("Error verifying coupon code:", error);
+        setCouponCodeMsg("An error occurred. Please try again.");
+      }
     }
   };
+
+  // discount check
+  useEffect(() => {
+    if (couponCodeApplied && couponCode.length > 0) {
+      VerifyCouponCode();
+    }
+  }, [couponCodeApplied, couponCode, priceTotal]);
 
   const handleRemoveCoupon = () => {
     dispatch(removeCouponCode());
@@ -161,7 +194,9 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
                 <p className="label-medium text-gray-500 font-medium">
                   Discount
                 </p>
-                <p className="label-medium font-medium">${discount}</p>
+                <p className="label-medium font-medium">
+                  ${discountPercentage}
+                </p>
               </div>
               <div className="w-full flex items-center justify-between">
                 <p className="label-medium text-gray-500 font-medium">
@@ -174,7 +209,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
               <div className="w-full flex items-center justify-between">
                 <p className="label-medium text-gray-500 font-medium">TOTAL</p>
                 <p className="label-medium font-medium">
-                  ${(priceTotal - discount).toFixed(2)}
+                  ${(priceTotal - discountPercentage).toFixed(2)}
                 </p>
               </div>
               <div className="w-full flex items-center justify-between">

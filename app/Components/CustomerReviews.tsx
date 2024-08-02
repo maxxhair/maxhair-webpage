@@ -75,7 +75,8 @@ const CustomerReviews = () => {
     }
   };
 
-  const avgRating = reviewAverage(productReviews);
+  const avgRating =
+    productReviews?.legth > 0 ? reviewAverage(productReviews) : 0;
 
   return (
     <div className="text-sm">

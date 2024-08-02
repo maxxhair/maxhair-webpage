@@ -113,6 +113,7 @@ function ShopByProducts() {
                             category={list[ele].category.title}
                             link={`${list[ele]._id}`}
                             image={list[ele].images[0] || prodimg}
+                            subProducts={list[ele].subProducts}
                           />
                         </React.Fragment>
                       );
