@@ -89,14 +89,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
       }
       const response = await axios.get(`${baseUrl}coupons/${couponCode}`);
 
-      // if (!isEmpty(response.data)) {
-      //   const validateCoupon = CouponValidation(response.data[0], priceTotal);
-      //   console.log("Coponnnn", validateCoupon);
-      //   dispatch(addDiscount(response.data[0].discount));
-      //   setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
-      //   setCouponCodeApplied(true);
-      // }
-
       if (!isEmpty(response.data)) {
         const validateCoupon = CouponValidation(response.data[0], priceTotal);
         console.log("Coupon Validation:", validateCoupon);

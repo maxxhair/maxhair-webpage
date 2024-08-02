@@ -9,17 +9,35 @@ import Image from "next/image";
 import { blogImage2, sample1 } from "../util/images";
 import Link from "next/link";
 import { firaSans, firaSansMedium } from "../util/fonts";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { generateSlug } from "../util/slug";
+import axios from "axios";
+import { baseUrl } from "../util/axiosInstance";
 
 function Blogs() {
   const [selected, setSelected] = useState(1);
   const sliderRefBlogs = useRef(null);
+  const [blog, setBlog] = useState(null);
   const slug = generateSlug("Know Your Hair");
   const handleSlideChange = useCallback(() => {
     const swiper = sliderRefBlogs.current.swiper;
     setSelected(swiper.realIndex);
   }, []);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}blog`);
+        setBlog(response.data.data[0]);
+      } catch (error) {
+        throw error;
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const baseImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+  const blogimg = `${baseImageUrl}/${blog?.blogImage}`;
 
   //replace this with data from api
   const list = [
@@ -59,9 +77,11 @@ function Blogs() {
       <div className="flex lg:flex-row flex-col justify-evenly items-center lg:gap-[70px] gap-[30px] xl:w-[70%] lg:w-[90%] w-full ">
         <div className="lg:w-[calc(50%-70px)] w-[90%] h-full flex justify-center items-center ">
           <Image
-            src={list[selected].image}
+            src={blogimg}
             alt=""
-            className="w-auto h-auto rounded-xl"
+            className="w-full h-full rounded-xl"
+            width={400}
+            height={300}
           />
         </div>
         <div className="flex flex-col gap-[20px] lg:w-[calc(50%-70px)] w-[90%] justify-evenly">
@@ -69,13 +89,13 @@ function Blogs() {
             <span
               className={`${firaSans.className} lg:title-large md:title-medium title-small line-clamp-1`}
             >
-              {list[selected].data}
+              {blog?.title}
             </span>
             <span className="text-[#242424] lg:label-large md:label-medium label-small line-clamp-5 w-fit ">
-              {list[selected].body}
+              {blog?.subHeading}
             </span>
             <Link
-              href={list[selected].link}
+              href={`blog/${blog?._id}`}
               className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
             >
               read more
