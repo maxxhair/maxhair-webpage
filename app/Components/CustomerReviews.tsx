@@ -75,6 +75,8 @@ const CustomerReviews = () => {
     }
   };
 
+  const avgRating = reviewAverage(productReviews);
+
   return (
     <div className="text-sm">
       <p
@@ -89,7 +91,7 @@ const CustomerReviews = () => {
           >
             {productReviews?.length > 0 && reviewAverage(productReviews)}
           </p>
-          <StarRating ratingValue={5} readOnly={true} />
+          <StarRating ratingValue={(avgRating as any) || 0} readOnly={true} />
           <p className="text-xs lg:text-sm">
             Based on {productReviews?.length} reviews
           </p>

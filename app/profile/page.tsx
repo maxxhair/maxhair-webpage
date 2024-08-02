@@ -3,10 +3,8 @@
 import React, { useState } from "react";
 import ProfileHeader from "../Components/ProfileHeader";
 import ProfileSideNavbar from "../Components/ProfileSideNavbar";
-import MyOrders from "../Components/MyOrders";
 import Wishlist from "../Components/Wishlist";
 import ProfileSettings from "../Components/ProfileSettings";
-import AddressBox from "../Components/AddressBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { Tabs } from "flowbite-react";

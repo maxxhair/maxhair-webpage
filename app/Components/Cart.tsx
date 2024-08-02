@@ -133,7 +133,6 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
             </div>
             <button
               className="bg-transparent px-6 py-3 border border-black rounded-lg"
-              // onClick={handleApplyCouponCode}
               onClick={VerifyCouponCode}
             >
               Apply

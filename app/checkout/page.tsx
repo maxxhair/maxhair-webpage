@@ -274,6 +274,7 @@ const Checkout = () => {
           </button>
         </form>
       </div>
+      {/* Cart items */}
       <CheckoutCartDetails />
       <Modal
         show={openModal}

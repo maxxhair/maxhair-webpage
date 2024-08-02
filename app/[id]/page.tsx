@@ -146,15 +146,6 @@ export default function Page() {
   const [dualTexture, setDualTexture] = useState<string>("");
   const [openTextBox, setOpenTextBox] = useState(false);
 
-  const images = [
-    productImage,
-    productImage1,
-    productImage2,
-    productImage3,
-    productImage4,
-    productImage5
-  ];
-
   useEffect(() => {
     if (filteredVariant && filteredVariant.length > 0) {
       const variant = filteredVariant[0];
@@ -366,7 +357,8 @@ export default function Page() {
             <div className="py-4">
               {stockCount === 0 ? (
                 <p className="label-small lg:label-medium text-red-600">
-                  Stock unavailable! Don't worry, you can still place an order.
+                  Stock unavailable! Don't worry, you can still place an order
+                  we have manufacturing unit.
                 </p>
               ) : (
                 <p className="label-small lg:label-medium text-green-900">

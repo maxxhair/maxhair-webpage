@@ -28,7 +28,7 @@ const Blogpage = async () => {
         <BreadcrumbItem href="/">Home</BreadcrumbItem>
         <BreadcrumbItem className="capitalize">Our Blog</BreadcrumbItem>
       </Breadcrumb>
-      <div className="w-full p-5 md:p-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
+      <div className="w-full p-5 md:p-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-7 xl:gap-4">
         {blogs.map((blog) => (
           <BlogCard key={blog._id} blog={blog} />
         ))}
