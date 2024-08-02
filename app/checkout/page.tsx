@@ -30,7 +30,6 @@ interface CheckoutFormData {
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -275,6 +274,7 @@ const Checkout = () => {
           </button>
         </form>
       </div>
+      {/* Cart items */}
       <CheckoutCartDetails />
       <Modal
         show={openModal}

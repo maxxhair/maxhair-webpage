@@ -55,10 +55,28 @@ export const reviewAverage = (productReviews: any) => {
   let sum = 0;
   let count = 0;
   for (const review of productReviews) {
-    if (review.rating) {
+    if (review?.rating) {
       sum += review.rating;
       count++;
     }
   }
   return (sum / count).toFixed(1);
+};
+
+export const fetchBlogs = async () => {
+  try {
+    const response = await axios.get(`${baseUrl}blog`);
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchIndividualBlog = async (id: string) => {
+  try {
+    const res = await axios.get(`${baseUrl}blog/${id}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
 };

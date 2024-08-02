@@ -84,7 +84,7 @@ const Navbar = ({ setToggle }) => {
           >
             <Image src={obj.icon} alt={obj.title} width={30} height={30} />
             <Link
-              href={`${obj.id}`}
+              href={`/${obj.id}`}
               className="font-[500] text-[18px] tracking-[-0.2px] hover:translate-x-4 transition-all"
               onClick={() => {
                 setToggle(false);

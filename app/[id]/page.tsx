@@ -16,29 +16,22 @@ import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
-import { LoggedUser, ProductStoreType } from "../types";
+import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
   removeFromWishList
 } from "../store/redux/wishlistSlice";
-import MostPopular from "../Components/MostPopular";
-import RepeatOrders from "../Components/RepeatOrders";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
-import { Modal, Spinner, TextInput } from "flowbite-react";
+import { Spinner, TextInput } from "flowbite-react";
 import axios from "axios";
-import AuthenticationModel from "../Components/AuthenticationModel";
-import ProductImageSlider from "../Components/ProductImagesSlider";
 
 export default function Page() {
   const { id } = useParams();
   const wishList = useSelector(
     (state: RootState) => state.wishlist.wishListItems
-  );
-  const loggedUser = useSelector(
-    (state: RootState) => state.user.user as LoggedUser
   );
   const dispatch = useDispatch<AppDispatch>();
   const [products, setProducts] = useState([]);
@@ -152,18 +145,6 @@ export default function Page() {
   const [stockCount, setStockCount] = useState(0);
   const [dualTexture, setDualTexture] = useState<string>("");
   const [openTextBox, setOpenTextBox] = useState(false);
-  const [openSignupModel, setSignUpModel] = useState(false);
-  const images = [
-    productImage,
-    productImage1,
-    productImage2,
-    productImage3,
-    productImage4,
-    productImage5
-  ];
-
-  const handleSignupModelOpen = () => setSignUpModel(true);
-  const handleSignupModelClose = () => setSignUpModel(false);
 
   useEffect(() => {
     if (filteredVariant && filteredVariant.length > 0) {
@@ -232,14 +213,6 @@ export default function Page() {
       setDualTexture("");
     }
   }, [textureOpts, selectedTexture]);
-
-  const handleAddToCart = () => {
-    if (loggedUser && loggedUser.user) {
-      add();
-    } else {
-      handleSignupModelOpen();
-    }
-  };
 
   if (loading) {
     return (
@@ -384,7 +357,8 @@ export default function Page() {
             <div className="py-4">
               {stockCount === 0 ? (
                 <p className="label-small lg:label-medium text-red-600">
-                  Stock unavailable! Don't worry, you can still place an order.
+                  Stock unavailable! Don't worry, you can still place an order
+                  we have manufacturing unit.
                 </p>
               ) : (
                 <p className="label-small lg:label-medium text-green-900">
@@ -443,7 +417,6 @@ export default function Page() {
                   type="submit"
                   className="h-12 w-full text-white font-medium xl:text-sm px-5 text-xs text-center bg-neutral-800 focus:ring-4 mt-3 "
                   onClick={() => add()}
-                  // onClick={handleAddToCart}
                 >
                   ADD TO CART (${" "}
                   {filteredVariant && filteredVariant[0]?.price
@@ -462,19 +435,6 @@ export default function Page() {
         <CustomerReviews />
         {/* <MostPopular prods={products} />
         <RepeatOrders prods={products} /> */}
-
-        <Modal
-          show={openSignupModel}
-          onClose={handleSignupModelClose}
-          dismissible
-        >
-          <Modal.Header>Signup to continue shopping !!!</Modal.Header>
-          <Modal.Body>
-            <AuthenticationModel
-              handleSignupModelClose={handleSignupModelClose}
-            />
-          </Modal.Body>
-        </Modal>
       </div>
     )
   );

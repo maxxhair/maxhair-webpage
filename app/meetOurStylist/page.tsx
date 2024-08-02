@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { firaSans, firaSansMedium, koulen } from "../util/fonts";
+import { firaSans, koulen } from "../util/fonts";
 import { brenda } from "../util/images";
 import EnrollNow from "./Components/EnrollNow";
 import SendMoreInfo from "./Components/SendMoreInfo";
@@ -76,59 +76,6 @@ function page() {
           </div>
         </div>
       </div>
-      {/* <div className="bg-[#885C46] w-full flex flex-col justify-center items-center gap-[40px] px-[20px] py-[40px]">
-        <span
-          className={`text-center text-[#F9F6F3] ${firaSans.className} lg:title-large md:title-medium title-small`}
-        >
-          How Much Does It Cost To Get Certified?
-        </span>
-        <div className="flex lg:flex-row flex-col xl:w-[70%] lg:w-[80%] w-full gap-[20px] justify-center items-center ">
-          <div className="bg-[#FAFAFA] shadow-md flex flex-col justify-evenly items-center h-full text-center gap-[10px] lg:w-[calc(50%-10px)] w-[60%] px-[20px] py-[20px]">
-            <span
-              className={`${firaSans.className} lg:title-large md:title-medium title-small uppercase text-[#885C46]`}
-            >
-              Pay in full
-            </span>
-            <span
-              className={`${firaSansMedium.className} lg:headline-large md:headline-medium headline-small`}
-            >
-              $3,500
-            </span>
-            <span className="capitalize xl:w-[60%] w-[70%]">
-              Save up to $100 when you pay in full
-            </span>
-          </div>
-          <div className="bg-[#FAFAFA] shadow-md flex flex-col justify-around items-center h-full text-center gap-[10px] lg:w-[calc(50%-10px)] w-[90%] px-[20px] py-[20px]">
-            <span
-              className={`${firaSans.className} lg:title-large md:title-medium title-small uppercase text-[#885C46]`}
-            >
-              payment plan
-            </span>
-            <div className="flex flex-col gap-[10px] justify-center text-center items-center">
-              <span
-                className={`${firaSansMedium.className} lg:headline-large md:headline-medium headline-small`}
-              >
-                $1,200
-              </span>
-              <span className="capitalize">3 Payments of $3,600</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col text-center gap-[10px] lg:body-large md:body-medium body-small text-[#FAFAFA]">
-          <span>
-            We recognize it’s a big decision to make this investment in your
-            career.
-          </span>
-          <span>
-            Certifications, new clients will be seeking your services, and your
-            investment
-          </span>
-          <span>
-            will soon be paying for itself many times over, and long into the
-            future!
-          </span>
-        </div>
-      </div> */}
     </>
   );
 }

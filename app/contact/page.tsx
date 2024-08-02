@@ -19,10 +19,12 @@ const Contact = () => {
           className="z-0"
         />
         <div className="flex flex-col items-center gap-4 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-black">
-          <p className={`${firaSansMedium.className} headline-large`}>
+          <p
+            className={`${firaSansMedium.className} headline-medium md:headline-large`}
+          >
             Contact Us
           </p>
-          <p className="label-medium">Instant length and volume.</p>
+          <p className="label-medium text-center">Instant length and volume.</p>
         </div>
       </div>
       <Breadcrumb className="my-10 pl-10">

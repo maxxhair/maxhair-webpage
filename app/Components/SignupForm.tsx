@@ -2,6 +2,8 @@
 
 import { Fira_Sans, Prompt } from "next/font/google";
 import React, { useState } from "react";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
 import axios from "axios";
 
 const firaSans = Fira_Sans({
@@ -18,6 +20,7 @@ const SignupForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [viewPassword, setViewPssword] = useState<Boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateForm = () => {
@@ -134,9 +137,9 @@ const SignupForm = () => {
               <div className="text-sm text-[#ff2828]">{errors.email}</div>
             )}
           </div>
-          <div>
+          <div className="relative">
             <input
-              type="password"
+              type={viewPassword ? "text" : "password"}
               name="password"
               id="password"
               value={password}
@@ -148,6 +151,17 @@ const SignupForm = () => {
             {errors.password && (
               <div className="text-sm text-[#ff2828]">{errors.password}</div>
             )}
+            {viewPassword ? (
+              <FaRegEyeSlash
+                className="absolute top-1/2 right-4 cursor-pointer -translate-y-1/2"
+                onClick={() => setViewPssword(false)}
+              />
+            ) : (
+              <FaRegEye
+                className="absolute top-1/2 right-4 cursor-pointer -translate-y-1/2"
+                onClick={() => setViewPssword(true)}
+              />
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-start">
@@ -156,7 +170,7 @@ const SignupForm = () => {
                   id="remember"
                   aria-describedby="remember"
                   type="checkbox"
-                  className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 "
+                  className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-0"
                   required
                 />
               </div>

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const { push } = useRouter();
@@ -99,7 +100,7 @@ const LoginForm = () => {
           </div>
           <div>
             <input
-              type="password"
+              type={viewPassword ? "text" : "password"}
               name="password"
               id="password"
               placeholder="Password"
@@ -119,19 +120,18 @@ const LoginForm = () => {
                   id="remember"
                   aria-describedby="remember"
                   type="checkbox"
-                  className="w-4 h-4 border  "
+                  className="w-4 h-4 focus:ring-0"
                   required
+                  checked={viewPassword}
+                  onChange={() => setViewPassword(!viewPassword)}
                 />
               </div>
               <div className="ml-3 text-sm">
                 <label htmlFor="remember" className=" text-zinc-500 text-sm">
-                  Remember me
+                  View password
                 </label>
               </div>
             </div>
-            <a href="#" className="text-sm font-medium  hover:underline">
-              Forgot password?
-            </a>
           </div>
           <button
             type="submit"
