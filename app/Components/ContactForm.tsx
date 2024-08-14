@@ -30,9 +30,9 @@ const ContactForm = () => {
   };
 
   return (
-    <div className={`w-3/4 md:w-1/2 xl:w-1/3 mx-auto my-5`}>
+    <div className="w-3/4 md:w-1/2 xl:w-1/3 mx-auto my-5">
       <form
-        className={`space-y-4 md:space-y-6 mt-2 lg:mt-5`}
+        className="space-y-4 md:space-y-6 mt-2 lg:mt-5"
         onSubmit={handleSubmit}
         ref={formRef}
       >

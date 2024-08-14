@@ -4,7 +4,7 @@ import {
   OurStoryWig1,
   OurStoryWig2,
   OurStoryWig3,
-  OurStoryWig4,
+  OurStoryWig4
 } from "../util/images";
 import Path from "./Components/Path";
 import { firaSans, firaSansMedium } from "../util/fonts";
@@ -17,7 +17,7 @@ import Reactive2 from "./Components/Reactive2";
 
 const OurStory = () => {
   return (
-    <div className="mt-20 md:mt-24 xl:mt-28 ">
+    <div className="mt-20 md:mt-24 xl:mt-28">
       <div className="w-screen min-h-[800px] h-screen relative flex justify-between p-10 items-center">
         <Image
           src={OurStory1}
@@ -28,7 +28,7 @@ const OurStory = () => {
           <Image
             src={OurStoryWig1}
             alt="wig-1"
-            className=" lg:w-[300px] md:w-[200px] w-[120px] lg:h-[300px] md:h-[200px] h-[120px] -rotate-6"
+            className="lg:w-[300px] md:w-[200px] w-[120px] lg:h-[300px] md:h-[200px] h-[120px] -rotate-6"
           />
           <Image
             src={OurStoryWig2}

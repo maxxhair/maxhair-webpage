@@ -9,7 +9,7 @@ function page() {
   return (
     <>
       <div className="py-[32px] px-[20px] mt-[80px] w-full lg:pt-[100px] bg-[#FAFAFA] min-h-[70vh] flex lg:flex-row flex-col gap-[20px] justify-center lg:items-start items-center">
-        <div className=" flex items-end lg:h-[500px] h-[300px] xl:w-[300px] lg:w-[250px] w-[200px] ">
+        <div className=" flex items-end lg:h-[500px] h-[300px] xl:w-[300px] lg:w-[250px] w-[200px]">
           <div className="relative">
             <Image src={brenda} alt="brenda" className="[clip-path:circle()]" />
             <div
@@ -19,19 +19,17 @@ function page() {
             </div>
           </div>
         </div>
-        <div
-          className={` flex flex-col justify-center items-center gap-[10px] md:w-[60%] w-[80%] h-[70%] py-[10px] font-[400] bg-[#E3D6C5] text-[#885C46] px-[20px] `}
-        >
+        <div className="flex flex-col justify-center items-center gap-[10px] md:w-[60%] w-[80%] h-[70%] py-[10px] font-[400] bg-[#E3D6C5] text-[#885C46] px-[20px]">
           <div className="flex flex-col xl:w-[70%] lg:w-[80%] w-[90%] justify-center py-[40px] gap-[10px]">
             <span className="lg:body-large md:body-medium body-small">
               Our Educator
             </span>
             <span
-              className={` ${firaSans.className}  lg:title-large md:title-medium title-small font-[600]`}
+              className={`${firaSans.className}  lg:title-large md:title-medium title-small font-[600]`}
             >
               Hair Extension Expert and Educator
             </span>
-            <span className="lg:body-large md:body-medium body-small ">
+            <span className="lg:body-large md:body-medium body-small">
               Brenda has been a visionary in the realm of hair industry with an
               illustrious career spanning over 20 years! Renowned for her
               unparalleled expertise in crafting mesmerizing hair color and
@@ -61,7 +59,7 @@ function page() {
             </span>
             <EnrollNow />
           </div>
-          <div className="bg-[#FAFAFA] shadow-md sm:h-[350px] h-[300px] flex flex-col px-[20px] py-[20px] justify-evenly items-center text-center xl:w-[600px] w-full ">
+          <div className="bg-[#FAFAFA] shadow-md sm:h-[350px] h-[300px] flex flex-col px-[20px] py-[20px] justify-evenly items-center text-center xl:w-[600px] w-full">
             <span
               className={`${firaSans.className} text-[#885C46] lg:label-large md:label-medium label-small`}
             >
