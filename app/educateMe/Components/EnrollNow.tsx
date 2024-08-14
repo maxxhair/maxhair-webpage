@@ -7,6 +7,7 @@ import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
 import axiosInstance from "../../util/axiosInstance";
+import toast from "react-hot-toast";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
@@ -16,13 +17,14 @@ function EnrollNow() {
   ) => {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
-    console.log(obj);
     try {
-      const response = await axiosInstance.post("user-details", obj);
+      const res = await axiosInstance.post("user-details", obj);
+      toast.success("Enrolled Successfully");
       formRef.current.reset();
       setOpenModal(false);
     } catch (error) {
       console.log(error);
+      toast.error(error);
     }
   };
   return (
@@ -535,14 +537,14 @@ function EnrollNow() {
                   type="radio"
                   name="chosenProgram"
                   id="chosenProgramFull"
-                  value="pay in full $4200"
+                  value="pay in full $3500"
                   required
                 />
                 <label
                   htmlFor="chosenProgramFull"
                   className=" font-[500] label-small"
                 >
-                  Pay in full $4200
+                  Pay in full $3500
                 </label>
               </div>
               <div className="flex items-center gap-[10px]">
@@ -557,22 +559,7 @@ function EnrollNow() {
                   htmlFor="chosenProgram3months"
                   className=" font-[500] label-small"
                 >
-                  Payment Plan 3-Months $1500/month
-                </label>
-              </div>
-              <div className="flex items-center gap-[10px]">
-                <input
-                  type="radio"
-                  name="chosenProgram"
-                  id="chosenProgram6months"
-                  value="payment plan 6-months $800/month"
-                  required
-                />
-                <label
-                  htmlFor="chosenProgram6months"
-                  className=" font-[500] label-small"
-                >
-                  Payment Plan 6-Months $800/month
+                  Payment Plan 3-Months $1200/month
                 </label>
               </div>
             </div>

@@ -5,17 +5,10 @@ import { firaSans } from "../util/fonts";
 import ProductCard from "../Components/ProductCard";
 import filtericon from "/public/filter.svg";
 import Image from "next/image";
-import {
-  CategorySelect,
-  ColorsSelect,
-  ProductSelect,
-  SizesSelect,
-  TextureSelect
-} from "../Components/SelectInputs";
+import { CategorySelect, ProductSelect } from "../Components/SelectInputs";
 import Link from "next/link";
 import { getProducts } from "../util/serverSideProps";
 import { Spinner } from "flowbite-react";
-import axiosInstance from "../util/axiosInstance";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -49,7 +42,7 @@ const Shop = () => {
   }
 
   return (
-    <section className="mt-52 w-4/5 mx-auto">
+    <section className="mt-28 lg:mt-52 w-full p-5 lg:p-0 lg:w-4/5 mx-auto">
       <div className="flex items-center gap-2 mb-6">
         <p className="label-medium lg:label-large cursor-pointer font-bold">
           <Link href="/">Home</Link>
@@ -87,7 +80,7 @@ const Shop = () => {
               <option value="Newest">Newest</option>
             </select>
           </div>
-          <div className="w-full mt-40 lg:mt-0 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 md:gap-4 lg:gap-y-12">
+          <div className="w-full lg:mt-0 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 md:gap-4 lg:gap-y-12">
             {products?.map((product: any) => (
               <ProductCard key={product._id} item={product} />
             ))}

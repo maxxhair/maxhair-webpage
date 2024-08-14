@@ -66,11 +66,11 @@ const CartItem: React.FC<Props> = ({ product }) => {
   const imageUrl = `${baseUrl}/${product?.image}`;
 
   return (
-    <div className="my-5 w-full h-auto bg-white lg:p-6 md:p-4 p-2 flex lg:flex-row flex-col md:items-center justify-between">
+    <div className="my-3 w-full h-auto bg-white lg:p-6 md:p-4 p-1 flex lg:flex-row flex-col md:items-center justify-between">
       <div className="flex gap-4 p-4 w-full">
-        <Image src={productImage} alt="cartProduct" width={115} height={180} />
-        <div className="flex flex-col gap-2 w-full items-start">
-          <p className="lg:headline-small md:title-medium title-small flex items-start lg:flex-row justify-center text-center gap-2 flex-col flex-wrap">
+        <Image src={productImage} alt="cartProduct" width={100} height={150} />
+        <div className="flex flex-col gap-0.5 w-full items-start">
+          <p className="lg:headline-small md:title-small label-medium flex items-start md:flex-row justify-center text-center flex-col flex-wrap">
             <span>{product?.name}</span>
             <span className="lg:block hidden">-</span>
             <span>{product?.texture}</span>
@@ -81,7 +81,7 @@ const CartItem: React.FC<Props> = ({ product }) => {
           <p className="lg:label-medium md:body-medium body-small">
             {product?.type}
           </p>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-col items-start md:flex-row md:items-center gap-2 md:gap-5">
             <p className="lg:label-small md:body-medium body-small text-gray-500">
               Size: {product?.size}
             </p>
@@ -89,16 +89,16 @@ const CartItem: React.FC<Props> = ({ product }) => {
               Color: {product?.color}
             </p>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-5 lg:gap-6">
             <div
-              className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+              className="grid place-items-center w-8 md:w-10 aspect-square border border-gray-500 cursor-pointer text-lg md:text-3xl"
               onClick={() => setProductCount(product?.count - 1)}
             >
               -
             </div>
             <p className="label-medium">{product?.count}</p>
             <div
-              className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
+              className="grid place-items-center w-8 md:w-10 aspect-square border border-gray-500 cursor-pointer text-lg md:text-3xl"
               onClick={() => setProductCount(product?.count + 1)}
             >
               +
@@ -107,11 +107,11 @@ const CartItem: React.FC<Props> = ({ product }) => {
         </div>
       </div>
       <div className="flex lg:flex-col lg:gap-16 lg:w-auto w-full items-center h-full justify-between lg:border-t-0 border-t-2 p-2">
-        <p className="label-large">
+        <p className="label-medium md:label-large">
           ${(product?.price * product?.count).toFixed(2)}
         </p>
         <p
-          className="label-medium underline cursor-pointer"
+          className="label-small md:label-medium underline cursor-pointer"
           onClick={() => removeFromCart()}
         >
           Remove

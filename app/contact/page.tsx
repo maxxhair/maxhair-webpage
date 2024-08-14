@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
 import { contactUsBgImg } from "../util/images";
-import { firaSansMedium } from "../util/fonts";
-import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
+import { firaSans, firaSansMedium, prompt } from "../util/fonts";
 import ContactForm from "../Components/ContactForm";
+import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
 
 const Contact = () => {
   return (
@@ -22,7 +22,10 @@ const Contact = () => {
         <BreadcrumbItem className="capitalize">Contact</BreadcrumbItem>
       </Breadcrumb>
       <div>
-        <div className="w-full mt-8 md:w-1/2 mx-auto text-center lg:mt-16">
+        <p className="mt-5 ml-5">
+          <b>Home</b> - Contact
+        </p>
+        <div className="w-full p-4 mt-8 md:w-1/2 mx-auto text-center lg:mt-16">
           <p className={`${firaSansMedium.className} text-2xl lg:text-4xl`}>
             Get In Touch With Us
           </p>

@@ -16,7 +16,7 @@ function ShopByTypes() {
       >
         Shop By Types
       </span>
-      <div className="flex h-[70%] gap-[30px] justify-center lg:w-[60%] md:w-[80%] w-full">
+      <div className="flex flex-col lg:flex-row h-[70%] gap-[30px] justify-center lg:w-[60%] md:w-[80%] w-full">
         <div className="w-full h-full relative p-[20px]">
           <Image
             src={list[1].image}

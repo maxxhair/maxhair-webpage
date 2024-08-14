@@ -62,7 +62,6 @@ export default function Page() {
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
   const [selectedQuantity, setQuantity] = useState(1);
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -410,7 +409,6 @@ export default function Page() {
                       +
                     </div>
                   </div>
-
                   <div>
                     <label className="container">
                       <input
@@ -432,7 +430,6 @@ export default function Page() {
                     </label>
                   </div>
                 </div>
-
                 <button
                   type="submit"
                   className="h-12 w-full text-white font-medium xl:text-sm px-5 text-xs text-center bg-neutral-800 focus:ring-4 mt-3 "
@@ -487,8 +484,8 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="md:flex mt-10 inline">
-          <div className=" lg:w-5/12 lg:p-8  font-semibold mt-8 max-xl:m-8">
+        <div className="md:flex md:flex-col lg:flex-row mt-10 inline">
+          <div className="lg:w-5/12 lg:p-8 font-semibold mt-8 max-xl:m-8">
             <p>
               Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
               tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis

@@ -69,7 +69,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           {cartItems.map((item: any, index) => (
             <CartItem key={index} product={item} />
           ))}
-          <div className="w-full flex items-center gap-6 justify-between">
+          <div className="w-full flex items-center gap-3 lg:gap-6 justify-between">
             <input
               placeholder="Discount code or gift card"
               type="text"
@@ -123,7 +123,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
           </div>
           <Link href="/checkout">
             <button
-              className="w-full my-5 bg-black text-white py-4 uppercase title-small tracking-widest font-semibold"
+              className="w-full my-5 bg-black text-white py-4 uppercase title-small tracking-widest font-semibold mb-10"
               onClick={handleClose}
             >
               Checkout

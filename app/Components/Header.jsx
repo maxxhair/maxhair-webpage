@@ -24,6 +24,7 @@ function Header() {
   const cartOpen = useSelector((state) => state.cart.openCart);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const loggedUser = useSelector((state) => state.user.user);
+  const path = usePathname();
 
   const cartCount = cartItems.length;
 
@@ -64,10 +65,30 @@ function Header() {
           <div
             className={`md:flex md:items-center hidden gap-[40px] w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
           >
-            <Link href="shop">Shop</Link>
-            <Link href="educateMe">Educate Me</Link>
-            <Link href="blog">Blog</Link>
-            <Link href="contact">Contact</Link>
+            <Link
+              href="shop"
+              className={path === "/shop" ? "border-b-2 border-black" : ""}
+            >
+              Shop
+            </Link>
+            <Link
+              href="educateMe"
+              className={path === "/educateMe" ? "border-b-2 border-black" : ""}
+            >
+              Educate Me
+            </Link>
+            <Link
+              href="blog"
+              className={path === "/blog" ? "border-b-2 border-black" : ""}
+            >
+              Blog
+            </Link>
+            <Link
+              href="contact"
+              className={path === "/contact" ? "border-b-2 border-black" : ""}
+            >
+              Contact
+            </Link>
           </div>
           <div className="flex items-center gap-5 justify-end">
             <Link href={isEmpty(loggedUser) ? "signin" : "profile"}>
@@ -93,7 +114,7 @@ function Header() {
         open={cartOpen}
         onClose={handleCartClose}
         position="right"
-        className="w-full md:w-3/4 2xl:w-2/5 bg-[#F2ECE2] pt-16 px-8"
+        className="w-full md:w-3/4 2xl:w-2/5 bg-[#F2ECE2] pt-7 lg:pt-16 px-8"
       >
         <div className="w-full flex items-center justify-between">
           <p className="headline-small font-medium">Your Cart</p>
