@@ -6,7 +6,7 @@ import { companyLogo2 } from "../../util/images";
 import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
-import axiosInstance, { baseUrl } from "../../util/axiosInstance";
+import { baseUrl } from "../../util/axiosInstance";
 import toast from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -105,7 +105,7 @@ function EnrollNow() {
                   id: "phoneno",
                   required: true,
                   className:
-                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12",
+                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12"
                 }}
               />
             </div>
