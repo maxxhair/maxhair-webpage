@@ -51,7 +51,7 @@ const BlogPage = () => {
         </p>
       </div>
       <div
-        className={`${firaSans.className} lg:w-8/12 max-lg:m-4 sm:text-lg`}
+        className={` lg:w-8/12 max-lg:m-4 sm:text-lg `}
         dangerouslySetInnerHTML={{ __html: blog?.body as any }}
       />
     </div>

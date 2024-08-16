@@ -5,20 +5,17 @@ export const CouponValidation = (data: any, amount: Number) => {
   if (data.type === "flat") {
     if (amount > data.minOrderValue) {
       couponAmount = data.discount;
-      //   if (couponAmount > data.maxDiscount) {
-      //     couponAmount = data.maxDiscount;
-      //   }
     } else {
-      errors.discount = `Minimum order should be morethan ${data.minOrderValue}`;
+      errors.discount = `Minimum order should be more than ${data.minOrderValue}`;
     }
   } else {
     if (amount > data.minOrderValue) {
       couponAmount = (amount as number) * (data.discount / 100);
       if (couponAmount > data.maxDiscount) {
         couponAmount = data.maxDiscount;
-      } else {
-        errors.discount = `Minimum Order should be morethan ${data.minOrderValue}`;
       }
+    } else {
+      errors.discount = `Minimum Order should be more than ${data.minOrderValue}`;
     }
   }
 

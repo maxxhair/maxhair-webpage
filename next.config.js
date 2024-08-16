@@ -6,26 +6,32 @@ const nextConfig = {
         protocol: "http",
         hostname: "192.168.50.22",
         port: "3008",
-        pathname: "/**"
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "192.168.50.23",
+        port: "3008",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "fastly.picsum.photos",
-        pathname: "/**"
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "backend.maxxhairextensions.com",
-        pathname: "/**"
+        pathname: "/**",
       },
       {
         protocol: "http",
         hostname: "192.168.50.184",
         port: "3008",
-        pathname: "/**"
-      }
-    ]
-  }
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
