@@ -17,7 +17,7 @@ function SendMoreInfo() {
   return (
     <>
       <button
-        className={`text-[#FAFAFA] bg-[#242424] font-[500] lg:label-large md:label-medium label-small capitalize w-fit py-[10px] px-[30px]`}
+        className="text-[#FAFAFA] bg-[#242424] font-[500] lg:label-large md:label-medium label-small capitalize w-fit py-[10px] px-[30px]"
         onClick={() => {
           setOpenModal(true);
         }}
@@ -41,13 +41,13 @@ function SendMoreInfo() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className=" flex flex-col py-[20px] px-[20px] gap-[20px]"
+            className="flex flex-col py-[20px] px-[20px] gap-[20px]"
           >
             <div className="flex gap-[10px] w-full">
               <div className="w-1/2">
                 <label
                   htmlFor="firstnameMoreInfo"
-                  className=" font-[500] label-small"
+                  className="font-[500] label-small"
                 >
                   First Name*
                 </label>
@@ -62,7 +62,7 @@ function SendMoreInfo() {
               <div className="w-1/2">
                 <label
                   htmlFor="lastnameMoreInfo"
-                  className=" font-[500] label-small"
+                  className="font-[500] label-small"
                 >
                   Last Name*
                 </label>
@@ -90,7 +90,7 @@ function SendMoreInfo() {
             <div>
               <label
                 htmlFor="countryMoreInfo"
-                className=" font-[500] label-small"
+                className="font-[500] label-small"
               >
                 Country*
               </label>
@@ -127,7 +127,7 @@ function SendMoreInfo() {
                 />
                 <label
                   htmlFor="certifiedYesMoreInfo"
-                  className=" font-[500] label-small"
+                  className="font-[500] label-small"
                 >
                   Yes
                 </label>
@@ -142,7 +142,7 @@ function SendMoreInfo() {
                 />
                 <label
                   htmlFor="certifiedNoMoreInfo"
-                  className=" font-[500] label-small"
+                  className="font-[500] label-small"
                 >
                   No
                 </label>
@@ -152,7 +152,7 @@ function SendMoreInfo() {
               <input
                 type="submit"
                 value="submit"
-                className={`text-[#FAFAFA] cursor-pointer bg-[#242424] lg:label-large md:label-medium label-small capitalize w-[50%] py-[10px] px-[5px] `}
+                className="text-[#FAFAFA] cursor-pointer bg-[#242424] lg:label-large md:label-medium label-small capitalize w-[50%] py-[10px] px-[5px]"
               />
             </div>
           </form>

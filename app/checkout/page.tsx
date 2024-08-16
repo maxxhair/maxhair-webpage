@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
-import { Checkbox, Spinner, TextInput } from "flowbite-react";
-import axiosInstance from "../util/axiosInstance";
+import { Checkbox, Modal, Spinner, TextInput } from "flowbite-react";
+import { baseUrl } from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
-import Cookies from "js-cookie";
-import OrderPlacedModal from "../Components/OrderPlacedModal";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { LoggedUser } from "../types";
+import { useRouter } from "next/navigation";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import AddressesSection from "../Components/AddressesSection";
 
 interface CheckoutFormData {
   name: string;
@@ -19,20 +23,15 @@ interface CheckoutFormData {
   address: string;
   landmark: string;
   zipcode: string;
-}
-
-interface LoggedUser {
-  email: string;
-  _id: string;
-  addresses: [];
+  state: string;
+  country: string;
 }
 
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [load, setLoad] = useState<boolean>(false);
   const [token, setToken] = useState(null);
-  // const [openSuccessModal, setOpenSucessModal] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const loggedUser = useSelector(
     (state: RootState) => state.user.user as LoggedUser
@@ -43,29 +42,38 @@ const Checkout = () => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (selectedAddress) {
       setCheckoutFormDate((prevState) => ({
         ...prevState,
         name: selectedAddress.name,
-        email: selectedAddress.email,
+        email: loggedUser.user && loggedUser.user.email,
         phone: selectedAddress.phone,
-        address: selectedAddress.address,
+        address:
+          selectedAddress.houseNumber + " " + selectedAddress.streetAddress1,
         landmark: selectedAddress.landmark,
-        zipcode: selectedAddress.zipcode
+        state: selectedAddress.state,
+        country: selectedAddress.country,
+        zipcode: selectedAddress.zipcode,
       }));
     }
+    setOpenModal(false);
   }, [selectedAddress]);
 
   const handleInputChange = (e: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
   };
 
+  const handlePhoneInputChange = (value: any) => {
+    setCheckoutFormDate({ ...checkoutFormData, phone: value });
+  };
+
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
-    if (cartItems.length > 0) {
+    if (cartItems?.length > 0) {
       cartItems.map((item) => (totalPrice += item.price * item.count));
     }
     return totalPrice;
@@ -91,23 +99,28 @@ const Checkout = () => {
             console.log("Transaction success!", event.data);
             const response = JSON.parse(event.data.eventMessage);
             const body = {
-              user_id: loggedUser && loggedUser?._id,
+              user_id: loggedUser.user && loggedUser.user._id,
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name,
               email: checkoutFormData.email,
               phone: checkoutFormData.phone,
-              address: checkoutFormData.address,
+              address:
+                checkoutFormData.address +
+                " " +
+                checkoutFormData.state +
+                " " +
+                checkoutFormData.country,
               landmark: checkoutFormData.landmark,
               zipcode: checkoutFormData.zipcode,
-              transactionId: response.data.data.transactionId
+              transactionId: response.data.data.transactionId,
             };
             try {
-              const res = await axiosInstance.post("orders", body);
+              const res = await axios.post(`${baseUrl}orders`, body);
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              window.location.href = "/";
+              push("/");
             } catch (error) {
               console.log(error);
             }
@@ -124,12 +137,12 @@ const Checkout = () => {
     };
   }, [token]);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axiosInstance.post("payments/get_tokens", {
-        amount: TotalPriceToPay
+      const res = await axios.post(`${baseUrl}payments/get_tokens`, {
+        amount: TotalPriceToPay,
       });
       setToken(res.data.data.checkoutToken);
       // @ts-ignore
@@ -140,43 +153,8 @@ const Checkout = () => {
     }
   };
 
-  const handlePlaceOrder = async () => {
-    const body = {
-      user_id: loggedUser && loggedUser?._id,
-      items: cartItems,
-      total: TotalPriceToPay,
-      name: checkoutFormData.name,
-      email: checkoutFormData.email,
-      phone: checkoutFormData.phone,
-      address: checkoutFormData.address,
-      landmark: checkoutFormData.landmark,
-      zipcode: checkoutFormData.zipcode
-    };
-    try {
-      if (
-        checkoutFormData.name.length > 0 &&
-        checkoutFormData.email.length > 0 &&
-        checkoutFormData.landmark.length > 0 &&
-        checkoutFormData.address.length > 0 &&
-        checkoutFormData.zipcode.length > 0 &&
-        checkoutFormData.phone.length > 0
-      ) {
-        setLoad(true);
-        const res = await axiosInstance.post("orders", body);
-        dispatch(emptyCart());
-        dispatch(removeCouponCode());
-        setLoad(false);
-        window.location.href = "/";
-        toast.success("Order placed successfully");
-      }
-    } catch (error) {
-      console.log(error);
-      setLoad(false);
-    }
-  };
-
   return (
-    <div className="w-full p-3 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] lg:mt-[12vh] flex flex-col-reverse lg:flex-row mb-10">
+    <div className="w-full p-5 lg:pt-8 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
@@ -184,7 +162,7 @@ const Checkout = () => {
         >
           <div className="w-full flex items-center justify-between">
             <p className="headline-small">Billing Details</p>
-            {!loggedUser.email && (
+            {!loggedUser?.user?.email && (
               <div className="flex">
                 <Link href="signin">
                   <p className="label-medium">Login</p>
@@ -206,8 +184,18 @@ const Checkout = () => {
             <Checkbox />
             <p className="label-medium">Email me with news and offers</p>
           </div>
+          <div className="flex items-center justify-between py-3">
+            <p className="headline-small">Shipping Address</p>
+            {loggedUser?.user?.email && (
+              <p
+                className="body-small text-blue-500 hover:underline cursor-pointer"
+                onClick={() => setOpenModal(true)}
+              >
+                Change Address
+              </p>
+            )}
+          </div>
 
-          <p className="headline-small py-3">Shipping Address</p>
           <div className="flex flex-col gap-4">
             <TextInput
               id="name"
@@ -233,17 +221,36 @@ const Checkout = () => {
               value={checkoutFormData?.landmark}
             />
             <TextInput
+              id="state"
+              type="text"
+              placeholder="State"
+              onChange={handleInputChange}
+              value={checkoutFormData?.state}
+            />
+            <TextInput
+              id="country"
+              type="text"
+              placeholder="Country"
+              onChange={handleInputChange}
+              value={checkoutFormData?.country}
+            />
+            <TextInput
               id="zipcode"
               placeholder="344XXX"
               type="text"
               onChange={handleInputChange}
               value={checkoutFormData?.zipcode}
             />
-            <TextInput
-              id="phone"
-              placeholder="Phone"
-              onChange={handleInputChange}
+            <PhoneInput
+              enableSearch
+              country={"us"}
               value={checkoutFormData?.phone}
+              inputProps={{
+                id: "phone",
+                required: true,
+                className: "w-full border-[#d1d5db] rounded-md pl-12",
+              }}
+              onChange={handlePhoneInputChange}
             />
           </div>
           <p className="label-medium my-10">
@@ -254,24 +261,37 @@ const Checkout = () => {
             <span className="underline">Privacy Policy</span>
           </p>
           <button
-            className="w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
+            className={
+              cartItems?.length > 0
+                ? "w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
+                : "w-full justify-center bg-gray-300 text-white py-4 title-small tracking-widest font-semibold"
+            }
+            disabled={cartItems?.length <= 0}
             type="submit"
+            name="card"
           >
             {!loading ? "Pay Through Card" : <Spinner size="lg" color="#fff" />}
           </button>
-          <div
-            className="w-full text-center cursor-pointer bg-black text-white py-4 title-small tracking-widest font-semibold mt-4"
-            onClick={handlePlaceOrder}
-          >
-            {!load ? "Pay Through Cash" : <Spinner size="lg" color="#fff" />}
-          </div>
         </form>
       </div>
+      {/* Cart items */}
       <CheckoutCartDetails />
-      {/* <OrderPlacedModal
-        openModal={openSuccessModal}
-        setOpenModal={setOpenSucessModal}
-      /> */}
+      <Modal
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        dismissible
+        className="!overflow-y-scroll"
+      >
+        <Modal.Header>Choose Address</Modal.Header>
+        <Modal.Body>
+          <AddressesSection />
+          <Link href="/profile">
+            <button className="bg-black text-white uppercase px-5 py-2 body-medium mx-auto">
+              Add New
+            </button>
+          </Link>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

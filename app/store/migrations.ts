@@ -37,7 +37,11 @@ export const migrations = {
     return {
       ...state,
       address: {
-        ...state.address
+        ...state.address,
+        houseNumber: addressInitialState.houseNumber,
+        streetAddress1: addressInitialState.streetAddress1,
+        state: addressInitialState.state,
+        country: addressInitialState.country
       }
     };
   },

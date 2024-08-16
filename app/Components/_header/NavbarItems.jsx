@@ -1,13 +1,36 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { isEmpty } from "lodash";
+import {
+  blogsForNavbarIcon,
+  contactForNavbarIcon,
+  educateForNavbarIcon,
+  profileForNavbarIcon,
+  shopForNavbarIcon
+} from "../../util/images";
+import ourstory from "../../../public/aboutus.svg";
+import Image from "next/image";
 
 const Navbar = ({ setToggle }) => {
+  const loggedUser = useSelector((state) => state.user.user);
+
   const items = [
-    { title: "shop", id: "shop" },
-    { title: "educate me", id: "educateMe" },
-    { title: "blog", id: "blog" },
-    { title: "Contact", id: "contact" }
+    {
+      title: isEmpty(loggedUser) ? "Sign In" : "Profile",
+      id: isEmpty(loggedUser) ? "signin" : "profile",
+      icon: profileForNavbarIcon
+    },
+    { title: "Shop", id: "shop", icon: shopForNavbarIcon },
+    { title: "Our Story", id: "ourstory", icon: ourstory },
+    {
+      title: "Meet Our Stylist",
+      id: "meetOurStylist",
+      icon: educateForNavbarIcon
+    },
+    { title: "Blog", id: "blog", icon: blogsForNavbarIcon },
+    { title: "Contact", id: "contact", icon: contactForNavbarIcon }
   ];
 
   const navList = {
@@ -29,17 +52,17 @@ const Navbar = ({ setToggle }) => {
 
   const navItem = {
     visible: {
-      y: 0,
+      x: 0,
       opacity: 1,
       transition: {
-        y: { stiffness: 1000, velocity: -100 }
+        x: { stiffness: 100, velocity: 10 }
       }
     },
     hidden: {
-      y: 50,
+      x: 20,
       opacity: 0,
       transition: {
-        y: { stiffness: 1000, velocity: -100 }
+        x: { stiffness: 100, velocity: 10 }
       }
     }
   };
@@ -50,14 +73,18 @@ const Navbar = ({ setToggle }) => {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="flex flex-col gap-[20px] "
+        className="flex flex-col gap-[20px]"
         variants={navList}
       >
         {items.map((obj, index) => (
-          <motion.li key={index} className="flex gap-[20px]" variants={navItem}>
-            <div className="w-[5px] rounded-full h-full bg-black"></div>
+          <motion.li
+            key={index}
+            className="flex gap-[20px] items-center"
+            variants={navItem}
+          >
+            <Image src={obj.icon} alt={obj.title} width={30} height={30} />
             <Link
-              href={`${obj.id}`}
+              href={`/${obj.id}`}
               className="font-[500] text-[18px] tracking-[-0.2px] hover:translate-x-4 transition-all"
               onClick={() => {
                 setToggle(false);

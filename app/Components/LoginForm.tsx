@@ -2,18 +2,22 @@
 
 import React, { useState } from "react";
 import { firaSans } from "../util/fonts";
-import axiosInstance from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { userLoggedin } from "../store/redux/userSlice";
 import { Spinner } from "flowbite-react";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const { push } = useRouter();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateForm = () => {
@@ -43,20 +47,24 @@ const LoginForm = () => {
     if (validateForm()) {
       try {
         setLoading(true);
-        const response = await axiosInstance.post("login", { email, password });
+        const response = await axios.post(
+          `${baseUrl}login`,
+          { email, password },
+          { withCredentials: true }
+        );
         dispatch(userLoggedin(response.data.data));
         setLoading(false);
-        window.location.href = "/";
+        push("/");
       } catch (error) {
         console.log(error);
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message);
         setLoading(false);
       }
     }
   };
 
   return (
-    <div className="w-1/2 p-4">
+    <div className="md:w-1/2 w-full p-10">
       <h2
         className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
       >
@@ -92,7 +100,7 @@ const LoginForm = () => {
           </div>
           <div>
             <input
-              type="password"
+              type={viewPassword ? "text" : "password"}
               name="password"
               id="password"
               placeholder="Password"
@@ -112,19 +120,18 @@ const LoginForm = () => {
                   id="remember"
                   aria-describedby="remember"
                   type="checkbox"
-                  className="w-4 h-4 border  "
+                  className="w-4 h-4 focus:ring-0"
                   required
+                  checked={viewPassword}
+                  onChange={() => setViewPassword(!viewPassword)}
                 />
               </div>
               <div className="ml-3 text-sm">
                 <label htmlFor="remember" className=" text-zinc-500 text-sm">
-                  Remember me
+                  View password
                 </label>
               </div>
             </div>
-            <a href="#" className="text-sm font-medium  hover:underline">
-              Forgot password?
-            </a>
           </div>
           <button
             type="submit"

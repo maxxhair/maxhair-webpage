@@ -5,10 +5,11 @@ import "./globals.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Providers from "./util/Providers";
+import ScrolltoTop from "./Components/ScrolltoTop";
 
 export const metadata = {
   title: "Maxx Hair",
-  description: "hair extensions"
+  description: "hair extensions",
 };
 
 export default function RootLayout({ children }) {
@@ -24,8 +25,9 @@ export default function RootLayout({ children }) {
           src="https://secure.helcim.app/helcim-pay/services/start.js"
         ></script>
       </head>
-      <body className={`${prompt.className}`}>
+      <body className={prompt.className}>
         <Providers>
+          <ScrolltoTop />
           <div className="fixed top-0 w-full z-20">
             <Header />
           </div>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { productImage } from "../util/images";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import CartItem from "./CartItem";
 import { addCouponCode, addDiscount } from "../store/redux/cartSlice";
+import axios from "axios";
+import { baseUrl } from "../util/axiosInstance";
+import { isEmpty } from "lodash";
+import { CouponValidation } from "../util/helpers";
 
 const CheckoutCartDetails = () => {
   const cartProducts = useSelector((state: RootState) => state.cart.cartItems);
@@ -15,41 +17,61 @@ const CheckoutCartDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [couponcodemsg, setCouponCodeMsg] = useState("");
+  const [couponCodeApplied, setCouponCodeApplied] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (couponCode === "MAXX40") {
-      dispatch(addDiscount(40));
-      setCouponCodeMsg("40% discount is applied to total price");
-    } else if (couponCode === "MAXX20") {
-      dispatch(addDiscount(20));
-      setCouponCodeMsg("20% discount is applied to total price");
-    } else if (couponCode === "MAXX30") {
-      dispatch(addDiscount(30));
-      setCouponCodeMsg("30% discount is applied to total price");
-    } else if (couponCode === "MAXX50") {
-      dispatch(addDiscount(50));
-      setCouponCodeMsg("50% discount is applied to total price");
-    } else if (couponCode === "") {
-      dispatch(addDiscount(0));
-      setCouponCodeMsg("");
-    } else if (couponCode === "MAXX60") {
-      dispatch(addDiscount(60));
-      setCouponCodeMsg("60% discount is applied to total price");
-    } else {
-      dispatch(addDiscount(0));
-      setCouponCodeMsg("Invalid Coupon Code");
+  const VerifyCouponCode = async () => {
+    try {
+      if (!couponCode) {
+        dispatch(addDiscount(0));
+        setCouponCodeMsg("");
+        return;
+      }
+      const response = await axios.get(`${baseUrl}coupons/${couponCode}`);
+
+      if (!isEmpty(response.data)) {
+        const validateCoupon = CouponValidation(response.data[0], priceTotal);
+        console.log("Coupon Validation:", validateCoupon);
+
+        if (!validateCoupon.errors.discount) {
+          dispatch(addDiscount(Number(validateCoupon.couponAmount)));
+          setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+          setCouponCodeApplied(true);
+        } else {
+          setCouponCodeMsg(validateCoupon.errors.discount);
+          dispatch(addDiscount(0));
+          setCouponCodeApplied(false);
+        }
+      } else {
+        setCouponCodeMsg("Invalid coupon code");
+        dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
+      }
+    } catch (error) {
+      if (error?.response?.status === 404) {
+        setCouponCodeMsg("Coupon does not exist");
+        dispatch(addDiscount(0));
+        setCouponCodeApplied(false);
+      } else {
+        console.error("Error verifying coupon code:", error);
+        setCouponCodeMsg("An error occurred. Please try again.");
+      }
     }
-  }, [couponCode]);
+  };
 
   const priceTotal = useSelector((state: RootState) => {
     const cartItems = state.cart.cartItems;
     let totalPrice = 0;
-    if (cartItems.length > 0) {
+    if (cartItems?.length > 0) {
       cartItems.map((item) => (totalPrice += item.price * item.count));
     }
-
     return totalPrice;
   });
+
+  useEffect(() => {
+    if (couponCodeApplied && couponCode.length > 0) {
+      VerifyCouponCode();
+    }
+  }, [couponCodeApplied, couponCode, priceTotal]);
 
   const handleUpdateCouponCode = (e: any) => {
     dispatch(addCouponCode(e.target.value));
@@ -59,13 +81,20 @@ const CheckoutCartDetails = () => {
     ((discountPercentage / 100) * priceTotal).toFixed(2)
   );
 
+  const today = new Date();
+  const EstimatedDeliveryDate = new Date(
+    today.getTime() + 4 * 24 * 60 * 60 * 1000
+  ).toDateString();
+
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 lg:pt-8 lg:px-8">
-      <div className="h-[50vh] overflow-y-scroll">
-        {cartProducts.map((item: any) => (
-          <CartItem key={item.id} product={item} />
-        ))}
-      </div>
+    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 h-[85vh] overflow-y-scroll lg:pt-8 lg:px-8 flex-1">
+      <span className="lg:title-large title-medium ">
+        {`Cart items (${cartProducts.length})`}
+      </span>
+      {cartProducts.map((item: any) => (
+        <CartItem key={item.id} product={item} />
+      ))}
+
       <div className="w-full flex items-center gap-6 justify-between">
         <input
           placeholder="Discount code or gift card"
@@ -75,16 +104,23 @@ const CheckoutCartDetails = () => {
           onChange={handleUpdateCouponCode}
         />
         <button
-          className={
-            couponCode !== ""
-              ? "bg-transparent px-6 py-3 border border-green-400 rounded-lg text-green-400"
-              : "border border-black  px-6 py-3 rounded-lg"
-          }
+          className="bg-transparent px-6 py-3 border border-black rounded-lg"
+          onClick={VerifyCouponCode}
         >
-          {couponCode !== "" ? "Applied" : "Apply"}
+          Apply
         </button>
       </div>
-      {couponcodemsg !== "" && <p className="text-sm">{couponcodemsg}</p>}
+      {couponcodemsg !== "" && (
+        <p
+          className={
+            couponCodeApplied
+              ? `text-sm text-green-500`
+              : `text-sm text-red-500`
+          }
+        >
+          {couponcodemsg}
+        </p>
+      )}
       <div className="">
         <div className="headline-small pt-5">
           <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
@@ -96,7 +132,7 @@ const CheckoutCartDetails = () => {
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Discount</p>
-              <p className="label-medium font-medium">${discount}</p>
+              <p className="label-medium font-medium">${discountPercentage}</p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">Shipping</p>
@@ -107,14 +143,18 @@ const CheckoutCartDetails = () => {
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">TOTAL</p>
               <p className="label-medium font-medium">
-                ${(priceTotal - discount).toFixed(2)}
+                ${(priceTotal - discountPercentage).toFixed(2)}
               </p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="label-medium text-gray-500 font-medium">
                 Estimated Delivery by
               </p>
-              <p className="label-medium font-medium">01 Feb, 2023</p>
+              <p className="label-medium font-medium">
+                {cartProducts.length > 0
+                  ? EstimatedDeliveryDate
+                  : "Un Estimated"}
+              </p>
             </div>
           </div>
         </div>

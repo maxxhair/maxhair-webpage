@@ -6,7 +6,7 @@ interface Props {
 }
 
 const ProfileSideNavbar: React.FC<Props> = ({ activeOption, setNavOption }) => {
-  const NavOptions = ["orders", "addresses", "wishlists", "account settings"];
+  const NavOptions = ["orders", "addresses", "wishlists", "account"];
 
   return (
     <div className="w-1/4 h-36 sticky top-40 flex flex-col">

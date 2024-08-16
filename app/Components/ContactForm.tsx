@@ -1,9 +1,41 @@
-import { prompt } from "../util/fonts";
+"use client";
+import axios from "axios";
+import serialize from "form-serialize";
+import React, { useRef } from "react";
+import toast from "react-hot-toast";
 
 const ContactForm = () => {
+  const formRef = useRef<HTMLFormElement>();
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    const obj = serialize(e.target as HTMLFormElement, { hash: true });
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}contact`,
+        {
+          fullName: obj.fullname,
+          emailId: obj.email,
+          subject: obj.subject,
+          message: obj.message
+        }
+      );
+      if (res.status === 201) {
+        toast.success("Your message has been sent successfully!");
+        formRef?.current?.reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className={`w-3/4 md:w-1/2 xl:w-1/3  m-auto`}>
-      <form className={`space-y-4 md:space-y-6 mt-2 lg:mt-5`} action="#">
+    <div className="w-3/4 md:w-1/2 xl:w-1/3 mx-auto my-5">
+      <form
+        className="space-y-4 md:space-y-6 mt-2 lg:mt-5"
+        onSubmit={handleSubmit}
+        ref={formRef}
+      >
         <div>
           <input
             type="text"

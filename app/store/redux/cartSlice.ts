@@ -1,14 +1,18 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ProductStoreType } from "../../types";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { LoggedUser, ProductStoreType } from "../../types";
+import axios from "axios";
+import { RootState } from "..";
 
 type InitialCartState = {
   openCart: boolean;
   cartItems: ProductStoreType[];
   couponCode: string;
   discountPercentage: number;
+  isLoading: boolean;
 };
 
 export const initialState: InitialCartState = {
+  isLoading: true,
   openCart: false,
   cartItems: [],
   couponCode: "",
@@ -33,6 +37,37 @@ type AddProductType = {
   product: ProductStoreType;
   count: number;
 };
+
+interface FetchCartInput {
+  successCallback: () => void;
+  errorCallback: (error: string) => void;
+  value: object;
+}
+
+export const fetchCartProducts = createAsyncThunk(
+  "fetchCartProducts/Async",
+  async (input: FetchCartInput, thunkApi) => {
+    const { successCallback, errorCallback } = input;
+    const { rejectWithValue } = thunkApi;
+    const state = thunkApi.getState() as RootState;
+    const user = state.user.user as LoggedUser;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.cookie}`
+      }
+    };
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}cart`,
+        config
+      );
+      successCallback();
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 const cartSlice = createSlice({
   name: "cart",

@@ -1,55 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import { Fira_Sans, Prompt } from "next/font/google";
 import {
   deliveryImg,
-  logo,
   productImage1,
   productImage2,
   productImage3,
   productImage4,
   productImage5,
-  prodimg,
+  prodimg
 } from "../util/images";
 import React, { useEffect, useState } from "react";
-import ExtraInfoSection from "../Components/ExtraInfoSection";
-import {
-  colorOpts,
-  list1,
-  sizeOpts,
-  textureOpts,
-  typeOpts,
-} from "../util/staticData";
-import Rating from "../Components/Rating";
+import { colorOpts, textureOpts, typeOpts } from "../util/staticData";
 import { getVariantsByProductId } from "../util/serverSideProps";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, setCount, setOpenCart } from "../store/redux/cartSlice";
+import { addProduct, setOpenCart } from "../store/redux/cartSlice";
 import { useParams } from "next/navigation";
 import { ProductStoreType } from "../types";
 import { AppDispatch, RootState } from "../store";
-import axiosInstance from "../util/axiosInstance";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
-  removeFromWishList,
+  removeFromWishList
 } from "../store/redux/wishlistSlice";
-import MostPopular from "../Components/MostPopular";
-import RepeatOrders from "../Components/RepeatOrders";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
 import { Spinner, TextInput } from "flowbite-react";
-import Loader from "../Components/Loader";
-
-const firaSans = Fira_Sans({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
-
-const prompt = Prompt({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+import axios from "axios";
 
 export default function Page() {
   const { id } = useParams();
@@ -65,7 +42,9 @@ export default function Page() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axiosInstance.get("products");
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}products`
+        );
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -115,13 +94,13 @@ export default function Page() {
   const productImage =
     variants[0]?.product?.images && variants[0].product?.images.length > 0
       ? `${baseUrl}/${variants[0].product?.images[0]}`
-      : "";
+      : prodimg;
 
   const add = () => {
     const productToSave: ProductStoreType = {
       id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
-      image: productImage,
+      image: productImage as string,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price
@@ -131,11 +110,11 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave,
+      product: productToSave
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -205,7 +184,7 @@ export default function Page() {
     const productToAdd: ProductStoreType = {
       id: filteredVariant && filteredVariant[0]._id,
       name: variants[0].product.title,
-      image: productImage,
+      image: productImage as string,
       price:
         filteredVariant && filteredVariant[0]?.price
           ? filteredVariant[0].price
@@ -215,7 +194,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -242,37 +221,42 @@ export default function Page() {
     );
   }
 
+  const productDescription = products.filter(
+    (product) => product?._id === id
+  )[0];
+
   return (
     variants && (
-      <div
-        className={`${prompt.className}  bg-white text-black mt-20 2xl:w-4/5 2xl:m-auto m-8 2xl:mt-20`}
-      >
+      <div className={`text-black mt-20 2xl:w-4/5 2xl:m-auto 2xl:mt-20`}>
         <div className="md:flex flex-row inline">
           <div className=" block md:hidden m-4  w-3/5 mx-auto">
-            <ProductImageSwiper mainImage={productImage} />
+            <ProductImageSwiper mainImage={productImage1} />
           </div>
-          <div className="hidden md:block md:w-1/2 p-8 sm:m-auto xl:m-0 sm:w-3/5">
+          {/* <div className="hidden md:block md:w-1/2 h-[75vh] sticky top-[15vh]  sm:m-auto xl:m-0 sm:w-3/5">
+            <ProductImageSlider swiperImages={images} />
+          </div> */}
+          <div className="hidden md:block md:w-1/2  sm:m-auto xl:m-0 sm:w-3/5">
             <Image
               src={productImage}
-              alt="product-image-error"
-              width={600}
+              alt="product-image-error-0"
+              width={800}
               height={500}
             />
             <div className="w-full flex">
               <Image
                 src={productImage1}
-                alt="product-image-error"
+                alt="product-image-error-1"
                 className="w-1/2"
               />
               <Image
                 src={productImage2}
-                alt="product-image-error"
+                alt="product-image-error-2"
                 className="w-1/2"
               />
             </div>
-            <Image src={productImage3} alt="product-image-error" />
-            <Image src={productImage4} alt="product-image-error" />
-            <Image src={productImage5} alt="product-image-error" />
+            <Image src={productImage3} alt="product-image-error-3" />
+            <Image src={productImage4} alt="product-image-error-4" />
+            <Image src={productImage5} alt="product-image-error-5" />
           </div>
 
           <div className="md:w-1/2 m-4 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
@@ -286,7 +270,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                ),
+                )
               ]
                 .sort(function (a, b) {
                   return a - b;
@@ -367,14 +351,13 @@ export default function Page() {
             )}
             <div className="flex space-x-3 mt-4">
               <Image src={deliveryImg} alt="img-err" />
-              <p className="mt-1 label-small lg:label-medium">
-                Free Delivery & Easy Returns
-              </p>
+              <p className="mt-1 label-small lg:label-medium">Free Delivery</p>
             </div>
             <div className="py-4">
               {stockCount === 0 ? (
                 <p className="label-small lg:label-medium text-red-600">
-                  Stock Unavailabe ! Don&apos;t worry still you can place order
+                  Stock unavailable! Don't worry, you can still place an order
+                  we have manufacturing unit.
                 </p>
               ) : (
                 <p className="label-small lg:label-medium text-green-900">
@@ -394,7 +377,6 @@ export default function Page() {
               <div className="flex lg:flex-row flex-col">
                 <div className="flex items-center gap-6 m-3 justify-between">
                   <div className="flex items-center gap-6">
-                    {" "}
                     <div
                       className="grid place-items-center w-10 aspect-square border border-gray-500 cursor-pointer text-3xl"
                       onClick={() => setQuantity(selectedQuantity - 1)}
@@ -443,72 +425,15 @@ export default function Page() {
                 </button>
               </div>
             </div>
-            <div className="flex lg:flex-row flex-col mt-4 border  border-neutral-200 rounded">
-              <Image src={logo} alt="img-err" className="m-3 w-16" />
-              <p className="text-sm p-5 font-semibold">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-            </div>
             <p className=" text-lg font-semibold mt-4">Description</p>
             <div className="mt-3 ">
-              <p>
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-
-              <p className="mt-1.5">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-
-              <p className="mt-1.5">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
-
-              <p className="mt-1.5">
-                Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-                tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-                rhoncus bibendum aliquam montes magna blandit lobortis quis.
-                Eget nam quis non at bibendum nulla nulla
-              </p>
+              <p>{productDescription && productDescription?.description}</p>
             </div>
           </div>
         </div>
-        <div className="md:flex md:flex-col lg:flex-row mt-10 inline">
-          <div className="lg:w-5/12 lg:p-8 font-semibold mt-8 max-xl:m-8">
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum
-              tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis
-              rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget
-              nam quis non at bibendum nulla nulla
-            </p>
-          </div>
-          <div className="md:w-7/12 p-6 h-auto text-xs xl:text-sm">
-            {list1.map((obj, index) => {
-              return (
-                <ExtraInfoSection
-                  key={index}
-                  title={obj.title}
-                  body={obj.body}
-                  isOpen={index === 0}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <MostPopular prods={products} />
-        <RepeatOrders prods={products} />
         <CustomerReviews />
+        {/* <MostPopular prods={products} />
+        <RepeatOrders prods={products} /> */}
       </div>
     )
   );

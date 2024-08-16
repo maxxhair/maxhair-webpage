@@ -2,9 +2,9 @@
 
 import { Fira_Sans, Prompt } from "next/font/google";
 import React, { useState } from "react";
-import axiosInstance from "../util/axiosInstance";
-import { redirect } from "next/navigation";
-import { tosignin } from "./actions";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import axios from "axios";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -20,6 +20,7 @@ const SignupForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [viewPassword, setViewPssword] = useState<Boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateForm = () => {
@@ -57,12 +58,15 @@ const SignupForm = () => {
     e.preventDefault();
     try {
       if (validateForm()) {
-        const response = await axiosInstance.post("signup", {
-          email,
-          password,
-          fullName,
-          phoneNumber
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}signup`,
+          {
+            email,
+            password,
+            fullName,
+            phoneNumber
+          }
+        );
         window.location.href = "signin";
       }
     } catch (error) {
@@ -71,7 +75,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="md:w-1/2 p-6 md:p-0">
+    <div className="md:w-1/2 w-full p-10 md:p-0">
       <h2
         className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
       >
@@ -87,7 +91,6 @@ const SignupForm = () => {
             SIGN IN
           </a>
         </p>
-
         <form className="space-y-4 md:space-y-6 mt-5" action="#">
           <div>
             <input
@@ -134,9 +137,9 @@ const SignupForm = () => {
               <div className="text-sm text-[#ff2828]">{errors.email}</div>
             )}
           </div>
-          <div>
+          <div className="relative">
             <input
-              type="password"
+              type={viewPassword ? "text" : "password"}
               name="password"
               id="password"
               value={password}
@@ -148,6 +151,17 @@ const SignupForm = () => {
             {errors.password && (
               <div className="text-sm text-[#ff2828]">{errors.password}</div>
             )}
+            {viewPassword ? (
+              <FaRegEyeSlash
+                className="absolute top-1/2 right-4 cursor-pointer -translate-y-1/2"
+                onClick={() => setViewPssword(false)}
+              />
+            ) : (
+              <FaRegEye
+                className="absolute top-1/2 right-4 cursor-pointer -translate-y-1/2"
+                onClick={() => setViewPssword(true)}
+              />
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-start">
@@ -156,7 +170,7 @@ const SignupForm = () => {
                   id="remember"
                   aria-describedby="remember"
                   type="checkbox"
-                  className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 "
+                  className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-0"
                   required
                 />
               </div>

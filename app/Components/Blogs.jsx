@@ -6,18 +6,38 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import Image from "next/image";
-import { sample1 } from "../util/images";
+import { blogImage2, sample1 } from "../util/images";
 import Link from "next/link";
 import { firaSans, firaSansMedium } from "../util/fonts";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { generateSlug } from "../util/slug";
+import axios from "axios";
+import { baseUrl } from "../util/axiosInstance";
 
 function Blogs() {
   const [selected, setSelected] = useState(1);
   const sliderRefBlogs = useRef(null);
+  const [blog, setBlog] = useState(null);
+  const slug = generateSlug("Know Your Hair");
   const handleSlideChange = useCallback(() => {
     const swiper = sliderRefBlogs.current.swiper;
     setSelected(swiper.realIndex);
   }, []);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}blog`);
+        setBlog(response.data.data[0]);
+      } catch (error) {
+        throw error;
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const baseImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+  const blogimg = `${baseImageUrl}/${blog?.blogImage}`;
 
   //replace this with data from api
   const list = [
@@ -25,26 +45,26 @@ function Blogs() {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "The advice we've ever heard about Hair Extensions",
-      image: sample1,
+      image: sample1
     },
     {
-      body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
-      link: "",
-      data: "The History of Hair",
-      image: sample1,
-    },
-    {
-      body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
-      link: "",
-      data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
-      image: sample1,
+      body: "Have you ever wondered why is hair so precious? What makes up a strand of hair? what is it made of? Why is it so difficult to find good hair? And what makes up good hair? And most importantly what makes it so expensive? We have heard you!",
+      link: `/blog/${slug}`,
+      data: "Know your hair",
+      image: blogImage2
     },
     {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
-      image: sample1,
+      image: sample1
     },
+    {
+      body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
+      link: "",
+      data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
+      image: sample1
+    }
   ];
 
   return (
@@ -57,9 +77,11 @@ function Blogs() {
       <div className="flex lg:flex-row flex-col justify-evenly items-center lg:gap-[70px] gap-[30px] xl:w-[70%] lg:w-[90%] w-full ">
         <div className="lg:w-[calc(50%-70px)] w-[90%] h-full flex justify-center items-center ">
           <Image
-            src={list[selected].image}
+            src={blogimg}
             alt=""
-            className="w-auto h-auto rounded-xl"
+            className="w-full h-full rounded-xl"
+            width={400}
+            height={300}
           />
         </div>
         <div className="flex flex-col gap-[20px] lg:w-[calc(50%-70px)] w-[90%] justify-evenly">
@@ -67,19 +89,19 @@ function Blogs() {
             <span
               className={`${firaSans.className} lg:title-large md:title-medium title-small line-clamp-1`}
             >
-              {list[selected].data}
+              {blog?.title}
             </span>
             <span className="text-[#242424] lg:label-large md:label-medium label-small line-clamp-5 w-fit ">
-              {list[selected].body}
+              {blog?.subHeading}
             </span>
             <Link
-              href={list[selected].link}
+              href={`blog/${blog?._id}`}
               className="bg-[#242424] text-[#FAFAFA] lg:label-large md:label-medium label-small uppercase w-fit py-[10px] px-[30px]"
             >
               read more
             </Link>
           </div>
-          <div className="w-full flex justify-end gap-[10px]">
+          {/* <div className="w-full flex justify-end gap-[10px]">
             <button
               className={`swiper-prev-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
                 selected === 0
@@ -100,11 +122,11 @@ function Blogs() {
             >
               {">"}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className=" xl:w-[70%] lg:w-[90%] w-full relative  ">
-        <Swiper
+        {/* <Swiper
           ref={sliderRefBlogs}
           initialSlide={1}
           effect="coverflow"
@@ -113,7 +135,7 @@ function Blogs() {
             stretch: 0,
             depth: 0,
             modifier: 2.5,
-            slideShadows: false,
+            slideShadows: false
           }}
           spaceBetween={10}
           slidesPerView={1}
@@ -122,49 +144,51 @@ function Blogs() {
           modules={[Navigation, EffectCoverflow]}
           navigation={{
             nextEl: ".swiper-next-button-blogs",
-            prevEl: ".swiper-prev-button-blogs",
+            prevEl: ".swiper-prev-button-blogs"
           }}
           onSlideChange={handleSlideChange}
           breakpoints={{
             750: {
               slidesPerView: 2,
-              delay: 5000,
+              delay: 5000
             },
 
             1440: {
               slidesPerView: 3,
-              delay: 3000,
-            },
+              delay: 3000
+            }
           }}
-        >
-          {list.map((obj, index) => {
+        > */}
+        {/* {list.map((obj, index) => {
             return (
               <SwiperSlide
                 key={index}
                 style={{
                   display: "flex",
                   justifyContent: "flex-start",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
-              >
-                <div
-                  className={` ${
-                    selected === index
-                      ? "bg-[#242424] text-[#F2ECE2]"
-                      : "text-[#242424] bg-white"
-                  }  lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2`}
-                >
-                  <Image
-                    src={obj.image}
-                    alt="error"
-                    className="object-cover h-[90px] w-[90px]"
-                  />
-                  <span className="line-clamp-2">{obj.data}</span>
-                </div>
-              </SwiperSlide>
-            );
+              > */}
+        {/* <div
+          className="
+           lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2"
+        >
+          <Image
+            src={blogImage2}
+            alt="error"
+            className="object-cover h-[90px] w-[90px]"
+          />
+          <span className="line-clamp-2">
+            Have you ever wondered why is hair so precious? What makes up a
+            strand of hair? what is it made of? Why is it so difficult to find
+            good hair? And what makes up good hair? And most importantly what
+            makes it so expensive? We have heard you!
+          </span>
+        </div> */}
+        {/* </SwiperSlide> */}
+        {/* );
           })}
-        </Swiper>
+        </Swiper> */}
       </div>
     </div>
   );

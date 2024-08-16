@@ -1,10 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { IoClose } from "react-icons/io5";
 import { prodimg } from "../util/images";
 import React, { useState } from "react";
 import { firaSans } from "../util/fonts";
 import Link from "next/link";
+import { Modal } from "flowbite-react";
+import { useRouter } from "next/navigation";
 
 interface Product {
   _id: string;
@@ -18,6 +21,7 @@ interface Product {
     price: number;
   };
   images: string[];
+  subProducts?: Product[];
 }
 
 interface Props {
@@ -25,7 +29,8 @@ interface Props {
 }
 
 const ProductCard: React.FC<Props> = ({ item }) => {
-  const [hovered, setHovered] = useState(false);
+  const router = useRouter();
+  const [openSubProducts, setOpenSubProducts] = useState(false);
 
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
@@ -34,40 +39,78 @@ const ProductCard: React.FC<Props> = ({ item }) => {
       ? `${baseUrl}/${item?.images[0]}`
       : prodimg;
 
-  return (
-    <Link href={`/${item._id}`}>
-      <div
-        className=" pt-8 h-auto transition-colors duration-300 hover:bg-[#e3d6c5] relative"
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
-      >
-        <Image
-          src={imageUrl}
-          alt="img-err"
-          className="m-auto border-1 border-black"
-          width={140}
-          height={200}
-        />
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (item.subProducts && item.subProducts.length > 1) {
+      setOpenSubProducts(true);
+    } else {
+      router.push(`/${item._id}`);
+    }
+  };
 
+  return (
+    <>
+      <div
+        className="px-3 py-5 h-auto transition-all duration-300 bg-white  relative shadow-lg rounded-md cursor-pointer"
+        onClick={handleClick}
+      >
+        <div className="relative xl:w-full aspect-[3/4]">
+          <Image
+            src={imageUrl}
+            alt="img-err"
+            className="m-auto border-1 border-black"
+            layout="fill"
+          />
+        </div>
         <p
-          className={`${firaSans.className} align-middle justify-center flex text-xl font-semibold pb-1`}
+          className={`${firaSans.className} text-center text-xl font-semibold py-4`}
         >
           {item?.title}
         </p>
-        <p className="align-middle justify-center flex font-semibold pb-1">
-          ${item?.cheapestVariant?.price}
-        </p>
-
-        <div className="flex justify-between  text-sm px-3">
-          <p>{item.category?.title}</p>
-        </div>
-        {hovered && (
-          <button className="w-full h-10 bg-[#242424] grid place-items-center text-white mt-4 absolute left-0 -bottom-10 pb-1">
-            VIEW PRODUCT
-          </button>
-        )}
       </div>
-    </Link>
+      <Modal
+        show={openSubProducts}
+        onClose={() => setOpenSubProducts(false)}
+        dismissible
+        size="md"
+      >
+        <Modal.Body>
+          <div className="relative w-full object-cover aspect-[3/4]">
+            <Image
+              src={imageUrl}
+              alt="img-err"
+              className="m-auto border-1 border-black"
+              layout="fill"
+            />
+            <div
+              className="bg-gray-300 w-fit p-1 rounded-full absolute top-3 right-3 cursor-pointer"
+              onClick={() => setOpenSubProducts(false)}
+            >
+              <IoClose size={"1.5rem"} className="" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <p
+              className={`${firaSans.className} text-center text-xl font-semibold py-2`}
+            >
+              {item?.title}
+            </p>
+            <p>Select the Type</p>
+            <div className="grid grid-cols-3 gap-3">
+              {item?.subProducts?.map((subProduct: Product) => (
+                <Link
+                  href={`/${subProduct?._id}`}
+                  key={subProduct._id}
+                  className="py-2 px-4 border border-black hover:bg-[#a47252] transition-all duration-300"
+                >
+                  <p className="text-sm font-medium">{subProduct?.title}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 export default ProductCard;

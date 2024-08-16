@@ -6,8 +6,11 @@ import { companyLogo2 } from "../../util/images";
 import { firaSans } from "../../util/fonts";
 import { countries } from "../../util/staticData";
 import serialize from "form-serialize";
-import axiosInstance from "../../util/axiosInstance";
+import { baseUrl } from "../../util/axiosInstance";
 import toast from "react-hot-toast";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import axios from "axios";
 
 function EnrollNow() {
   const [openModal, setOpenModal] = useState(false);
@@ -18,7 +21,7 @@ function EnrollNow() {
     event.preventDefault();
     const obj = serialize(event.target as HTMLFormElement, { hash: true });
     try {
-      const res = await axiosInstance.post("user-details", obj);
+      await axios.post(`${baseUrl}user-details`, obj);
       toast.success("Enrolled Successfully");
       formRef.current.reset();
       setOpenModal(false);
@@ -39,7 +42,7 @@ function EnrollNow() {
       </button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header className="bg-white">
-          <div className="flex flex-col py-[20px] px-[20px] gap-[10px]">
+          <div className="flex flex-col p-2 gap-[10px]">
             <Image src={companyLogo2} alt="Maxx hair extentions" />
             <span className="body-small leading-5">
               Maxx Hair Extensions is the #1 most requested hand-tied method by
@@ -93,18 +96,21 @@ function EnrollNow() {
               <label htmlFor="phoneno" className=" font-[500] label-small">
                 Phone Number*
               </label>
-              <input
-                type="tel"
-                id="phoneno"
-                name="phoneNo"
-                pattern="\d{10}"
-                title="Phone number format: XXXXXXXXXX"
-                className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-                required
+              <PhoneInput
+                enableSearch
+                countryCodeEditable={false}
+                country={"us"}
+                inputProps={{
+                  name: "phoneNo",
+                  id: "phoneno",
+                  required: true,
+                  className:
+                    "w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 pl-12",
+                }}
               />
             </div>
             <div className="w-full">
-              <label htmlFor="email" className=" font-[500] label-small">
+              <label htmlFor="email" className=" font-[500] label-small ">
                 Email*
               </label>
               <input
@@ -208,7 +214,7 @@ function EnrollNow() {
               </select>
             </div>
             <span
-              className={`${firaSans.className} lg:title-larg font-[500] title-small`}
+              className={`${firaSans.className} lg:title-large font-[500] title-small`}
             >
               Personal Information
             </span>

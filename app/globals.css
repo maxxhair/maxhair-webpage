@@ -37,9 +37,9 @@ body {
   }
 }
 
-.bg-footer-design {
+/* .bg-footer-design {
   background-image: url("../public/Group3042773.svg");
-}
+} */
 
 /* ScrollableDiv.css */
 .scrollableDiv {
@@ -151,4 +151,8 @@ body {
 .no-outline:focus {
   outline: none !important;
   box-shadow: none;
+}
+
+.focus\:ring-cyan-300:focus {
+  --tw-ring-opacity: 0 !important;
 }

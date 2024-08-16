@@ -6,9 +6,9 @@ import { firaSansMedium } from "../util/fonts";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Card from "./_shopbyproducts/Card";
 import { prodimg } from "../util/images";
-
-import axiosInstance from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
 import Loader from "./Loader";
+import axios from "axios";
 
 function ShopByProducts() {
   const [selected, setSelected] = useState(0);
@@ -27,7 +27,7 @@ function ShopByProducts() {
       let temp = [];
       for (
         let i = selected * numberOfCards;
-        i < Math.min(selected * numberOfCards + numberOfCards, list.length);
+        i < Math.min(selected * numberOfCards + numberOfCards, list?.length);
         i++
       )
         temp.push(i);
@@ -36,7 +36,7 @@ function ShopByProducts() {
   };
   const getRequest = async () => {
     try {
-      const data = await axiosInstance.get("/products");
+      const data = await axios.get(`${baseUrl}products`);
       const temp = data.data.data;
       setListData(temp);
     } catch (err) {
@@ -81,7 +81,6 @@ function ShopByProducts() {
       >
         Shop By Products
       </span>
-
       <div className="w-full relative ">
         <Swiper
           ref={sliderRefSbp}
@@ -106,7 +105,6 @@ function ShopByProducts() {
                   }}
                 >
                   <div className="flex gap-1 md:gap-[20px] justify-center items-center flex-wrap h-[calc(540px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
-                    {/* <div className="w-full md:w-3/4 grid grid-cols-2 place-items-center lg:grid-cols-3"> */}
                     {tempArr.map((ele) => {
                       return (
                         <React.Fragment key={ele}>
@@ -115,6 +113,7 @@ function ShopByProducts() {
                             category={list[ele].category.title}
                             link={`${list[ele]._id}`}
                             image={list[ele].images[0] || prodimg}
+                            subProducts={list[ele].subProducts}
                           />
                         </React.Fragment>
                       );

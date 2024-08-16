@@ -7,9 +7,9 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import { useCallback, useEffect, useRef, useState } from "react";
-
 import Card from "./_shopbytextures/Card";
-import axiosInstance from "../util/axiosInstance";
+import { baseUrl } from "../util/axiosInstance";
+import axios from "axios";
 
 function ShopByTextures() {
   const [selected, setSelected] = useState(0);
@@ -21,8 +21,8 @@ function ShopByTextures() {
   }, []);
 
   useEffect(() => {
-    axiosInstance
-      .get("/textures")
+    axios
+      .get(`${baseUrl}textures`)
       .then((data) => {
         setList(data.data.data);
       })
@@ -90,7 +90,7 @@ function ShopByTextures() {
               slidesPerView: 3
             }
           }}
-          className="shadow-none md:h-[700px] w-[650] "
+          className="shadow-none md:h-[700px] h-[400px] w-[650] "
         >
           {list.map((obj, index) => {
             return (

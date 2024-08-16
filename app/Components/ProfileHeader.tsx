@@ -21,8 +21,8 @@ const ProfileHeader: React.FC<Props> = ({ activeOption }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-between">
-      <div className="flex items-center gap-36">
+    <div className="w-full flex flex-col gap-7 lg:gap-0 lg:flex-row items-start lg:items-center justify-between">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-5 lg:gap-36">
         <p className={`${firaSans.className} headline-medium`}>My Account</p>
         <Breadcrumb>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
