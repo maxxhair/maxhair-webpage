@@ -56,7 +56,7 @@ const Checkout = () => {
         landmark: selectedAddress.landmark,
         state: selectedAddress.state,
         country: selectedAddress.country,
-        zipcode: selectedAddress.zipcode
+        zipcode: selectedAddress.zipcode,
       }));
     }
     setOpenModal(false);
@@ -113,7 +113,7 @@ const Checkout = () => {
                 checkoutFormData.country,
               landmark: checkoutFormData.landmark,
               zipcode: checkoutFormData.zipcode,
-              transactionId: response.data.data.transactionId
+              transactionId: response.data.data.transactionId,
             };
             try {
               const res = await axios.post(`${baseUrl}orders`, body);
@@ -142,7 +142,7 @@ const Checkout = () => {
     try {
       setLoading(true);
       const res = await axios.post(`${baseUrl}payments/get_tokens`, {
-        amount: TotalPriceToPay
+        amount: TotalPriceToPay,
       });
       setToken(res.data.data.checkoutToken);
       // @ts-ignore
@@ -154,7 +154,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="w-full p-5 lg:p-0 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
+    <div className="w-full p-5 lg:pt-8 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
       <div className="w-full lg:w-1/2 grid place-items-center">
         <form
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
@@ -248,7 +248,7 @@ const Checkout = () => {
               inputProps={{
                 id: "phone",
                 required: true,
-                className: "w-full border-[#d1d5db] rounded-md pl-12"
+                className: "w-full border-[#d1d5db] rounded-md pl-12",
               }}
               onChange={handlePhoneInputChange}
             />

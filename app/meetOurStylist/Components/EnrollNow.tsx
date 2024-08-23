@@ -80,7 +80,7 @@ function EnrollNow() {
                 />
               </div>
               <div className="w-1/2">
-                <label htmlFor="lastname" className=" font-[500] label-small">
+                <label htmlFor="lastname" className="font-[500] label-small">
                   Last Name*
                 </label>
                 <input

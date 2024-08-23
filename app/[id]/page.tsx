@@ -39,7 +39,6 @@ export default function Page() {
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
   const [selectedQuantity, setQuantity] = useState(1);
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
