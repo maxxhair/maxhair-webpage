@@ -119,7 +119,7 @@ const AddAddressForm: React.FC<Props> = ({
       <input
         id="landmark"
         type="text"
-        placeholder="Landmark"
+        placeholder="City or Landmark"
         required
         onChange={handleInputChange}
         value={addressFormData.landmark}
@@ -128,7 +128,8 @@ const AddAddressForm: React.FC<Props> = ({
       <input
         id="state"
         type="text"
-        placeholder="State"
+        placeholder="State/Province code"
+        required
         onChange={handleInputChange}
         value={addressFormData.state}
         className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"

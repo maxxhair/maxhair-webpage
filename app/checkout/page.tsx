@@ -56,7 +56,7 @@ const Checkout = () => {
         landmark: selectedAddress.landmark,
         state: selectedAddress.state,
         country: selectedAddress.country,
-        zipcode: selectedAddress.zipcode,
+        zipcode: selectedAddress.zipcode
       }));
     }
     setOpenModal(false);
@@ -105,22 +105,19 @@ const Checkout = () => {
               name: checkoutFormData.name,
               email: checkoutFormData.email,
               phone: checkoutFormData.phone,
-              address:
-                checkoutFormData.address +
-                " " +
-                checkoutFormData.state +
-                " " +
-                checkoutFormData.country,
+              address: checkoutFormData.address,
               landmark: checkoutFormData.landmark,
+              state: checkoutFormData.state,
+              country: checkoutFormData.country,
               zipcode: checkoutFormData.zipcode,
-              transactionId: response.data.data.transactionId,
+              transactionId: response.data.data.transactionId
             };
             try {
               const res = await axios.post(`${baseUrl}orders`, body);
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              push("/");
+              window.location.href = "/";
             } catch (error) {
               console.log(error);
             }
@@ -142,7 +139,7 @@ const Checkout = () => {
     try {
       setLoading(true);
       const res = await axios.post(`${baseUrl}payments/get_tokens`, {
-        amount: TotalPriceToPay,
+        amount: TotalPriceToPay
       });
       setToken(res.data.data.checkoutToken);
       // @ts-ignore
@@ -208,7 +205,7 @@ const Checkout = () => {
             <TextInput
               id="address"
               type="text"
-              placeholder="Address"
+              placeholder="Street Address"
               required
               onChange={handleInputChange}
               value={checkoutFormData?.address}
@@ -216,14 +213,14 @@ const Checkout = () => {
             <TextInput
               id="landmark"
               type="text"
-              placeholder="Apartement, Landmark, Suite etc..(optional)"
+              placeholder="Landmark or city"
               onChange={handleInputChange}
               value={checkoutFormData?.landmark}
             />
             <TextInput
               id="state"
               type="text"
-              placeholder="State"
+              placeholder="State/Province code"
               onChange={handleInputChange}
               value={checkoutFormData?.state}
             />
@@ -248,7 +245,7 @@ const Checkout = () => {
               inputProps={{
                 id: "phone",
                 required: true,
-                className: "w-full border-[#d1d5db] rounded-md pl-12",
+                className: "w-full border-[#d1d5db] rounded-md pl-12"
               }}
               onChange={handlePhoneInputChange}
             />
