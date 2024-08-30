@@ -11,7 +11,6 @@ import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { LoggedUser } from "../types";
-import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import AddressesSection from "../Components/AddressesSection";
@@ -25,6 +24,8 @@ interface CheckoutFormData {
   zipcode: string;
   state: string;
   country: string;
+  provincecode: string;
+  countrycode: string;
 }
 
 const Checkout = () => {
@@ -42,7 +43,6 @@ const Checkout = () => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
-  const { push } = useRouter();
 
   useEffect(() => {
     if (selectedAddress) {
@@ -56,7 +56,9 @@ const Checkout = () => {
         landmark: selectedAddress.landmark,
         state: selectedAddress.state,
         country: selectedAddress.country,
-        zipcode: selectedAddress.zipcode
+        zipcode: selectedAddress.zipcode,
+        provincecode: selectedAddress.provincecode,
+        countrycode: selectedAddress.countrycode
       }));
     }
     setOpenModal(false);
@@ -108,6 +110,8 @@ const Checkout = () => {
               address: checkoutFormData.address,
               landmark: checkoutFormData.landmark,
               state: checkoutFormData.state,
+              provincecode: checkoutFormData.provincecode,
+              countrycode: checkoutFormData.countrycode,
               country: checkoutFormData.country,
               zipcode: checkoutFormData.zipcode,
               transactionId: response.data.data.transactionId
@@ -220,10 +224,30 @@ const Checkout = () => {
             <TextInput
               id="state"
               type="text"
-              placeholder="State/Province code"
+              placeholder="State"
               onChange={handleInputChange}
               value={checkoutFormData?.state}
             />
+            <div className="flex flex-1 gap-3">
+              <TextInput
+                required
+                className="flex-grow"
+                id="provincecode"
+                type="text"
+                placeholder="Province code"
+                onChange={handleInputChange}
+                value={checkoutFormData?.provincecode}
+              />
+              <TextInput
+                required
+                className="flex-grow"
+                id="countrycode"
+                type="text"
+                placeholder="Country Code"
+                onChange={handleInputChange}
+                value={checkoutFormData?.countrycode}
+              />
+            </div>
             <TextInput
               id="country"
               type="text"

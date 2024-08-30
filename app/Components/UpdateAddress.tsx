@@ -18,6 +18,8 @@ interface Props {
     landmark: string;
     zipcode: string;
     mobileNumber: string;
+    countrycode: string;
+    provincecode: string;
   };
   getAddresses: () => {};
   handleCloseModal: () => void;
@@ -37,7 +39,9 @@ const UpdateAddress: React.FC<Props> = ({
     state: address.state,
     country: address.country,
     zipcode: address.zipcode,
-    mobileNumber: address.mobileNumber
+    mobileNumber: address.mobileNumber,
+    provincecode: address.provincecode,
+    countrycode: address.countrycode
   });
 
   const handleInputChange = (e: any) => {
@@ -115,6 +119,26 @@ const UpdateAddress: React.FC<Props> = ({
           value={fomState.state}
           className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
         />
+        <div className="flex flex-1 gap-3">
+          <input
+            required
+            id="provincecode"
+            type="text"
+            placeholder="Province code"
+            onChange={handleInputChange}
+            value={fomState.provincecode}
+            className="flex-grow border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+          />
+          <input
+            required
+            id="countrycode"
+            type="text"
+            placeholder="Country Code"
+            onChange={handleInputChange}
+            value={fomState.countrycode}
+            className="flex-grow border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+          />
+        </div>
         <input
           id="zipcode"
           placeholder="344XXX"

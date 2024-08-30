@@ -28,7 +28,7 @@ const NewCollection = () => {
         const temp = data.data.data;
         setListData(temp);
       } catch (err) {
-        console.log("from new collections:", err);
+        console.log(err);
       }
     };
     getRequest();

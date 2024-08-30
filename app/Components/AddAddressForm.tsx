@@ -16,6 +16,8 @@ interface Address {
   zipcode: string;
   mobileNumber: string;
   name: string;
+  provincecode: string;
+  countrycode: string;
 }
 
 interface Props {
@@ -37,7 +39,9 @@ const AddAddressForm: React.FC<Props> = ({
     country: "",
     landmark: "",
     zipcode: "",
-    mobileNumber: ""
+    mobileNumber: "",
+    provincecode: "",
+    countrycode: ""
   });
 
   const handleInputChange = (e: any) => {
@@ -64,7 +68,9 @@ const AddAddressForm: React.FC<Props> = ({
         landmark: addressFormData.landmark,
         zipcode: addressFormData.zipcode,
         mobileNumber: addressFormData.mobileNumber,
-        user: user._id
+        user: user._id,
+        provincecode: addressFormData.provincecode,
+        countrycode: addressFormData.countrycode
       };
       const res = await axiosInstance.post("address", body);
       dispatch(
@@ -77,7 +83,9 @@ const AddAddressForm: React.FC<Props> = ({
           country: res.data.data.country,
           landmark: res.data.data.landmark,
           zipcode: res.data.data.zipcode,
-          phone: res.data.data.mobileNumber
+          phone: res.data.data.mobileNumber,
+          provincecode: res.data.data.provincecode,
+          countrycode: res.data.data.countrycode
         })
       );
       handleCloseModal();
@@ -128,12 +136,32 @@ const AddAddressForm: React.FC<Props> = ({
       <input
         id="state"
         type="text"
-        placeholder="State/Province code"
+        placeholder="State"
         required
         onChange={handleInputChange}
         value={addressFormData.state}
         className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
       />
+      <div className="flex flex-1 gap-3">
+        <input
+          required
+          id="provincecode"
+          type="text"
+          placeholder="Province code"
+          onChange={handleInputChange}
+          value={addressFormData.provincecode}
+          className="flex-grow border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+        />
+        <input
+          required
+          id="countrycode"
+          type="text"
+          placeholder="Country Code"
+          onChange={handleInputChange}
+          value={addressFormData.countrycode}
+          className="flex-grow border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
+        />
+      </div>
       <input
         id="zipcode"
         placeholder="344XXX"

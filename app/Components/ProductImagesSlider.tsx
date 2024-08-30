@@ -11,7 +11,6 @@ interface Props {
 }
 
 const ProductImageSlider: React.FC<Props> = ({ swiperImages }) => {
-  console.log("images", swiperImages);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <>

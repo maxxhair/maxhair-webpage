@@ -10,6 +10,8 @@ type InitialAddressesState = {
   country: string;
   landmark: string;
   zipcode: string;
+  countrycode: string;
+  provincecode: string;
 };
 
 export const initialState: InitialAddressesState = {
@@ -21,7 +23,9 @@ export const initialState: InitialAddressesState = {
   state: "",
   country: "",
   landmark: "",
-  zipcode: ""
+  zipcode: "",
+  countrycode: "",
+  provincecode: ""
 };
 
 const addressesSlice = createSlice({
@@ -38,6 +42,8 @@ const addressesSlice = createSlice({
       state.country = action.payload.country;
       state.landmark = action.payload.landmark;
       state.zipcode = action.payload.zipcode;
+      state.countrycode = action.payload.countrycode;
+      state.provincecode = action.payload.provincecode;
     },
     emptyAddress: (state) => {
       state._id = "";
@@ -49,6 +55,8 @@ const addressesSlice = createSlice({
       state.country = "";
       state.landmark = "";
       state.zipcode = "";
+      state.countrycode = "";
+      state.provincecode = "";
     }
   }
 });
