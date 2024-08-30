@@ -20,6 +20,8 @@ interface Props {
     createdAt: string;
     items: Item[];
     transactionId: string;
+    status: string;
+    trackingNumber: string;
   };
 }
 
@@ -49,14 +51,12 @@ const MyOrders: React.FC<Props> = ({ order }) => {
         </div>
         <div className="flex flex-col gap-3">
           <p className="body-medium text-gray-400">
-            Order Status : <span className="text-black">Inprogress</span>
+            Order Status : <span className="text-black">{order.status}</span>
           </p>
-          {/* <p className="body-medium text-gray-400">
-            Payment Method :
-            <span className="text-black">
-              {order.transactionId ? "Pay through Card" : "Pay through Cash"}
-            </span>
-          </p> */}
+          <p className="body-medium text-gray-400">
+            FedEx TrackingNumber :{" "}
+            <span className="text-black">{order.trackingNumber}</span>
+          </p>
         </div>
       </div>
       {order.items &&

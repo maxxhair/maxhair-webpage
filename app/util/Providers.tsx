@@ -15,6 +15,15 @@ const Providers: React.FC<Props> = ({ children }: Props) => {
   useEffect(() => {
     const unsubscribe = persistor.subscribe(() => {
       const state = persistor.getState();
+      {
+        children;
+      }
+      <Next13ProgressBar
+        height="4px"
+        color="#0A2FFF"
+        showOnShallow
+        options={{ showSpinner: false }}
+      />;
       console.log("Persistor state:", state);
     });
     return unsubscribe;

@@ -30,7 +30,6 @@ const CheckoutCartDetails = () => {
 
       if (!isEmpty(response.data)) {
         const validateCoupon = CouponValidation(response.data[0], priceTotal);
-        console.log("Coupon Validation:", validateCoupon);
 
         if (!validateCoupon.errors.discount) {
           dispatch(addDiscount(Number(validateCoupon.couponAmount)));

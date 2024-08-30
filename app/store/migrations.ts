@@ -41,7 +41,9 @@ export const migrations = {
         houseNumber: addressInitialState.houseNumber,
         streetAddress1: addressInitialState.streetAddress1,
         state: addressInitialState.state,
-        country: addressInitialState.country
+        country: addressInitialState.country,
+        countrycode: addressInitialState.countrycode,
+        provincecode: addressInitialState.provincecode
       }
     };
   },

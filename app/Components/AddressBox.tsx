@@ -19,6 +19,8 @@ interface Props {
     landmark: string;
     zipcode: string;
     mobileNumber: string;
+    countrycode: string;
+    provincecode: string;
   };
   getAddresses: () => {};
 }
@@ -45,7 +47,9 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
         country: address.country,
         landmark: address.landmark,
         zipcode: address.zipcode,
-        phone: address.mobileNumber
+        phone: address.mobileNumber,
+        countrycode: address.countrycode,
+        provincecode: address.provincecode
       })
     );
   };

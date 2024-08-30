@@ -10,7 +10,6 @@ function SendMoreInfo() {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const obj = serialize(event.target, { hash: true });
-    console.log(obj);
     formRef.current.reset();
     setOpenModal(false);
   };
