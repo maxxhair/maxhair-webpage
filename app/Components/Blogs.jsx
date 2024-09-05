@@ -1,7 +1,5 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
@@ -9,20 +7,14 @@ import Image from "next/image";
 import { blogImage2, sample1 } from "../util/images";
 import Link from "next/link";
 import { firaSans, firaSansMedium } from "../util/fonts";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { generateSlug } from "../util/slug";
 import axios from "axios";
 import { baseUrl } from "../util/axiosInstance";
 
 function Blogs() {
-  const [selected, setSelected] = useState(1);
-  const sliderRefBlogs = useRef(null);
   const [blog, setBlog] = useState(null);
   const slug = generateSlug("Know Your Hair");
-  const handleSlideChange = useCallback(() => {
-    const swiper = sliderRefBlogs.current.swiper;
-    setSelected(swiper.realIndex);
-  }, []);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -75,7 +67,7 @@ function Blogs() {
         Recent blog
       </span>
       <div className="flex lg:flex-row flex-col justify-evenly items-center lg:gap-[70px] gap-[30px] xl:w-[70%] lg:w-[90%] w-full ">
-        <div className="lg:w-[calc(50%-70px)] w-[90%] h-full flex justify-center items-center ">
+        <div className="lg:w-[calc(50%-70px)] w-[90%] h-full flex justify-center items-center">
           <Image
             src={blogimg}
             alt=""
@@ -91,7 +83,7 @@ function Blogs() {
             >
               {blog?.title}
             </span>
-            <span className="text-[#242424] lg:label-large md:label-medium label-small line-clamp-5 w-fit ">
+            <span className="text-[#242424] lg:label-large md:label-medium label-small line-clamp-5 w-fit">
               {blog?.subHeading}
             </span>
             <Link
@@ -101,95 +93,9 @@ function Blogs() {
               read more
             </Link>
           </div>
-          {/* <div className="w-full flex justify-end gap-[10px]">
-            <button
-              className={`swiper-prev-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
-                selected === 0
-                  ? "bg-[#F2ECE2] text-[#242424] "
-                  : "bg-[#242424] text-[#F2ECE2] "
-              }`}
-              disabled={selected === 0}
-            >
-              {"<"}
-            </button>
-            <button
-              className={`swiper-next-button-blogs h-[60px] w-[60px] flex justify-center items-center ${
-                selected === list.length - 1
-                  ? "bg-[#F2ECE2] text-[#242424] "
-                  : "bg-[#242424] text-[#F2ECE2] "
-              }`}
-              disabled={selected === list.length - 1}
-            >
-              {">"}
-            </button>
-          </div> */}
         </div>
       </div>
-      <div className=" xl:w-[70%] lg:w-[90%] w-full relative  ">
-        {/* <Swiper
-          ref={sliderRefBlogs}
-          initialSlide={1}
-          effect="coverflow"
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 0,
-            modifier: 2.5,
-            slideShadows: false
-          }}
-          spaceBetween={10}
-          slidesPerView={1}
-          // loop
-          centeredSlides={true}
-          modules={[Navigation, EffectCoverflow]}
-          navigation={{
-            nextEl: ".swiper-next-button-blogs",
-            prevEl: ".swiper-prev-button-blogs"
-          }}
-          onSlideChange={handleSlideChange}
-          breakpoints={{
-            750: {
-              slidesPerView: 2,
-              delay: 5000
-            },
-
-            1440: {
-              slidesPerView: 3,
-              delay: 3000
-            }
-          }}
-        > */}
-        {/* {list.map((obj, index) => {
-            return (
-              <SwiperSlide
-                key={index}
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  alignItems: "center"
-                }}
-              > */}
-        {/* <div
-          className="
-           lg:label-large md:label-medium label-small w-full flex gap-[20px] justify-start items-center px-[20px] py-[20px] border-2"
-        >
-          <Image
-            src={blogImage2}
-            alt="error"
-            className="object-cover h-[90px] w-[90px]"
-          />
-          <span className="line-clamp-2">
-            Have you ever wondered why is hair so precious? What makes up a
-            strand of hair? what is it made of? Why is it so difficult to find
-            good hair? And what makes up good hair? And most importantly what
-            makes it so expensive? We have heard you!
-          </span>
-        </div> */}
-        {/* </SwiperSlide> */}
-        {/* );
-          })}
-        </Swiper> */}
-      </div>
+      <div className="xl:w-[70%] lg:w-[90%] w-full relative"></div>
     </div>
   );
 }
