@@ -94,7 +94,11 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
 
         if (!validateCoupon.errors.discount) {
           dispatch(addDiscount(Number(validateCoupon.couponAmount)));
-          setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+          setCouponCodeMsg(
+            response.data[0].type === "percentage"
+              ? `${response.data[0].discount}% discount is applied`
+              : `Flat $${response.data[0].discount} discount is applied`
+          );
           setCouponCodeApplied(true);
         } else {
           setCouponCodeMsg(validateCoupon.errors.discount);
@@ -111,8 +115,9 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
         setCouponCodeMsg("Coupon does not exist");
         dispatch(addDiscount(0));
         setCouponCodeApplied(false);
+      } else if (error?.response?.status === 400) {
+        setCouponCodeMsg("Coupon has Expired");
       } else {
-        console.error("Error verifying coupon code:", error);
         setCouponCodeMsg("An error occurred. Please try again.");
       }
     }

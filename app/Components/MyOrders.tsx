@@ -53,10 +53,12 @@ const MyOrders: React.FC<Props> = ({ order }) => {
           <p className="body-medium text-gray-400">
             Order Status : <span className="text-black">{order.status}</span>
           </p>
-          <p className="body-medium text-gray-400">
-            FedEx TrackingNumber :{" "}
-            <span className="text-black">{order.trackingNumber}</span>
-          </p>
+          {order?.trackingNumber && (
+            <p className="body-medium text-gray-400">
+              FedEx TrackingNumber :{" "}
+              <span className="text-black">{order?.trackingNumber}</span>
+            </p>
+          )}
         </div>
       </div>
       {order.items &&
