@@ -33,7 +33,11 @@ const CheckoutCartDetails = () => {
 
         if (!validateCoupon.errors.discount) {
           dispatch(addDiscount(Number(validateCoupon.couponAmount)));
-          setCouponCodeMsg(`${response.data[0].discount}% discount is applied`);
+          setCouponCodeMsg(
+            response.data[0].type === "percentage"
+              ? `${response.data[0].discount}% discount is applied`
+              : `Flat $${response.data[0].discount} discount is applied`
+          );
           setCouponCodeApplied(true);
         } else {
           setCouponCodeMsg(validateCoupon.errors.discount);

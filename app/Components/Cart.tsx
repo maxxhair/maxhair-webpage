@@ -41,22 +41,8 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
     return totalPrice;
   });
 
-  const discount = parseInt(
-    ((discountPercentage / 100) * priceTotal).toFixed(2)
-  );
-
   const handleCouponCodeChange = (e: any) => {
     dispatch(addCouponCode(e.target.value));
-  };
-
-  const successCallback = () => {};
-  const errorCallback = (error: string) => {
-    console.log(error);
-  };
-  const input = {
-    successCallback,
-    errorCallback,
-    value: {}
   };
 
   useEffect(() => {

@@ -15,7 +15,7 @@ function Faq() {
             <AccordionTitle className="focus:ring-0">
               <p className="text-black">{item.title}</p>
             </AccordionTitle>
-            <AccordionContent className="transition-all duration-300">
+            <AccordionContent className="transition-all duration-300 ease-out">
               <p className="mb-2 text-gray-500 dark:text-gray-400">
                 {item.body}
               </p>

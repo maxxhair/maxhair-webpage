@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { userLogout } from "../store/redux/userSlice";
 import { useRouter } from "next/navigation";
+import { BiExit } from "react-icons/bi";
 
 interface Props {
   activeOption: string;
@@ -32,9 +33,15 @@ const ProfileHeader: React.FC<Props> = ({ activeOption }) => {
           </BreadcrumbItem>
         </Breadcrumb>
       </div>
-      <p className="label-medium cursor-pointer" onClick={handleLogout}>
-        Signout
-      </p>
+      <div className="flex items-center gap-1">
+        <p
+          className="label-medium cursor-pointer hover:underline hover:underline-offset-4"
+          onClick={handleLogout}
+        >
+          Signout
+        </p>
+        <BiExit />
+      </div>
     </div>
   );
 };
