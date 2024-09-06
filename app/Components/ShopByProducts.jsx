@@ -90,7 +90,7 @@ function ShopByProducts() {
           modules={[Navigation]}
           navigation={{
             nextEl: ".swiper-next-button-sbp",
-            prevEl: ".swiper-prev-button-sbp"
+            prevEl: ".swiper-prev-button-sbp",
           }}
           onSlideChange={handleSlideChange}
         >
@@ -101,7 +101,7 @@ function ShopByProducts() {
                   key={index}
                   style={{
                     display: "flex",
-                    justifyContent: "center"
+                    justifyContent: "center",
                   }}
                 >
                   <div className="flex gap-1 md:gap-[20px] justify-center items-center flex-wrap h-[calc(540px*2)] xl:w-[calc(330px*4)] lg:w-[calc(330px*3)] md:w-[calc(330px*2)] w-[calc(330px*1)]">
@@ -109,8 +109,8 @@ function ShopByProducts() {
                       return (
                         <React.Fragment key={ele}>
                           <Card
-                            name={list[ele].title}
-                            category={list[ele].category.title}
+                            name={list[ele]?.title}
+                            category={list[ele].category?.title}
                             link={`${list[ele]._id}`}
                             image={list[ele].images[0] || prodimg}
                             subProducts={list[ele].subProducts}
