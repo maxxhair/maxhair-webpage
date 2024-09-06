@@ -41,7 +41,10 @@ const ProductCard: React.FC<Props> = ({ item }) => {
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (item.subProducts && item.subProducts.length > 1) {
+    if (
+      (item.subProducts && item.subProducts.length > 1) ||
+      item.title === "Wigs"
+    ) {
       setOpenSubProducts(true);
     } else {
       router.push(`/${item._id}`);

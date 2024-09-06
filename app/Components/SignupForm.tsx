@@ -172,6 +172,7 @@ const SignupForm = () => {
                   type="checkbox"
                   className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-0"
                   required
+                  checked
                 />
               </div>
               <div className="ml-3 text-sm">

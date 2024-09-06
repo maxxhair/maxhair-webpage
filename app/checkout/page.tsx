@@ -162,7 +162,6 @@ const Checkout = () => {
           onSubmit={handleSubmit}
         >
           <div className="w-full flex items-center justify-between">
-            <p className="headline-small">Billing Details</p>
             {!loggedUser?.user?.email && (
               <div className="flex">
                 <Link href="signin">
@@ -172,21 +171,9 @@ const Checkout = () => {
               </div>
             )}
           </div>
-          <TextInput
-            id="email"
-            type="text"
-            placeholder="name@gmail.com"
-            required
-            className="pt-3"
-            onChange={handleInputChange}
-            value={checkoutFormData?.email}
-          />
-          <div className="flex items-center gap-2 py-2">
-            <Checkbox />
-            <p className="label-medium">Email me with news and offers</p>
-          </div>
+
           <div className="flex items-center justify-between py-3">
-            <p className="headline-small">Shipping Address</p>
+            <p className="headline-small">Billing and Shipping Details</p>
             {loggedUser?.user?.email && (
               <p
                 className="body-small text-blue-500 hover:underline cursor-pointer"
@@ -198,6 +185,15 @@ const Checkout = () => {
           </div>
 
           <div className="flex flex-col gap-4">
+            <TextInput
+              id="email"
+              type="text"
+              placeholder="name@gmail.com"
+              required
+              className="pt-3"
+              onChange={handleInputChange}
+              value={checkoutFormData?.email}
+            />
             <TextInput
               id="name"
               type="text"
@@ -291,7 +287,7 @@ const Checkout = () => {
             type="submit"
             name="card"
           >
-            {!loading ? "Pay Through Card" : <Spinner size="lg" color="#fff" />}
+            {!loading ? "Pay Online" : <Spinner size="lg" color="#fff" />}
           </button>
         </form>
       </div>
