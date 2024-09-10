@@ -1,6 +1,9 @@
+import axios from "axios";
+
 export const CouponValidation = (data: any, amount: Number) => {
   const errors: any = {};
   let couponAmount = 0;
+  console.log("totalAmount :", amount, "data :", data);
 
   if (data.type === "flat") {
     if (amount > data.minOrderValue) {

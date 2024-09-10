@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { firaSans } from "../util/fonts";
 import ReviewCard from "./ReviewCard";
 import { Button, Modal, Textarea } from "flowbite-react";
@@ -11,29 +11,25 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { isEmpty } from "lodash";
 
-const CustomerReviews = () => {
+interface Props {
+  productReviews: any[];
+  fetchReviews: () => void;
+  setProductReviews: (value: any) => void;
+}
+
+const CustomerReviews: React.FC<Props> = ({
+  productReviews,
+  fetchReviews,
+  setProductReviews
+}) => {
   const { id } = useParams();
   const loggedUser = useSelector((state: RootState) => state.user.user);
   const [reviewModelOpen, setReviewModalOpen] = useState<boolean>(false);
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
   const [showDeletePopup, setShowDeletePopup] = useState<boolean>(false);
-  const [productReviews, setProductReviews] = useState<any>(null);
   const [showmore, setShowMore] = useState<boolean>(false);
   const [reviewTodelete, setReviewTodelete] = useState(null);
-
-  const fetchReviews = async () => {
-    try {
-      const reviews = await getProductReviews(id as string);
-      setProductReviews(reviews);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchReviews();
-  }, []);
 
   const handleReviewModalOpen = () => {
     setReviewModalOpen(true);
@@ -65,10 +61,11 @@ const CustomerReviews = () => {
 
   const handleDeleteReview = async () => {
     try {
-      const res = await axiosInstance.delete(`reviews/${id}`);
+      const res = await axiosInstance.delete(`reviews/${reviewTodelete}`);
       setProductReviews(
         productReviews.filter((review: any) => review._id !== reviewTodelete)
       );
+      // fetchReviews();
       setShowDeletePopup(false);
     } catch (error) {
       console.log(error);
@@ -76,7 +73,7 @@ const CustomerReviews = () => {
   };
 
   const avgRating =
-    productReviews?.legth > 0 ? reviewAverage(productReviews) : 0;
+    productReviews?.length > 0 ? reviewAverage(productReviews) : 0;
 
   return (
     <div className="text-sm">

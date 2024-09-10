@@ -33,7 +33,6 @@ const UpdateAddress: React.FC<Props> = ({
   const user = useSelector((state: RootState) => state.user.user as LoggedUser);
   const [fomState, setFormState] = useState({
     name: address.name,
-    houseNumber: address.houseNumber,
     streetAddress1: address.streetAddress1,
     landmark: address.landmark,
     state: address.state,
@@ -82,15 +81,6 @@ const UpdateAddress: React.FC<Props> = ({
           placeholder="Full Name"
           onChange={handleInputChange}
           value={fomState.name}
-          className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-        />
-        <input
-          type="text"
-          required
-          id="houseNumber"
-          placeholder="House No"
-          onChange={handleInputChange}
-          value={fomState.houseNumber}
           className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
         />
         <input
@@ -146,14 +136,6 @@ const UpdateAddress: React.FC<Props> = ({
           required
           onChange={handleInputChange}
           value={fomState.zipcode}
-          className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-        />
-        <input
-          type="text"
-          id="country"
-          placeholder="Country"
-          onChange={handleInputChange}
-          value={fomState.country}
           className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
         />
         <PhoneInput

@@ -42,7 +42,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
   });
 
   const handleCouponCodeChange = (e: any) => {
-    dispatch(addCouponCode(e.target.value));
+    dispatch(addCouponCode(e.target.value.toUpperCase()));
   };
 
   useEffect(() => {
@@ -136,7 +136,7 @@ const Cart: React.FC<Props> = ({ handleClose }) => {
                 placeholder="Discount code or gift card"
                 type="text"
                 className="w-full bg-white outline-none py-3 px-2 rounded-lg relative"
-                value={couponCode?.toUpperCase()}
+                value={couponCode}
                 onChange={handleCouponCodeChange}
               />
               <Image

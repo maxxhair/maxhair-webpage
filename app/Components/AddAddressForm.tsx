@@ -61,10 +61,8 @@ const AddAddressForm: React.FC<Props> = ({
     try {
       const body = {
         name: addressFormData.name,
-        houseNumber: addressFormData.houseNumber,
         streetAddress1: addressFormData.streetAddress1,
         state: addressFormData.state,
-        country: addressFormData.country,
         landmark: addressFormData.landmark,
         zipcode: addressFormData.zipcode,
         mobileNumber: addressFormData.mobileNumber,
@@ -76,11 +74,9 @@ const AddAddressForm: React.FC<Props> = ({
       dispatch(
         selectAddress({
           _id: res.data.data._id,
-          houseNumber: res.data.data.houseNumber,
           name: res.data.data.name,
           streetAddress1: res.data.data.streetAddress1,
           state: res.data.data.state,
-          country: res.data.data.country,
           landmark: res.data.data.landmark,
           zipcode: res.data.data.zipcode,
           phone: res.data.data.mobileNumber,
@@ -104,15 +100,6 @@ const AddAddressForm: React.FC<Props> = ({
         placeholder="Full Name"
         onChange={handleInputChange}
         value={addressFormData.name}
-        className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-      />
-      <input
-        type="text"
-        required
-        id="houseNumber"
-        placeholder="House No"
-        onChange={handleInputChange}
-        value={addressFormData.houseNumber}
         className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
       />
       <input
@@ -169,14 +156,6 @@ const AddAddressForm: React.FC<Props> = ({
         required
         onChange={handleInputChange}
         value={addressFormData.zipcode}
-        className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
-      />
-      <input
-        type="text"
-        id="country"
-        placeholder="Country"
-        onChange={handleInputChange}
-        value={addressFormData.country}
         className="w-full border-[1px] border-[#D1D1D1] focus:border-[#A47252] focus:ring-0 mt-[5px]"
       />
       <PhoneInput

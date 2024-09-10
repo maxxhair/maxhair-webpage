@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { firaSans } from "../util/fonts";
 import StarRating from "./StarRating";
+import { reviewAverage } from "../util/serverSideProps";
 
-const StockCard = ({ image, name, stock }) => {
+const StockCard = ({ image, name, stock, productReviews }) => {
+  const avgRating =
+    productReviews?.length > 0 ? reviewAverage(productReviews) : 0;
+
   return (
     <div className="w-full h-32 flex border-b-2 ">
       <Image src={image} alt="product-image-error" width={80} height={100} />
@@ -17,8 +21,8 @@ const StockCard = ({ image, name, stock }) => {
           <p>Only {stock} left</p>
         </div>
         <div className="flex items-end justify-center h-full gap-4">
-          <StarRating ratingValue={4} readOnly={true} />
-          <p className=" mt-auto ml-3">15185 Reviews</p>
+          <StarRating ratingValue={(avgRating as any) || 0} readOnly={true} />
+          <p className=" mt-auto ml-3">{productReviews?.length} Reviews</p>
         </div>
       </div>
     </div>

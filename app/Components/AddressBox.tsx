@@ -85,13 +85,12 @@ const AddressBox: React.FC<Props> = ({ address, getAddresses }) => {
         )}
       </div>
       <p className="label-small pl-9">
-        {address?.houseNumber}, {address?.streetAddress1}, {address?.landmark},
-        {address?.zipcode}
+        {address?.streetAddress1}, {address?.landmark},{address?.zipcode}
       </p>
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-9 pl-9">
           <p className="label-small">Contact - {address.mobileNumber}</p>
-          <p className="label-small">Country - {address.country}</p>
+          <p className="label-small">Country - {address.countrycode}</p>
         </div>
         {path === "/profile" && (
           <p className="label-small cursor-pointer" onClick={handleOpenModal}>

@@ -104,7 +104,7 @@ const ProductCard: React.FC<Props> = ({ item }) => {
                 <Link
                   href={`/${subProduct?._id}`}
                   key={subProduct._id}
-                  className="py-2 px-4 border border-black hover:bg-[#a47252] transition-all duration-300"
+                  className="py-2 px-4 border border-black hover:bg-[#a47252] transition-all duration-300 hover:text-white text-center"
                 >
                   <p className="text-sm font-medium">{subProduct?.title}</p>
                 </Link>

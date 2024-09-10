@@ -4,7 +4,7 @@ import React, { useEffect, useState, FormEvent } from "react";
 import CheckoutCartDetails from "../Components/CheckoutCartDetails";
 import Link from "next/link";
 import { Checkbox, Modal, Spinner, TextInput } from "flowbite-react";
-import { baseUrl } from "../util/axiosInstance";
+import axiosInstance, { baseUrl } from "../util/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
 import { emptyCart, removeCouponCode } from "../store/redux/cartSlice";
@@ -14,6 +14,7 @@ import { LoggedUser } from "../types";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import AddressesSection from "../Components/AddressesSection";
+import { selectAddress } from "../store/redux/addressesSlice";
 
 interface CheckoutFormData {
   name: string;
@@ -34,6 +35,7 @@ const Checkout = () => {
   const [token, setToken] = useState(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const coupon = useSelector((state: RootState) => state.cart.couponCode);
   const loggedUser = useSelector(
     (state: RootState) => state.user.user as LoggedUser
   );
@@ -51,8 +53,7 @@ const Checkout = () => {
         name: selectedAddress.name,
         email: loggedUser.user && loggedUser.user.email,
         phone: selectedAddress.phone,
-        address:
-          selectedAddress.houseNumber + " " + selectedAddress.streetAddress1,
+        address: selectedAddress.streetAddress1,
         landmark: selectedAddress.landmark,
         state: selectedAddress.state,
         country: selectedAddress.country,
@@ -81,11 +82,7 @@ const Checkout = () => {
     return totalPrice;
   });
 
-  const discount = parseInt(
-    ((discountPercentage / 100) * priceTotal).toFixed(2)
-  );
-
-  const TotalPriceToPay = (priceTotal - discount).toFixed(2);
+  const TotalPriceToPay = (priceTotal - discountPercentage).toFixed(2);
 
   useEffect(() => {
     const handlePaymentMessage = async (event: MessageEvent) => {
@@ -95,6 +92,8 @@ const Checkout = () => {
           setLoading(false);
           if (event.data.eventStatus === "ABORTED") {
             console.error("Transaction failed!", event.data.eventMessage);
+            toast.error("Transaction aborted! Please try again.");
+            return;
           }
 
           if (event.data.eventStatus === "SUCCESS") {
@@ -107,12 +106,13 @@ const Checkout = () => {
               name: checkoutFormData.name,
               email: checkoutFormData.email,
               phone: checkoutFormData.phone,
-              address: checkoutFormData.address,
+              address: checkoutFormData.address.split(",").slice(0, 2).join(),
               landmark: checkoutFormData.landmark,
               state: checkoutFormData.state,
               provincecode: checkoutFormData.provincecode,
               countrycode: checkoutFormData.countrycode,
               country: checkoutFormData.country,
+              couponCode: coupon && coupon,
               zipcode: checkoutFormData.zipcode,
               transactionId: response.data.data.transactionId
             };
@@ -121,6 +121,7 @@ const Checkout = () => {
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
+              handleAddAddress();
               window.location.href = "/";
             } catch (error) {
               console.log(error);
@@ -154,6 +155,38 @@ const Checkout = () => {
     }
   };
 
+  const handleAddAddress = async () => {
+    try {
+      const body = {
+        name: checkoutFormData.name,
+        streetAddress1: checkoutFormData.address,
+        state: checkoutFormData.state,
+        landmark: checkoutFormData.landmark,
+        zipcode: checkoutFormData.zipcode,
+        mobileNumber: checkoutFormData.phone,
+        user: loggedUser.user && loggedUser.user._id,
+        provincecode: checkoutFormData.provincecode,
+        countrycode: checkoutFormData.countrycode
+      };
+      const res = await axiosInstance.post("address", body);
+      dispatch(
+        selectAddress({
+          _id: res.data.data._id,
+          name: res.data.data.name,
+          streetAddress1: res.data.data.streetAddress1,
+          state: res.data.data.state,
+          landmark: res.data.data.landmark,
+          zipcode: res.data.data.zipcode,
+          phone: res.data.data.mobileNumber,
+          provincecode: res.data.data.provincecode,
+          countrycode: res.data.data.countrycode
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full p-5 lg:pt-8 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
       <div className="w-full lg:w-1/2 grid place-items-center">
@@ -165,9 +198,14 @@ const Checkout = () => {
             {!loggedUser?.user?.email && (
               <div className="flex">
                 <Link href="signin">
-                  <p className="label-medium">Login</p>
+                  <p className="label-medium hover:underline hover:text-blue-400 underline-offset-2">
+                    Login
+                  </p>
                 </Link>
-                /<p className="label-medium">Continue as guest</p>
+                &nbsp;
+                <p className="label-medium">
+                  to see you order details and status
+                </p>
               </div>
             )}
           </div>
@@ -210,6 +248,7 @@ const Checkout = () => {
               onChange={handleInputChange}
               value={checkoutFormData?.address}
             />
+
             <TextInput
               id="landmark"
               type="text"
@@ -224,15 +263,22 @@ const Checkout = () => {
               onChange={handleInputChange}
               value={checkoutFormData?.state}
             />
+            <TextInput
+              required
+              className="flex-grow"
+              id="provincecode"
+              type="text"
+              placeholder="Province code"
+              onChange={handleInputChange}
+              value={checkoutFormData?.provincecode}
+            />
             <div className="flex flex-1 gap-3">
               <TextInput
-                required
-                className="flex-grow"
-                id="provincecode"
+                id="zipcode"
+                placeholder="344XXX / zipcode"
                 type="text"
-                placeholder="Province code"
                 onChange={handleInputChange}
-                value={checkoutFormData?.provincecode}
+                value={checkoutFormData?.zipcode}
               />
               <TextInput
                 required
@@ -244,20 +290,14 @@ const Checkout = () => {
                 value={checkoutFormData?.countrycode}
               />
             </div>
-            <TextInput
+            {/* <TextInput
               id="country"
               type="text"
               placeholder="Country"
               onChange={handleInputChange}
               value={checkoutFormData?.country}
-            />
-            <TextInput
-              id="zipcode"
-              placeholder="344XXX"
-              type="text"
-              onChange={handleInputChange}
-              value={checkoutFormData?.zipcode}
-            />
+            /> */}
+
             <PhoneInput
               enableSearch
               country={"us"}
