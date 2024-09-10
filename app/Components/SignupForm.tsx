@@ -5,6 +5,10 @@ import React, { useState } from "react";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axios from "axios";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const firaSans = Fira_Sans({
   weight: ["400", "700"],
@@ -16,6 +20,7 @@ const prompt = Prompt({
 });
 
 const SignupForm = () => {
+  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -23,11 +28,14 @@ const SignupForm = () => {
   const [viewPassword, setViewPssword] = useState<Boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
+  console.log(phoneNumber.length);
+
   const validateForm = () => {
     let isValid = true;
     const newErrors: { [key: string]: string } = {};
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidEmail = pattern.test(email);
+
     if (!fullName) {
       newErrors.fullName = "Fullname is required";
       isValid = false;
@@ -46,7 +54,7 @@ const SignupForm = () => {
     if (!phoneNumber) {
       newErrors.phoneNumber = "Phone Number is required";
       isValid = false;
-    } else if (phoneNumber.length > 10 || phoneNumber.length < 10) {
+    } else if (phoneNumber.length < 10 || phoneNumber.length > 14) {
       newErrors.phoneNumber = "Enter Valid Phone Number";
       isValid = false;
     }
@@ -64,13 +72,14 @@ const SignupForm = () => {
             email,
             password,
             fullName,
-            phoneNumber
+            phoneNumber: `+${phoneNumber}`
           }
         );
-        window.location.href = "signin";
+        router.push("/signin");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -108,7 +117,7 @@ const SignupForm = () => {
             )}
           </div>
           <div>
-            <input
+            {/* <input
               type="number"
               name="phoneno"
               id="phoneno"
@@ -117,6 +126,17 @@ const SignupForm = () => {
               className="bg-gray-50 border sm:text-sm w-full p-3"
               placeholder="Phone"
               required
+            /> */}
+            <PhoneInput
+              enableSearch
+              country={"us"}
+              value={phoneNumber}
+              inputProps={{
+                id: "phone",
+                required: true,
+                className: "bg-gray-50 border sm:text-sm w-full pl-12 p-3"
+              }}
+              onChange={(value) => setPhoneNumber(value)}
             />
             {errors.phoneNumber && (
               <div className="text-sm text-[#ff2828]">{errors.phoneNumber}</div>

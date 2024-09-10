@@ -76,7 +76,7 @@ const ReviewCard: React.FC<Props> = ({
               <MdDelete
                 fontSize={"1.5rem"}
                 className="text-red-600 cursor-pointer"
-                onClick={() => onDelete(prodReview._id)}
+                onClick={() => onDelete(prodReview?._id)}
               />
             </div>
           )}

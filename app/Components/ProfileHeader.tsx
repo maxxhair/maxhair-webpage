@@ -8,6 +8,8 @@ import { AppDispatch } from "../store";
 import { userLogout } from "../store/redux/userSlice";
 import { useRouter } from "next/navigation";
 import { BiExit } from "react-icons/bi";
+import { removeCouponCode } from "../store/redux/cartSlice";
+import { emptyAddress } from "../store/redux/addressesSlice";
 
 interface Props {
   activeOption: string;
@@ -18,6 +20,8 @@ const ProfileHeader: React.FC<Props> = ({ activeOption }) => {
   const dispatch = useDispatch<AppDispatch>();
   const handleLogout = () => {
     dispatch(userLogout());
+    dispatch(removeCouponCode());
+    dispatch(emptyAddress());
     push("/");
   };
 

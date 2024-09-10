@@ -39,6 +39,21 @@ export default function Page() {
   const [variants, setVariants] = useState([]);
   const [filteredVariant, setFilteredVariant] = useState(null);
   const [selectedQuantity, setQuantity] = useState(1);
+  const [productReviews, setProductReviews] = useState(null);
+
+  // api call for fetching reviews for the product
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}reviews/${id}`
+      );
+      setProductReviews(response.data);
+    } catch (error) {
+      console.error("Error fetching variant reviews:", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -53,6 +68,7 @@ export default function Page() {
       }
     };
     fetchProducts();
+    fetchReviews();
   }, []);
 
   useEffect(() => {
@@ -232,9 +248,6 @@ export default function Page() {
           <div className=" block md:hidden m-4  w-3/5 mx-auto">
             <ProductImageSwiper mainImage={productImage1} />
           </div>
-          {/* <div className="hidden md:block md:w-1/2 h-[75vh] sticky top-[15vh]  sm:m-auto xl:m-0 sm:w-3/5">
-            <ProductImageSlider swiperImages={images} />
-          </div> */}
           <div className="hidden md:block md:w-1/2  sm:m-auto xl:m-0 sm:w-3/5">
             <Image
               src={productImage}
@@ -264,6 +277,7 @@ export default function Page() {
               image={productImage}
               name={variants[0]?.product?.title}
               stock={stockCount}
+              productReviews={productReviews}
             />
             <p className="text-sm font-semibold mt-5">Select Size</p>
             <div className="mt-2">
@@ -431,7 +445,11 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <CustomerReviews />
+        <CustomerReviews
+          productReviews={productReviews}
+          fetchReviews={fetchReviews}
+          setProductReviews={setProductReviews}
+        />
         {/* <MostPopular prods={products} />
         <RepeatOrders prods={products} /> */}
       </div>

@@ -77,12 +77,8 @@ const CheckoutCartDetails = () => {
   }, [couponCodeApplied, couponCode, priceTotal]);
 
   const handleUpdateCouponCode = (e: any) => {
-    dispatch(addCouponCode(e.target.value));
+    dispatch(addCouponCode(e.target.value.toUpperCase()));
   };
-
-  const discount = parseInt(
-    ((discountPercentage / 100) * priceTotal).toFixed(2)
-  );
 
   const today = new Date();
   const EstimatedDeliveryDate = new Date(
@@ -103,7 +99,7 @@ const CheckoutCartDetails = () => {
           placeholder="Discount code or gift card"
           type="text"
           className="w-full bg-white outline-none py-3 px-2 rounded-lg"
-          value={couponCode.toUpperCase()}
+          value={couponCode}
           onChange={handleUpdateCouponCode}
         />
         <button

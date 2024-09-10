@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import axiosInstance from "../util/axiosInstance";
 import { userLoggedin } from "../store/redux/userSlice";
 import { LoggedUser } from "../types";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface UserDetails {
   _id: string;
@@ -34,6 +36,10 @@ const ProfileSettings = () => {
       ...user,
       [e.target.id]: e.target.value
     });
+  };
+
+  const handlePhoneInputChange = (value: any) => {
+    setUser({ ...user, phoneNumber: value });
   };
 
   useEffect(() => {
@@ -97,13 +103,16 @@ const ProfileSettings = () => {
         </div>
         <div className="">
           <p className="label-medium pb-2">Phone Number :</p>
-          <TextInput
-            className="bg-transparent"
-            type="number"
-            placeholder="Phone Number"
-            id="phoneNumber"
+          <PhoneInput
+            enableSearch
+            country={"us"}
             value={user?.phoneNumber}
-            onChange={handleInputChange}
+            inputProps={{
+              id: "phone",
+              required: true,
+              className: "bg-gray-50 border sm:text-sm w-full pl-12 p-3"
+            }}
+            onChange={handlePhoneInputChange}
           />
         </div>
         <button className="bg-black text-white py-3 px-6 text-xl w-fit">
