@@ -34,6 +34,7 @@ const Checkout = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [saveAddress, setSaveAddress] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const coupon = useSelector((state: RootState) => state.cart.couponCode);
   const loggedUser = useSelector(
@@ -121,7 +122,6 @@ const Checkout = () => {
               dispatch(emptyCart());
               dispatch(removeCouponCode());
               toast.success("Order placed successfully");
-              handleAddAddress();
               window.location.href = "/";
             } catch (error) {
               console.log(error);
@@ -186,6 +186,12 @@ const Checkout = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (saveAddress) {
+      handleAddAddress();
+    }
+  }, [saveAddress]);
 
   return (
     <div className="w-full p-5 lg:pt-8 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
@@ -255,12 +261,14 @@ const Checkout = () => {
               placeholder="Landmark or city"
               onChange={handleInputChange}
               value={checkoutFormData?.landmark}
+              required
             />
             <TextInput
               id="state"
               type="text"
               placeholder="State"
               onChange={handleInputChange}
+              required
               value={checkoutFormData?.state}
             />
             <TextInput
@@ -278,6 +286,7 @@ const Checkout = () => {
                 placeholder="344XXX / zipcode"
                 type="text"
                 onChange={handleInputChange}
+                required
                 value={checkoutFormData?.zipcode}
               />
               <TextInput
@@ -310,7 +319,31 @@ const Checkout = () => {
               onChange={handlePhoneInputChange}
             />
           </div>
-          <p className="label-medium my-10">
+
+          {/* {loggedUser?.user?.email && (
+            <div className="flex items-center w-fit my-3">
+              <input
+                id="remember"
+                aria-describedby="remember"
+                type="checkbox"
+                className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-0 cursor-pointer"
+                checked={saveAddress}
+                onChange={() => {
+                  if (checkoutFormData) {
+                    setSaveAddress(!saveAddress);
+                  }
+                }}
+              />
+              <label
+                htmlFor="remember"
+                className="ml-3 text-gray-500 tracking-wide"
+              >
+                Save Address
+              </label>
+            </div>
+          )} */}
+
+          <p className="label-medium mb-10 mt-6">
             By clicking below and completing your order, you agree to purchase
             your item(s) from Maxx Hair Extension as merchant of record for this
             transaction, on Maxx Hair Extension{" "}
