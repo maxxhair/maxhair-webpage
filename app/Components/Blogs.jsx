@@ -29,7 +29,7 @@ function Blogs() {
   }, []);
 
   const baseImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
-  const blogimg = `${baseImageUrl}/${blog?.blogImage}`;
+  const blogimg = `${baseImageUrl}/uploads/${blog?.blogImage}`;
 
   //replace this with data from api
   const list = [
@@ -37,26 +37,26 @@ function Blogs() {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "The advice we've ever heard about Hair Extensions",
-      image: sample1
+      image: sample1,
     },
     {
       body: "Have you ever wondered why is hair so precious? What makes up a strand of hair? what is it made of? Why is it so difficult to find good hair? And what makes up good hair? And most importantly what makes it so expensive? We have heard you!",
       link: `/blog/${slug}`,
       data: "Know your hair",
-      image: blogImage2
+      image: blogImage2,
     },
     {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
-      image: sample1
+      image: sample1,
     },
     {
       body: "Lorem ipsum dolor sit amet consectetur. Etiam urna elit dictum tortor.Sagittis neque a habitant commodo sit nisl. Sit facilisis rhoncus bibendum aliquam montes magna blandit lobortis quis. Eget nam quis non at bibendum nulla nulla. rhoncus bibendum",
       link: "",
       data: "10 Things nobody told about bring a Hair Extensions asd asd asd ad asdasd",
-      image: sample1
-    }
+      image: sample1,
+    },
   ];
 
   return (
