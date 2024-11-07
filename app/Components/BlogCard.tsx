@@ -14,7 +14,7 @@ interface Props {
 
 const BlogCard: React.FC<Props> = ({ blog }) => {
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
-  const blogimg = `${baseUrl}/${blog.blogImage}`;
+  const blogimg = `${baseUrl}/uploads/${blog.blogImage}`;
 
   return (
     <Link href={`/blog/${blog._id}`}>
