@@ -8,7 +8,7 @@ import {
   productImage3,
   productImage4,
   productImage5,
-  prodimg
+  prodimg,
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import { colorOpts, textureOpts, typeOpts } from "../util/staticData";
@@ -21,7 +21,7 @@ import { AppDispatch, RootState } from "../store";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
-  removeFromWishList
+  removeFromWishList,
 } from "../store/redux/wishlistSlice";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
@@ -126,11 +126,11 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture
+      remark: dualTexture,
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave
+      product: productToSave,
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -210,7 +210,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture
+      remark: dualTexture,
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -249,13 +249,23 @@ export default function Page() {
             <ProductImageSwiper mainImage={productImage1} />
           </div>
           <div className="hidden md:block md:w-1/2  sm:m-auto xl:m-0 sm:w-3/5">
-            <Image
+            {/* <Image
               src={productImage}
               alt="product-image-error-0"
               width={800}
               height={500}
-            />
-            <div className="w-full flex">
+            /> */}
+            {variants[0]?.product?.images.map((url, index) => (
+              <div key={index} className="relative m-2">
+                <Image
+                  src={`${baseUrl}/${variants[0].product?.images[index]}`}
+                  width={800}
+                  height={500}
+                  alt={`Product ${index + 1}`}
+                />
+              </div>
+            ))}
+            {/* <div className="w-full flex">
               <Image
                 src={productImage1}
                 alt="product-image-error-1"
@@ -269,7 +279,7 @@ export default function Page() {
             </div>
             <Image src={productImage3} alt="product-image-error-3" />
             <Image src={productImage4} alt="product-image-error-4" />
-            <Image src={productImage5} alt="product-image-error-5" />
+            <Image src={productImage5} alt="product-image-error-5" /> */}
           </div>
 
           <div className="md:w-1/2 m-4 lg:p-16 lg:pl-8 text-xs xl:text-sm xl:m-0">
@@ -284,7 +294,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                )
+                ),
               ]
                 .sort(function (a, b) {
                   return a - b;

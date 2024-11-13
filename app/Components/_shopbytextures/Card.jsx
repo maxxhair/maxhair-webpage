@@ -9,7 +9,7 @@ function Card({ obj, selected, index }) {
 
   const imageUrl =
     obj.image_url && obj.image_url.length > 0
-      ? `${baseUrl}/${obj.image_url}`
+      ? `${baseUrl}/uploads/${obj.image_url}`
       : productImage5;
 
   return (

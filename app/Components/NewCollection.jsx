@@ -14,7 +14,7 @@ const NewCollection = () => {
 
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: targetRef
+    target: targetRef,
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
@@ -59,7 +59,7 @@ const NewCollection = () => {
                     <ImageCard
                       key={product._id}
                       item={product}
-                      width={350}
+                      width={340}
                       height={400}
                     />
                   </div>
