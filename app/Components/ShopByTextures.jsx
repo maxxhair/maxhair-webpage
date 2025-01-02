@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
@@ -56,41 +56,32 @@ function ShopByTextures() {
 
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center md:min-h-[70vh] min-h-[60vh] items-center w-full px-[30px]  py-[20px] md:gap-[40px] gap-[20px]">
-      <div className=" xl:w-[70%] lg:w-[90%] h-auto w-full relative ">
+      <div className=" h-auto w-full relative ">
         <Swiper
           ref={sliderRef}
-          spaceBetween={0}
-          slidesPerView={2}
-          effect="coverflow"
+          spaceBetween={20}
+          slidesPerView={1}
           centeredSlides={true}
-          modules={[EffectCoverflow, Navigation, Autoplay]}
+          modules={[Navigation, Autoplay]}
           loop
           autoplay={{
             delay: 3000,
-            disableOnInteraction: false
+            disableOnInteraction: false,
           }}
           navigation={{
             nextEl: ".swiper-next-button-sbt",
-            prevEl: ".swiper-prev-button-sbt"
-          }}
-          initialSlide={1}
-          coverflowEffect={{
-            rotate: 15, // Rotate angle in degrees
-            stretch: 0, // Stretch space between slides
-            depth: 140, // Depth of the slide shadow
-            modifier: 1, // Effect multiplier
-            slideShadows: false
+            prevEl: ".swiper-prev-button-sbt",
           }}
           onSlideChange={handleSlideChange}
           breakpoints={{
-            750: {
-              slidesPerView: 2
+            680: {
+              slidesPerView: 3,
             },
-            1440: {
-              slidesPerView: 3
-            }
+            1240: {
+              slidesPerView: 5,
+            },
           }}
-          className="shadow-none md:h-[700px] h-[400px] w-[650] "
+          style={{}}
         >
           {list.map((obj, index) => {
             return (
@@ -99,24 +90,57 @@ function ShopByTextures() {
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
+                className="md:min-h-[500px] min-h-[300px]"
               >
                 <Card obj={obj} selected={selected} index={index} />
               </SwiperSlide>
             );
           })}
         </Swiper>
-        <div className="w-full flex justify-end gap-[10px] mt-[20px]">
+        <div className="w-full flex justify-end gap-[10px] md:mt-0 mt-5">
           <button
             className={`swiper-prev-button-sbt w-12 h-12 md:h-[60px] md:w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
           >
-            {"<"}
+            <svg
+              className="w-6 h-6 text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 12h14M5 12l4-4m-4 4 4 4"
+              />
+            </svg>
           </button>
           <button
             className={`swiper-next-button-sbt w-12 h-12 md:h-[60px] md:w-[60px] flex justify-center items-center ${"bg-[#242424] text-[#F2ECE2] "}`}
           >
-            {">"}
+            <svg
+              className="w-6 h-6 text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 12H5m14 0-4 4m4-4-4-4"
+              />
+            </svg>
           </button>
         </div>
       </div>

@@ -15,7 +15,7 @@ function DivAnimation({ color }: DivAnimationProps) {
   });
 
   // Create a parallax effect by mapping scrollYProgress to larger y values
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["40%", "0%"]);
 
   // Add a laggy effect using useSpring
   const ySpring = useSpring(y, { stiffness: 100, damping: 20 });

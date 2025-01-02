@@ -18,9 +18,9 @@ function Greet() {
           <source src="/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="p-[20px] flex flex-col gap-[20px] color-shift items-center bottom-0 absolute">
+        <div className="p-[20px] flex flex-col gap-[20px] color-shift items-center bottom-0 absolute mb-10">
           <span
-            className={`${firaSans.className} flyouts-down flex flex-col md:w-[600px] w-full lg:display-medium md:headline-large headline-medium font-[700]`}
+            className={`${firaSans.className} flyouts-down flex flex-col w-full lg:display-medium md:headline-large headline-medium font-[700]`}
           >
             <span>Quality is our Priority!</span>
           </span>

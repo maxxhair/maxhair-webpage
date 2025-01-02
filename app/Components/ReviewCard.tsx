@@ -57,7 +57,7 @@ const ReviewCard: React.FC<Props> = ({
   };
 
   return (
-    <div className="reviewcard border-b-2 text-xs lg:text-sm">
+    <div className="w-full border-b-2 text-xs lg:text-sm">
       <p className="mt-5">{prodReview?.user?.fullName}</p>
       <p className="mt-2">
         {new Date(prodReview?.createdAt).toLocaleDateString()}
