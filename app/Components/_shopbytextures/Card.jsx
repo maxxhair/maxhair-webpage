@@ -14,23 +14,25 @@ function Card({ obj, selected, index }) {
 
   return (
     <div
-      className={` lg:w-[400px] md:w-[300px] w-[250px] border flex flex-col justify-center transition-all duration-200 cursor-pointer ${
-        selected === index ? " border-[#242424] " : "border-transparent"
+      className={` border flex flex-col justify-center transition-all duration-200 cursor-pointer ${
+        selected === index
+          ? " border-[#242424] "
+          : "border-transparent scale-75"
       }`}
     >
       <div>
         <Image
           src={imageUrl}
           alt=""
-          width={400}
+          width={300}
           height={selected === index ? 500 : 450}
           className={`w-full transition-all duration-200 rounded-sm  object-cover`}
         />
       </div>
       <div
-        className={`flex flex-col justify-center transition-all duration-200  items-center gap-[0.5] md:gap-1 pb-[15px] ${
+        className={`flex flex-col justify-center transition-all duration-200  items-center gap-[0.5] md:gap-1 md:pb-7 pb-5 md:pt-3 pt-2 ${
           selected === index
-            ? "border-[#242424] bg-[#F2ECE2]"
+            ? "border-[#242424] bg-[#F9F6F3]"
             : "border-transparent"
         }`}
       >

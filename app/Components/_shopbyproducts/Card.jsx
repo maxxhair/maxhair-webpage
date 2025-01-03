@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { firaSans, firaSansMedium } from "../../util/fonts";
+import { firaSans, firaSansMedium, prompt } from "../../util/fonts";
 import { prodimg, productImage5 } from "../../util/images";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -26,7 +26,7 @@ function Card({ name, category, link, image, subProducts }) {
 
   return (
     <>
-      <div className="bg-[#F2ECE2] flex flex-col gap-[10px] px-[20px] py-[20px] justify-evenly items-center">
+      <div className="bg-[#F2ECE2] flex flex-col gap-5 px-[16px] py-[16px] justify-evenly items-center">
         <div className="">
           <Image src={imageUrl} alt="" width={300 - 20} height={200} />
         </div>
@@ -37,7 +37,7 @@ function Card({ name, category, link, image, subProducts }) {
         </span>
         <button
           onClick={handleClick}
-          className="bg-[#242424] text-[#FAFAFA] body-small w-full py-[5px] px-[40px]"
+          className={`${prompt.className} font-thin bg-[#242424] text-[#FAFAFA] body-small w-full py-[10px] px-[40px]`}
         >
           Explore
         </button>

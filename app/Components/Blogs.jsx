@@ -14,7 +14,7 @@ import { baseImageUrl, baseUrl } from "../util/axiosInstance";
 import { blogImage2 } from "../util/images";
 
 function Blogs() {
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState(0);
   const sliderRefBlogs = useRef(null);
   const handleSlideChange = useCallback(() => {
     const swiper = sliderRefBlogs.current.swiper;
@@ -37,7 +37,7 @@ function Blogs() {
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center w-full px-[20px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
-        className={`${firaSans.className} font-[700] lg:headline-large md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
+        className={`${firaSans.className} font-[700] md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >
         Recent blog
       </span>
@@ -54,7 +54,7 @@ function Blogs() {
             slideShadows: false,
           }}
           spaceBetween={10}
-          slidesPerView={3}
+          slidesPerView={1}
           // loop
           modules={[Navigation, EffectCoverflow]}
           navigation={{
@@ -65,12 +65,10 @@ function Blogs() {
           breakpoints={{
             750: {
               slidesPerView: 2,
-              delay: 5000,
             },
 
             1440: {
               slidesPerView: 3,
-              delay: 3000,
             },
           }}
         >
@@ -80,7 +78,7 @@ function Blogs() {
                 key={index}
                 style={{
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   alignItems: "center",
                 }}
               >
@@ -88,8 +86,8 @@ function Blogs() {
                   <div className="relative">
                     <Image
                       src={`${baseImageUrl}/uploads/${obj.blogImage}`}
-                      alt=""
-                      className="w-auto h-auto"
+                      alt={obj.title}
+                      className="object-cover w-full aspect-video"
                       width={400}
                       height={300}
                     />
@@ -123,7 +121,7 @@ function Blogs() {
                       {obj.title}
                     </span>
                     <span
-                      className={`${firaSansLight.className} text-[#242424] md:body-medium body-small tracking-wide line-clamp-5 w-fit`}
+                      className={`${firaSansLight.className} text-[#242424] md:body-medium body-small tracking-wide line-clamp-3 md:min-h-[63px] min-h-[58px]`}
                     >
                       {obj.subHeading}
                     </span>

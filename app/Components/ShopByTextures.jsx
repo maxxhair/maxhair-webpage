@@ -59,8 +59,8 @@ function ShopByTextures() {
       <div className=" h-auto w-full relative ">
         <Swiper
           ref={sliderRef}
-          spaceBetween={20}
-          slidesPerView={1}
+          spaceBetween={0}
+          slidesPerView={2}
           centeredSlides={true}
           modules={[Navigation, Autoplay]}
           loop
@@ -92,7 +92,6 @@ function ShopByTextures() {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                className="md:min-h-[500px] min-h-[300px]"
               >
                 <Card obj={obj} selected={selected} index={index} />
               </SwiperSlide>

@@ -7,7 +7,7 @@ const TextureTabs = () => {
   const [selected, setSelected] = useState(1);
   return (
     <>
-      <div className="flex items-center gap-3 md:gap-5 my-10 z-[1]">
+      <div className="flex items-center flex-wrap justify-center gap-3 md:gap-5 my-10 z-[1]">
         {textureTypesData.map((textureType) => (
           <button
             key={textureType.id}
@@ -22,7 +22,7 @@ const TextureTabs = () => {
           </button>
         ))}
       </div>
-      <div className="my-6 w-fit mx-auto z-[1]">
+      <div className="flex justify-center md:my-6 my-3 w-full z-[1]">
         {textureTypesData
           .filter((textureType) => textureType.id === selected)
           .map((texture, index) => (

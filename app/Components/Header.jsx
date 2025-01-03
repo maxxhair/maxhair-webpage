@@ -65,7 +65,7 @@ function Header() {
           pathname === "/privacypolicy" ||
           pathname === "/termsandconditions"
             ? "hidden"
-            : "border-b-[1px] border-[#D1D1D8] flex items-center justify-end md:pt-[20px] pt-[10px] md:pb-[10px] md:h-[112px] h-[90px] w-screen relative bg-[#FAFAFA]"
+            : "border-b-[1px] border-[#D1D1D8] flex items-center justify-end md:pt-[20px] pt-[10px] md:pb-[10px] md:h-[96px] h-[90px] w-screen relative bg-[#FAFAFA]"
         }
       >
         <div className="w-full flex justify-around items-center">
@@ -85,7 +85,7 @@ function Header() {
             />
           </Link>
           <div
-            className={`lg:flex lg:items-center hidden md:gap-5 w-[auto] lg:label-large md:label-medium label-small ${firaSans.className}`}
+            className={`lg:flex lg:items-center hidden md:gap-10 w-[auto] md:label-medium label-small ${firaSans.className}`}
           >
             <Link
               href="/"

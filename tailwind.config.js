@@ -31,7 +31,7 @@ module.exports = {
           fontSize: "44px",
         },
         ".headline-large": {
-          fontSize: "44px",
+          fontSize: "42px",
           fontWeight: 600,
         },
         ".headline-medium": {

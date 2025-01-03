@@ -1,6 +1,6 @@
 "use client";
 import "swiper/css";
-import { firaSansMedium } from "../util/fonts";
+import { firaSans, firaSansMedium } from "../util/fonts";
 import React, { useEffect, useState } from "react";
 import Card from "./_shopbyproducts/Card";
 import { prodimg } from "../util/images";
@@ -29,13 +29,13 @@ function ShopByProducts() {
   }
 
   return (
-    <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center  w-full lg:px-[30px]  md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
+    <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center  w-full lg:px-[30px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
-        className={`${firaSansMedium.className} font-[700] lg:headline-large md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
+        className={`${firaSans.className} font-[700] md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >
         Shop By Products
       </span>
-      <div className="w-full max-w-[1200px] relative grid md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-5 px-10">
+      <div className="w-full max-w-[1200px] pb-10 relative grid md:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] grid-cols-[repeat(auto-fill,minmax(120px,1fr))] md:gap-5 gap-2 md:px-10 px-5">
         {list.map((ele, index) => {
           return (
             <Card

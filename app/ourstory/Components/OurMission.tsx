@@ -1,5 +1,5 @@
 import React from "react";
-import { firaSans, firaSansLight } from "../../util/fonts";
+import { firaSans } from "../../util/fonts";
 
 function OurMission() {
   return (
@@ -10,7 +10,7 @@ function OurMission() {
         Our Mission
       </span>
       <span
-        className={`${firaSansLight.className} lg:mt-5 lg:display-large md:display-medium display-small text-black`}
+        className={`${firaSans.className} lg:mt-5 lg:headline-large headline-medium text-black`}
       >
         Ethical Sourcing & <span className="text-[#885C46]">Transparency</span>
       </span>
