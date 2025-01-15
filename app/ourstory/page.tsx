@@ -17,7 +17,7 @@ import Reactive2 from "./Components/Reactive2";
 
 const OurStory = () => {
   return (
-    <div className="mt-20 md:mt-24 xl:mt-28">
+    <div className="mt-20 md:mt-24 ">
       <div className="w-screen min-h-[800px] h-screen relative flex justify-between p-10 items-center">
         <Image
           src={OurStory1}

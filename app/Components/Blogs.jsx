@@ -41,7 +41,6 @@ function Blogs() {
       >
         Recent blog
       </span>
-
       <div className=" xl:w-[70%] lg:w-[90%] w-full relative">
         <Swiper
           ref={sliderRefBlogs}

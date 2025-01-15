@@ -12,11 +12,11 @@ const Greet = memo(() => {
   });
 
   const transforms = {
-    height: useTransform(scrollY, [0, 96], ["550px", "200px"]),
+    height: useTransform(scrollY, [0, 150], ["550px", "200px"]),
     opacity: useTransform(scrollY, [0, 30], [1, 0]),
-    opacityMin: useTransform(scrollY, [0, 5], [1, 0]),
+    opacityMin: useTransform(scrollY, [0, 25], [1, 0]),
     color: useTransform(scrollY, [0, 80], ["#FAFAFA", "#242424"]),
-    translateY: useTransform(scrollY, [10, 80], [0, 150]),
+    translateY: useTransform(scrollY, [0, 100], [0, 160]),
   };
 
   return (
@@ -36,7 +36,11 @@ const Greet = memo(() => {
       >
         <source src="/video.mp4" type="video/mp4" />
       </motion.video>
-      <div className="p-[20px] flex flex-col gap-[20px] items-center mb-10 z-[1]">
+      <motion.div
+        style={{ opacity: transforms.opacity }}
+        className="bg-[linear-gradient(180deg,_rgba(0,_0,_0,_0)_0%,_#000000_100%)] w-full h-full absolute top-0"
+      />
+      <div className="p-[20px] flex flex-col gap-[20px] w-full h-full items-center justify-end pb-10 z-[1] ">
         <span
           className={`${firaSans.className} flex flex-col w-full lg:display-medium md:headline-large headline-medium font-[700]`}
         >

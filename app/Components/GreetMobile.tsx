@@ -16,6 +16,9 @@ export default function GreetMobile() {
             >
                 <source src="/video.mp4" type="video/mp4" />
             </video>
+            <div
+                className="bg-[linear-gradient(180deg,_rgba(0,_0,_0,_0)_0%,_#000000_100%)] w-full h-full absolute top-0"
+            />
             <div className="p-[20px] flex flex-col gap-[20px] items-center mb-5 z-[1]">
                 <span
                     className={`${firaSans.className} flex flex-col w-full lg:display-medium md:headline-large headline-medium font-[700]`}
