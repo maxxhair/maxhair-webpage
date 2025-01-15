@@ -42,7 +42,7 @@ import OurStoryWig3 from "/public/wig-3.png";
 import OurStoryWig4 from "/public/wig-4.png";
 import rings from "/public/rings.png";
 import design1 from "/public/design1.svg";
-import design2 from "/public/design2.svg";
+import design2 from "/public/Design2.svg";
 
 export {
   companyLogo,
