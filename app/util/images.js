@@ -44,6 +44,7 @@ import rings from "/public/rings.png";
 import design1 from "/public/design1.svg";
 import design2 from "/public/Design2.svg";
 
+
 export {
   companyLogo,
   companyLogo2,
