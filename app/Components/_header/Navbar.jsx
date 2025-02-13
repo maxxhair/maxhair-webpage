@@ -13,17 +13,17 @@ const Navbar = () => {
       opacity: 1,
       transition: {
         x: { velocity: 100 },
-        duration: 0.3,
-      },
+        duration: 0.3
+      }
     },
     hidden: {
       //x: -250,
       opacity: 0,
       transition: {
         x: { velocity: 100 },
-        duration: 0.3,
-      },
-    },
+        duration: 0.3
+      }
+    }
   };
 
   return (
@@ -43,7 +43,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isToggled && (
           <motion.div
-            className="border-t-2 bg-transparent w-full min-h-fit flex lg:hidden justify-around items-center absolute top-[100%] right-0 z-50 "
+            className="border-t-2 bg-transparent w-full min-h-fit flex lg:hidden justify-around items-center absolute top-[100%] right-0 z-[2]"
             initial="hidden"
             animate={isToggled ? "visible" : "hidden"}
             exit="hidden"

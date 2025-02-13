@@ -13,9 +13,8 @@ function Card2({ obj, selected, index }) {
       : productImage5;
 
   return (
-    <div className="flex flex-col lg:flex-row justify-center items-center w-full h-full max-h-[80vh] relative">
+    <div className="flex flex-col lg:flex-row justify-center items-end md:items-center w-full h-fit md:h-full max-h-[80vh] relative">
       {/* Text and Button Section */}
-      
 
       {/* Image */}
       <Image
@@ -25,7 +24,7 @@ function Card2({ obj, selected, index }) {
         height={500}
         className="rounded-lg object-contain w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:h-full lg:w-full slide-image"
         style={{
-          transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+          transition: "opacity 0.5s ease-out, transform 0.5s ease-out"
         }}
       />
     </div>
