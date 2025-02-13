@@ -86,75 +86,72 @@ const CheckoutCartDetails = () => {
   ).toDateString();
 
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-4 h-[85vh] overflow-y-scroll lg:pt-8 lg:px-8 flex-1">
-      <span className="lg:title-large title-medium ">
-        {`Cart items (${cartProducts.length})`}
-      </span>
-      {cartProducts.map((item: any) => (
-        <CartItem key={item.id} product={item} />
-      ))}
+    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-6 lg:p-8">
+      <h2 className="text-2xl font-medium mb-6 text-[#242424]">Your Cart</h2>
 
-      <div className="w-full flex items-center gap-6 justify-between">
-        <input
-          placeholder="Discount code or gift card"
-          type="text"
-          className="w-full bg-white outline-none py-3 px-2 rounded-lg"
-          value={couponCode}
-          onChange={handleUpdateCouponCode}
-        />
-        <button
-          className="bg-transparent px-6 py-3 border border-black rounded-lg"
-          onClick={VerifyCouponCode}
-        >
-          Apply
-        </button>
+      {/* Cart Items */}
+      <div className="space-y-4 mb-8">
+        {cartProducts.map((item: any) => (
+          <CartItem key={item.id} product={item} />
+        ))}
       </div>
-      {couponcodemsg !== "" && (
-        <p
-          className={
-            couponCodeApplied
-              ? `text-sm text-green-500`
-              : `text-sm text-red-500`
-          }
-        >
-          {couponcodemsg}
-        </p>
-      )}
-      <div className="">
-        <div className="headline-small pt-5">
-          <div className="py-5 border-b border-gray-500 flex flex-col gap-2">
-            <div className="w-full flex items-center justify-between">
-              <p className="label-medium text-gray-500 font-medium">Amount</p>
-              <p className="label-medium font-medium">
-                ${priceTotal.toFixed(2)}
-              </p>
-            </div>
-            <div className="w-full flex items-center justify-between">
-              <p className="label-medium text-gray-500 font-medium">Discount</p>
-              <p className="label-medium font-medium">${discountPercentage}</p>
-            </div>
-            <div className="w-full flex items-center justify-between">
-              <p className="label-medium text-gray-500 font-medium">Shipping</p>
-              <p className="label-medium font-medium">Free</p>
-            </div>
+
+      {/* Coupon Code Section */}
+      <div className="mb-8">
+        <div className="flex gap-3">
+          <input
+            placeholder="Coupon Code"
+            type="text"
+            className="flex-1 bg-white outline-none py-3 px-4 rounded"
+            value={couponCode}
+            onChange={handleUpdateCouponCode}
+          />
+          <button
+            className="px-6 py-3 border border-black rounded"
+            onClick={VerifyCouponCode}
+          >
+            Apply
+          </button>
+        </div>
+        {couponcodemsg !== "" && (
+          <p className={`mt-2 text-sm ${couponCodeApplied ? 'text-green-600' : 'text-red-600'}`}>
+            {couponcodemsg}
+          </p>
+        )}
+      </div>
+
+      {/* Order Summary */}
+      <div className="space-y-6">
+        <h3 className="text-lg font-medium">Order Summary</h3>
+        
+        <div className="space-y-3">
+          <div className="flex justify-between">
+            <span className="text-gray-600">Price</span>
+            <span>${priceTotal.toFixed(2)}</span>
           </div>
-          <div className="py-5 flex flex-col gap-2">
-            <div className="w-full flex items-center justify-between">
-              <p className="label-medium text-gray-500 font-medium">TOTAL</p>
-              <p className="label-medium font-medium">
-                ${(priceTotal - discountPercentage).toFixed(2)}
-              </p>
-            </div>
-            <div className="w-full flex items-center justify-between">
-              <p className="label-medium text-gray-500 font-medium">
-                Estimated Delivery by
-              </p>
-              <p className="label-medium font-medium">
-                {cartProducts.length > 0
-                  ? EstimatedDeliveryDate
-                  : "Un Estimated"}
-              </p>
-            </div>
+          
+          <div className="flex justify-between">
+            <span className="text-gray-600">Discount</span>
+            <span>${discountPercentage}</span>
+          </div>
+          
+          <div className="flex justify-between">
+            <span className="text-gray-600">Shipping</span>
+            <span className="text-green-600">Free</span>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-gray-200 space-y-3">
+          <div className="flex justify-between font-medium">
+            <span>TOTAL</span>
+            <span>${(priceTotal - discountPercentage).toFixed(2)}</span>
+          </div>
+          
+          <div className="flex justify-between">
+            <span className="text-gray-600">Estimated Delivery by</span>
+            <span>
+              {cartProducts.length > 0 ? EstimatedDeliveryDate : "Un Estimated"}
+            </span>
           </div>
         </div>
       </div>

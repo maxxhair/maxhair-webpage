@@ -125,7 +125,8 @@ const LoginForm = ({ setAuthDrawerState, setAuthDrawerOpen }: { setAuthDrawerSta
             )}
           </div>
           <div className="mt-2 flex justify-end items-center">
-            <button onClick={() => setAuthDrawerState("forgotpassword")} className="text-blue-500 text-sm text-center no-underline hover:underline transition-all underline-offset-8">Forgot Password</button>
+            <button onClick={() => setAuthDrawerState("forgotpassword")}
+            type="button" className="text-blue-500 text-sm text-center no-underline hover:underline transition-all underline-offset-8">Forgot Password</button>
           </div>
           <button
             type="submit"

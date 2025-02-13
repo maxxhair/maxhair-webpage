@@ -21,7 +21,7 @@ function SendMoreInfo() {
           setOpenModal(true);
         }}
       >
-        Send me more info
+        Consult
       </button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header className="bg-white">

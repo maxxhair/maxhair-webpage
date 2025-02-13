@@ -17,7 +17,9 @@ import AddressesSection from "../Components/AddressesSection";
 import { selectAddress } from "../store/redux/addressesSlice";
 
 interface CheckoutFormData {
+  // Shipping address fields
   name: string;
+  lastName: string;
   email: string;
   phone: string;
   address: string;
@@ -27,6 +29,16 @@ interface CheckoutFormData {
   country: string;
   provincecode: string;
   countrycode: string;
+
+  // Billing address fields
+  billingName: string;
+  billingLastName: string;
+  billingAddress: string;
+  billingCity: string;
+  billingZipcode: string;
+  billingState: string;
+  billingCountry: string;
+  billingPhone: string;
 }
 
 const Checkout = () => {
@@ -44,6 +56,7 @@ const Checkout = () => {
   const discountPercentage = useSelector(
     (state: RootState) => state.cart.discountPercentage
   );
+  const [sameAsShipping, setSameAsShipping] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -104,8 +117,8 @@ const Checkout = () => {
               user_id: loggedUser.user && loggedUser.user._id,
               items: cartItems,
               total: TotalPriceToPay,
-              name: checkoutFormData.name,
-              email: checkoutFormData.email,
+              name: checkoutFormData.name + " " + checkoutFormData.lastName,
+              email: loggedUser.user? loggedUser.user.email : checkoutFormData.email,
               phone: checkoutFormData.phone,
               address: checkoutFormData.address.split(",").slice(0, 2).join(),
               landmark: checkoutFormData.landmark,
@@ -113,8 +126,8 @@ const Checkout = () => {
               provincecode: checkoutFormData.provincecode,
               countrycode: checkoutFormData.countrycode,
               country: checkoutFormData.country,
-              couponCode: coupon && coupon,
               zipcode: checkoutFormData.zipcode,
+              couponCode: coupon && coupon,
               transactionId: response.data.data.transactionId
             };
             try {
@@ -200,150 +213,206 @@ const Checkout = () => {
           className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
           onSubmit={handleSubmit}
         >
-          <div className="w-full flex items-center justify-between">
-            {!loggedUser?.user?.email && (
-              <div className="flex">
-                <Link href="signin">
-                  <p className="label-medium hover:underline hover:text-blue-400 underline-offset-2">
-                    Login
-                  </p>
-                </Link>
-                &nbsp;
-                <p className="label-medium">
-                  to see you order details and status
-                </p>
-              </div>
-            )}
-          </div>
+          {/* Contact section - only show when user is not logged in */}
+        
+            <>
+              <h2 className="font-medium mb-4">Contact</h2>
+              <TextInput
+                id="email"
+                type="text"
+                placeholder="Email"
+                required
+                className="mb-4 hover:!cursor-default"
+                disabled={loggedUser?.user?.email}
+                onChange={!loggedUser?.user?.email && handleInputChange}
+                value={loggedUser?.user?.email ? loggedUser?.user?.email :   checkoutFormData?.email}
+              />
+            </>
 
-          <div className="flex items-center justify-between py-3">
-            <p className="headline-small">Billing and Shipping Details</p>
-            {loggedUser?.user?.email && (
-              <p
-                className="body-small text-blue-500 hover:underline cursor-pointer"
-                onClick={() => setOpenModal(true)}
-              >
-                Change Address
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <TextInput
-              id="email"
-              type="text"
-              placeholder="name@gmail.com"
-              required
-              className="pt-3"
-              onChange={handleInputChange}
-              value={checkoutFormData?.email}
-            />
+          {/* Shipping Address section */}
+          <h2 className="font-medium mb-4">Shipping Address</h2>
+          <div className="flex gap-4 mb-4">
             <TextInput
               id="name"
               type="text"
-              placeholder="Full name"
+              placeholder="First Name"
               required
+              className="flex-1"
               onChange={handleInputChange}
               value={checkoutFormData?.name}
             />
             <TextInput
-              id="address"
+              id="lastName"
               type="text"
-              placeholder="Street Address"
+              placeholder="Last Name"
               required
+              className="flex-1"
               onChange={handleInputChange}
-              value={checkoutFormData?.address}
             />
-
+          </div>
+          <TextInput
+            id="address"
+            type="text"
+            placeholder="Street Address"
+            required
+            className="mb-4"
+            onChange={handleInputChange}
+            value={checkoutFormData?.address}
+          />
+          <TextInput
+            id="suite"
+            type="text"
+            placeholder="Province Code"
+            className="mb-4"
+            onChange={handleInputChange}
+          />
+          <div className="flex gap-4 mb-4">
             <TextInput
-              id="landmark"
+              id="zipcode"
+              placeholder="ZIP code"
               type="text"
-              placeholder="Landmark or city"
+              className="flex-1"
               onChange={handleInputChange}
-              value={checkoutFormData?.landmark}
               required
+              value={checkoutFormData?.zipcode}
+            />
+            <TextInput
+              id="city"
+              type="text"
+              placeholder="City"
+              required
+              className="flex-1"
+              onChange={handleInputChange}
             />
             <TextInput
               id="state"
               type="text"
               placeholder="State"
-              onChange={handleInputChange}
               required
+              className="flex-1"
+              onChange={handleInputChange}
               value={checkoutFormData?.state}
             />
+          </div>
+          <div className="flex gap-4 mb-6">
             <TextInput
-              required
-              className="flex-grow"
-              id="provincecode"
-              type="text"
-              placeholder="Province code"
-              onChange={handleInputChange}
-              value={checkoutFormData?.provincecode}
-            />
-            <div className="flex flex-1 gap-3">
-              <TextInput
-                id="zipcode"
-                placeholder="344XXX / zipcode"
-                type="text"
-                onChange={handleInputChange}
-                required
-                value={checkoutFormData?.zipcode}
-              />
-              <TextInput
-                required
-                className="flex-grow"
-                id="countrycode"
-                type="text"
-                placeholder="Country Code"
-                onChange={handleInputChange}
-                value={checkoutFormData?.countrycode}
-              />
-            </div>
-            {/* <TextInput
               id="country"
               type="text"
-              placeholder="Country"
+              placeholder="Country Code"
+              required
+              className="flex-1"
               onChange={handleInputChange}
               value={checkoutFormData?.country}
-            /> */}
-
-            <PhoneInput
-              enableSearch
-              country={"us"}
+            />
+            <TextInput
+              id="phone"
+              type="tel"
+              placeholder="Phone"
+              required
+              className="flex-1"
+              onChange={handleInputChange}
               value={checkoutFormData?.phone}
-              inputProps={{
-                id: "phone",
-                required: true,
-                className: "w-full border-[#d1d5db] rounded-md pl-12"
-              }}
-              onChange={handlePhoneInputChange}
             />
           </div>
 
-          {/* {loggedUser?.user?.email && (
-            <div className="flex items-center w-fit my-3">
-              <input
-                id="remember"
-                aria-describedby="remember"
-                type="checkbox"
-                className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-0 cursor-pointer"
-                checked={saveAddress}
-                onChange={() => {
-                  if (checkoutFormData) {
-                    setSaveAddress(!saveAddress);
-                  }
-                }}
-              />
-              <label
-                htmlFor="remember"
-                className="ml-3 text-gray-500 tracking-wide"
-              >
-                Save Address
-              </label>
-            </div>
-          )} */}
+          {/* Billing Address checkbox */}
+          <div className="flex items-center gap-2 mb-6">
+            <Checkbox
+              id="sameAddress"
+              checked={sameAsShipping}
+              onChange={(e) => setSameAsShipping(e.target.checked)}
+            />
+            <label htmlFor="sameAddress" className="text-sm">
+              Billing address same as shipping address
+            </label>
+          </div>
 
-          <p className="label-medium mb-10 mt-6">
+          {/* Billing Address section - only show when checkbox is unchecked */}
+          {!sameAsShipping && (
+            <>
+              <h2 className="font-medium mb-4">Billing Address</h2>
+              <div className="flex gap-4 mb-4">
+                <TextInput
+                  id="billingName"
+                  type="text"
+                  placeholder="First Name"
+                  required
+                  className="flex-1"
+                  onChange={handleInputChange}
+                />
+                <TextInput
+                  id="billingLastName"
+                  type="text"
+                  placeholder="Last Name"
+                  required
+                  className="flex-1"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <TextInput
+                id="billingAddress"
+                type="text"
+                placeholder="Street Address"
+                required
+                className="mb-4"
+                onChange={handleInputChange}
+              />
+              <TextInput
+                id="billingSuite"
+                type="text"
+                placeholder="Province Code"
+                className="mb-4"
+                onChange={handleInputChange}
+              />
+              <div className="flex gap-4 mb-4">
+                <TextInput
+                  id="billingZipcode"
+                  placeholder="ZIP code"
+                  type="text"
+                  className="flex-1"
+                  onChange={handleInputChange}
+                  required
+                />
+                <TextInput
+                  id="billingCity"
+                  type="text"
+                  placeholder="City"
+                  required
+                  className="flex-1"
+                  onChange={handleInputChange}
+                />
+                <TextInput
+                  id="billingState"
+                  type="text"
+                  placeholder="State"
+                  required
+                  className="flex-1"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex gap-4 mb-6">
+                <TextInput
+                  id="billingCountry"
+                  type="text"
+                  placeholder="Country"
+                  required
+                  className="flex-1"
+                  onChange={handleInputChange}
+                />
+                <TextInput
+                  id="billingPhone"
+                  type="tel"
+                  placeholder="Phone"
+                  required
+                  className="flex-1"
+                  onChange={handleInputChange}
+                />
+              </div>
+            </>
+          )}
+
+          {/* Terms and Pay Now button */}
+          <p className="text-sm mb-6">
             By clicking below and completing your order, you agree to purchase
             your item(s) from Maxx Hair Extension as merchant of record for this
             transaction, on Maxx Hair Extension{" "}
@@ -353,19 +422,21 @@ const Checkout = () => {
           <button
             className={
               cartItems?.length > 0
-                ? "w-full justify-center bg-black text-white py-4 title-small tracking-widest font-semibold"
-                : "w-full justify-center bg-gray-300 text-white py-4 title-small tracking-widest font-semibold"
+                ? "w-full justify-center bg-black text-white py-4 uppercase tracking-widest font-medium"
+                : "w-full justify-center bg-gray-300 text-white py-4 uppercase tracking-widest font-medium"
             }
             disabled={cartItems?.length <= 0}
             type="submit"
             name="card"
           >
-            {!loading ? "Pay Online" : <Spinner size="lg" color="#fff" />}
+            {!loading ? "Pay Now" : <Spinner size="lg" color="#fff" />}
           </button>
         </form>
       </div>
+
       {/* Cart items */}
       <CheckoutCartDetails />
+
       <Modal
         show={openModal}
         onClose={() => setOpenModal(false)}
