@@ -35,7 +35,21 @@ function Slider2() {
     setSelected(swiper.realIndex);
   }, []);
 
-  const visibleDots = list.slice(0, 7); // Limit to 7 items for dots
+  // Calculate which dots to show based on the selected index
+  const getVisibleDots = () => {
+    if (list.length <= 7) return list;
+    
+    if (selected < 4) {
+      // If we're near the start, show first 7
+      return list.slice(0, 7);
+    } else if (selected > list.length - 4) {
+      // If we're near the end, show last 7
+      return list.slice(list.length - 7);
+    } else {
+      // Show 3 dots before and 3 after the selected dot
+      return list.slice(selected - 3, selected + 4);
+    }
+  };
 
   if (!list.length) {
     return (
@@ -44,41 +58,62 @@ function Slider2() {
       </div>
     );
   }
- 
-// useEffect(() => {
-//   // Trigger animation when the component is mounted or selected changes
-//   setAnimate(true);
-// }, [selected]);
+
+  // useEffect(() => {
+  //   // Trigger animation when the component is mounted or selected changes
+  //   setAnimate(true);
+  // }, [selected]);
   console.log(list);
 
   return (
-    <div className="bg-[#FAFAFA] flex flex-col justify-center relative w-full px-8 py-8 md:gap-10 gap-8">
+    <div className="bg-white flex flex-col justify-center relative w-full px-8 py-8 md:gap-10 gap-8">
       <style>
         {`
           .swiper-pagination {
-           flex-direction: column;
-    scale: 1.5;
-    
-    transform: translate(-30px, -100px) !important; /* Combine both transforms */
-    gap: 4px;
-}
-
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%) !important;
+            gap: 8px;
+            z-index: 20;
+            align-items: center;
+          }
 
           .swiper-pagination-bullet {
-            width: 8px;
-            height: 8px;
-            background-color: #000000;
-           
-           
+            width: 10px;
+            height: 10px;
+            background-color: #D1D1D1;
+            border-radius: 50%;
+            cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
           }
 
           .swiper-pagination-bullet-active {
-            width: 8px;
-            height: 8px;
+            width: 16px;
+            height: 16px;
+            background-color: transparent;
+            border: 1px solid #D2BC9F;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(0);
+            margin: 0;
+          }
+
+          .swiper-pagination-bullet-active::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
             background-color: #D2BC9F;
-            opacity: 1;
-            transform: scale(1);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
           }
 
           .swiper-navigation-wrapper {
@@ -96,7 +131,7 @@ function Slider2() {
             z-index: 20;
           }
             .text-animation {
-  animation: moveUp 0.5s ease-out forwards;
+  animation: moveDown 0.5s ease-out forwards;
 }
 
 
@@ -109,15 +144,51 @@ function Slider2() {
               }
            
           }
+
+          @keyframes moveDown {
+            from {
+              opacity: 0;
+              transform: translateY(-20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .text-animation {
+            opacity: 0;
+            animation: moveDown 0.5s ease-out forwards;
+          }
+
+          /* Add smooth transition for slides */
+          .swiper-slide {
+            transition: all 0.5s ease-out;
+            opacity: 0;
+          }
+
+          .swiper-slide-active {
+            opacity: 1;
+          }
+
+          /* Add fade effect for images */
+          .slide-image {
+            transition: all 0.5s ease-out;
+            opacity: 0;
+          }
+
+          .swiper-slide-active .slide-image {
+            opacity: 1;
+          }
         `}
       </style>
       <div className="absolute top-0  md:top-1/2 md:transform  md:-translate-y-1/2 md:left-20 md:translate-x-0 flex flex-col px-6 md:px-8 max-w-lg ">
-      <span
-  className="text-[30px] lg:text-[40px] font-bold capitalize text-[#885C46] mb-2 text-animation"
->
-  {list[selected].title}
-</span>
-
+        <span
+          key={selected}
+          className="text-[30px] lg:text-[40px] font-bold capitalize text-[#885C46] mb-2 text-animation"
+        >
+          {list[selected].title}
+        </span>
 
         {/* Buy Now Button */}
         <div className="flex justify-center md:justify-start  items-center">
@@ -137,20 +208,19 @@ function Slider2() {
           slidesPerView={1}
           centeredSlides={true}
           loop
+          speed={800}
+          effect="fade"
+          fadeEffect={{
+            crossFade: true
+          }}
           onSlideNextTransitionStart={() => {}}
           autoplay={{
             delay: 3000,
-            disableOnInteraction: false,
+            disableOnInteraction: false
           }}
-          // pagination={{
-          //   clickable: true,
-          //   el: ".swiper-pagination",
-          //   type: "bullets",
-          //   dynamicBullets: true,
-          // }}
           navigation={{
             nextEl: ".swiper-next-button-sbt",
-            prevEl: ".swiper-prev-button-sbt",
+            prevEl: ".swiper-prev-button-sbt"
           }}
           onSlideChange={handleSlideChange}
           modules={[Navigation, Autoplay]}
@@ -168,22 +238,22 @@ function Slider2() {
         </Swiper>
 
         {/* Custom Pagination dots */}
-        {/* <div className="swiper-pagination">
-          {list.map((_, index) => (
+        <div className="swiper-pagination">
+          {getVisibleDots().map((_, index) => (
             <div
-              key={index}
-              className={`swiper-pagination-bullet  ${
-                selected === index ? "swiper-pagination-bullet-active" : ""
+              key={index + (selected < 4 ? 0 : selected - 3)} // Adjust key based on slice
+              className={`swiper-pagination-bullet ${
+                index === (selected < 4 ? selected : 3) ? "swiper-pagination-bullet-active" : ""
               }`}
             />
           ))}
-        </div> */}
+        </div>
 
         {/* Navigation buttons with titles */}
         <div className="swiper-navigation-wrapper">
           {/* Previous Slide */}
           <div className="flex items-center gap-2">
-            <button className="swiper-prev-button-sbt w-12 h-12 flex justify-center items-center bg-[#F2ECE2] text-black ">
+            <button className="swiper-prev-button-sbt w-12 h-12 flex justify-center items-center bg-[#242424] text-white">
               <svg
                 className="w-6 h-6 text"
                 aria-hidden="true"
@@ -202,15 +272,9 @@ function Slider2() {
                 />
               </svg>
             </button>
-            {selected > 0 ? (
-              <span className="text-[#242424] text-sm font-medium">
-                {list[selected].title}
-              </span>
-            ) : (
-              <span className="text-[#242424] text-sm font-medium">
-                {list[list.length - 1].title}
-              </span>
-            )}
+            <span className="text-[#242424] text-sm font-medium">
+              {selected > 0 ? list[selected - 1].title : list[list.length - 1].title}
+            </span>
           </div>
 
           {/* Next Slide */}

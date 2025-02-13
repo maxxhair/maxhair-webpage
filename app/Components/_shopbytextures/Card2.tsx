@@ -23,7 +23,10 @@ function Card2({ obj, selected, index }) {
         alt={obj.title || "Image"}
         width={500}
         height={500}
-        className="rounded-lg object-contain w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:h-full lg:w-full"
+        className="rounded-lg object-contain w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:h-full lg:w-full slide-image"
+        style={{
+          transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+        }}
       />
     </div>
   );
