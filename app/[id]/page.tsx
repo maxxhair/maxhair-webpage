@@ -148,9 +148,9 @@ export default function Page() {
         (variant) =>
           variant.size.size === selectedSize &&
           variant.color.color ===
-            (selectedColor === "Natural" ? "Natural" : "CustomColor") &&
+          (selectedColor === "Natural" ? "Natural" : "CustomColor") &&
           (variant.texture.title as string).toLowerCase().trim() ===
-            (selectedTexture as string).toLowerCase().trim()
+          (selectedTexture as string).toLowerCase().trim()
       );
     } else {
       return null;
@@ -302,11 +302,10 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
-                      selectedSize === size
-                        ? "!bg-[#E3D6C5] text-[#A47252]"
-                        : "bg-neutral-100"
-                    }`}
+                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${selectedSize === size
+                      ? "!bg-[#E3D6C5] text-[#A47252]"
+                      : "bg-neutral-100"
+                      }`}
                     key={size}
                   >
                     {size}
@@ -318,11 +317,10 @@ export default function Page() {
               {colorOpts?.map((color) => (
                 <button
                   onClick={() => setColor(color)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${
-                    selectedColor === color
-                      ? "bg-[#E3D6C5] text-[#A47252]"
-                      : "bg-neutral-100"
-                  }`}
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${selectedColor === color
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                    }`}
                   key={color}
                 >
                   {color}
@@ -334,11 +332,10 @@ export default function Page() {
               {typeOpts?.map((type) => (
                 <button
                   onClick={() => setType(type)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
-                    selectedType === type
-                      ? "bg-[#E3D6C5] text-[#A47252]"
-                      : "bg-neutral-100"
-                  }`}
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${selectedType === type
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                    }`}
                   key={type}
                 >
                   {type}
@@ -350,11 +347,10 @@ export default function Page() {
               {textureOpts?.map((texture) => (
                 <button
                   onClick={() => setTexture(texture)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
-                    selectedTexture === texture
-                      ? "bg-[#E3D6C5] text-[#A47252]"
-                      : "bg-neutral-100"
-                  }`}
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${selectedTexture === texture
+                    ? "bg-[#E3D6C5] text-[#A47252]"
+                    : "bg-neutral-100"
+                    }`}
                   key={texture}
                 >
                   {texture}
@@ -377,27 +373,15 @@ export default function Page() {
               <Image src={deliveryImg} alt="img-err" />
               <p className="mt-1 label-small lg:label-medium">Free Delivery</p>
             </div>
-            <div className="py-4">
-              {stockCount === 0 ? (
-                <p className="label-small lg:label-medium text-red-600">
-                  Stock unavailable! Don't worry, you can still place an order
-                  we have manufacturing unit.
-                </p>
-              ) : (
-                <p className="label-small lg:label-medium text-green-900">
-                  Hurry Up..! only {stockCount} is left
-                </p>
-              )}
-            </div>
             <div className="sm:review-card">
               {(selectedSize === null ||
                 selectedColor === null ||
                 selectedTexture === null ||
                 selectedType === null) && (
-                <div className="text-[#f00a]">
-                  Please select your required variant to add to cart
-                </div>
-              )}
+                  <div className="text-[#f00a]">
+                    Please select your required variant to add to cart
+                  </div>
+                )}
               <div className="flex lg:flex-row flex-col">
                 <div className="flex items-center gap-6 m-3 justify-between">
                   <div className="flex items-center gap-6">

@@ -8,7 +8,7 @@ import {
   contactForNavbarIcon,
   educateForNavbarIcon,
   profileForNavbarIcon,
-  shopForNavbarIcon
+  shopForNavbarIcon,
 } from "../../util/images";
 import ourstory from "../../../public/aboutus.svg";
 import Image from "next/image";
@@ -17,20 +17,16 @@ const Navbar = ({ setToggle }) => {
   const loggedUser = useSelector((state) => state.user.user);
 
   const items = [
-    {
-      title: isEmpty(loggedUser) ? "Sign In" : "Profile",
-      id: isEmpty(loggedUser) ? "signin" : "profile",
-      icon: profileForNavbarIcon
-    },
+    { title: "Home", id: "", icon: profileForNavbarIcon },
     { title: "Shop", id: "shop", icon: shopForNavbarIcon },
     { title: "Our Story", id: "ourstory", icon: ourstory },
     {
       title: "Meet Our Stylist",
       id: "meetOurStylist",
-      icon: educateForNavbarIcon
+      icon: educateForNavbarIcon,
     },
     { title: "Blog", id: "blog", icon: blogsForNavbarIcon },
-    { title: "Contact", id: "contact", icon: contactForNavbarIcon }
+    { title: "Contact", id: "contact", icon: contactForNavbarIcon },
   ];
 
   const navList = {
@@ -38,16 +34,16 @@ const Navbar = ({ setToggle }) => {
       opacity: 1,
       transition: {
         delayChildren: 0.2,
-        staggerChildren: 0.07
-      }
+        staggerChildren: 0.07,
+      },
     },
     hidden: {
       opacity: 0,
       transition: {
         staggerChildren: 0.05,
-        staggerDirection: -1
-      }
-    }
+        staggerDirection: -1,
+      },
+    },
   };
 
   const navItem = {
@@ -55,16 +51,16 @@ const Navbar = ({ setToggle }) => {
       x: 0,
       opacity: 1,
       transition: {
-        x: { stiffness: 100, velocity: 10 }
-      }
+        x: { stiffness: 100, velocity: 10 },
+      },
     },
     hidden: {
       x: 20,
       opacity: 0,
       transition: {
-        x: { stiffness: 100, velocity: 10 }
-      }
-    }
+        x: { stiffness: 100, velocity: 10 },
+      },
+    },
   };
 
   return (
@@ -73,7 +69,7 @@ const Navbar = ({ setToggle }) => {
         initial="hidden"
         animate="visible"
         exit="hidden"
-        className="flex flex-col gap-[20px]"
+        className="flex flex-col md:gap-[20px] gap-[10px]"
         variants={navList}
       >
         {items.map((obj, index) => (
@@ -85,7 +81,7 @@ const Navbar = ({ setToggle }) => {
             <Image src={obj.icon} alt={obj.title} width={30} height={30} />
             <Link
               href={`/${obj.id}`}
-              className="font-[500] text-[18px] tracking-[-0.2px] hover:translate-x-4 transition-all"
+              className="font-[500] md:text-base text-sm tracking-[-0.2px] hover:translate-x-4 transition-all"
               onClick={() => {
                 setToggle(false);
               }}

@@ -1,7 +1,7 @@
 "use client";
 
 import { Fira_Sans, Prompt } from "next/font/google";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import axios from "axios";
@@ -19,7 +19,7 @@ const prompt = Prompt({
   subsets: ["latin"]
 });
 
-const SignupForm = () => {
+const SignupForm = ({ setAuthDrawerState }: { setAuthDrawerState: Dispatch<SetStateAction<string>> }) => {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -75,7 +75,7 @@ const SignupForm = () => {
             phoneNumber: `+${phoneNumber}`
           }
         );
-        router.push("/signin");
+        setAuthDrawerState("signin");
       }
     } catch (error: any) {
       console.log(error);
@@ -84,22 +84,17 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="md:w-1/2 w-full p-10 md:p-0">
+    <div className="w-full">
       <h2
-        className={`${firaSans.className} mt-5 text-4xl font-extrabold text-yellow-700`}
+        className={`${firaSans.className} mt-5 text-4xl font-bold text-[#A47252]`}
       >
-        Sign up
+        Sign Up
       </h2>
+      <p className="mt-3 text-sm font-light leading-relaxed text-gray-500">
+        Become a member and enjoy exclusive promotions.
+      </p>
       <div className={prompt.className}>
-        <p className="mt-5 text-sm font-light text-gray-500">
-          Already Have An Account?{" "}
-          <a
-            href="signin"
-            className="text-primary-600 hover:underline font-semibold"
-          >
-            SIGN IN
-          </a>
-        </p>
+
         <form className="space-y-4 md:space-y-6 mt-5" action="#">
           <div>
             <input
@@ -108,7 +103,7 @@ const SignupForm = () => {
               id="fullname"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="bg-gray-50 border sm:text-sm w-full p-3"
+              className="bg-gray-50 border-[#A47252] border sm:text-sm w-full p-3"
               placeholder="Full Name"
               required
             />
@@ -131,10 +126,13 @@ const SignupForm = () => {
               enableSearch
               country={"us"}
               value={phoneNumber}
+              containerClass="border-[#A47252]"
+              buttonClass="border-[#A47252]"
+              dropdownClass="border-[#A47252]"
               inputProps={{
                 id: "phone",
                 required: true,
-                className: "bg-gray-50 border sm:text-sm w-full pl-12 p-3"
+                className: "bg-gray-50 border-[#A47252] border sm:text-sm w-full pl-12 p-3"
               }}
               onChange={(value) => setPhoneNumber(value)}
             />
@@ -149,7 +147,7 @@ const SignupForm = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-gray-50 border sm:text-sm w-full p-3"
+              className="bg-gray-50 border-[#A47252] border sm:text-sm w-full p-3"
               placeholder="Email"
               required
             />
@@ -165,7 +163,7 @@ const SignupForm = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="bg-gray-50 border sm:text-sm w-full p-3"
+              className="bg-gray-50 border-[#A47252] border sm:text-sm w-full p-3"
               required
             />
             {errors.password && (
@@ -190,7 +188,7 @@ const SignupForm = () => {
                   id="remember"
                   aria-describedby="remember"
                   type="checkbox"
-                  className="w-4 h-4 border border-gray-300 bg-gray-50 focus:ring-0"
+                  className="w-4 h-4 border border-[#A47252] bg-gray-50 focus:ring-0"
                   required
                   checked
                 />
@@ -206,14 +204,23 @@ const SignupForm = () => {
             type="submit"
             className={
               email && password && fullName && phoneNumber
-                ? "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-black focus:ring-4 cursor-pointer"
-                : "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4 cursor-not-allowed"
+                ? "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-black focus:ring-4 "
+                : "w-full text-white font-medium text-sm px-5 py-3.5 text-center bg-neutral-300 focus:ring-4 "
             }
             onClick={(e) => handleSubmit(e)}
+            disabled={!email || !password || !fullName || !phoneNumber}
           >
             CREATE ACCOUNT
           </button>
         </form>
+        <p className="mt-5 text-sm font-light text-center text-gray-500">
+          Already Have An Account?{" "}
+          <button onClick={() => setAuthDrawerState("signin")}
+            className="text-[#242424] hover:underline "
+          >
+            SIGN IN
+          </button>
+        </p>
       </div>
     </div>
   );

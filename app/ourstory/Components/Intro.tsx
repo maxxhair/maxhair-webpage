@@ -1,6 +1,6 @@
-import Image from "next/image";
+
 import { OurStory2 } from "../../util/images";
-import { firaSans, firaSansLight } from "../../util/fonts";
+import { firaSans } from "../../util/fonts";
 import ImageAnimation from "./Animation/ImageAnimation";
 
 function Intro() {
@@ -14,7 +14,7 @@ function Intro() {
           Maxx Hair Extensions was founded to reinstate trust in{" "}
         </span>
         <span
-          className={`${firaSansLight.className} text-[#3D3D3D] xl:leading-[110.4px] lg:leading-[90.4px] md:leading-[70.4px] leading-[50.4px] xl:display-large lg:display-medium display-small`}
+          className={`${firaSans.className} text-[#3D3D3D] md:headline-large headline-medium `}
         >
           High-Quality, Ethically Sourced Indian Human Hair
         </span>

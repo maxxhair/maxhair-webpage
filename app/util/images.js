@@ -41,6 +41,8 @@ import OurStoryWig2 from "/public/wig-2.png";
 import OurStoryWig3 from "/public/wig-3.png";
 import OurStoryWig4 from "/public/wig-4.png";
 import rings from "/public/rings.png";
+import design1 from "/public/design1.svg";
+import design2 from "/public/Design2.svg";
 
 export {
   companyLogo,
@@ -85,5 +87,7 @@ export {
   OurStoryWig2,
   OurStoryWig3,
   OurStoryWig4,
-  rings
+  rings,
+  design1,
+  design2,
 };

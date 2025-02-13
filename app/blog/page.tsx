@@ -9,7 +9,7 @@ import { fetchBlogs } from "../util/serverSideProps";
 const Blogpage = async () => {
   const blogs = await fetchBlogs();
   return (
-    <section className="w-full md:w-4/5 lg:3/4 mx-auto mt-[10vh] md:mt-[14vh]">
+    <section className="w-full md:w-4/5 lg:3/4 mx-auto mt-20 md:mt-24">
       <div className="w-full relative h-[50vh] md:h-[60vh] lg:h-[70vh]">
         <Image
           src={blogbanner}

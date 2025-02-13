@@ -7,14 +7,14 @@ const TextureTabs = () => {
   const [selected, setSelected] = useState(1);
   return (
     <>
-      <div className="flex items-center gap-3 md:gap-10 my-10">
+      <div className="flex items-center flex-wrap justify-center gap-3 md:gap-5 my-10 z-[1]">
         {textureTypesData.map((textureType) => (
           <button
             key={textureType.id}
             className={
               selected === textureType.id
-                ? "px-6 py-2  border border-black text-sm md:text-lg bg-black text-white font-bold"
-                : "px-6 py-2 bg-transparent border border-white text-sm md:text-lg text-white font-bold"
+                ? "px-16 py-2  border-2 border-[#885C46] text-sm md:text-lg bg-[#885C46] text-white font-bold uppercase"
+                : "px-16 py-2 bg-transparent border-2 border-[#242424] text-sm md:text-lg text-[#242424] font-bold uppercase"
             }
             onClick={() => setSelected(textureType.id)}
           >
@@ -22,7 +22,7 @@ const TextureTabs = () => {
           </button>
         ))}
       </div>
-      <div className="my-6 w-fit max-w-4xl mx-auto">
+      <div className="flex justify-center md:my-6 my-3 w-full z-[1]">
         {textureTypesData
           .filter((textureType) => textureType.id === selected)
           .map((texture, index) => (

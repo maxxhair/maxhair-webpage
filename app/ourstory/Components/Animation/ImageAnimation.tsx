@@ -17,7 +17,7 @@ function ImageAnimation({ image, alternative }: ImageAnimationProps) {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["80%", "0%"]);
   const ySpring = useSpring(y, { stiffness: 100, damping: 20 });
 
   const { ref: inViewRef, inView } = useInView({
@@ -33,7 +33,7 @@ function ImageAnimation({ image, alternative }: ImageAnimationProps) {
       }}
       initial={{ opacity: 0, scale: 0.9, y: "0%" }}
       animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.2 }}
       className="h-full w-full"
       style={{ y: ySpring }}
     >

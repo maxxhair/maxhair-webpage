@@ -7,7 +7,7 @@ import {
   facebook,
   hairStrand,
   brandLogo,
-  tiktok
+  tiktok,
 } from "../util/images";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -31,33 +31,31 @@ function Footer() {
   return (
     <footer
       className={
-        pathname === "/signup" || pathname === "/signin"
+        pathname === "/signup" ||
+        pathname === "/signin" ||
+        pathname === "/forgotPassword" ||
+        pathname === "/newPassword" ||
+        pathname === "/privacypolicy" ||
+        pathname === "/termsandconditions"
           ? "hidden"
-          : "bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col  items-center"
+          : "bg-[#F2ECE2] relative w-full py-[30px] px-[20px] flex flex-col mt-10 items-center"
       }
     >
-      <div
-        className={
-          pathname === "/meetOurStylist"
-            ? "hidden"
-            : "h-[70px] w-full !bg-[#FAFAFA] absolute top-0 left-0 "
-        }
-      ></div>
-      <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide xl:gap-[100px] lg:gap-[80px] gap-[40px]">
+      <div className="flex flex-col items-center 2xl:w-[70%] xl:[75%] w-[90%] z-10 tracking-wide lg:gap-[80px] gap-[40px]">
         <div className="flex lg:justify-between justify-evenly items-center xl:text-left text-center xl:flex-row flex-col-reverse w-full xl:gap-[100px] lg:gap-[80px] gap-[60px]">
-          <span
-            className={`lg:headline-large md:headline-medium headline-small font-extrabold text-[#242424] ${firaSans.className}`}
-          >
-            Subscribe to follow
-          </span>
+          <div className="flex flex-col gap-5">
+            <Image src={brandLogo} alt="Maxx hair extensions" width={500} />
+            <span
+              className={`lg:headline-large md:headline-medium headline-small font-extrabold text-[#242424] ${firaSans.className}`}
+            >
+              Subscribe to follow
+            </span>
+          </div>
           <div className="border-[7px] border-[#F2ECE2] bg-[#A47252] h-fit md:min-w-[390px] min-w-[300px] px-[30px] py-[40px]">
             <SubscribeForm />
           </div>
         </div>
         <div className="flex flex-col bg-footer-design xl:gap-[100px] w-full lg:gap-[80px] gap-[60px]">
-          <div className="flex xl:justify-start justify-center items-center">
-            <Image src={brandLogo} alt="Maxx hair extensions" width={400} />
-          </div>
           <div className="flex flex-wrap xl:flex-row gap-y-[40px] gap-x-[110px] flex-col w-full xl:items-start items-center xl:text-left text-center ">
             <div className="flex xl:w-1/2 w-full justify-between ">
               <span className="flex flex-col items-start md:gap-[10px] gap-[5px]">
@@ -142,7 +140,12 @@ function Footer() {
           <Image src={hairStrand} alt="" />
           <div className="w-full flex md:flex-row flex-col  items-center gap-y-[10px] lg:body-large md:body-medium body-small tracking-tight font-[500] ">
             <div className=" flex gap-x-[30px] md:w-full xl:justify-between justify-center">
-              <Link href="">Privacy Policy</Link>
+              <Link
+                href="privacypolicy"
+                className="hover:underline underline-offset-8"
+              >
+                Privacy Policy
+              </Link>
               <span className="text-[#5D5D5D] md:block hidden">
                 Copyright © {year} Maxx Hair. All rights reserved || Designed
                 and Developed by&nbsp;
@@ -154,7 +157,12 @@ function Footer() {
                   Wielabs
                 </a>
               </span>
-              <Link href="">Terms & Conditions</Link>
+              <Link
+                href="termsandconditions"
+                className="hover:underline underline-offset-8"
+              >
+                Terms & Conditions
+              </Link>
             </div>
 
             <span className="text-[#5D5D5D] text-center block md:hidden">

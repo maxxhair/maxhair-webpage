@@ -76,7 +76,7 @@ const CustomerReviews: React.FC<Props> = ({
     productReviews?.length > 0 ? reviewAverage(productReviews) : 0;
 
   return (
-    <div className="text-sm">
+    <div className="text-sm md:px-16 px-8">
       <p
         className={`${firaSans.className} text-xl lg:text-3xl mt-16 font-bold`}
       >

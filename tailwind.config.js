@@ -31,7 +31,7 @@ module.exports = {
           fontSize: "44px",
         },
         ".headline-large": {
-          fontSize: "44px",
+          fontSize: "42px",
           fontWeight: 600,
         },
         ".headline-medium": {
@@ -88,7 +88,11 @@ module.exports = {
           "writing-mode": "vertical-rl",
           "text-orientation": "mixed",
         },
-
+        ".text-270": {
+          "writing-mode": "vertical-lr",
+          "text-orientation": "mixed",
+          rotate: "180deg",
+        },
         ".text-0": {
           "writing-mode": "horizontal-tb",
         },

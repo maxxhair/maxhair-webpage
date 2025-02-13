@@ -16,11 +16,6 @@ body {
 }
 
 :root {
-  --shopButtonDisplay: "all";
-  --fromTop: 0;
-  --colorToChange: "#FAFAFA";
-  --scaleGreet: 0.9;
-  --transformGreet: 0.6px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -28,13 +23,6 @@ body {
 :root::-webkit-scrollbar {
   display: none;
   --transformGreet: 0.65px;
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --scaleGreet: 0.7;
-    --transformGreet: 0.7px;
-  }
 }
 
 /* .bg-footer-design {
@@ -69,42 +57,9 @@ body {
   margin: 5px;
 }
 
-.color-shift {
-  color: var(--colorToChange);
-}
-
-.video-container {
-  opacity: calc(1 - var(--fromTop) / 10);
-  transition: all 0.3s ease;
-}
-
-.video {
-  transition: all 0.3s ease;
-  opacity: calc(1 - var(--fromTop) / 100);
-}
-
 .stickydiv {
   position: sticky;
   position: -webkit-sticky;
-}
-
-.flyouts-left {
-  transform: translateX(calc(var(--fromTop) * -1px));
-  transition: all 0.3s ease;
-  opacity: calc(1 - var(--fromTop) / 10);
-  user-select: var(--shopButtonDisplay);
-}
-
-.flyouts-right {
-  transform: translateX(calc(var(--fromTop) / 2 * 1px));
-  transition: all 0.3s ease;
-  opacity: calc(1 - var(--fromTop) / 10);
-  pointer-events: var(--shopButtonDisplay);
-}
-
-.flyouts-down {
-  transform: translateY(calc(var(--fromTop) * var(--transformGreet)));
-  transition: all 0.3s ease;
 }
 
 .rating {
