@@ -83,8 +83,8 @@ const Checkout = () => {
     setCheckoutFormDate({ ...checkoutFormData, [e.target.id]: e.target.value });
   };
 
-  const handlePhoneInputChange = (value: any) => {
-    setCheckoutFormDate({ ...checkoutFormData, phone: value });
+  const handlePhoneInputChange = (id: string) => (value: any) => {
+    setCheckoutFormDate({ ...checkoutFormData, [id]: value });
   };
 
   const priceTotal = useSelector((state: RootState) => {
@@ -118,8 +118,8 @@ const Checkout = () => {
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name + " " + checkoutFormData.lastName,
-              email: loggedUser.user? loggedUser.user.email : checkoutFormData.email,
-              phone: checkoutFormData.phone,
+              email: loggedUser.user ? loggedUser.user.email : checkoutFormData.email,
+              phone: "+" + checkoutFormData.phone,
               address: checkoutFormData.address.split(",").slice(0, 2).join(),
               landmark: checkoutFormData.landmark,
               state: checkoutFormData.state,
@@ -200,6 +200,8 @@ const Checkout = () => {
     }
   };
 
+  useEffect(() => console.log(checkoutFormData), [checkoutFormData])
+
   useEffect(() => {
     if (saveAddress) {
       handleAddAddress();
@@ -207,27 +209,27 @@ const Checkout = () => {
   }, [saveAddress]);
 
   return (
-    <div className="w-full p-5 lg:pt-8 lg:w-3/4 mx-auto mt-[14vh] flex flex-col-reverse lg:flex-row mb-10">
-      <div className="w-full lg:w-1/2 grid place-items-center">
+    <div className="w-full p-5 lg:pt-8 gap mx-auto mt-[14vh] flex flex-col-reverse md:gap-10 justify-center md:items-start items-center md:flex-row mb-10">
+      <div className="w-full md:max-w-[400px] max-w-[600px] grid place-items-center">
         <form
-          className="w-full mt-10 lg:mt-0 lg:w-3/4 mx-auto"
+          className="w-full mt-10 lg:mt-0 mx-auto"
           onSubmit={handleSubmit}
         >
           {/* Contact section - only show when user is not logged in */}
-        
-            <>
-              <h2 className="font-medium mb-4">Contact</h2>
-              <TextInput
-                id="email"
-                type="text"
-                placeholder="Email"
-                required
-                className="mb-4 hover:!cursor-default"
-                disabled={loggedUser?.user?.email}
-                onChange={!loggedUser?.user?.email && handleInputChange}
-                value={loggedUser?.user?.email ? loggedUser?.user?.email :   checkoutFormData?.email}
-              />
-            </>
+
+          <>
+            <h2 className="font-medium mb-4">Contact</h2>
+            <TextInput
+              id="email"
+              type="text"
+              placeholder="Email"
+              required
+              className="mb-4 hover:!cursor-default"
+              disabled={loggedUser?.user?.email}
+              onChange={!loggedUser?.user?.email ? handleInputChange : undefined}
+              value={loggedUser?.user?.email ? loggedUser?.user?.email : checkoutFormData?.email}
+            />
+          </>
 
           {/* Shipping Address section */}
           <h2 className="font-medium mb-4">Shipping Address</h2>
@@ -259,13 +261,24 @@ const Checkout = () => {
             onChange={handleInputChange}
             value={checkoutFormData?.address}
           />
-          <TextInput
-            id="suite"
-            type="text"
-            placeholder="Province Code"
-            className="mb-4"
-            onChange={handleInputChange}
-          />
+          <div className="flex gap-4 md:flex-row flex-col">
+            <TextInput
+              id="country"
+              type="text"
+              placeholder="Country Code"
+              required
+              className="flex-1"
+              onChange={handleInputChange}
+              value={checkoutFormData?.country}
+            />
+            <TextInput
+              id="suite"
+              type="text"
+              placeholder="Province Code"
+              className="mb-4"
+              onChange={handleInputChange}
+            />
+          </div>
           <div className="flex gap-4 mb-4">
             <TextInput
               id="zipcode"
@@ -294,29 +307,20 @@ const Checkout = () => {
               value={checkoutFormData?.state}
             />
           </div>
-          <div className="flex gap-4 mb-6">
-            <TextInput
-              id="country"
-              type="text"
-              placeholder="Country Code"
-              required
-              className="flex-1"
-              onChange={handleInputChange}
-              value={checkoutFormData?.country}
-            />
-            <TextInput
-              id="phone"
-              type="tel"
-              placeholder="Phone"
-              required
-              className="flex-1"
-              onChange={handleInputChange}
-              value={checkoutFormData?.phone}
-            />
-          </div>
+          <PhoneInput
+            enableSearch
+            country={"us"}
+            value={checkoutFormData?.phone}
+            inputProps={{
+              id: "phone",
+              required: true,
+              className: "w-full border-[#d1d5db] rounded-md pl-12"
+            }}
+            onChange={handlePhoneInputChange("phone")}
+          />
 
           {/* Billing Address checkbox */}
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 my-6">
             <Checkbox
               id="sameAddress"
               checked={sameAsShipping}
@@ -357,13 +361,23 @@ const Checkout = () => {
                 className="mb-4"
                 onChange={handleInputChange}
               />
-              <TextInput
-                id="billingSuite"
-                type="text"
-                placeholder="Province Code"
-                className="mb-4"
-                onChange={handleInputChange}
-              />
+              <div className="flex gap-4 md:flex-row flex-col">
+                <TextInput
+                  id="billingCountry"
+                  type="text"
+                  placeholder="Country Code"
+                  required
+                  className="flex-1 md:mb-4"
+                  onChange={handleInputChange}
+                />
+                <TextInput
+                  id="billingSuite"
+                  type="text"
+                  placeholder="Province Code"
+                  className="mb-4"
+                  onChange={handleInputChange}
+                />
+              </div>
               <div className="flex gap-4 mb-4">
                 <TextInput
                   id="billingZipcode"
@@ -390,29 +404,23 @@ const Checkout = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex gap-4 mb-6">
-                <TextInput
-                  id="billingCountry"
-                  type="text"
-                  placeholder="Country"
-                  required
-                  className="flex-1"
-                  onChange={handleInputChange}
-                />
-                <TextInput
-                  id="billingPhone"
-                  type="tel"
-                  placeholder="Phone"
-                  required
-                  className="flex-1"
-                  onChange={handleInputChange}
-                />
-              </div>
+              <PhoneInput
+                enableSearch
+                country={"us"}
+                value={checkoutFormData?.billingPhone}
+                inputProps={{
+                  id: "billingPhone",
+                  required: true,
+                  className: "w-full border-[#d1d5db] rounded-md pl-12"
+                }}
+                onChange={handlePhoneInputChange("billingPhone")}
+              />
+
             </>
           )}
 
           {/* Terms and Pay Now button */}
-          <p className="text-sm mb-6">
+          <p className="text-sm my-6">
             By clicking below and completing your order, you agree to purchase
             your item(s) from Maxx Hair Extension as merchant of record for this
             transaction, on Maxx Hair Extension{" "}

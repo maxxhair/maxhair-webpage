@@ -86,7 +86,7 @@ const CheckoutCartDetails = () => {
   ).toDateString();
 
   return (
-    <div className="w-full lg:w-1/2 bg-[#F2ECE2] p-6 lg:p-8">
+    <div className="w-full max-w-[600px] bg-[#F2ECE2] p-6 lg:p-8">
       <h2 className="text-2xl font-medium mb-6 text-[#242424]">Your Cart</h2>
 
       {/* Cart Items */}
@@ -98,7 +98,7 @@ const CheckoutCartDetails = () => {
 
       {/* Coupon Code Section */}
       <div className="mb-8">
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <input
             placeholder="Coupon Code"
             type="text"
@@ -107,7 +107,7 @@ const CheckoutCartDetails = () => {
             onChange={handleUpdateCouponCode}
           />
           <button
-            className="px-6 py-3 border border-black rounded"
+            className="px-6 py-2 border border-black rounded"
             onClick={VerifyCouponCode}
           >
             Apply
@@ -123,18 +123,18 @@ const CheckoutCartDetails = () => {
       {/* Order Summary */}
       <div className="space-y-6">
         <h3 className="text-lg font-medium">Order Summary</h3>
-        
+
         <div className="space-y-3">
           <div className="flex justify-between">
             <span className="text-gray-600">Price</span>
             <span>${priceTotal.toFixed(2)}</span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-gray-600">Discount</span>
             <span>${discountPercentage}</span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-gray-600">Shipping</span>
             <span className="text-green-600">Free</span>
@@ -146,7 +146,7 @@ const CheckoutCartDetails = () => {
             <span>TOTAL</span>
             <span>${(priceTotal - discountPercentage).toFixed(2)}</span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-gray-600">Estimated Delivery by</span>
             <span>

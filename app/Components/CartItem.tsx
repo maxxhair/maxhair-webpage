@@ -70,8 +70,8 @@ const CartItem: React.FC<Props> = ({ product }) => {
           height={150}
         />
         <div className="flex flex-col gap-1 w-full md:items-start items-start">
-          <p className="lg:headline-small md:title-small label-medium flex items-start md:flex-row justify-center flex-col flex-wrap">
-            <span className="md:w-auto w-full text-center">
+          <p className="lg:headline-small md:title-small label-medium flex items-start md:flex-row flex-col flex-wrap">
+            <span className="md:w-auto w-full">
               {product?.name}
             </span>
             <span className="lg:block hidden">-</span>
