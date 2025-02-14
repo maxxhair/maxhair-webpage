@@ -15,7 +15,6 @@ import Link from "next/link";
 function Slider2() {
   const [selected, setSelected] = useState(0);
   const [list, setList] = useState([]);
-  const [animate, setAnimate] = useState(false);
 
   const sliderRef = useRef(null);
 
@@ -35,21 +34,13 @@ function Slider2() {
     setSelected(swiper.realIndex);
   }, []);
 
-  // Calculate which dots to show based on the selected index
   const getVisibleDots = () => {
     if (list.length <= 7) return list;
-
-    if (selected < 4) {
-      // If we're near the start, show first 7
-      return list.slice(0, 7);
-    } else if (selected > list.length - 4) {
-      // If we're near the end, show last 7
-      return list.slice(list.length - 7);
-    } else {
-      // Show 3 dots before and 3 after the selected dot
-      return list.slice(selected - 3, selected + 4);
-    }
+    if (selected < 4) return list.slice(0, 7);
+    if (selected > list.length - 4) return list.slice(list.length - 7);
+    return list.slice(selected - 3, selected + 4);
   };
+
 
   if (!list.length) {
     return (
@@ -63,27 +54,27 @@ function Slider2() {
   //   // Trigger animation when the component is mounted or selected changes
   //   setAnimate(true);
   // }, [selected]);
-  console.log(list);
+  // console.log(list);
 
   return (
-    <div className="flex flex-col justify-center relative w-full md:px-8 py-8 md:gap-10 gap-8">
+    <div className="flex flex-col justify-center relative w-full md:px-8 md:py-8 pt-8 md:mb-20 md:gap-10 gap-8">
       <style>
         {`
-        .swiper-container {
-  height: 60vh;
-}
+          .swiper-container {
+            height: 60vh;
+          }
 
-@media (max-width: 768px) {
-  .swiper-container {
-    height: 40vh;
-  }
-}
+          @media (max-width: 768px) {
+            .swiper-container {
+              height: 40vh;
+            }
+          }
 
-@media (max-width: 480px) {
-  .swiper-container {
-    height: 30vh;
-  }
-}
+          @media (max-width: 480px) {
+            .swiper-container {
+              height: 30vh;
+            }
+          }
 
           .swiper-pagination {
             display: flex;
@@ -93,14 +84,14 @@ function Slider2() {
             top: 50%;
             transform: translateY(-50%) !important;
             gap: 8px;
-            z-index: 20;
+            z-index: 2;
             align-items: center;
           }
 
           .swiper-pagination-bullet {
             width: 10px;
             height: 10px;
-            background-color: #D1D1D1;
+            background-color: #D2BC9F;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -132,16 +123,6 @@ function Slider2() {
             transform: translate(-50%, -50%);
           }
 
-          // .swiper-navigation-wrapper {
-          //   display: flex;
-          //   justify-content: space-between;
-          //   align-items: center;
-          //   position: absolute;
-          //   top: 80%;
-          //   width: 100%;
-          //   // padding:30px;
-          //   z-index: 20;
-          // }
           .text-animation {
             animation: moveDown 0.5s ease-out forwards;
           }
@@ -151,9 +132,10 @@ function Slider2() {
               display: flex;
             }
           }
-            @media (max-width: 498px) {
+          @media (max-width: 498px) {
             .swiper-pagination {
-              display: none;
+              top:40%;
+              left:90%;
             }
           }
 
@@ -194,16 +176,14 @@ function Slider2() {
           }
         `}
       </style>
-      <div className="absolute top-24 md:top-1/2 transform  md:-translate-y-1/2 md:left-1 lg:left-8 xl:left-20 md:translate-x-0 flex flex-col px-6 md:px-8 max-w-lg z-[2]">
+      <div className="absolute top-0 left-0 w-full h-full flex flex-col md:justify-center justify-end lg:pl-28 md:pl-14 md:py-8 py-[10px] md:items-start items-center md:z-[2] x-[1]">
         <span
           key={selected}
-          className="text-xl lg:text-[40px] font-bold capitalize text-[#885C46] mb-2 text-animation"
+          className="text-xl md:text-3xl lg:text-4xl font-bold capitalize text-[#885C46] mb-2 text-animation"
         >
           {list[selected].title}
         </span>
-
-        {/* Buy Now Button */}
-        <div className="flex justify-start items-center">
+        <div className="md:flex hidden justify-start items-center ">
           <Link
             href="shop"
             className={`md:mt-4 text-white bg-[#242424] p-2 md:px-6 md:py-3 mb-4 w-fit md:mb-0 text-xs md:text-base`}
@@ -225,7 +205,7 @@ function Slider2() {
           fadeEffect={{
             crossFade: true
           }}
-          onSlideNextTransitionStart={() => {}}
+          onSlideNextTransitionStart={() => { }}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false
@@ -254,21 +234,19 @@ function Slider2() {
         <div className="swiper-pagination">
           {getVisibleDots().map((_, index) => (
             <div
-              key={index + (selected < 4 ? 0 : selected - 3)} // Adjust key based on slice
-              className={`swiper-pagination-bullet ${
-                index === (selected < 4 ? selected : 3)
-                  ? "swiper-pagination-bullet-active"
-                  : ""
-              }`}
+              key={index + (selected < 4 ? 0 : selected > (list.length - 4) ? list.length - 7 : selected - 3)}
+              className={`swiper-pagination-bullet ${index === (selected < 4 ? selected : selected > (list.length - 4) ? selected - (list.length - 7) : 3)
+                && "swiper-pagination-bullet-active"
+                }`}
             />
           ))}
         </div>
 
         {/* Navigation buttons with titles */}
-        <div className="swiper-navigation-wrapper absolute flex justify-between items-center top-[80%] w-[100%] z-[1] p-4 md:p-6 xl:p-8">
+        <div className="swiper-navigation-wrapper md:absolute flex justify-between items-center top-full w-full z-[1] md:px-0 px-4 py-4 md:py-6 xl:py-8">
           {/* Previous Slide */}
           <div className="flex md:flex-row flex-col md:items-center gap-2">
-            <button className="swiper-prev-button-sbt w-12 h-12 flex justify-center items-center bg-[#242424] text-white">
+            <button className="swiper-prev-button-sbt w-9 h-9 md:w-12 md:h-12 flex justify-center items-center bg-[#242424] text-white">
               <svg
                 className="w-6 h-6 text"
                 aria-hidden="true"
@@ -287,7 +265,7 @@ function Slider2() {
                 />
               </svg>
             </button>
-            <span className="text-[#242424] text-xs md:text-sm font-medium">
+            <span className="text-[#242424] md:block hidden text-xs md:text-sm font-medium">
               {selected > 0
                 ? list[selected - 1].title
                 : list[list.length - 1].title}
@@ -297,11 +275,11 @@ function Slider2() {
           {/* Next Slide */}
           <div className="flex md:flex-row flex-col-reverse items-end md:items-center gap-2">
             {
-              <span className="text-[#242424] text-xs md:text-sm font-medium">
+              <span className="text-[#242424] md:block hidden text-xs md:text-sm font-medium">
                 {list[(selected + 1) % list.length].title}
               </span>
             }
-            <button className="swiper-next-button-sbt w-12 h-12 flex justify-center items-center bg-[#242424] text-[#F2ECE2] ">
+            <button className="swiper-next-button-sbt w-9 h-9 md:w-12 md:h-12 flex justify-center items-center bg-[#242424] text-[#F2ECE2] ">
               <svg
                 className="w-6 h-6 text-white"
                 aria-hidden="true"

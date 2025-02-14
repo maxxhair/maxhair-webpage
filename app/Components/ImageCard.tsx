@@ -16,7 +16,7 @@ const ImageCard: React.FC<Props> = ({ item, width, height }) => {
       ? `${baseUrl}/${item?.images[0]}`
       : prodimg;
 
-  return <Image src={imageUrl} alt="" width={width} height={height} className="border-4 border-white" />;
+  return <Image src={imageUrl} alt="" width={width} height={height} className="border-4 border-white h-full" />;
 };
 
 export default ImageCard;

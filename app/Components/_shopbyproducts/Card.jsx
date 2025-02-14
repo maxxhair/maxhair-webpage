@@ -26,21 +26,29 @@ function Card({ name, category, link, image, subProducts }) {
 
   return (
     <>
-      <div className="bg-[#F2ECE2] flex flex-col gap-5 px-[16px] py-[16px] justify-evenly items-center">
+      <div className="bg-[#F2ECE2] flex flex-col gap-5 px-[16px] py-[16px] justify-between items-center">
         <div className="">
-          <Image src={imageUrl} alt="" width={300 - 20} height={200} />
+          <Image
+            src={imageUrl}
+            alt=""
+            width={300 - 20}
+            height={200}
+            className="w-full h-auto "
+          />
         </div>
-        <span
-          className={`${firaSans.className} md:label-medium label-small truncate w-[80%] text-center`}
-        >
-          {name}
-        </span>
-        <button
-          onClick={handleClick}
-          className={`${prompt.className} font-thin bg-[#242424] text-[#FAFAFA] body-small w-full py-[10px] px-[40px]`}
-        >
-          Explore
-        </button>
+        <div className="flex flex-col items-center gap-3 w-full">
+          <span
+            className={`${firaSans.className} md:label-medium label-small truncate w-[80%] text-center`}
+          >
+            {name}
+          </span>
+          <button
+            onClick={handleClick}
+            className={`${prompt.className} font-thin bg-[#242424] text-[#FAFAFA] body-small w-full py-[10px] px-auto`}
+          >
+            Explore
+          </button>
+        </div>
       </div>
       <Modal
         show={openSubProducts}
