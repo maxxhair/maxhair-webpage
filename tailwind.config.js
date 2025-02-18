@@ -36,7 +36,7 @@ module.exports = {
         },
         ".headline-medium": {
           fontSize: "32px",
-          fontWeight: 600
+          fontWeight: 500
         },
         ".headline-small": {
           fontSize: "24px",
