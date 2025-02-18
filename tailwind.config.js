@@ -40,7 +40,7 @@ module.exports = {
         },
         ".headline-small": {
           fontSize: "24px",
-          fontWeight: 600
+          fontWeight: 500
         },
         ".title-large": {
           fontSize: "34px"

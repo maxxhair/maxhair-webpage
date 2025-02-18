@@ -245,7 +245,7 @@ function Slider2() {
         {/* Navigation buttons with titles */}
         <div className="swiper-navigation-wrapper md:absolute flex justify-between items-center top-full w-full z-[1] md:px-0 px-4 py-4 md:py-6 xl:py-8">
           {/* Previous Slide */}
-          <div className="flex md:flex-row flex-col md:items-center gap-2">
+          <div className="flex md:flex-row flex-col md:items-center gap-2 lg:gap-4">
             <button className="swiper-prev-button-sbt w-9 h-9 md:w-12 md:h-12 flex justify-center items-center bg-[#242424] text-white">
               <svg
                 className="w-6 h-6 text"
@@ -273,7 +273,7 @@ function Slider2() {
           </div>
 
           {/* Next Slide */}
-          <div className="flex md:flex-row flex-col-reverse items-end md:items-center gap-2">
+          <div className="flex md:flex-row flex-col-reverse items-end md:items-center gap-2 lg:gap-4">
             {
               <span className="text-[#242424] md:block hidden text-xs md:text-sm font-medium">
                 {list[(selected + 1) % list.length].title}
