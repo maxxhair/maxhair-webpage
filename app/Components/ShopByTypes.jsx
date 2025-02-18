@@ -7,7 +7,7 @@ function ShopByTypes() {
   return (
     <div className="flex flex-col bg-[#E3D6C5] w-full justify-evenly items-center md:py-[40px] py-[20px] px-[20px] relative">
       <span
-        className={`${firaSans.className} font-[700] text-[#30201A] md:headline-medium headline-small text-center w-full`}
+        className={`${firaSans.className}  text-[#30201A] md:headline-large headline-small text-center w-full`}
       >
         All About Textures
       </span>

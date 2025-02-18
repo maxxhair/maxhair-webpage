@@ -179,7 +179,7 @@ function Slider2() {
       <div className="absolute top-0 left-0 w-full h-full flex flex-col md:justify-center justify-end lg:pl-28 md:pl-14 md:py-8 py-[10px] md:items-start items-center md:z-[2] x-[1]">
         <span
           key={selected}
-          className="text-xl md:text-3xl lg:text-4xl font-bold capitalize text-[#885C46] mb-2 text-animation"
+          className="text-xl md:text-3xl lg:text-6xl font-bold capitalize text-[#885C46] mb-4 text-animation"
         >
           {list[selected].title}
         </span>

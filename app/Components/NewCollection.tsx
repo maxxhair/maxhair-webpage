@@ -24,7 +24,7 @@ const NewCollection = () => {
   // <ImageCard key={product._id} item={product} width={340} height={400} />;
 
   return (
-    <div className="bg-[linear-gradient(135.21deg,_#B1845E_0%,_#6F4C3D_99.17%)] w-full flex flex-col justify-center items-center md:py-28 py-14 md:px-10 px-5 gap-10 relative overflow-hidden">
+    <div className="bg-[linear-gradient(135.21deg,_#B1845E_0%,_#6F4C3D_99.17%)] w-full flex flex-col justify-center items-center md:pt-16 md:py-28 py-14 md:px-10 px-5 gap-10 relative overflow-hidden">
       <span
         className={`${firaSans.className} text-white md:headline-large headline-medium`}
       >
