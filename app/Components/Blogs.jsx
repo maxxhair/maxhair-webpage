@@ -37,7 +37,7 @@ function Blogs() {
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center w-full px-[20px] lg:py-[60px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
-        className={`${firaSans.className} font-[700] md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
+        className={`${firaSans.className} md:headline-large headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >
         Recent blog
       </span>
@@ -65,7 +65,6 @@ function Blogs() {
             750: {
               slidesPerView: 2,
             },
-
             1440: {
               slidesPerView: 3,
             },

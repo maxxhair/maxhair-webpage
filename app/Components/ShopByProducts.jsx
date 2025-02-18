@@ -31,7 +31,7 @@ function ShopByProducts() {
   return (
     <div className=" bg-[#FAFAFA] flex flex-col justify-center items-center  w-full lg:px-[30px] md:py-[40px] py-[20px] md:gap-[40px] gap-[20px]">
       <span
-        className={`${firaSans.className} font-[700] md:headline-medium headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
+        className={`${firaSans.className}  md:headline-large headline-small text-center lg:w-[60%] md:w-[80%] w-full`}
       >
         Shop By Products
       </span>

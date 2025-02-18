@@ -7,99 +7,99 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
 
-    flowbite.content(),
+    flowbite.content()
   ],
   theme: {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-    },
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))"
+      }
+    }
   },
   plugins: [
     function ({ addUtilities }) {
       const newUtilities = {
         ".display-large": {
-          fontSize: "87px",
+          fontSize: "87px"
         },
         ".display-medium": {
-          fontSize: "61px",
+          fontSize: "61px"
         },
         ".display-small": {
-          fontSize: "44px",
+          fontSize: "44px"
         },
         ".headline-large": {
-          fontSize: "42px",
-          fontWeight: 600,
+          fontSize: "44px",
+          fontWeight: 500
         },
         ".headline-medium": {
           fontSize: "32px",
-          fontWeight: 600,
+          fontWeight: 600
         },
         ".headline-small": {
           fontSize: "24px",
-          fontWeight: 600,
+          fontWeight: 500
         },
         ".title-large": {
-          fontSize: "34px",
+          fontSize: "34px"
         },
         ".title-medium": {
-          fontSize: "24px",
+          fontSize: "24px"
         },
         ".title-small": {
-          fontSize: "20px",
+          fontSize: "20px"
         },
         ".label-large": {
-          fontSize: "20px",
+          fontSize: "20px"
         },
         ".label-medium": {
-          fontSize: "16px",
+          fontSize: "16px"
         },
         ".label-small": {
-          fontSize: "14px",
+          fontSize: "14px"
         },
         ".body-large": {
-          fontSize: "16px",
+          fontSize: "16px"
         },
         ".body-medium": {
-          fontSize: "14px",
+          fontSize: "14px"
         },
         ".body-small": {
-          fontSize: "12px",
+          fontSize: "12px"
         },
         ".text-shadow-gold": {
           color: "transparent",
-          "-webkit-text-stroke": "1px #b1845e",
+          "-webkit-text-stroke": "1px #b1845e"
         },
 
         ".text-shadow-white": {
           color: "transparent",
-          "-webkit-text-stroke": "1px #fafafa",
+          "-webkit-text-stroke": "1px #fafafa"
         },
 
         ".text-shadow-yellow": {
           color: "transparent",
-          "-webkit-text-stroke": "1px #e3d6c5",
+          "-webkit-text-stroke": "1px #e3d6c5"
         },
 
         ".text-90": {
           "writing-mode": "vertical-rl",
-          "text-orientation": "mixed",
+          "text-orientation": "mixed"
         },
         ".text-270": {
           "writing-mode": "vertical-lr",
           "text-orientation": "mixed",
-          rotate: "180deg",
+          rotate: "180deg"
         },
         ".text-0": {
-          "writing-mode": "horizontal-tb",
-        },
+          "writing-mode": "horizontal-tb"
+        }
       };
       addUtilities(newUtilities, ["responsive", "hover"]);
     },
 
-    flowbite.plugin(),
-  ],
+    flowbite.plugin()
+  ]
 };
