@@ -23,9 +23,12 @@ export const getProduct = async (id: string) => {
 
 export const getVariantsByProductId = async (productId: string) => {
   try {
+    console.log("requesting")
     const response = await axios.get(
       `${baseUrl}variants/filter?products=${productId}`
     );
+
+    console.log("var res ::", response.data);
     return response.data.data;
   } catch (error) {
     console.log(error);

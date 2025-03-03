@@ -43,6 +43,8 @@ interface CheckoutFormData {
 
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormDate] = useState<CheckoutFormData>();
+  const [phoneError, setPhoneError] = useState(false);
+  const [billingPhoneError, setBillingPhoneError] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [token, setToken] = useState(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -85,6 +87,19 @@ const Checkout = () => {
 
   const handlePhoneInputChange = (id: string) => (value: any) => {
     setCheckoutFormDate({ ...checkoutFormData, [id]: value });
+    if (id === "phone") {
+      if (!value) {
+        setPhoneError(true);
+      } else {
+        setPhoneError(false);
+      }
+    } else if (id === "billingPhone") {
+      if (!value) {
+        setBillingPhoneError(true);
+      } else {
+        setBillingPhoneError(false);
+      }
+    }
   };
 
   const priceTotal = useSelector((state: RootState) => {
@@ -118,7 +133,9 @@ const Checkout = () => {
               items: cartItems,
               total: TotalPriceToPay,
               name: checkoutFormData.name + " " + checkoutFormData.lastName,
-              email: loggedUser.user ? loggedUser.user.email : checkoutFormData.email,
+              email: loggedUser.user
+                ? loggedUser.user.email
+                : checkoutFormData.email,
               phone: "+" + checkoutFormData.phone,
               address: checkoutFormData.address.split(",").slice(0, 2).join(),
               landmark: checkoutFormData.landmark,
@@ -154,6 +171,14 @@ const Checkout = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!checkoutFormData.phone) {
+      setPhoneError(true);
+      return; // Stop form submission
+    }
+    if (!sameAsShipping && !checkoutFormData.billingPhone) {
+      setBillingPhoneError(true);
+      return; // Stop form submission
+    }
     try {
       setLoading(true);
       const res = await axios.post(`${baseUrl}payments/get_tokens`, {
@@ -200,7 +225,7 @@ const Checkout = () => {
     }
   };
 
-  useEffect(() => console.log(checkoutFormData), [checkoutFormData])
+  useEffect(() => console.log(checkoutFormData), [checkoutFormData]);
 
   useEffect(() => {
     if (saveAddress) {
@@ -211,10 +236,7 @@ const Checkout = () => {
   return (
     <div className="w-full p-5 lg:pt-8 gap mx-auto mt-[14vh] flex flex-col-reverse md:gap-10 justify-center md:items-start items-center md:flex-row mb-10">
       <div className="w-full md:max-w-[400px] max-w-[600px] grid place-items-center">
-        <form
-          className="w-full mt-10 lg:mt-0 mx-auto"
-          onSubmit={handleSubmit}
-        >
+        <form className="w-full mt-10 lg:mt-0 mx-auto" onSubmit={handleSubmit}>
           {/* Contact section - only show when user is not logged in */}
 
           <>
@@ -226,8 +248,14 @@ const Checkout = () => {
               required
               className="mb-4 hover:!cursor-default"
               disabled={loggedUser?.user?.email}
-              onChange={!loggedUser?.user?.email ? handleInputChange : undefined}
-              value={loggedUser?.user?.email ? loggedUser?.user?.email : checkoutFormData?.email}
+              onChange={
+                !loggedUser?.user?.email ? handleInputChange : undefined
+              }
+              value={
+                loggedUser?.user?.email
+                  ? loggedUser?.user?.email
+                  : checkoutFormData?.email
+              }
             />
           </>
 
@@ -274,6 +302,7 @@ const Checkout = () => {
             <TextInput
               id="suite"
               type="text"
+              required
               placeholder="Province Code"
               className="mb-4"
               onChange={handleInputChange}
@@ -312,12 +341,16 @@ const Checkout = () => {
             country={"us"}
             value={checkoutFormData?.phone}
             inputProps={{
+              name: "phone",
               id: "phone",
               required: true,
               className: "w-full border-[#d1d5db] rounded-md pl-12"
             }}
             onChange={handlePhoneInputChange("phone")}
           />
+          {phoneError && (
+            <p className="text-red-500 text-sm">Phone number is required.</p>
+          )}
 
           {/* Billing Address checkbox */}
           <div className="flex items-center gap-2 my-6">
@@ -373,6 +406,7 @@ const Checkout = () => {
                 <TextInput
                   id="billingSuite"
                   type="text"
+                  required
                   placeholder="Province Code"
                   className="mb-4"
                   onChange={handleInputChange}
@@ -415,7 +449,11 @@ const Checkout = () => {
                 }}
                 onChange={handlePhoneInputChange("billingPhone")}
               />
-
+              {billingPhoneError && (
+                <p className="text-red-500 text-sm">
+                  Phone number is required.
+                </p>
+              )}
             </>
           )}
 

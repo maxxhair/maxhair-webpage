@@ -8,7 +8,7 @@ import {
   productImage3,
   productImage4,
   productImage5,
-  prodimg,
+  prodimg
 } from "../util/images";
 import React, { useEffect, useState } from "react";
 import { colorOpts, textureOpts, typeOpts } from "../util/staticData";
@@ -21,7 +21,7 @@ import { AppDispatch, RootState } from "../store";
 import StockCard from "../Components/StockCard";
 import {
   addToWishList,
-  removeFromWishList,
+  removeFromWishList
 } from "../store/redux/wishlistSlice";
 import CustomerReviews from "../Components/CustomerReviews";
 import ProductImageSwiper from "../Components/ProductImageSwiper";
@@ -126,11 +126,11 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
     const productStore = {
       count: selectedQuantity,
-      product: productToSave,
+      product: productToSave
     };
     dispatch(addProduct(productStore));
     dispatch(setOpenCart());
@@ -148,9 +148,9 @@ export default function Page() {
         (variant) =>
           variant.size.size === selectedSize &&
           variant.color.color ===
-          (selectedColor === "Natural" ? "Natural" : "CustomColor") &&
+            (selectedColor === "Natural" ? "Natural" : "CustomColor") &&
           (variant.texture.title as string).toLowerCase().trim() ===
-          (selectedTexture as string).toLowerCase().trim()
+            (selectedTexture as string).toLowerCase().trim()
       );
     } else {
       return null;
@@ -210,7 +210,7 @@ export default function Page() {
       size: selectedSize as any,
       type: selectedType,
       texture: selectedTexture,
-      remark: dualTexture,
+      remark: dualTexture
     };
 
     if (isItemInWishList(filteredVariant && filteredVariant[0]?._id)) {
@@ -240,6 +240,8 @@ export default function Page() {
   const productDescription = products.filter(
     (product) => product?._id === id
   )[0];
+
+  console.log("image :: ", `${baseUrl}/${variants[0]?.product?.images[0]}`);
 
   return (
     variants && (
@@ -294,7 +296,7 @@ export default function Page() {
               {[
                 ...new Set(
                   variants.map((variant) => parseInt(variant.size.size, 10))
-                ),
+                )
               ]
                 .sort(function (a, b) {
                   return a - b;
@@ -302,10 +304,11 @@ export default function Page() {
                 .map((size) => (
                   <button
                     onClick={() => setSize(size)}
-                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${selectedSize === size
-                      ? "!bg-[#E3D6C5] text-[#A47252]"
-                      : "bg-neutral-100"
-                      }`}
+                    className={`m-1.5  xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded  p-1 ${
+                      selectedSize === size
+                        ? "!bg-[#E3D6C5] text-[#A47252]"
+                        : "bg-neutral-100"
+                    }`}
                     key={size}
                   >
                     {size}
@@ -317,10 +320,11 @@ export default function Page() {
               {colorOpts?.map((color) => (
                 <button
                   onClick={() => setColor(color)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${selectedColor === color
-                    ? "bg-[#E3D6C5] text-[#A47252]"
-                    : "bg-neutral-100"
-                    }`}
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1  ${
+                    selectedColor === color
+                      ? "bg-[#E3D6C5] text-[#A47252]"
+                      : "bg-neutral-100"
+                  }`}
                   key={color}
                 >
                   {color}
@@ -332,10 +336,11 @@ export default function Page() {
               {typeOpts?.map((type) => (
                 <button
                   onClick={() => setType(type)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${selectedType === type
-                    ? "bg-[#E3D6C5] text-[#A47252]"
-                    : "bg-neutral-100"
-                    }`}
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
+                    selectedType === type
+                      ? "bg-[#E3D6C5] text-[#A47252]"
+                      : "bg-neutral-100"
+                  }`}
                   key={type}
                 >
                   {type}
@@ -347,10 +352,11 @@ export default function Page() {
               {textureOpts?.map((texture) => (
                 <button
                   onClick={() => setTexture(texture)}
-                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${selectedTexture === texture
-                    ? "bg-[#E3D6C5] text-[#A47252]"
-                    : "bg-neutral-100"
-                    }`}
+                  className={`m-1.5 xl:pl-6 xl:pr-6 xl:h-10 text-center xl:p-2.5 xl:text-sm border border-neutral-200 rounded pl-2.5 pr-2.5 p-1 ${
+                    selectedTexture === texture
+                      ? "bg-[#E3D6C5] text-[#A47252]"
+                      : "bg-neutral-100"
+                  }`}
                   key={texture}
                 >
                   {texture}
@@ -378,10 +384,10 @@ export default function Page() {
                 selectedColor === null ||
                 selectedTexture === null ||
                 selectedType === null) && (
-                  <div className="text-[#f00a]">
-                    Please select your required variant to add to cart
-                  </div>
-                )}
+                <div className="text-[#f00a]">
+                  Please select your required variant to add to cart
+                </div>
+              )}
               <div className="flex lg:flex-row flex-col">
                 <div className="flex items-center gap-6 m-3 justify-between">
                   <div className="flex items-center gap-6">

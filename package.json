@@ -3,13 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-   
-     "dov": "next dev -H 192.168.50.131 -p 3060",
-     "dev":"next dev -p 3060",
+    "dov": "next dev -H 192.168.50.131 -p 3060",
+    "dev": "next dev -p 3060",
     "build": "next build",
     "start": "next start -p 3060",
     "lint": "next lint"
-    
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
